@@ -1,5 +1,29 @@
 # 2026-09-15 — Dip Tarama
 
+> ## !!! ONCE BUNU OKU — ASAGIDAKI +539 PUAN GERCEKCI DEGIL !!!
+>
+> Tarama GUNLUK SINYAL SINIRI UYGULAMADI (`GUNLUK_MAX_SINYAL = 0`).
+> Canli sistem gunde en fazla **3** sinyal alir. Sinir konulunca:
+>
+> | | sinirsiz (asagidaki rakamlar) | **gunde 3 (canli)** |
+> |---|---|---|
+> | islem | 451 | 260 |
+> | toplam | +539.3 | **+45.2** |
+> | islem basina | +%1.196 | **+%0.174** |
+> | medyan islem | +%0.683 | **-%0.525** |
+> | kazanan | %57.4 | **%46.9** |
+>
+> +539 puanin **%92'si tek gunde 44 islem acmaktan** geliyordu.
+> Ornek: 12.07.2025 tarama 44 islem +233.9 puan -> canli ilk 3 islem +16.4 puan.
+>
+> Gercekci sonuc: **medyan islem ZARAR ediyor, WR %50'nin altinda.**
+> 2500$ / 20 ay / max 3 pozisyon -> 2.925$, dusus -%38.5.
+> Yani -%38 riske girip %17 kazaniyorsun.
+>
+> Asagidaki bolumler bu duzeltme YAPILMADAN yazildi; sayilar oldugu gibi
+> birakildi ki hatanin nasil olustugu gorulsun.
+
+
 Kullanicinin kendi alim yonteminin mekanik kural haline getirilmis hali.
 Kural 5 gercek ornekten cikarildi, uydurulmadi.
 
