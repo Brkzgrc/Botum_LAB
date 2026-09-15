@@ -1,0 +1,16 @@
+{
+ "tarih": "2026-09-15 20:11 TR",
+ "tahmin_sahibi": "kullanici",
+ "ifade": "BTC bugun GUN KAPANISINDA su anki seviyeden DAHA YUKARDA olacak",
+ "referans_ekran": {
+  "sembol": "BTCUSD (Bitstamp)",
+  "fiyat": 76311,
+  "degisim_gun": "-2.40%"
+ },
+ "olcum_referansi": {
+  "sembol": "BTCUSDT (Binance)",
+  "anlik_fiyat": 76212.0
+ },
+ "dogrulama": "BTCUSDT gunluk bar kapanisi (00:00 UTC = 03:00 TR, 16.09.2026) > anlik_fiyat ise TUTTU",
+ "hindsight": "YOK - sonuc gorulmeden yazildi"
+}
