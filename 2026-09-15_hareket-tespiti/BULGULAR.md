@@ -149,3 +149,26 @@ Cikis: +%2-3 cik · en gec 3 saatte +%5'i gecerse %1-2 trailing
    sina. 2025-2026 ikinci dogrulama. Arama YOK, esik ayari YOK.
 2. Hedef/ufuk duyarliligi: +%2.5/1sa disinda da tutuyor mu
 3. Cikis arastirmasi (kullanicinin sirasi: once giris kanitlansin)
+
+---
+
+## 6. VERI TUZAGI — Binance arsivi 2025'ten itibaren MIKROSANIYE
+
+`data.binance.vision` aylik ZIP'lerinde zaman damgalari **2025'ten itibaren
+mikrosaniye**, oncesinde milisaniye. Ayni sembolun tek bir dizisinde IKISI
+BIRDEN bulunabilir (orn. 2022-2024 ms, 2025-01 us).
+
+Belirti: `datetime.utcfromtimestamp(t/1000)` -> "year 57004 is out of range".
+
+**Sessiz bozulma riski:** cokme olmasa, 4h/1d barlarini 15m ile hizalarken
+yanlis zamanlar karsilastirilirdi ve sonuc sessizce yanlis cikardi.
+
+**Duzeltme (satir bazinda, dizi bazinda DEGIL):**
+```python
+_t = int(p[6])
+if _t > 1e14: _t //= 1000
+```
+
+Kontrol edildi: **2021-2022 verisi ETKILENMEMIS** (40 dosyanin 0'i).
+Bu belgedeki tum kesif sonuclari gecerlidir.
+2023-2024 indirmesinde 433 dosyanin 367'si onarildi.
