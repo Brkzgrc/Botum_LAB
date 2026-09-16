@@ -7,7 +7,7 @@ claude/                          Claude'un alani
   spot-sinyal-arastirmasi/       PROJE
     2026-09-15_dip-tarama/         calisma
     2026-09-15_hareket-tespiti/    calisma
-    2026-09-16_tukenme/            calisma (aktif)
+    2026-09-16_tukenme/            calisma (aktif, Actions)
     veri/  tahminler/
     README.md
 ```
