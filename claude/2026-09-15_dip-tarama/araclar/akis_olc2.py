@@ -2,7 +2,7 @@
 """PARA AKISI olcumu — on kayda uyar + secim sirasi bandi ile raporlar."""
 import os, pickle, sys, time, json
 import numpy as np
-sys.path.insert(0,"."); sys.path.insert(0,"/home/user/botum_lab/2026-09-15_dip-tarama")
+sys.path.insert(0,"."); sys.path.insert(0,"/home/user/botum_lab/claude/2026-09-15_dip-tarama")
 import dip_tarama as DT
 from dip_dogrula import atr14, islem
 from akis_olc import akis_seri, OZ

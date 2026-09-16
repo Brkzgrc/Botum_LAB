@@ -49,7 +49,7 @@ def indir(sym,itv):
     pickle.dump(a,open(yol,"wb"),protocol=4); return True
 
 def main():
-    evren=json.load(open('/home/user/botum_lab/veri/binance_evren_delist_dahil.json'))
+    evren=json.load(open('/home/user/botum_lab/claude/veri/binance_evren_delist_dahil.json'))
     if not isinstance(evren,list): evren=list(evren.values())[0]
     syms=[s for s in evren if s.endswith("USDT")
           and not (s[:-4] in IGN or (s[:-4].endswith(LEV) and s[:-4] not in OKB))]

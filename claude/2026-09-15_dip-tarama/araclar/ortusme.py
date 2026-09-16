@@ -3,7 +3,7 @@
 import os, pickle, sys, time
 import numpy as np
 KOK=os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0,KOK)
-sys.path.insert(0,"/home/user/botum_lab/2026-09-15_dip-tarama")
+sys.path.insert(0,"/home/user/botum_lab/claude/2026-09-15_dip-tarama")
 import dip_tarama as DT
 VD=os.path.join(KOK,"veri_dogrulama"); V1=os.path.join(KOK,"veri_1h")
 ET=sys.argv[1] if len(sys.argv)>1 else "2025-2026"

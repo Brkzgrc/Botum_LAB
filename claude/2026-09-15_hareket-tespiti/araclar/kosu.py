@@ -15,7 +15,7 @@ import numpy as np, requests
 
 KOK   = os.path.dirname(os.path.abspath(__file__))
 VERI  = os.path.join(KOK, "veri")
-LAB   = "/home/user/botum_lab/2026-09-15_dip-tarama"
+LAB   = "/home/user/botum_lab/claude/2026-09-15_dip-tarama"
 sys.path.insert(0, LAB)
 import dip_tarama as DT
 

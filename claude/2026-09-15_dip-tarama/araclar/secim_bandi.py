@@ -2,7 +2,7 @@
 """Ayni anda gelen sinyallerden hangisi secilir? Belirsizlik bandi + kural karsilastirmasi."""
 import os, pickle, sys, time
 import numpy as np
-sys.path.insert(0,"."); sys.path.insert(0,"/home/user/botum_lab/2026-09-15_dip-tarama")
+sys.path.insert(0,"."); sys.path.insert(0,"/home/user/botum_lab/claude/2026-09-15_dip-tarama")
 import dip_tarama as DT
 from dip_dogrula import atr14, islem
 VD="veri_dogrulama"; V1="veri_1h"; VESKI="veri"

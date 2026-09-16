@@ -4,7 +4,7 @@ import io, json, os, pickle, sys, time, zipfile
 from concurrent.futures import ThreadPoolExecutor
 import numpy as np, requests
 KOK=os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0,KOK)
-sys.path.insert(0,"/home/user/botum_lab/2026-09-15_dip-tarama")
+sys.path.insert(0,"/home/user/botum_lab/claude/2026-09-15_dip-tarama")
 import dip_tarama as DT
 
 S3="https://s3-ap-northeast-1.amazonaws.com/data.binance.vision/data/spot/monthly/klines"
