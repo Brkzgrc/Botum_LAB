@@ -8,6 +8,10 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/gpt-multitf-forward.yml"
+      - "gpt/Multi-Timeframe-Independent-Evidence/run_stage4_github.py"
+      - "gpt/Multi-Timeframe-Independent-Evidence/requirements.txt"
+      - "gpt/Multi-Timeframe-Independent-Evidence/frozen_universe.json"
+      - "gpt/Multi-Timeframe-Independent-Evidence/stage4_v4_1_1.py.zlib.b64"
       - "gpt/Multi-Timeframe-Independent-Evidence/reports/stage2/regime_model.json"
 
 permissions:
