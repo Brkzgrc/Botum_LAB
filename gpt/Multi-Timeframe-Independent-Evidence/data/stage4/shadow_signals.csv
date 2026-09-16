@@ -1,0 +1,1 @@
+signal_id,decision_time,detected_at_utc,candidate_id,family,symbol,entry_price,raw_regime,persistent_regime,gate_json,family_json,v11_proxy_json,mfe_3h,mae_3h,close_ret_3h,mfe_6h,mae_6h,close_ret_6h,mfe_12h,mae_12h,close_ret_12h,mfe_24h,mae_24h,close_ret_24h,hours_to_up3,hours_to_dn2,hours_to_up5,hours_to_dn3,up3_before_dn2_24h,up5_before_dn3_24h,outcome_complete

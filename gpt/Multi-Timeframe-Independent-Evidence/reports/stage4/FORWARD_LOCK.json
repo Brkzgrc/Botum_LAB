@@ -1,0 +1,14 @@
+{
+  "stage": 4,
+  "created_at_utc": "2026-09-16T18:08:42.494404+00:00",
+  "rules_sha256": "bb4d83dee5a547d84a583cd2a980193775fbbda3bef1ee0952d97a270fb5e68f",
+  "regime_model_sha256": "cc0d08004c193e53975850c0a6afc6dcf6840bf8f8e204fadf49ad4a413ad79c",
+  "candidate_ids": [
+    "C02",
+    "C12",
+    "C09"
+  ],
+  "episode_gap_h": 24,
+  "regime_confirm_h": 12,
+  "note": "Bu andan önceki veri shadow-forward sonucu sayılmaz. Kurallar ve regime model forward boyunca dondurulmuştur."
+}

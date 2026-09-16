@@ -1,0 +1,80 @@
+{
+  "C02": {
+    "family": "EARLY_REVERSAL",
+    "regime_group": "BULL",
+    "rule": [
+      [
+        "btc_ret_24h",
+        "<=",
+        -0.134281
+      ],
+      [
+        "btc_d1_dist_ema20",
+        ">",
+        8.73231
+      ],
+      [
+        "btc_h4_dist_ema200",
+        ">",
+        12.7142
+      ],
+      [
+        "btc_h1_ema50_slope3",
+        "<=",
+        0.00884325
+      ]
+    ]
+  },
+  "C12": {
+    "family": "CONTINUATION",
+    "regime_group": "ALL",
+    "rule": [
+      [
+        "btc_d1_rsi",
+        "<=",
+        74.3095
+      ],
+      [
+        "breadth_ret72_delta72",
+        "<=",
+        85.77
+      ],
+      [
+        "btc_d1_ema20_slope3",
+        ">",
+        1.24907
+      ],
+      [
+        "btc_ret_24h",
+        "<=",
+        -0.697645
+      ]
+    ]
+  },
+  "C09": {
+    "family": "CONFIRMED_REVERSAL",
+    "regime_group": "BULL",
+    "rule": [
+      [
+        "btc_ret_24h",
+        "<=",
+        -0.767329
+      ],
+      [
+        "breadth_ret72_delta72",
+        "<=",
+        57.3356
+      ],
+      [
+        "breadth_ret72_delta72",
+        ">",
+        -8.22624
+      ],
+      [
+        "btc_h1_ema50_slope3",
+        ">",
+        -0.065747
+      ]
+    ]
+  }
+}
