@@ -15,6 +15,8 @@ ASAMA  = (0.0, 2.0, 5.0, 8.0, 12.0, 20.0)     # dipten yuzde kac yukselmisken
 HEDEF  = (10.0, 20.0, 30.0, 40.0, 50.0)       # asamadan itibaren hedef
 DESIL  = 10
 UFUK   = 336                                   # 14 gun (1h bar)
+MAE_KENAR = np.arange(0.0, 62.0, 2.0)          # geri cekilme kutulari (%)
+NMAE = len(MAE_KENAR)
 
 def adaylar(h, l, c, pencere=12):
     """Her yerel dip bir adaydir. Hicbir secim/filtre yok."""
@@ -61,6 +63,9 @@ def bos_birikim(olcum_adlari):
             "taban": np.zeros((len(ASAMA), len(HEDEF), 2), dtype=np.int64),
             # asamaya ULASAN aday sayisi (dipten girmek vs sonra girmek icin)
             "asama_ulasan": np.zeros(len(ASAMA), dtype=np.int64),
+            # [asama][olcum][desil][mae_kutu] -- OLASILIGIN BEDELI
+            "mae": np.zeros((len(ASAMA), len(olcum_adlari), DESIL, NMAE), dtype=np.int64),
+            "mae_taban": np.zeros((len(ASAMA), NMAE), dtype=np.int64),
             "aday": 0}
 
 def coin_isle(h, l, c, O, birik):
@@ -89,28 +94,42 @@ def coin_isle(h, l, c, O, birik):
                 u = son[hd][0]
                 birik["taban"][ai, hi, 0] += u
                 birik["taban"][ai, hi, 1] += 1
+            # hedeften bagimsiz: ufuk boyunca en kotu geri cekilme
+            mae = abs(son[HEDEF[1]][1])
+            mb = int(min(np.searchsorted(MAE_KENAR, mae, side="right"), NMAE-1))
+            birik["mae_taban"][ai, mb] += 1
             for k, sinir in SINIR.items():
                 x = O[ad_list[k]]
                 if j >= len(x) or not np.isfinite(x[j]): continue
                 d = int(np.searchsorted(sinir, x[j]))
                 d = min(max(d, 0), DESIL-1)
+                birik["mae"][ai, k, d, mb] += 1
                 for hi, hd in enumerate(HEDEF):
                     birik["say"][ai, k, d, hi, 0] += son[hd][0]
                     birik["say"][ai, k, d, hi, 1] += 1
     return n
 
+def mae_medyan(h):
+    n = int(h.sum())
+    if not n: return None
+    k = np.cumsum(h); i = int(np.searchsorted(k, n/2.0))
+    return float(MAE_KENAR[min(i, NMAE-1)])
+
 def birlestir(a, b):
     a["say"] += b["say"]; a["taban"] += b["taban"]
+    a["mae"] += b["mae"]; a["mae_taban"] += b["mae_taban"]
     a["asama_ulasan"] += b["asama_ulasan"]; a["aday"] += b["aday"]
     return a
 
 def kaydet(b, yol):
     np.savez_compressed(yol, olcumler=np.array(b["olcumler"]), say=b["say"],
                         taban=b["taban"], asama_ulasan=b["asama_ulasan"],
+                        mae=b["mae"], mae_taban=b["mae_taban"],
                         aday=np.array([b["aday"]]))
 
 def yukle(yol):
     z = np.load(yol, allow_pickle=False)
     return {"olcumler": [str(x) for x in z["olcumler"]], "say": z["say"],
             "taban": z["taban"], "asama_ulasan": z["asama_ulasan"],
+            "mae": z["mae"], "mae_taban": z["mae_taban"],
             "aday": int(z["aday"][0])}

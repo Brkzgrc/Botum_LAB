@@ -44,7 +44,15 @@ for ai, a in enumerate(A):
         sat.sort(reverse=True)
         if abs(sat[0][0]) < 3: continue
         print(f"  --- asama +%{a:.0f}  ->  hedef +%{hd:.0f}   (taban %{100*taban:.1f}, n={tt:,})")
-        for z, p, t, ad, d in sat[:5]:
+        tm = imza.mae_medyan(B["mae_taban"][ai])
+        print(f"        {'olasilik':>9}{'kat':>7}{'z':>6}{'GERI CEKILME':>14}{'n':>8}   olcum")
+        for z, p, t, ad, d in sat[:6]:
             kat = p/taban if taban > 0 else 0
-            print(f"        %{100*p:5.1f}  ({kat:.2f}x taban, z{z:+.1f}, n={t:,})   {ad}  dilim {d+1}/10")
+            k = olc.index(ad)
+            m = imza.mae_medyan(B["mae"][ai, k, d])
+            bedel = f"-%{m:.0f}" if m is not None else "?"
+            uyari = ""
+            if m is not None and tm is not None and m > tm*1.25: uyari = "  <- BEDELI DE BUYUK"
+            print(f"        %{100*p:8.1f}{kat:>7.2f}{z:>+6.1f}{bedel:>14}{t:>8,}   {ad} dilim {d+1}/10{uyari}")
+        print(f"        (taban geri cekilme medyani: -%{tm:.0f})" if tm is not None else "")
         print()
