@@ -3,15 +3,17 @@
 Arastirma laboratuvari. **Her calisan kendi klasorunde durur, kok dizin ortaktir.**
 
 ```
-claude/     Claude'un calismalari
-  2026-09-15_dip-tarama/
-  2026-09-15_hareket-tespiti/
-  2026-09-16_tukenme/          (aktif)
-  veri/                        Claude'un veri onbellegi
-  tahminler/
+claude/                          Claude'un alani
+  spot-sinyal-arastirmasi/       PROJE
+    2026-09-15_dip-tarama/         calisma
+    2026-09-15_hareket-tespiti/    calisma
+    2026-09-16_tukenme/            calisma (aktif)
+    veri/  tahminler/
+    README.md
 ```
 
-Her calisma klasorunun kendi notlari icindedir.
+Duzen: `claude/<proje>/<calisma>/`. Yeni proje gelirse `claude/` altinda
+yeni bir proje klasoru acilir. Her calisma klasorunun kendi notlari icindedir.
 
 ## Kurallar
 
