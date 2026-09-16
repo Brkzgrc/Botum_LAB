@@ -56,7 +56,7 @@ jobs:
         run: |
           git config user.name  "tukenme-bot"
           git config user.email "noreply@anthropic.com"
-          git add 2026-09-16_tukenme/durum.json 2026-09-16_tukenme/birikim.npz
+          git add -A 2026-09-16_tukenme/
           git diff --cached --quiet || git commit -m "tukenme: parca islendi [skip ci]"
           for i in 1 2 3 4; do
             git pull --rebase --autostash origin main && git push origin main && break
