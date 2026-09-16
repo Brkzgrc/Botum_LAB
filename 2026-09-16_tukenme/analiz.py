@@ -10,7 +10,7 @@ from tukenme import olcumler, yukselis_bolumleri, atr
 KOM = 0.2
 ONDALIK = (5,10,20,30,40,50,60,70,80,90,95)
 # histogram: -100..+200 arasi %2 adim
-KENAR = np.arange(-100, 202, 2.0)
+KENAR = np.arange(-100, 300.25, 0.25)   # ince kutu: %0.25
 NBIN = len(KENAR)-1
 
 def _bos():
@@ -25,10 +25,11 @@ def medyan(d):
     if not d["n"]: return None
     h = np.array(d["hist"]); k = np.cumsum(h); yari = d["n"]/2.0
     i = int(np.searchsorted(k, yari))
-    return float(KENAR[min(i, NBIN-1)] + 1.0)
+    return float(KENAR[min(i, NBIN-1)] + 0.125)
 
 def atr_trail(c, h, a, b, mult):
-    g = c[b["tetik"]]; zir = g
+    """Giris DIPTEN; trailing +%15 tetiginden sonra silahlanir."""
+    g = c[b["dip"]]; zir = max(g, float(np.max(h[b["dip"]:b["tetik"]+1])))
     for j in range(b["tetik"]+1, b["son"]+1):
         zir = max(zir, h[j])
         aa = a[j] if np.isfinite(a[j]) else g*0.02
@@ -48,18 +49,24 @@ def coin_isle(t,h,l,c,v,qv,tq, birik):
         if len(f) < 500: continue
         ESIK[ad] = np.percentile(f, ONDALIK)
     for b in bol:
-        g = c[b["tetik"]]
+        g = c[b["dip"]]
         if g <= 0 or b["son"] <= b["tetik"]: continue
+        # getiri DIPTEN olculur; kural taramasi TETIKTEN baslar
         getiri = (c[b["tetik"]:b["son"]+1]/g - 1)*100 - KOM
+        mukemmel = (h[b["tepe"]]/g - 1)*100 - KOM
+        if mukemmel <= 0: continue
         # --- kontroller
         birik.setdefault("_taban", {})
-        for ad, val in (("mukemmel", (h[b["tepe"]]/g-1)*100 - KOM),
+        for ad, val in (("mukemmel", mukemmel),
                         ("tutmaya_devam", getiri[-1])):
             birik["_taban"].setdefault(ad, _bos()); _ekle(birik["_taban"][ad], val)
         for m in (0.6,1.0,2.0,3.0):
             j = atr_trail(c,h,A,b,m)
-            k = f"atr{m}"
-            birik["_taban"].setdefault(k, _bos()); _ekle(birik["_taban"][k], (c[j]/g-1)*100 - KOM)
+            val = (c[j]/g-1)*100 - KOM
+            for k,vv in ((f"atr{m}", val), (f"atr{m}#oran", 100.0*val/mukemmel)):
+                birik["_taban"].setdefault(k, _bos()); _ekle(birik["_taban"][k], vv)
+        birik["_taban"].setdefault("tutmaya_devam#oran", _bos())
+        _ekle(birik["_taban"]["tutmaya_devam#oran"], 100.0*getiri[-1]/mukemmel)
         # --- kurallar
         for ad, esikler in ESIK.items():
             x = O[ad][b["tetik"]:b["son"]+1]
@@ -72,6 +79,8 @@ def coin_isle(t,h,l,c,v,qv,tq, birik):
                     val = getiri[idx] if idx is not None else getiri[-1]
                     k = f"{ad}|{q}|{yon}"
                     birik.setdefault(k, _bos()); _ekle(birik[k], val)
+                    ko = k + "#oran"
+                    birik.setdefault(ko, _bos()); _ekle(birik[ko], 100.0*val/mukemmel)
     return len(bol)
 
 def birlestir(a, b):
@@ -90,19 +99,22 @@ def birlestir(a, b):
 
 def rapor(birik, en_az=150, ust=40):
     tab = birik.get("_taban", {})
-    print("\n=== KONTROLLER (yakalanan getiri) ===")
+    print("\n=== KONTROLLER ===")
+    print(f"  {'':<16}{'getiri medyan':>15}{'getiri ort':>13}{'YAKALANAN ORAN medyan':>24}{'n':>8}")
     for k in ("mukemmel","atr0.6","atr1.0","atr2.0","atr3.0","tutmaya_devam"):
-        d = tab.get(k)
+        d = tab.get(k); o = tab.get(k+"#oran")
         if d and d["n"]:
-            print(f"  {k:<16} medyan %{medyan(d):+6.2f}   ortalama %{d['toplam']/d['n']:+6.2f}   n={d['n']}")
+            om = f"%{medyan(o):.1f}" if o and o["n"] else ("%100.0" if k=="mukemmel" else "-")
+            print(f"  {k:<16}{medyan(d):>+14.2f}{d['toplam']/d['n']:>+13.2f}{om:>24}{d['n']:>8}")
     en_iyi_taban = max((medyan(tab[k]) for k in tab if k.startswith("atr")), default=0)
     sat = []
     for k, d in birik.items():
-        if k == "_taban" or d["n"] < en_az: continue
-        sat.append((medyan(d), d["toplam"]/d["n"], d["n"], k))
-    sat.sort(reverse=True)
+        if k == "_taban" or k.endswith("#oran") or d["n"] < en_az: continue
+        o = birik.get(k+"#oran")
+        sat.append((medyan(d), d["toplam"]/d["n"], medyan(o) if o and o["n"] else None, d["n"], k))
+    sat.sort(key=lambda z: (-(z[2] if z[2] is not None else -999), -z[1]))
     print(f"\n=== EN IYI {ust} CIKIS KURALI (en iyi ATR tabani: %{en_iyi_taban:+.2f}) ===")
-    print(f"  {'medyan':>8}{'ortalama':>10}{'n':>7}  kural")
-    for m,o,n,k in sat[:ust]:
-        print(f"  %{m:+7.2f}{o:+10.2f}{n:>7}  {k}")
+    print(f"  {'getiri med':>11}{'getiri ort':>12}{'ORAN med':>10}{'n':>7}  kural")
+    for m,o,orn,n,k in sat[:ust]:
+        print(f"  {m:>+11.2f}{o:>+12.2f}{(f'%{orn:.1f}' if orn is not None else '-'):>10}{n:>7}  {k}")
     return sat
