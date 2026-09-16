@@ -68,3 +68,45 @@ ATRx2.0, ayni girisle ATRx0.6'nin yaklasik yarisini veriyor.
 cikis kuralinin yonu hakkinda guclu ama dolayli bir kanittir.)
 
 Arac: `araclar/dip_dogrula.py`
+
+---
+
+## EK: 2025 ve 2026 AYRI (2026-09-16)
+
+Birlesik "2025-2026" rakami iki ZIT yilin ortalamasiydi. Ayrilinca:
+
+### 2025 — 266 sinyal, 11.8 ay
+
+| giris | ATRx0.6 | ATRx2.0 |
+|---|---|---|
+| yok | 6.270$ (-%3.86, WR %41) | 3.785$ (-%7.87, WR %33) |
+| -%2 | 5.774$ (-%4.53, WR %19) | 4.460$ (-%6.59, WR %18) |
+| -%3 | 6.910$ (-%3.07, WR %19, dd -%39) | 4.901$ (-%5.84, dd -%53) |
+
+### 2026 — 219 sinyal, 7.9 ay
+
+| giris | ATRx0.6 | ATRx2.0 |
+|---|---|---|
+| yok | 14.076$ (+%4.43, WR %46) | 11.600$ (+%1.90, WR %42) |
+| -%2 | **14.424$ (+%4.76, 53 isl, WR %21, dd -%33)** | 13.787$ (+%4.16) |
+| -%3 | 14.168$ (+%4.52, 34 isl, WR %21, **dd -%21**) | 10.810$ (+%0.99) |
+
+### Cikan sonuclar
+
+1. **Yil, ayardan daha belirleyici.** 2025'te alti kurulumun altisi da zarar,
+   2026'da altisi da kar. Ayar degistirmek bu farki kapatmiyor —
+   sistem piyasaya bagimli.
+2. **ATRx0.6 alti satirin altisinda da ATRx2.0'dan iyi.** Kotu yilda daha az
+   kaybettiriyor (-%3.07 vs -%5.84), iyi yilda daha cok kazandiriyor
+   (+%4.52 vs +%0.99). Artik DORT ayri donemde ayni yon.
+3. **Kazanma orani ofsetle dusuyor** (%41-46 -> %19-21) ama getiri artiyor:
+   kar birkac buyuk kazanandan geliyor. Canlida ust uste 5-6 kayip normal olacak.
+4. **Orneklem kucuk.** 2026'da -%3 ile 34 islem / 7.9 ay. +%4.52'ye fazla
+   guvenilmemeli.
+
+### Ayar secimi
+
+2026'da -%2 (+%4.76) ile -%3 (+%4.52) neredeyse esit ama -%3'un dususu cok daha
+az (-%21 vs -%33). Dort donemin geneli: **-%3 giris + ATRx0.6**.
+
+Arac: `araclar/yil_ayir.py`
