@@ -6,7 +6,7 @@ import requests
 
 BASE = "https://data-api.binance.vision"
 OUT  = os.path.dirname(os.path.abspath(__file__))
-SRC  = "/home/user/botum_lab/claude/2026-09-15_dip-tarama/sonuclar/dip_tarama_TUMEVREN_20250101_20261001_20260912_1310.json"
+SRC  = "/home/user/botum_lab/claude/spot-sinyal-arastirmasi/2026-09-15_dip-tarama/sonuclar/dip_tarama_TUMEVREN_20250101_20261001_20260912_1310.json"
 
 # her TF icin kac mum geriye (gosterge isinmasi + yapi olculeri icin bol tutuldu)
 PENCERE = {"15m": 400, "1h": 400, "4h": 400}

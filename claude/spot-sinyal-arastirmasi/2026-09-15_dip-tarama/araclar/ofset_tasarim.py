@@ -2,7 +2,7 @@
 """Ofset uygulanirken stop ve TP1 de kaymali mi? Dort tasarim, dort donem. Olcut: PARA."""
 import os, json, pickle, sys, time
 import numpy as np
-sys.path.insert(0,"."); sys.path.insert(0,"/home/user/botum_lab/claude/2026-09-15_dip-tarama")
+sys.path.insert(0,"."); sys.path.insert(0,"/home/user/botum_lab/claude/spot-sinyal-arastirmasi/2026-09-15_dip-tarama")
 import dip_tarama as DT
 from dip_dogrula import atr14
 from akis_olc2 import band
