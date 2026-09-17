@@ -1,0 +1,138 @@
+{
+  "absolute_oscillator_levels_used": false,
+  "future_features_used": false,
+  "rule_search": "movement/lead-lag states only; singles+pairs+triples selected on DEV train+calibration only",
+  "ultra_holdout": {
+    "base": {
+      "name": "ULTRA_BASE",
+      "n": 95,
+      "symbols": 16,
+      "net12_mean": 0.4632947883166458,
+      "net12_median": -0.0396365094213367,
+      "win12": 49.473684210526315,
+      "h1_confirm": 67.36842105263158,
+      "mfe12": 3.0282844593169704,
+      "mae12": -2.1922017674462695,
+      "excursion_edge": 0.8360826918707002
+    },
+    "selected": {
+      "name": "ULTRA_SELECTED",
+      "n": 7,
+      "symbols": 5,
+      "net12_mean": 6.44803026193908,
+      "net12_median": -0.2771010023130292,
+      "win12": 42.857142857142854,
+      "h1_confirm": 100.0,
+      "mfe12": 9.6718496917814,
+      "mae12": -1.7530327887985175,
+      "excursion_edge": 7.918816902982883
+    },
+    "bootstrap_selected_minus_base": {
+      "mean": 5.392296575764124,
+      "ci_low": -1.529119112577985,
+      "ci_high": 16.522414691615836
+    }
+  },
+  "token_count": 35,
+  "tested_rules": 6494,
+  "stable_positive_dev_rules": 74,
+  "chosen_rule": {
+    "rule": "M15_ENGULF & M15_HL_HH & LEAD_GAP4",
+    "parts": 3,
+    "train_n": 199,
+    "cal_n": 127,
+    "train_net": 0.7944206123603866,
+    "cal_net": 0.2247169597413294,
+    "train_win": 51.75879396984925,
+    "cal_win": 48.818897637795274,
+    "train_h1": 69.34673366834171,
+    "cal_h1": 69.29133858267717,
+    "train_exc": 1.1435405091124093,
+    "cal_exc": 0.5861145465238001,
+    "conservative_net": 0.2247169597413294,
+    "score": 0.2305781052065674
+  },
+  "train": {
+    "base": {
+      "name": "TRAIN_BASE",
+      "n": 3144,
+      "symbols": 68,
+      "net12_mean": -0.02330156900301643,
+      "net12_median": -0.3479375797152404,
+      "win12": 43.98854961832061,
+      "h1_confirm": 64.98091603053436,
+      "mfe12": 2.8867733716400137,
+      "mae12": -2.358642503824814,
+      "excursion_edge": 0.5281308678152001
+    },
+    "selected": {
+      "name": "TRAIN_SELECTED",
+      "n": 199,
+      "symbols": 62,
+      "net12_mean": 0.7944206123603866,
+      "net12_median": 0.0451838879159451,
+      "win12": 51.75879396984925,
+      "h1_confirm": 69.34673366834171,
+      "mfe12": 3.4112145689454647,
+      "mae12": -2.267674059833055,
+      "excursion_edge": 1.1435405091124093
+    }
+  },
+  "calibration": {
+    "base": {
+      "name": "CAL_BASE",
+      "n": 1848,
+      "symbols": 68,
+      "net12_mean": -0.3579736532751365,
+      "net12_median": -0.42547942976836595,
+      "win12": 42.26190476190476,
+      "h1_confirm": 61.14718614718615,
+      "mfe12": 2.5747673021641377,
+      "mae12": -2.6913698167646025,
+      "excursion_edge": -0.11660251460046471
+    },
+    "selected": {
+      "name": "CAL_SELECTED",
+      "n": 127,
+      "symbols": 54,
+      "net12_mean": 0.2247169597413294,
+      "net12_median": -0.1106344950849045,
+      "win12": 48.818897637795274,
+      "h1_confirm": 69.29133858267717,
+      "mfe12": 2.884944966986513,
+      "mae12": -2.2988304204627132,
+      "excursion_edge": 0.5861145465238001
+    }
+  },
+  "final_double_holdout": {
+    "base": {
+      "name": "FINAL_BASE",
+      "n": 976,
+      "symbols": 32,
+      "net12_mean": -0.26600910839213693,
+      "net12_median": -0.42091358667360446,
+      "win12": 39.85655737704918,
+      "h1_confirm": 64.65163934426229,
+      "mfe12": 2.425476017029599,
+      "mae12": -2.2801987254142944,
+      "excursion_edge": 0.14527729161530462
+    },
+    "selected": {
+      "name": "FINAL_SELECTED",
+      "n": 60,
+      "symbols": 27,
+      "net12_mean": 0.1772297756230006,
+      "net12_median": -0.5666021648424722,
+      "win12": 35.0,
+      "h1_confirm": 80.0,
+      "mfe12": 2.4708944066635214,
+      "mae12": -2.0967652924897924,
+      "excursion_edge": 0.3741291141737294
+    },
+    "bootstrap_selected_minus_base": {
+      "mean": 0.44196419976553086,
+      "ci_low": -0.6055918120035333,
+      "ci_high": 2.1003159163789693
+    }
+  }
+}
