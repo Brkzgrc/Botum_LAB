@@ -1,0 +1,54 @@
+name: GPT - BTC Phase Propagation Study
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/gpt-btc-phase-propagation-study.yml"
+      - "gpt/Multi-Timeframe-Independent-Evidence/event_studies/btc_2026-09-16_0300/phase_propagation_study.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gpt-btc-phase-propagation-study
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      ROOT: gpt/Multi-Timeframe-Independent-Evidence/event_studies/btc_2026-09-16_0300
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: python -m pip install pandas numpy requests
+
+      - name: Run event study
+        run: python -u "$ROOT/phase_propagation_study.py"
+
+      - name: Persist research output
+        shell: bash
+        run: |
+          git config user.name "gpt-research-bot"
+          git config user.email "gpt-research-bot@users.noreply.github.com"
+          git add "$ROOT/output"
+          if git diff --cached --quiet; then
+            echo "No output changes."
+            exit 0
+          fi
+          git commit -m "research: BTC 4H-1H-15M phase propagation output [skip ci]"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
