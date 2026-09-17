@@ -1,0 +1,211 @@
+{
+  "purpose": "Use only information known at entry-decision time to find a genuinely tradable subset, not merely to predict later 1H confirmation.",
+  "lookahead_lock": {
+    "future_features": false,
+    "absolute_oscillator_levels": false,
+    "entry_model": "same strict causal dataset: closed 15m decision, completed 1h/4h/BTC4h only, fill after extra 15m delay",
+    "final_double_holdout_used_for_selection": false
+  },
+  "splits": {
+    "train": "DEV symbols <2026-05-01",
+    "calibration": "DEV symbols 2026-05-01..2026-06-30",
+    "final": "HOLDOUT symbols >=2026-07-01"
+  },
+  "events": 10360,
+  "features": 224,
+  "champion_calibration_only": {
+    "name": "WIN_LOGISTIC_q60",
+    "n": 823,
+    "symbols": 68,
+    "h1_confirm_pct": 62.575941676792226,
+    "net12_mean": -0.20777381242733584,
+    "net12_median": -0.2132485426603157,
+    "net12_win_pct": 45.20048602673147,
+    "mfe12_mean": 2.513722351444505,
+    "mae12_mean": -2.5067650411997535,
+    "excursion_edge_mean": 0.006957310244751202,
+    "upside_dominates_pct": 46.29404617253949,
+    "mfe_ge_1_pct": 63.91251518833536,
+    "mfe_ge_2_pct": 44.22843256379101,
+    "model": "WIN_LOGISTIC",
+    "quantile": 0.6,
+    "threshold": 0.5326604756242557,
+    "selected_frac": 0.4453463203463203,
+    "score": -0.14498915144320107
+  },
+  "final": {
+    "base": {
+      "name": "FINAL_BASE",
+      "n": 976,
+      "symbols": 32,
+      "h1_confirm_pct": 64.65163934426229,
+      "net12_mean": -0.26600910839213693,
+      "net12_median": -0.42091358667360446,
+      "net12_win_pct": 39.85655737704918,
+      "mfe12_mean": 2.425476017029599,
+      "mae12_mean": -2.2801987254142944,
+      "excursion_edge_mean": 0.14527729161530462,
+      "upside_dominates_pct": 46.10655737704918,
+      "mfe_ge_1_pct": 61.98770491803278,
+      "mfe_ge_2_pct": 38.2172131147541
+    },
+    "selected": {
+      "name": "FINAL_SELECTED",
+      "n": 406,
+      "symbols": 32,
+      "h1_confirm_pct": 62.06896551724138,
+      "net12_mean": -0.36530887849950006,
+      "net12_median": -0.41067664455541864,
+      "net12_win_pct": 36.69950738916256,
+      "mfe12_mean": 2.1269135313649805,
+      "mae12_mean": -2.228485760626275,
+      "excursion_edge_mean": -0.10157222926129438,
+      "upside_dominates_pct": 42.11822660098522,
+      "mfe_ge_1_pct": 57.635467980295566,
+      "mfe_ge_2_pct": 32.51231527093596,
+      "selected_frac": 0.4153061224489796
+    },
+    "selected_minus_base_cluster_bootstrap": {
+      "mean": -0.10133391899861795,
+      "ci_low": -0.3464156754034333,
+      "ci_high": 0.13360065517119762
+    }
+  },
+  "late_all": {
+    "base": {
+      "name": "LATE_ALL_BASE",
+      "n": 3042,
+      "symbols": 100,
+      "h1_confirm_pct": 65.41748849441157,
+      "net12_mean": -0.17303462709292602,
+      "net12_median": -0.3597897294234485,
+      "net12_win_pct": 42.04470742932281,
+      "mfe12_mean": 2.469631346300424,
+      "mae12_mean": -2.204967676424767,
+      "excursion_edge_mean": 0.26466366987565715,
+      "upside_dominates_pct": 47.79750164365549,
+      "mfe_ge_1_pct": 62.491781722550954,
+      "mfe_ge_2_pct": 39.513477975016436
+    },
+    "selected": {
+      "name": "LATE_ALL_SELECTED",
+      "n": 1244,
+      "symbols": 100,
+      "h1_confirm_pct": 63.9871382636656,
+      "net12_mean": -0.32182303161376613,
+      "net12_median": -0.37953953995249456,
+      "net12_win_pct": 40.353697749196144,
+      "mfe12_mean": 2.117051789791649,
+      "mae12_mean": -2.138847099205566,
+      "excursion_edge_mean": -0.021795309413917545,
+      "upside_dominates_pct": 44.37299035369775,
+      "mfe_ge_1_pct": 59.08360128617364,
+      "mfe_ge_2_pct": 34.646302250803856,
+      "selected_frac": 0.40646425073457393
+    }
+  },
+  "importance": {
+    "WIN_LOGISTIC": [
+      {
+        "feature": "btc4_rsi_d1n",
+        "importance": 1.4133871246732161
+      },
+      {
+        "feature": "btc4_kdj_j_d1n",
+        "importance": 1.001294180970715
+      },
+      {
+        "feature": "btc4_macd_hist_accn",
+        "importance": 0.9198101999273929
+      },
+      {
+        "feature": "btc4_range_pct",
+        "importance": 0.8706713629456616
+      },
+      {
+        "feature": "btc4_kdj_spread_d3n",
+        "importance": 0.7137785753052193
+      },
+      {
+        "feature": "m15_price_ret_4",
+        "importance": 0.6241250311754283
+      },
+      {
+        "feature": "btc4_stoch_spread_d1n",
+        "importance": 0.6049233426320805
+      },
+      {
+        "feature": "h4_kdj_j_d1n",
+        "importance": 0.5731473894353065
+      },
+      {
+        "feature": "btc4_range_log_ratio",
+        "importance": 0.47246621563363184
+      },
+      {
+        "feature": "btc4_kdj_spread_d1n",
+        "importance": 0.4452825869235495
+      },
+      {
+        "feature": "h1_range_pct",
+        "importance": 0.4313806499411815
+      },
+      {
+        "feature": "btc4_upper_wick_frac",
+        "importance": 0.4256726865366221
+      },
+      {
+        "feature": "m15_stoch_k_accn",
+        "importance": 0.419465460740623
+      },
+      {
+        "feature": "btc4_close_loc",
+        "importance": 0.4118260407662631
+      },
+      {
+        "feature": "m15_macd_hist_d1n",
+        "importance": 0.40632296379415167
+      },
+      {
+        "feature": "btc4_motion_neg",
+        "importance": 0.4026288420982245
+      },
+      {
+        "feature": "m15_range_pct",
+        "importance": 0.40197916145867857
+      },
+      {
+        "feature": "h4_stoch_spread_accn",
+        "importance": 0.39499687371139636
+      },
+      {
+        "feature": "m15_kdj_spread_accn",
+        "importance": 0.3763147929245856
+      },
+      {
+        "feature": "btc4_obv_d3n",
+        "importance": 0.36785749414237995
+      },
+      {
+        "feature": "btc4_rsi_accn",
+        "importance": 0.3558195650695572
+      },
+      {
+        "feature": "m15_macd_hist_d3n",
+        "importance": 0.3491853558802721
+      },
+      {
+        "feature": "btc4_rsi_d3n",
+        "importance": 0.3422204584071943
+      },
+      {
+        "feature": "h1_close_loc",
+        "importance": 0.33687210400716
+      },
+      {
+        "feature": "h4_kdj_spread_d3n",
+        "importance": 0.33467352844194337
+      }
+    ]
+  }
+}
