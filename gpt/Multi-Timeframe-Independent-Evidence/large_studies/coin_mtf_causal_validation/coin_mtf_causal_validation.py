@@ -192,19 +192,22 @@ def next_event_after(t,event_idx,max_h):
     return q if q<=t+pd.Timedelta(hours=max_h) else pd.NaT
 
 def forward_from_next_open(base, decision_times):
-    # Signal from [t-15m,t) is known only at t. Earliest modeled fill is next candle OPEN at t.
+    # A signal from the CLOSED candle [t-15m,t) is known only at t.
+    # To avoid boundary-fill optimism, we DO NOT fill at the candle opening exactly at t.
+    # Earliest modeled fill is the following 15m candle open at t+15m.
     idx=base.index
     rows=[]
     for t in decision_times:
-        if t not in idx:
+        entry_time=t+pd.Timedelta(minutes=15)
+        if entry_time not in idx:
             continue
-        i=idx.get_loc(t)
+        i=idx.get_loc(entry_time)
         if not isinstance(i,(int,np.integer)):
             continue
         entry=float(base.open.iloc[i])
         if not np.isfinite(entry) or entry<=0:
             continue
-        rec={"decision_time":t,"entry_time":t,"entry_open":entry}
+        rec={"decision_time":t,"entry_time":entry_time,"entry_open":entry}
         for h in [3,4,6,12,24]:
             b=h*4
             if i+b>=len(base):
@@ -230,9 +233,9 @@ def process_symbol(symbol, rank_qv, btc_ctx):
     try:
         base=fetch_15m(symbol)
         if len(base)<2000:
-            return symbol,None,f"too_short:{len(base)}"
+            return symbol,None,None,f"too_short:{len(base)}"
         if base.index.min()>FETCH_START+pd.Timedelta(days=5):
-            return symbol,None,"listed_after_start"
+            return symbol,None,None,"listed_after_start"
 
         t15=indicators(base)
         d15=t15.copy()
@@ -263,16 +266,19 @@ def process_symbol(symbol, rank_qv, btc_ctx):
         sig=compress(raw,COOLDOWN_BARS)
         times=sig[sig].index
         if not len(times):
-            return symbol,pd.DataFrame(),None
+            return symbol,pd.DataFrame(),pd.DataFrame(),None
 
         fm=forward_from_next_open(base,times)
         if fm.empty:
-            return symbol,pd.DataFrame(),None
+            return symbol,pd.DataFrame(),pd.DataFrame(),None
 
         h1_events=z.index[z.h1_turn4.fillna(False)&(z.index.minute==0)]
         records=[]
+        confirm_decisions=[]
         for t in fm.index:
             h1t=next_event_after(t,h1_events,4)
+            if pd.notna(h1t):
+                confirm_decisions.append(h1t)
             rec=fm.loc[t].to_dict()
             rec.update({
                 "symbol":symbol,
@@ -293,9 +299,22 @@ def process_symbol(symbol, rank_qv, btc_ctx):
                 rec[f"managed_net_ret_cost_{tag}"]=rec["managed_gross_ret"]-cost if pd.notna(rec["managed_gross_ret"]) else np.nan
             records.append((t,rec))
         ev=pd.DataFrame([r for _,r in records],index=pd.DatetimeIndex([t for t,_ in records],name="decision_time"))
-        return symbol,ev,None
+
+        # Fully causal alternative: do NOT enter on 15m setup. Wait for a completed 1H
+        # confirmation within 4h, then enter one full 15m bar AFTER that 1H close.
+        confirm_decisions=pd.DatetimeIndex(sorted(set(confirm_decisions)))
+        cfm=forward_from_next_open(base,confirm_decisions) if len(confirm_decisions) else pd.DataFrame()
+        if not cfm.empty:
+            cfm["symbol"]=symbol
+            cfm["rank_quote_volume"]=rank_qv
+            cfm["symbol_bucket"]=symbol_bucket(symbol)
+            cfm["period_bucket"]=np.where(cfm.index>=LATE_SPLIT,"LATE_HOLDOUT","EARLY")
+            for cost in ROUND_TRIP_COSTS:
+                tag=str(cost).replace(".","p")
+                cfm[f"net_ret_12h_cost_{tag}"]=cfm["gross_ret_12h"]-cost
+        return symbol,ev,cfm,None
     except Exception as e:
-        return symbol,None,f"{type(e).__name__}:{e}"
+        return symbol,None,None,f"{type(e).__name__}:{e}"
 
 def summarize(df,name):
     if df is None or df.empty:
@@ -320,6 +339,27 @@ def summarize(df,name):
         r[f"net12_win_cost_{tag}"]=float((s>0).mean()*100)
         r[f"managed_mean_cost_{tag}"]=float(m.mean())
         r[f"managed_win_cost_{tag}"]=float((m>0).mean()*100)
+    return r
+
+def summarize_confirm_entry(df,name):
+    if df is None or df.empty:
+        return {"name":name,"n":0}
+    d=df.dropna(subset=["gross_ret_12h","mfe_12h","mae_12h"])
+    if d.empty:
+        return {"name":name,"n":0}
+    r={"name":name,"n":int(len(d)),"symbols":int(d.symbol.nunique())}
+    for h in [3,6,12,24]:
+        q=d[f"gross_ret_{h}h"]
+        r[f"gross_mean_{h}h"]=float(q.mean())
+        r[f"gross_median_{h}h"]=float(q.median())
+        r[f"gross_win_{h}h"]=float((q>0).mean()*100)
+    r["mfe_12h"]=float(d.mfe_12h.mean())
+    r["mae_12h"]=float(d.mae_12h.mean())
+    for cost in ROUND_TRIP_COSTS:
+        tag=str(cost).replace(".","p")
+        q=d[f"net_ret_12h_cost_{tag}"]
+        r[f"net12_mean_cost_{tag}"]=float(q.mean())
+        r[f"net12_win_cost_{tag}"]=float((q>0).mean()*100)
     return r
 
 def bootstrap_symbol_cluster_diff(a,b,col="net_ret_12h_cost_0p2",n=2000,seed=42):
@@ -366,22 +406,28 @@ def main():
     btc_ctx=btc_ctx[["btc_h4_motion_pos","btc_h4_motion_net","btc_h4_motion_rise","btc_h4_turn4","btc_h4_structure"]]
 
     print(f"[COINS] downloading/analyzing {len(selected)} symbols")
-    events=[]; errors=[]
+    events=[]; confirm_entries=[]; errors=[]
     rank_map=dict(zip(selected.symbol,selected.median_daily_quote_volume))
     with ThreadPoolExecutor(max_workers=6) as ex:
         futs={ex.submit(process_symbol,s,rank_map[s],btc_ctx):s for s in selected.symbol}
         for k,f in enumerate(as_completed(futs),1):
-            s,ev,err=f.result()
+            s,ev,cfm,err=f.result()
             if err:
                 errors.append({"symbol":s,"error":err})
-            elif ev is not None and not ev.empty:
-                events.append(ev)
-            print(f"[COIN {k}/{len(futs)}] {s} events={0 if ev is None else len(ev)} err={err or '-'}")
+            else:
+                if ev is not None and not ev.empty:
+                    events.append(ev)
+                if cfm is not None and not cfm.empty:
+                    confirm_entries.append(cfm)
+            print(f"[COIN {k}/{len(futs)}] {s} events={0 if ev is None else len(ev)} confirm_entries={0 if cfm is None else len(cfm)} err={err or '-'}")
 
     if not events:
         raise RuntimeError("no events produced")
     all_ev=pd.concat(events).sort_index()
     all_ev.to_csv(OUT/"events.csv")
+    all_cfm=pd.concat(confirm_entries).sort_index() if confirm_entries else pd.DataFrame()
+    if not all_cfm.empty:
+        all_cfm.to_csv(OUT/"confirm_entry_events.csv")
     pd.DataFrame(errors).to_csv(OUT/"errors.csv",index=False)
 
     views={
@@ -401,13 +447,22 @@ def main():
     no=dh[~dh.h1_confirm_within4h]
     boot=bootstrap_symbol_cluster_diff(conf,no)
 
+    cfm_summaries={}
+    if not all_cfm.empty:
+        cfm_summaries={
+            "ALL":summarize_confirm_entry(all_cfm,"WAIT_H1_CONFIRM_ALL"),
+            "HOLDOUT_SYMBOLS":summarize_confirm_entry(all_cfm[all_cfm.symbol_bucket=="HOLDOUT_SYMBOL"],"WAIT_H1_CONFIRM_HOLDOUT_SYMBOLS"),
+            "LATE_HOLDOUT":summarize_confirm_entry(all_cfm[all_cfm.period_bucket=="LATE_HOLDOUT"],"WAIT_H1_CONFIRM_LATE_HOLDOUT"),
+            "DOUBLE_HOLDOUT":summarize_confirm_entry(all_cfm[(all_cfm.symbol_bucket=="HOLDOUT_SYMBOL")&(all_cfm.period_bucket=="LATE_HOLDOUT")],"WAIT_H1_CONFIRM_DOUBLE_HOLDOUT"),
+        }
+
     summary={
-        "architecture":"BTC completed-4H context + coin completed-4H context + coin CLOSED-15M movement/structure trigger + StochRSI direction pattern; entry next 15m open; 1H confirmation only after entry",
+        "architecture":"BTC completed-4H context + coin completed-4H context + coin CLOSED-15M movement/structure trigger + StochRSI direction pattern; entry after 15m latency; 1H confirmation only after entry",
         "absolute_oscillator_levels_used_as_setup_features":False,
         "intrabar_higher_timeframe_data_used":False,
         "same_signal_candle_fill_used":False,
-        "entry_model":"signal known at 15m close t; earliest fill = next 15m candle open at t",
-        "h1_management_model":"if no completed-1H confirmation by entry+4h, causal exit at +4h open; if confirmed, hold to +12h open",
+        "entry_model":"signal known at 15m close t; conservative fill = following 15m candle open at t+15m",
+        "h1_management_model":"early-entry branch: if no completed-1H confirmation within 4h, causal early exit; wait-for-confirm branch enters only after completed 1H confirm and one extra 15m latency",
         "round_trip_cost_scenarios_pct":ROUND_TRIP_COSTS,
         "ranking_window":[str(RANK_START),str(RANK_END)],
         "study_window":[str(START),str(END)],
@@ -416,7 +471,9 @@ def main():
         "analyzed_symbols":int(all_ev.symbol.nunique()),
         "error_symbols":int(len(errors)),
         "total_events":int(len(all_ev)),
+        "wait_h1_confirm_entries":int(len(all_cfm)),
         "summaries":sums,
+        "wait_h1_confirm_summaries":cfm_summaries,
         "double_holdout_confirm_vs_no_confirm_net12_cost0p2_cluster_bootstrap":boot,
     }
     (OUT/"summary.json").write_text(json.dumps(summary,indent=2,ensure_ascii=False,default=str),encoding="utf-8")
@@ -428,10 +485,10 @@ def main():
         "",
         "## Look-ahead kilidi",
         "- 15M sinyali ancak 15 dakikalık mum kapandıktan sonra var sayılır.",
-        "- Giriş aynı mum kapanışından geçmişe dönük yapılmaz; bir sonraki 15M mumun açılışı kullanılır.",
+        "- Giriş aynı kapanış sınırındaki yeni mum açılışından bile yapılmaz; sinyal kapanışından sonra TAM 1 adet 15M gecikme bırakılır ve sonraki mum açılışı kullanılır.",
         "- 1H ve 4H bilgisi yalnızca ilgili mum kapandıktan sonra alt zaman dilimine taşınır.",
         "- 1H teyidi giriş şartı olarak gelecekte bilinmiş sayılmaz; girişten SONRA oluşursa yönetim bilgisi olur.",
-        "- 1H teyidi 4 saat içinde gelmezse +4h açılışında çıkış; gelirse +12h açılışına kadar tutma ayrıca test edilir.",
+        "- Ayrıca tamamen nedensel ikinci kol vardır: 1H teyidi beklenir, teyit mumu kapandıktan sonra bir 15M daha beklenir ve ancak sonraki açılışta giriş yapılır.",
         "",
         f"Seçili coin: {len(selected)} | Analiz edilen: {all_ev.symbol.nunique()} | Olay: {len(all_ev)} | Hatalı/uygunsuz: {len(errors)}",
         "",
@@ -445,6 +502,16 @@ def main():
             f"MFE12={r.get('mfe_12h',np.nan):.2f}%, MAE12={r.get('mae_12h',np.nan):.2f}%, H1<=4h={r.get('h1_confirm_pct',np.nan):.1f}%, "
             f"managed-net={r.get('managed_mean_cost_0p2',np.nan):.3f}%"
         )
+    lines.append("")
+    if cfm_summaries:
+        lines.append("## 1H teyidini BEKLEYEREK gerçek giriş (teyit kapanışı + 15M gecikme)")
+        for k in ["ALL","HOLDOUT_SYMBOLS","LATE_HOLDOUT","DOUBLE_HOLDOUT"]:
+            r=cfm_summaries[k]
+            lines.append(
+                f"- {k}: n={r.get('n',0)}, symbols={r.get('symbols',0)}, gross12={r.get('gross_mean_12h',np.nan):.3f}%, "
+                f"net12(cost0.20)={r.get('net12_mean_cost_0p2',np.nan):.3f}%, net-win={r.get('net12_win_cost_0p2',np.nan):.1f}%, "
+                f"MFE12={r.get('mfe_12h',np.nan):.2f}%, MAE12={r.get('mae_12h',np.nan):.2f}%"
+            )
     lines.append("")
     lines.append(
         "Double-holdout'ta 1H teyit gelenler - gelmeyenler net12(cost0.20) farkı, symbol-cluster bootstrap: "
