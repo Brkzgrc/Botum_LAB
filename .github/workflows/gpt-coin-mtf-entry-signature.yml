@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/entry_signature_discovery.py'
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/entry_signature_discovery_v2.py'
       - '.github/workflows/gpt-coin-mtf-entry-signature.yml'
 
 permissions:
@@ -33,7 +34,7 @@ jobs:
         run: pip install --disable-pip-version-check numpy pandas requests scikit-learn
 
       - name: Run strictly causal entry-signature discovery
-        run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/entry_signature_discovery.py
+        run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/entry_signature_discovery_v2.py
 
       - name: Persist research output
         run: |
