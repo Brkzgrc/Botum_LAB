@@ -1,0 +1,48 @@
+name: GPT - Coin MTF Causal Validation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_causal_validation/coin_mtf_causal_validation.py'
+      - '.github/workflows/gpt-coin-mtf-causal-validation.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gpt-coin-mtf-causal-validation
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install --disable-pip-version-check numpy pandas requests
+
+      - name: Run causal coin MTF validation
+        run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_causal_validation/coin_mtf_causal_validation.py
+
+      - name: Persist causal research output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_causal_validation/output
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist causal coin MTF validation results [skip ci]"
+            git push
+          fi
