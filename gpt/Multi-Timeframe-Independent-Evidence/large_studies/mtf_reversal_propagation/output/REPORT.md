@@ -16,13 +16,13 @@ Keşif n=640; 12s ort. getiri 0.08%; win 51.41%; MFE 1.33%; MAE -1.25%.
 
 ## 2026 baseline
 
-Her 4 saatte bir kör snapshot: n=1556; 12s ort. getiri -0.01%; win 50.06%; MFE 1.12%; MAE -1.20%.
+Her 4 saatte bir kör snapshot: n=1557; 12s ort. getiri -0.01%; win 50.10%; MFE 1.12%; MAE -1.20%.
 
 ## Dönüş bilgisinin zaman dilimleri arasında yayılma sırası
 
 - mixed: 5723 olay (35.8%)
 - 15m->1h->4h: 4682 olay (29.3%)
-- 4h/1h before 15m: 2836 olay (17.7%)
+- 4h/1h before 15m: 2837 olay (17.7%)
 - 1h->15m->4h: 2763 olay (17.3%)
 
 Bu sıra analizi bağımsız hareket-dönüş event'lerinin en yakın 1H/4H event'leriyle zaman farkına bakar; setup kuralı değildir.
