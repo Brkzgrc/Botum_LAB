@@ -1,0 +1,44 @@
+name: GPT - BTC MTF Focused Transition Validation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/focused_stoch_transition_validation.py'
+      - '.github/workflows/gpt-btc-mtf-focused-transition.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gpt-btc-mtf-focused-transition
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Run focused propagation validation
+        run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/focused_stoch_transition_validation.py
+      - name: Persist focused output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/focused_output
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist focused BTC Stoch transition validation [skip ci]"
+            git push
+          fi
