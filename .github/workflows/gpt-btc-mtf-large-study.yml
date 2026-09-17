@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/mtf_reversal_propagation.py'
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/motion_signature_discovery.py'
       - '.github/workflows/gpt-btc-mtf-large-study.yml'
 
 permissions:
@@ -30,19 +31,23 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install --disable-pip-version-check numpy pandas requests
+        run: pip install --disable-pip-version-check numpy pandas requests scikit-learn
 
       - name: Run large historical study
         run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/mtf_reversal_propagation.py
+
+      - name: Run motion-signature discovery
+        run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/motion_signature_discovery.py
 
       - name: Persist research output
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/output
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/signature_output
           if git diff --cached --quiet; then
             echo "No output changes"
           else
-            git commit -m "Persist BTC MTF reversal large-study results [skip ci]"
+            git commit -m "Persist BTC MTF reversal research results [skip ci]"
             git push
           fi
