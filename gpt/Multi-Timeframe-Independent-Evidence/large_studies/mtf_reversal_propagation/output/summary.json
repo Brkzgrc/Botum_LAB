@@ -1,0 +1,142 @@
+{
+  "symbol": "BTCUSDT",
+  "period": [
+    "2024-01-01 00:00:00+00:00",
+    "2026-09-18 00:00:00+00:00"
+  ],
+  "split": "2026-01-01 00:00:00+00:00",
+  "transports": [
+    "https://data-api.binance.vision"
+  ],
+  "candidate_count": 42,
+  "champion_train_selected": "CTX4+trig5s+H1recent2h",
+  "train": {
+    "candidate": "CTX4+trig5s+H1recent2h",
+    "split": "train_2024_2025",
+    "n": 640,
+    "mean_ret_3h": -0.006963290903450657,
+    "median_ret_3h": -0.05468417681969151,
+    "win_3h": 46.25,
+    "mean_ret_6h": 0.04137696539819145,
+    "median_ret_6h": 0.004798401837391442,
+    "win_6h": 50.46874999999999,
+    "mean_ret_12h": 0.0810199910758225,
+    "median_ret_12h": 0.04069428280397691,
+    "win_12h": 51.40625,
+    "mean_ret_24h": 0.004915954570686043,
+    "median_ret_24h": 0.057604737985839094,
+    "win_24h": 51.71875,
+    "mean_mfe_12h": 1.3273049615031365,
+    "mean_mae_12h": -1.2472502550760767,
+    "mfe_gt_1_12h": 48.59375,
+    "ret_gt_1_12h": 23.4375,
+    "mean_ret_12h_ci_low": -0.053306424357453946,
+    "mean_ret_12h_ci_high": 0.2141061241797136
+  },
+  "holdout": {
+    "candidate": "CTX4+trig5s+H1recent2h",
+    "split": "holdout_2026",
+    "n": 220,
+    "mean_ret_3h": -0.03344324390905061,
+    "median_ret_3h": -0.07749535613474356,
+    "win_3h": 43.63636363636363,
+    "mean_ret_6h": -0.06480059974888117,
+    "median_ret_6h": -0.09985602772329405,
+    "win_6h": 43.63636363636363,
+    "mean_ret_12h": 0.010977380587253517,
+    "median_ret_12h": -0.10679387115987149,
+    "win_12h": 46.36363636363636,
+    "mean_ret_24h": 0.04262293050777572,
+    "median_ret_24h": 0.012247376955110134,
+    "win_24h": 50.0,
+    "mean_mfe_12h": 1.0318946257118202,
+    "mean_mae_12h": -1.058062593678696,
+    "mfe_gt_1_12h": 38.18181818181819,
+    "ret_gt_1_12h": 17.272727272727273,
+    "mean_ret_12h_ci_low": -0.16767134064041753,
+    "mean_ret_12h_ci_high": 0.2062157312369552
+  },
+  "baseline_holdout": {
+    "candidate": "BASELINE_4H_SNAPSHOTS",
+    "split": "holdout_2026",
+    "n": 1556,
+    "mean_ret_3h": -0.02648864227483408,
+    "median_ret_3h": -0.020257517430766203,
+    "win_3h": 48.26478149100257,
+    "mean_ret_6h": -0.01229983514682184,
+    "median_ret_6h": 0.002821755535675763,
+    "win_6h": 50.19280205655527,
+    "mean_ret_12h": -0.013470892172768457,
+    "median_ret_12h": 0.0015014518543798872,
+    "win_12h": 50.06426735218509,
+    "mean_ret_24h": -0.02724985526512892,
+    "median_ret_24h": 0.01592035225708166,
+    "win_24h": 50.51413881748073,
+    "mean_mfe_12h": 1.1161001763331606,
+    "mean_mae_12h": -1.1967571231838272,
+    "mfe_gt_1_12h": 40.93830334190231,
+    "ret_gt_1_12h": 18.444730077120823,
+    "mean_ret_12h_ci_low": -0.08947697608449115,
+    "mean_ret_12h_ci_high": 0.06531300787052025
+  },
+  "sequence_orders": [
+    {
+      "order": "mixed",
+      "n": 5723,
+      "pct": 35.75981004748813
+    },
+    {
+      "order": "15m->1h->4h",
+      "n": 4682,
+      "pct": 29.25518620344914
+    },
+    {
+      "order": "4h/1h before 15m",
+      "n": 2836,
+      "pct": 17.720569857535615
+    },
+    {
+      "order": "1h->15m->4h",
+      "n": 2763,
+      "pct": 17.26443389152712
+    }
+  ],
+  "strong_rise_top_decile_threshold_12h_ret_pct": 1.572850623028621,
+  "top_coverage_candidates": [
+    {
+      "candidate": "H4turn16h+H1turn4h+trig4",
+      "strong_rise_anchors": 201,
+      "covered": 112,
+      "coverage_pct": 55.72139303482587,
+      "median_lead_h": 2.5
+    },
+    {
+      "candidate": "CTX2+trig4",
+      "strong_rise_anchors": 201,
+      "covered": 112,
+      "coverage_pct": 55.72139303482587,
+      "median_lead_h": 2.625
+    },
+    {
+      "candidate": "CTX2+trig4s",
+      "strong_rise_anchors": 201,
+      "covered": 112,
+      "coverage_pct": 55.72139303482587,
+      "median_lead_h": 2.75
+    },
+    {
+      "candidate": "H4turn16h+H1turn4h+trig4s",
+      "strong_rise_anchors": 201,
+      "covered": 109,
+      "coverage_pct": 54.22885572139303,
+      "median_lead_h": 2.5
+    },
+    {
+      "candidate": "CTX2+trig5",
+      "strong_rise_anchors": 201,
+      "covered": 108,
+      "coverage_pct": 53.73134328358209,
+      "median_lead_h": 2.75
+    }
+  ]
+}
