@@ -29,13 +29,13 @@ jobs:
       - name: Run frozen-rule shard
         run: |
           python gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_broad_frozen_validation/broad_frozen_validation.py \
-            --shard \${{ matrix.shard }} \
+            --shard ${{ matrix.shard }} \
             --shards 8 \
-            --outdir /tmp/mtf-broad/shard-\${{ matrix.shard }}
+            --outdir /tmp/mtf-broad/shard-${{ matrix.shard }}
       - uses: actions/upload-artifact@v4
         with:
-          name: mtf-broad-shard-\${{ matrix.shard }}
-          path: /tmp/mtf-broad/shard-\${{ matrix.shard }}
+          name: mtf-broad-shard-${{ matrix.shard }}
+          path: /tmp/mtf-broad/shard-${{ matrix.shard }}
           retention-days: 7
 
   aggregate:
