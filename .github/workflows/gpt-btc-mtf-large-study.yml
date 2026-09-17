@@ -6,6 +6,7 @@ on:
     paths:
       - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/mtf_reversal_propagation.py'
       - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/motion_signature_discovery.py'
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/directional_sequence_mining.py'
       - '.github/workflows/gpt-btc-mtf-large-study.yml'
 
 permissions:
@@ -39,12 +40,16 @@ jobs:
       - name: Run motion-signature discovery
         run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/motion_signature_discovery.py
 
+      - name: Run directional sequence mining
+        run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/directional_sequence_mining.py
+
       - name: Persist research output
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/output
           git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/signature_output
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/mtf_reversal_propagation/sequence_output
           if git diff --cached --quiet; then
             echo "No output changes"
           else
