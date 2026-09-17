@@ -1,0 +1,37 @@
+name: GPT - Coin MTF Lead Lag Rules
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/lead_lag_rule_discovery.py'
+      - '.github/workflows/gpt-coin-mtf-lead-lag.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas
+      - name: Run lead-lag rule discovery
+        run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/lead_lag_rule_discovery.py
+      - name: Persist output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/lead_lag_output
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist coin MTF lead-lag rule results [skip ci]"
+            git push
+          fi
