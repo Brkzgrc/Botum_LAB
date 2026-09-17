@@ -1,0 +1,44 @@
+name: GPT - Coin MTF Tradeability Signature
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/tradeability_signature.py'
+      - '.github/workflows/gpt-coin-mtf-tradeability.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gpt-coin-mtf-tradeability
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install --disable-pip-version-check numpy pandas scikit-learn
+      - name: Run causal tradeability discovery
+        run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/tradeability_signature.py
+      - name: Persist tradeability output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_entry_signature/tradeability_output
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist coin MTF tradeability signature results [skip ci]"
+            git push
+          fi
