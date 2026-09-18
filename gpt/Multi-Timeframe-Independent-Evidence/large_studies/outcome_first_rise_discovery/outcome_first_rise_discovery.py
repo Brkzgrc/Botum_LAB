@@ -28,14 +28,32 @@ COST=0.20
 def hmod(s):
     return int(hashlib.sha256(str(s).encode()).hexdigest()[:8],16)%100
 
+STABLE_BASE_ASSETS={
+    "USDT","USDC","FDUSD","TUSD","USDP","DAI","BUSD","USDS","USDE","USD1",
+    "USDJ","PYUSD","EURC","AEUR","EURI","RLUSD","XUSD","U","KGST","USTC","BFUSD",
+}
+FIAT_BASE_ASSETS={
+    "USD","EUR","TRY","GBP","JPY","CHF","AUD","CAD","BRL","ARS","MXN","PLN",
+    "RON","RUB","UAH","ZAR","NGN","IDR","BIDR","KGS",
+}
+EXCLUDED_BASE_ASSETS=STABLE_BASE_ASSETS|FIAT_BASE_ASSETS
+
 def load_symbols():
-    raw=json.loads(Path(UNIVERSE).read_text(encoding="utf-8"))
-    if isinstance(raw,dict):
-        for k in ["symbols","universe","spot_symbols"]:
-            if k in raw and isinstance(raw[k],list):
-                raw=raw[k]; break
-    syms=[str(x) for x in raw if str(x).endswith("USDT")]
-    return sorted([s for s in syms if s!="BTCUSDT"])
+    # Dynamic active Binance SPOT universe on every run.
+    # Exact base-asset matching only: names such as JUP/SYRUP are NOT excluded.
+    info,_=core.get_json("/api/v3/exchangeInfo",{})
+    syms=[]
+    for s in info.get("symbols",[]):
+        symbol=str(s.get("symbol","")).upper()
+        base=str(s.get("baseAsset","")).upper()
+        quote=str(s.get("quoteAsset","")).upper()
+        if s.get("status")!="TRADING": continue
+        if quote!="USDT": continue
+        if not bool(s.get("isSpotTradingAllowed",True)): continue
+        if base in EXCLUDED_BASE_ASSETS: continue
+        if symbol=="BTCUSDT": continue
+        syms.append(symbol)
+    return sorted(set(syms))
 
 def align(tf,delta,idx,prefix):
     z=tf.copy()
