@@ -223,27 +223,43 @@ def metric(d: pd.DataFrame, name: str, cost: float = 0.20) -> dict:
 
 
 def cluster_boot(selected: pd.DataFrame, base: pd.DataFrame, n=4000, seed=20260918):
+    """Exact symbol-cluster bootstrap, pre-aggregated for speed.
+
+    Resampling symbols with replacement and then concatenating all events from
+    each sampled symbol is algebraically identical to resampling per-symbol
+    (sum, count) pairs and dividing total sums by total counts.
+    """
     syms = sorted(set(base.symbol.astype(str)))
     if not syms or selected.empty:
         return None
+
+    def stats(df: pd.DataFrame):
+        x = df[["symbol", "gross_ret_12h"]].dropna().copy()
+        x["net"] = pd.to_numeric(x["gross_ret_12h"], errors="coerce") - 0.20
+        g = x.groupby("symbol")["net"].agg(["sum", "count"])
+        sums = np.array([float(g.at[s, "sum"]) if s in g.index else 0.0 for s in syms])
+        cnts = np.array([int(g.at[s, "count"]) if s in g.index else 0 for s in syms], dtype=np.int64)
+        return sums, cnts
+
+    a_sum, a_n = stats(selected)
+    b_sum, b_n = stats(base)
     rng = np.random.default_rng(seed)
-    vals = []
+    vals = np.empty(n, dtype=float)
+    valid = 0
+    m = len(syms)
     for _ in range(n):
-        draw = rng.choice(syms, size=len(syms), replace=True)
-        aa, bb = [], []
-        for s in draw:
-            a = selected.loc[selected.symbol == s, "gross_ret_12h"].dropna().to_numpy() - 0.20
-            b = base.loc[base.symbol == s, "gross_ret_12h"].dropna().to_numpy() - 0.20
-            if len(a):
-                aa.append(a)
-            if len(b):
-                bb.append(b)
-        if aa and bb:
-            vals.append(np.concatenate(aa).mean() - np.concatenate(bb).mean())
-    if not vals:
+        idx = rng.integers(0, m, size=m)
+        an = a_n[idx].sum()
+        bn = b_n[idx].sum()
+        if an == 0 or bn == 0:
+            continue
+        vals[valid] = a_sum[idx].sum() / an - b_sum[idx].sum() / bn
+        valid += 1
+    if valid == 0:
         return None
+    vals = vals[:valid]
     lo, hi = np.quantile(vals, [0.025, 0.975])
-    return {"mean": float(np.mean(vals)), "ci_low": float(lo), "ci_high": float(hi)}
+    return {"mean": float(vals.mean()), "ci_low": float(lo), "ci_high": float(hi)}
 
 
 def aggregate_main(indir: Path, outdir: Path):
