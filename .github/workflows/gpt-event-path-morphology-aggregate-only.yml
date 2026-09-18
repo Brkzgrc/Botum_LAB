@@ -1,0 +1,50 @@
+name: GPT - Event Path Morphology Aggregate Only
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/gpt-event-path-morphology-aggregate-only.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: event-path-shard-*
+          path: /tmp/event-path-artifacts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292026137
+      - name: Aggregate morphology study
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/event_path_morphology/event_path_morphology.py \
+            --aggregate-dir /tmp/event-path-artifacts \
+            --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/event_path_morphology/output
+      - name: Persist compact morphology output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/event_path_morphology/output/REPORT.md \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/event_path_morphology/output/summary.json
+          git pull --rebase origin main
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist event-path morphology results [skip ci]"
+            git push
+          fi
