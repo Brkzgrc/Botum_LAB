@@ -1,0 +1,16 @@
+{
+  "purpose": "Search causal trade-management policies so a valid entry is not judged only by arbitrary fixed holding horizons. Success is positive expectancy after 0.20% round-trip cost; high win-rate is not required.",
+  "round_trip_cost_pct": 0.2,
+  "lookahead": "none in policy execution; all barriers/trailing/progress exits are processed forward bar-by-bar; same-bar TP+SL ambiguity is resolved conservatively as stop first",
+  "splits": {
+    "discovery": "dev symbols 2023-2024",
+    "calibration": "dev symbols 2025",
+    "cross_holdout_pre2026": "holdout symbols 2023-2025",
+    "final_holdout_2026": "holdout symbols 2026"
+  },
+  "policies_tested": 168,
+  "stable_development_policies": 0,
+  "champion_selected_without_holdouts": null,
+  "top_candidates": [],
+  "final_champion_frequency": null
+}
