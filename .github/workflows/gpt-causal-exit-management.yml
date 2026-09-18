@@ -1,0 +1,75 @@
+name: GPT - Causal Exit Management
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/causal_exit_management/causal_exit_management.py'
+      - '.github/workflows/gpt-causal-exit-management.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  shard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Run causal exit-management shard
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/causal_exit_management/causal_exit_management.py \
+            --shard ${{ matrix.shard }} \
+            --shards 8 \
+            --outdir /tmp/exit-management/shard-${{ matrix.shard }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: exit-management-shard-${{ matrix.shard }}
+          path: /tmp/exit-management/shard-${{ matrix.shard }}
+          retention-days: 7
+
+  aggregate:
+    needs: shard
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: exit-management-shard-*
+          path: /tmp/exit-management-artifacts
+      - name: Aggregate exit-management discovery
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/causal_exit_management/causal_exit_management.py \
+            --aggregate-dir /tmp/exit-management-artifacts \
+            --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/causal_exit_management/output
+      - name: Persist compact output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/causal_exit_management/output/REPORT.md \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/causal_exit_management/output/summary.json \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/causal_exit_management/output/policy_ranking.csv
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist causal exit-management results [skip ci]"
+            git push
+          fi
