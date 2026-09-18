@@ -63,6 +63,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add \
             gpt/Multi-Timeframe-Independent-Evidence/large_studies/causal_exit_management/output/REPORT.md \
             gpt/Multi-Timeframe-Independent-Evidence/large_studies/causal_exit_management/output/summary.json \
