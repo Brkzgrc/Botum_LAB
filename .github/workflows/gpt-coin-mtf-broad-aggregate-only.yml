@@ -1,0 +1,50 @@
+name: GPT - Coin MTF Broad Aggregate Only
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/gpt-coin-mtf-broad-aggregate-only.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: mtf-broad-shard-*
+          path: /tmp/mtf-broad-artifacts
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35285490717
+      - name: Aggregate frozen-rule validation
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_broad_frozen_validation/broad_frozen_validation.py \
+            --aggregate-dir /tmp/mtf-broad-artifacts \
+            --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_broad_frozen_validation/output
+      - name: Persist compact validation output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_broad_frozen_validation/output/REPORT.md \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_broad_frozen_validation/output/summary.json \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_broad_frozen_validation/output/frozen_rule_events.csv
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist broad frozen MTF aggregate results [skip ci]"
+            git push
+          fi
