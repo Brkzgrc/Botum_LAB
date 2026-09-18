@@ -1,0 +1,79 @@
+name: GPT - Outcome First Rise Discovery
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/outcome_first_rise_discovery.py'
+      - '.github/workflows/gpt-outcome-first-rise-discovery.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  shard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Build outcome-first rise/control episodes
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/outcome_first_rise_discovery.py \
+            --shard ${{ matrix.shard }} \
+            --shards 8 \
+            --outdir /tmp/outcome-rise/shard-${{ matrix.shard }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: outcome-rise-shard-${{ matrix.shard }}
+          path: /tmp/outcome-rise/shard-${{ matrix.shard }}
+          retention-days: 7
+
+  aggregate:
+    needs: shard
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: outcome-rise-shard-*
+          path: /tmp/outcome-rise-artifacts
+      - name: Aggregate precursor discovery
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/outcome_first_rise_discovery.py \
+            --aggregate-dir /tmp/outcome-rise-artifacts \
+            --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output
+      - name: Persist compact results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output/REPORT.md \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output/summary.json \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output/stable_precursors.csv \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output/discovery_feature_effects.csv \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output/calibration_feature_effects.csv \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output/cross_holdout_pre2026_feature_effects.csv \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output/final_holdout_2026_feature_effects.csv
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist outcome-first rise discovery results [skip ci]"
+            git push
+          fi
