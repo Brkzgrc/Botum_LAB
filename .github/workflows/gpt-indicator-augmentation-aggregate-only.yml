@@ -1,0 +1,52 @@
+name: GPT - Indicator Augmentation Aggregate Only
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/gpt-indicator-augmentation-aggregate-only.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug-artifacts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - name: Discover stable augmentation filters
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/indicator_augmentation_discovery/indicator_augmentation_discovery.py \
+            --aggregate-dir /tmp/indicator-aug-artifacts \
+            --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/indicator_augmentation_discovery/output
+      - name: Persist compact results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/indicator_augmentation_discovery/output/REPORT.md \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/indicator_augmentation_discovery/output/summary.json \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/indicator_augmentation_discovery/output/single_filters.csv \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/indicator_augmentation_discovery/output/pair_filters.csv
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist indicator augmentation discovery results [skip ci]"
+            git push
+          fi
