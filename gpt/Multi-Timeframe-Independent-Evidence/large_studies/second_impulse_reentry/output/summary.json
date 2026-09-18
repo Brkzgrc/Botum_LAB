@@ -1,0 +1,10 @@
+{
+  "purpose": "Test the user's concrete hypothesis that an early rise can retrace and the real tradable move may begin later; search causal second-entry/re-entry timing rather than judging only the first signal.",
+  "round_trip_cost_pct": 0.2,
+  "causality": "all re-entry triggers use only states already observed after the original setup; entry is one additional 15m after the trigger candle closes",
+  "same_original_setup_pool": 8174,
+  "policies_tested": 135,
+  "stable_dev_policies": 0,
+  "champion_selected_without_holdouts": null,
+  "top_candidates": []
+}
