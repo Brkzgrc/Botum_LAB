@@ -13,7 +13,7 @@ permissions:
 jobs:
   shard:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 180
     strategy:
       fail-fast: false
       matrix:
@@ -63,6 +63,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           git add \
             gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output/REPORT.md \
             gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/output/summary.json \
