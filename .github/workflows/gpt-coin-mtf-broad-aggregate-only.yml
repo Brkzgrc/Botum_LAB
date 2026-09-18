@@ -26,7 +26,7 @@ jobs:
         with:
           pattern: mtf-broad-shard-*
           path: /tmp/mtf-broad-artifacts
-          github-token: \${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: Brkzgrc/Botum_LAB
           run-id: 35285490717
       - name: Aggregate frozen-rule validation
