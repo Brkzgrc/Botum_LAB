@@ -13,11 +13,11 @@ permissions:
 jobs:
   shard:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 240
     strategy:
       fail-fast: false
       matrix:
-        shard: [0,1,2,3,4,5,6,7]
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,7 +30,7 @@ jobs:
         run: |
           python gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_first_rise_discovery/outcome_first_rise_discovery.py \
             --shard ${{ matrix.shard }} \
-            --shards 8 \
+            --shards 16 \
             --outdir /tmp/outcome-rise/shard-${{ matrix.shard }}
       - uses: actions/upload-artifact@v4
         with:
