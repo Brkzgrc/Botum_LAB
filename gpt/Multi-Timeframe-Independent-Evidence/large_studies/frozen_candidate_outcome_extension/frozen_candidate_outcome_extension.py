@@ -108,16 +108,16 @@ def fetch_causal_pullback(row):
             },
         )
         if not isinstance(rows, list) or len(rows) < 193:
-            return {"_idx": int(row._idx), "pullback_error": f"short:{len(rows) if isinstance(rows,list) else -1}"}
+            return {"row_id": int(row.row_id), "pullback_error": f"short:{len(rows) if isinstance(rows,list) else -1}"}
         cols = ["open_time","open","high","low","close","volume","close_time","qv","trades","tb","tq","ignore"]
         z = pd.DataFrame(rows, columns=cols)
         for c in ["open","high","low","close"]:
             z[c] = pd.to_numeric(z[c], errors="coerce")
         z = z.dropna(subset=["open","high","low","close"])
         if len(z) < 193:
-            return {"_idx": int(row._idx), "pullback_error": "nan_short"}
+            return {"row_id": int(row.row_id), "pullback_error": "nan_short"}
         ref = float(z.close.iloc[-1])
-        rec = {"_idx": int(row._idx), "decision_close": ref, "pullback_error": ""}
+        rec = {"row_id": int(row.row_id), "decision_close": ref, "pullback_error": ""}
         for h in PULLBACK_HOURS:
             n = h * 4
             sl = z.iloc[-n:] if len(z) >= n else z
@@ -129,22 +129,22 @@ def fetch_causal_pullback(row):
             rec[f"causal_bounce_low_{h}h"] = (ref / lo - 1.0) * 100.0 if lo > 0 else np.nan
         return rec
     except Exception as exc:
-        return {"_idx": int(row._idx), "pullback_error": repr(exc)}
+        return {"row_id": int(row.row_id), "pullback_error": repr(exc)}
 
 
 def add_causal_pullbacks(d, workers=12):
     x = d.reset_index(drop=True).copy()
-    x["_idx"] = np.arange(len(x), dtype=int)
+    x["row_id"] = np.arange(len(x), dtype=int)
     rows = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs = {ex.submit(fetch_causal_pullback, r): int(r._idx) for r in x.itertuples(index=False)}
+        futs = {ex.submit(fetch_causal_pullback, r): int(r.row_id) for r in x.itertuples(index=False)}
         for k, f in enumerate(as_completed(futs), 1):
             rows.append(f.result())
             if k % 50 == 0 or k == len(futs):
                 ok = sum(not r.get("pullback_error") for r in rows)
                 print(f"[PULLBACK] {k}/{len(futs)} ok={ok} errors={k-ok}", flush=True)
     p = pd.DataFrame(rows)
-    x = x.merge(p, on="_idx", how="left").drop(columns=["_idx"])
+    x = x.merge(p, on="row_id", how="left").drop(columns=["row_id"])
     return x
 
 
