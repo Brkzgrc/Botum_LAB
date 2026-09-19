@@ -1,0 +1,47 @@
+name: GPT - Outcome Second Family Screen
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_screen/**'
+      - '.github/workflows/gpt-outcome-second-family-screen.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - name: Download completed outcome-first artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: outcome-rise-shard-*
+          path: /tmp/outcome-first
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35393050289
+      - name: Compile preflight
+        run: python -m py_compile gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_screen/second_family_screen.py
+      - name: Cohort preflight
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_screen/second_family_screen.py             --artifact-dir /tmp/outcome-first             --outdir /tmp/preflight             --preflight
+      - name: Run second-family screening
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_screen/second_family_screen.py             --artifact-dir /tmp/outcome-first             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_screen/output
+      - name: Persist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_screen/output
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist outcome second-family screening [skip ci]"
+          git pull --rebase origin main
+          git push
