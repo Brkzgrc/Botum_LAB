@@ -51,7 +51,7 @@ def main():
         if c in ("symbol","decision_time","entry_time","pullback_error","r2"): continue
         if any(t in c.lower() for t in EXCLUDE_TOKENS): continue
         s=pd.to_numeric(d[c],errors="coerce")
-        if s[disc].notna().sum()>=60 and s.nunique(dropna=True)>=8:
+        if s[disc].notna().sum()>=20 and s.nunique(dropna=True)>=8:
             numeric.append(c)
 
     singles=[]
