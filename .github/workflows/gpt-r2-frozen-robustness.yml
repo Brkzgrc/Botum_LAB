@@ -1,0 +1,53 @@
+name: GPT - r2 Frozen Robustness
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frozen_robustness/r2_frozen_robustness.py'
+      - '.github/workflows/gpt-r2-frozen-robustness.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Download indicator augmentation artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug-artifacts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - name: Run frozen r2 robustness audit
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frozen_robustness/r2_frozen_robustness.py \
+            --artifact-dir /tmp/indicator-aug-artifacts \
+            --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frozen_robustness/output \
+            --workers 12
+      - name: Persist results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frozen_robustness/output/REPORT.md \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frozen_robustness/output/summary.json \
+            gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frozen_robustness/output/holdout_symbol_contribution.csv
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist frozen r2 robustness audit [skip ci]"
+            git push
+          fi
