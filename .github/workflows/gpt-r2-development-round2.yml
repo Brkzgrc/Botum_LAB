@@ -2,6 +2,10 @@ name: GPT - r2 Development Round 2
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/**'
+      - '.github/workflows/gpt-r2-development-round2.yml'
 
 permissions:
   actions: read
