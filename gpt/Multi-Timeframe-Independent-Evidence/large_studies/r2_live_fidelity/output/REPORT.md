@@ -1,0 +1,37 @@
+# r2 Live Scanner Fidelity
+
+{
+  "purpose": "Historical replay fidelity between the frozen r2 research features and the standalone live scanner calculations.",
+  "sample": 96,
+  "usable": 96,
+  "errors": 0,
+  "r2_classification_agreement_pct": 100.0,
+  "false_negative_count": 0,
+  "false_positive_count": 0,
+  "feature_differences": {
+    "coin4_bb": {
+      "n": 96,
+      "median_abs": 6.234457394782567e-13,
+      "p95_abs": 4.1499449709991865e-11,
+      "max_abs": 8.107547133651138e-10
+    },
+    "btc1_tsi_d1": {
+      "n": 96,
+      "median_abs": 2.321059255905311e-08,
+      "p95_abs": 7.413188822524841e-08,
+      "max_abs": 1.644404932776844e-07
+    },
+    "btc4_bb": {
+      "n": 96,
+      "median_abs": 1.0815653928020197e-13,
+      "p95_abs": 2.3514523661560816e-13,
+      "max_abs": 2.664674036978454e-13
+    },
+    "dd48": {
+      "n": 96,
+      "median_abs": 0.0,
+      "p95_abs": 0.0,
+      "max_abs": 0.0
+    }
+  }
+}
