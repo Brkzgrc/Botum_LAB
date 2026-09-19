@@ -152,7 +152,7 @@ def enrich(df: pd.DataFrame) -> pd.DataFrame:
     x["hammer"] = (x.lower_wick_frac >= 0.50) & (x.body_frac <= 0.40) & (x.close_loc >= 0.60)
     x["reclaim_prev_high"] = x.close > x.high.shift(1)
 
-    for n in [8, 16, 32, 96]:
+    for n in [8, 16, 24, 32, 96]:
         x[f"prev_high_{n}"] = x.high.shift(1).rolling(n).max()
         x[f"prev_low_{n}"] = x.low.shift(1).rolling(n).min()
 
