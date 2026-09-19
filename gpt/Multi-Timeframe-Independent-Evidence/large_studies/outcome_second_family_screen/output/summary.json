@@ -1,0 +1,926 @@
+{
+  "status": "SUCCESS",
+  "purpose": "Screen a genuinely independent second setup family from outcome-first rise/control episodes, without conditioning on r1/r2. All pre_* fields are excluded because the original pre-path implementation touched the entry candle. Selection uses Discovery+Calibration only.",
+  "preflight": {
+    "rows": 246586,
+    "symbols": 464,
+    "positive": 185756,
+    "controls": 60830,
+    "splits": {
+      "DISCOVERY": 71942,
+      "CALIBRATION": 45044,
+      "CROSS_HOLDOUT_PRE2026": 62167,
+      "FINAL_HOLDOUT_2026": 21229
+    }
+  },
+  "base": {
+    "DISCOVERY": {
+      "n": 71942,
+      "symbols": 183,
+      "pos": 50634,
+      "pos_rate": 70.38169636651747
+    },
+    "CALIBRATION": {
+      "n": 45044,
+      "symbols": 255,
+      "pos": 38295,
+      "pos_rate": 85.01687239143948
+    },
+    "CROSS_HOLDOUT_PRE2026": {
+      "n": 62167,
+      "symbols": 120,
+      "pos": 48092,
+      "pos_rate": 77.3593707272347
+    },
+    "FINAL_HOLDOUT_2026": {
+      "n": 21229,
+      "symbols": 147,
+      "pos": 15503,
+      "pos_rate": 73.02746243346367
+    }
+  },
+  "features": 495,
+  "stable_singles": 902,
+  "stable_pairs": 241,
+  "champion_selected_without_holdouts": {
+    "rule": {
+      "type": "single",
+      "feature": "h1_atr_pct",
+      "side": "GE",
+      "threshold": 1.58953710752988,
+      "q": 0.7,
+      "family": "atr",
+      "timeframe": "h1"
+    },
+    "DISCOVERY": {
+      "n": 21574,
+      "symbols": 183,
+      "pos": 21402,
+      "pos_rate": 99.20274404375637
+    },
+    "CALIBRATION": {
+      "n": 17728,
+      "symbols": 254,
+      "pos": 17715,
+      "pos_rate": 99.92666967509025
+    },
+    "CROSS_HOLDOUT_PRE2026": {
+      "n": 20824,
+      "symbols": 120,
+      "pos": 20808,
+      "pos_rate": 99.92316557817902
+    },
+    "FINAL_HOLDOUT_2026": {
+      "n": 4753,
+      "symbols": 140,
+      "pos": 4740,
+      "pos_rate": 99.72648853355776
+    },
+    "score": 18.822980082010126
+  },
+  "top10_singles": [
+    {
+      "rule": {
+        "type": "single",
+        "feature": "h1_atr_pct",
+        "side": "GE",
+        "threshold": 1.58953710752988,
+        "q": 0.7,
+        "family": "atr",
+        "timeframe": "h1"
+      },
+      "DISCOVERY": {
+        "n": 21574,
+        "symbols": 183,
+        "pos": 21402,
+        "pos_rate": 99.20274404375637
+      },
+      "CALIBRATION": {
+        "n": 17728,
+        "symbols": 254,
+        "pos": 17715,
+        "pos_rate": 99.92666967509025
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 20824,
+        "symbols": 120,
+        "pos": 20808,
+        "pos_rate": 99.92316557817902
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 4753,
+        "symbols": 140,
+        "pos": 4740,
+        "pos_rate": 99.72648853355776
+      },
+      "score": 18.822980082010126
+    },
+    {
+      "rule": {
+        "type": "single",
+        "feature": "h1_atr_pct",
+        "side": "GE",
+        "threshold": 1.8989381528236942,
+        "q": 0.8,
+        "family": "atr",
+        "timeframe": "h1"
+      },
+      "DISCOVERY": {
+        "n": 14383,
+        "symbols": 182,
+        "pos": 14284,
+        "pos_rate": 99.31168740874644
+      },
+      "CALIBRATION": {
+        "n": 11495,
+        "symbols": 254,
+        "pos": 11493,
+        "pos_rate": 99.98260113092648
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 13566,
+        "symbols": 120,
+        "pos": 13564,
+        "pos_rate": 99.98525726079906
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2869,
+        "symbols": 139,
+        "pos": 2862,
+        "pos_rate": 99.7560125479261
+      },
+      "score": 18.70563051059055
+    },
+    {
+      "rule": {
+        "type": "single",
+        "feature": "h4_atr_pct",
+        "side": "GE",
+        "threshold": 3.292050174603821,
+        "q": 0.7,
+        "family": "atr",
+        "timeframe": "h4"
+      },
+      "DISCOVERY": {
+        "n": 21560,
+        "symbols": 183,
+        "pos": 21389,
+        "pos_rate": 99.20686456400742
+      },
+      "CALIBRATION": {
+        "n": 17867,
+        "symbols": 253,
+        "pos": 17827,
+        "pos_rate": 99.77612357978396
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 20879,
+        "symbols": 120,
+        "pos": 20844,
+        "pos_rate": 99.8323674505484
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 4636,
+        "symbols": 137,
+        "pos": 4614,
+        "pos_rate": 99.52545297670406
+      },
+      "score": 18.67555786133328
+    },
+    {
+      "rule": {
+        "type": "single",
+        "feature": "h4_atr_pct",
+        "side": "GE",
+        "threshold": 3.8744745996669394,
+        "q": 0.8,
+        "family": "atr",
+        "timeframe": "h4"
+      },
+      "DISCOVERY": {
+        "n": 14374,
+        "symbols": 183,
+        "pos": 14267,
+        "pos_rate": 99.25560038959233
+      },
+      "CALIBRATION": {
+        "n": 11588,
+        "symbols": 253,
+        "pos": 11574,
+        "pos_rate": 99.87918536416983
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 13548,
+        "symbols": 120,
+        "pos": 13522,
+        "pos_rate": 99.80808975494539
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2794,
+        "symbols": 137,
+        "pos": 2787,
+        "pos_rate": 99.7494631352899
+      },
+      "score": 18.605437633264106
+    },
+    {
+      "rule": {
+        "type": "single",
+        "feature": "m15_atr_pct",
+        "side": "GE",
+        "threshold": 0.7690990287177644,
+        "q": 0.7,
+        "family": "atr",
+        "timeframe": "m15"
+      },
+      "DISCOVERY": {
+        "n": 21578,
+        "symbols": 182,
+        "pos": 21295,
+        "pos_rate": 98.6884790063954
+      },
+      "CALIBRATION": {
+        "n": 17419,
+        "symbols": 254,
+        "pos": 17366,
+        "pos_rate": 99.6957345427407
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 20560,
+        "symbols": 120,
+        "pos": 20487,
+        "pos_rate": 99.64494163424125
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 4807,
+        "symbols": 141,
+        "pos": 4784,
+        "pos_rate": 99.52153110047847
+      },
+      "score": 18.585011851463815
+    },
+    {
+      "rule": {
+        "type": "single",
+        "feature": "m15_atr_pct",
+        "side": "GE",
+        "threshold": 0.9420828617951332,
+        "q": 0.8,
+        "family": "atr",
+        "timeframe": "m15"
+      },
+      "DISCOVERY": {
+        "n": 14386,
+        "symbols": 182,
+        "pos": 14156,
+        "pos_rate": 98.40122341165022
+      },
+      "CALIBRATION": {
+        "n": 11237,
+        "symbols": 254,
+        "pos": 11217,
+        "pos_rate": 99.82201655246062
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 13315,
+        "symbols": 120,
+        "pos": 13295,
+        "pos_rate": 99.84979346601577
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2918,
+        "symbols": 141,
+        "pos": 2909,
+        "pos_rate": 99.6915695681974
+      },
+      "score": 18.535966629690005
+    },
+    {
+      "rule": {
+        "type": "single",
+        "feature": "h4_ppo_hist",
+        "side": "GE",
+        "threshold": 0.6192291492959187,
+        "q": 0.9,
+        "family": "ppo",
+        "timeframe": "h4"
+      },
+      "DISCOVERY": {
+        "n": 7193,
+        "symbols": 182,
+        "pos": 7176,
+        "pos_rate": 99.76365911302655
+      },
+      "CALIBRATION": {
+        "n": 5965,
+        "symbols": 254,
+        "pos": 5965,
+        "pos_rate": 100.0
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 7159,
+        "symbols": 120,
+        "pos": 7130,
+        "pos_rate": 99.59491549099036
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 1801,
+        "symbols": 142,
+        "pos": 1801,
+        "pos_rate": 100.0
+      },
+      "score": 18.4606603945904
+    },
+    {
+      "rule": {
+        "type": "single",
+        "feature": "h4_atr_pct",
+        "side": "GE",
+        "threshold": 4.829545507246639,
+        "q": 0.9,
+        "family": "atr",
+        "timeframe": "h4"
+      },
+      "DISCOVERY": {
+        "n": 7187,
+        "symbols": 181,
+        "pos": 7143,
+        "pos_rate": 99.38778349798247
+      },
+      "CALIBRATION": {
+        "n": 5632,
+        "symbols": 252,
+        "pos": 5632,
+        "pos_rate": 100.0
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 6595,
+        "symbols": 120,
+        "pos": 6582,
+        "pos_rate": 99.80288097043216
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 1326,
+        "symbols": 122,
+        "pos": 1319,
+        "pos_rate": 99.47209653092006
+      },
+      "score": 18.43768658411841
+    },
+    {
+      "rule": {
+        "type": "single",
+        "feature": "h1_atr_pct",
+        "side": "GE",
+        "threshold": 2.438384447496052,
+        "q": 0.9,
+        "family": "atr",
+        "timeframe": "h1"
+      },
+      "DISCOVERY": {
+        "n": 7192,
+        "symbols": 182,
+        "pos": 7114,
+        "pos_rate": 98.9154616240267
+      },
+      "CALIBRATION": {
+        "n": 5209,
+        "symbols": 253,
+        "pos": 5209,
+        "pos_rate": 100.0
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 6420,
+        "symbols": 120,
+        "pos": 6420,
+        "pos_rate": 100.0
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 1338,
+        "symbols": 130,
+        "pos": 1331,
+        "pos_rate": 99.47683109118086
+      },
+      "score": 18.40646166245949
+    },
+    {
+      "rule": {
+        "type": "single",
+        "feature": "h4_roc4",
+        "side": "GE",
+        "threshold": 3.338171262699552,
+        "q": 0.9,
+        "family": "roc",
+        "timeframe": "h4"
+      },
+      "DISCOVERY": {
+        "n": 7192,
+        "symbols": 182,
+        "pos": 7189,
+        "pos_rate": 99.95828698553949
+      },
+      "CALIBRATION": {
+        "n": 5183,
+        "symbols": 254,
+        "pos": 5183,
+        "pos_rate": 100.0
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 6740,
+        "symbols": 120,
+        "pos": 6737,
+        "pos_rate": 99.95548961424332
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 1858,
+        "symbols": 144,
+        "pos": 1858,
+        "pos_rate": 100.0
+      },
+      "score": 18.404460503773368
+    }
+  ],
+  "top10_pairs": [
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h1_atr_pct",
+          "side": "GE",
+          "threshold": 1.58953710752988,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "h1"
+        },
+        "b": {
+          "type": "single",
+          "feature": "h4_atr_pct",
+          "side": "GE",
+          "threshold": 3.292050174603821,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "h4"
+        }
+      },
+      "DISCOVERY": {
+        "n": 17879,
+        "symbols": 183,
+        "pos": 17877,
+        "pos_rate": 99.98881369204095
+      },
+      "CALIBRATION": {
+        "n": 15067,
+        "symbols": 253,
+        "pos": 15062,
+        "pos_rate": 99.96681489347581
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 17501,
+        "symbols": 120,
+        "pos": 17501,
+        "pos_rate": 100.0
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 3693,
+        "symbols": 136,
+        "pos": 3685,
+        "pos_rate": 99.78337395071757
+      },
+      "score": 18.79807392956111
+    },
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h1_atr_pct",
+          "side": "GE",
+          "threshold": 1.58953710752988,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "h1"
+        },
+        "b": {
+          "type": "single",
+          "feature": "m15_atr_pct",
+          "side": "GE",
+          "threshold": 0.7690990287177644,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "m15"
+        }
+      },
+      "DISCOVERY": {
+        "n": 18721,
+        "symbols": 182,
+        "pos": 18551,
+        "pos_rate": 99.0919288499546
+      },
+      "CALIBRATION": {
+        "n": 15388,
+        "symbols": 254,
+        "pos": 15378,
+        "pos_rate": 99.93501429685469
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 17983,
+        "symbols": 120,
+        "pos": 17971,
+        "pos_rate": 99.93327031084914
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 3869,
+        "symbols": 139,
+        "pos": 3856,
+        "pos_rate": 99.6639958645645
+      },
+      "score": 18.774705204400753
+    },
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h4_atr_pct",
+          "side": "GE",
+          "threshold": 3.292050174603821,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "h4"
+        },
+        "b": {
+          "type": "single",
+          "feature": "m15_atr_pct",
+          "side": "GE",
+          "threshold": 0.7690990287177644,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "m15"
+        }
+      },
+      "DISCOVERY": {
+        "n": 15881,
+        "symbols": 182,
+        "pos": 15880,
+        "pos_rate": 99.99370316730685
+      },
+      "CALIBRATION": {
+        "n": 13380,
+        "symbols": 253,
+        "pos": 13378,
+        "pos_rate": 99.98505231689087
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 15498,
+        "symbols": 120,
+        "pos": 15498,
+        "pos_rate": 100.0
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 3085,
+        "symbols": 134,
+        "pos": 3076,
+        "pos_rate": 99.70826580226905
+      },
+      "score": 18.768816353173392
+    },
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h1_atr_pct",
+          "side": "GE",
+          "threshold": 1.58953710752988,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "h1"
+        },
+        "b": {
+          "type": "single",
+          "feature": "h4_atr_pct",
+          "side": "GE",
+          "threshold": 3.8744745996669394,
+          "q": 0.8,
+          "family": "atr",
+          "timeframe": "h4"
+        }
+      },
+      "DISCOVERY": {
+        "n": 13420,
+        "symbols": 183,
+        "pos": 13418,
+        "pos_rate": 99.98509687034277
+      },
+      "CALIBRATION": {
+        "n": 10960,
+        "symbols": 253,
+        "pos": 10960,
+        "pos_rate": 100.0
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 12805,
+        "symbols": 120,
+        "pos": 12805,
+        "pos_rate": 100.0
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2556,
+        "symbols": 136,
+        "pos": 2549,
+        "pos_rate": 99.72613458528951
+      },
+      "score": 18.703967127446813
+    },
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h1_atr_pct",
+          "side": "GE",
+          "threshold": 1.8989381528236942,
+          "q": 0.8,
+          "family": "atr",
+          "timeframe": "h1"
+        },
+        "b": {
+          "type": "single",
+          "feature": "h4_atr_pct",
+          "side": "GE",
+          "threshold": 3.292050174603821,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "h4"
+        }
+      },
+      "DISCOVERY": {
+        "n": 13185,
+        "symbols": 182,
+        "pos": 13185,
+        "pos_rate": 100.0
+      },
+      "CALIBRATION": {
+        "n": 10830,
+        "symbols": 253,
+        "pos": 10830,
+        "pos_rate": 100.0
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 12690,
+        "symbols": 120,
+        "pos": 12690,
+        "pos_rate": 100.0
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2573,
+        "symbols": 134,
+        "pos": 2566,
+        "pos_rate": 99.72794403420131
+      },
+      "score": 18.69919467729482
+    },
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h1_atr_pct",
+          "side": "GE",
+          "threshold": 1.8989381528236942,
+          "q": 0.8,
+          "family": "atr",
+          "timeframe": "h1"
+        },
+        "b": {
+          "type": "single",
+          "feature": "m15_atr_pct",
+          "side": "GE",
+          "threshold": 0.7690990287177644,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "m15"
+        }
+      },
+      "DISCOVERY": {
+        "n": 13881,
+        "symbols": 182,
+        "pos": 13782,
+        "pos_rate": 99.28679489950292
+      },
+      "CALIBRATION": {
+        "n": 11116,
+        "symbols": 254,
+        "pos": 11114,
+        "pos_rate": 99.98200791651674
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 13121,
+        "symbols": 120,
+        "pos": 13119,
+        "pos_rate": 99.98475725935523
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2687,
+        "symbols": 139,
+        "pos": 2680,
+        "pos_rate": 99.73948641607741
+      },
+      "score": 18.691627823970705
+    },
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h4_atr_pct",
+          "side": "GE",
+          "threshold": 3.8744745996669394,
+          "q": 0.8,
+          "family": "atr",
+          "timeframe": "h4"
+        },
+        "b": {
+          "type": "single",
+          "feature": "m15_atr_pct",
+          "side": "GE",
+          "threshold": 0.7690990287177644,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "m15"
+        }
+      },
+      "DISCOVERY": {
+        "n": 12036,
+        "symbols": 182,
+        "pos": 12036,
+        "pos_rate": 100.0
+      },
+      "CALIBRATION": {
+        "n": 9826,
+        "symbols": 253,
+        "pos": 9826,
+        "pos_rate": 100.0
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 11494,
+        "symbols": 120,
+        "pos": 11494,
+        "pos_rate": 100.0
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2123,
+        "symbols": 131,
+        "pos": 2116,
+        "pos_rate": 99.67027790861988
+      },
+      "score": 18.660283199905493
+    },
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h4_atr_pct",
+          "side": "GE",
+          "threshold": 3.292050174603821,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "h4"
+        },
+        "b": {
+          "type": "single",
+          "feature": "m15_atr_pct",
+          "side": "GE",
+          "threshold": 0.9420828617951332,
+          "q": 0.8,
+          "family": "atr",
+          "timeframe": "m15"
+        }
+      },
+      "DISCOVERY": {
+        "n": 11569,
+        "symbols": 182,
+        "pos": 11569,
+        "pos_rate": 100.0
+      },
+      "CALIBRATION": {
+        "n": 9558,
+        "symbols": 253,
+        "pos": 9557,
+        "pos_rate": 99.98953756015902
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 11211,
+        "symbols": 120,
+        "pos": 11211,
+        "pos_rate": 100.0
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2152,
+        "symbols": 133,
+        "pos": 2145,
+        "pos_rate": 99.67472118959108
+      },
+      "score": 18.63876052794505
+    },
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h1_atr_pct",
+          "side": "GE",
+          "threshold": 1.8989381528236942,
+          "q": 0.8,
+          "family": "atr",
+          "timeframe": "h1"
+        },
+        "b": {
+          "type": "single",
+          "feature": "h4_atr_pct",
+          "side": "GE",
+          "threshold": 3.8744745996669394,
+          "q": 0.8,
+          "family": "atr",
+          "timeframe": "h4"
+        }
+      },
+      "DISCOVERY": {
+        "n": 11189,
+        "symbols": 181,
+        "pos": 11189,
+        "pos_rate": 100.0
+      },
+      "CALIBRATION": {
+        "n": 9140,
+        "symbols": 253,
+        "pos": 9140,
+        "pos_rate": 100.0
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 10718,
+        "symbols": 120,
+        "pos": 10718,
+        "pos_rate": 100.0
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2068,
+        "symbols": 133,
+        "pos": 2061,
+        "pos_rate": 99.6615087040619
+      },
+      "score": 18.63133763562205
+    },
+    {
+      "rule": {
+        "type": "and_pair",
+        "a": {
+          "type": "single",
+          "feature": "h1_atr_pct",
+          "side": "GE",
+          "threshold": 1.58953710752988,
+          "q": 0.7,
+          "family": "atr",
+          "timeframe": "h1"
+        },
+        "b": {
+          "type": "single",
+          "feature": "m15_atr_pct",
+          "side": "GE",
+          "threshold": 0.9420828617951332,
+          "q": 0.8,
+          "family": "atr",
+          "timeframe": "m15"
+        }
+      },
+      "DISCOVERY": {
+        "n": 13794,
+        "symbols": 182,
+        "pos": 13625,
+        "pos_rate": 98.77482963607366
+      },
+      "CALIBRATION": {
+        "n": 10951,
+        "symbols": 254,
+        "pos": 10943,
+        "pos_rate": 99.92694731074788
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "n": 12943,
+        "symbols": 120,
+        "pos": 12934,
+        "pos_rate": 99.93046434366066
+      },
+      "FINAL_HOLDOUT_2026": {
+        "n": 2713,
+        "symbols": 137,
+        "pos": 2704,
+        "pos_rate": 99.6682639144858
+      },
+      "score": 18.630585866095714
+    }
+  ],
+  "next_required_validation": "Run the frozen champion over the complete hourly Binance Spot USDT population for 2025 calibration and 2026 untouched population to measure real net24 and signals/day."
+}
