@@ -1,0 +1,156 @@
+name: GPT - r2 Frequency Expansion
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frequency_expansion/**'
+      - '.github/workflows/gpt-r2-frequency-expansion.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - name: Download broad causal feature artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - name: Download verified r2 event dataset
+        uses: actions/download-artifact@v4
+        with:
+          name: r2-round2-dataset
+          path: /tmp/r2-dataset
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35452406018
+      - name: Static compile
+        run: python -m py_compile gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frequency_expansion/frequency_expansion.py
+      - name: Data, cohort and exact r1/r2 matching preflight
+        run: |
+          set -e
+          for study in near_miss non_r1 local_non_r2; do
+            python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frequency_expansion/frequency_expansion.py               --indicator-dir /tmp/indicator-aug               --r2-dataset-dir /tmp/r2-dataset               --outdir "/tmp/preflight-$study"               --study "$study"               --preflight
+          done
+
+  near_miss:
+    needs: preflight
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - uses: actions/download-artifact@v4
+        with:
+          name: r2-round2-dataset
+          path: /tmp/r2-dataset
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35452406018
+      - run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frequency_expansion/frequency_expansion.py             --indicator-dir /tmp/indicator-aug --r2-dataset-dir /tmp/r2-dataset             --outdir /tmp/result --study near_miss
+      - uses: actions/upload-artifact@v4
+        with: {name: r2-frequency-near-miss, path: /tmp/result}
+
+  non_r1:
+    needs: preflight
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - uses: actions/download-artifact@v4
+        with:
+          name: r2-round2-dataset
+          path: /tmp/r2-dataset
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35452406018
+      - run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frequency_expansion/frequency_expansion.py             --indicator-dir /tmp/indicator-aug --r2-dataset-dir /tmp/r2-dataset             --outdir /tmp/result --study non_r1
+      - uses: actions/upload-artifact@v4
+        with: {name: r2-frequency-non-r1, path: /tmp/result}
+
+  local_non_r2:
+    needs: preflight
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - uses: actions/download-artifact@v4
+        with:
+          name: r2-round2-dataset
+          path: /tmp/r2-dataset
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35452406018
+      - run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frequency_expansion/frequency_expansion.py             --indicator-dir /tmp/indicator-aug --r2-dataset-dir /tmp/r2-dataset             --outdir /tmp/result --study local_non_r2
+      - uses: actions/upload-artifact@v4
+        with: {name: r2-frequency-local-non-r2, path: /tmp/result}
+
+  persist:
+    needs: [near_miss, non_r1, local_non_r2]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/download-artifact@v4
+        with: {name: r2-frequency-near-miss, path: /tmp/near_miss}
+      - uses: actions/download-artifact@v4
+        with: {name: r2-frequency-non-r1, path: /tmp/non_r1}
+      - uses: actions/download-artifact@v4
+        with: {name: r2-frequency-local-non-r2, path: /tmp/local_non_r2}
+      - name: Collect outputs
+        run: |
+          base=gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frequency_expansion/output
+          mkdir -p "$base"/{near_miss,non_r1,local_non_r2}
+          cp -a /tmp/near_miss/. "$base/near_miss/"
+          cp -a /tmp/non_r1/. "$base/non_r1/"
+          cp -a /tmp/local_non_r2/. "$base/local_non_r2/"
+      - name: Persist results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frequency_expansion/output
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist r2 frequency expansion results [skip ci]"
+          git pull --rebase origin main
+          git push
