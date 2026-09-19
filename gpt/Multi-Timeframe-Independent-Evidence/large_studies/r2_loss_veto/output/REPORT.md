@@ -1,0 +1,59 @@
+# r2 Loss Veto Research
+
+{
+  "purpose": "Find a causal pre-entry veto on frozen r2. Selection uses Discovery+Calibration only; holdouts are diagnostics.",
+  "features_scanned": 0,
+  "single_rules": 0,
+  "stable_singles": 0,
+  "pair_rules": 0,
+  "base": {
+    "DISCOVERY": {
+      "n": 27,
+      "symbols": 27,
+      "mean24": 3.400172271386731,
+      "median24": 4.024854162983904,
+      "win24": 88.88888888888889,
+      "loss24": 11.11111111111111,
+      "pf24": 10.977066345372439,
+      "q10": 0.24009324009325128,
+      "q25": 2.431192062185261
+    },
+    "CALIBRATION": {
+      "n": 48,
+      "symbols": 45,
+      "mean24": 3.4795206061411172,
+      "median24": 3.2987176711575805,
+      "win24": 85.41666666666666,
+      "loss24": 14.583333333333334,
+      "pf24": 14.689469507557831,
+      "q10": -0.7475557917109562,
+      "q25": 1.031112072057894
+    },
+    "CROSS_HOLDOUT_PRE2026": {
+      "n": 40,
+      "symbols": 31,
+      "mean24": 2.7599377848894653,
+      "median24": 3.1100111978474283,
+      "win24": 80.0,
+      "loss24": 20.0,
+      "pf24": 5.011412540448139,
+      "q10": -1.3878101252645934,
+      "q25": 0.3472949126526682
+    },
+    "FINAL_HOLDOUT_2026": {
+      "n": 36,
+      "symbols": 32,
+      "mean24": 5.806782466854985,
+      "median24": 3.489224799467172,
+      "win24": 97.22222222222221,
+      "loss24": 2.7777777777777777,
+      "pf24": 348.0771504998062,
+      "q10": 1.5117030594526628,
+      "q25": 2.9498880900973523
+    }
+  },
+  "champion_selected_without_holdouts": null,
+  "champion_diagnostics": null,
+  "top10_singles": [],
+  "top10_pairs": []
+}
