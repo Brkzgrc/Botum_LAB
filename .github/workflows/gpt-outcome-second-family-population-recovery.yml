@@ -1,0 +1,100 @@
+name: GPT - Outcome Second Family Population Recovery
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/gpt-outcome-second-family-population-recovery.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+
+      - run: pip install --disable-pip-version-check numpy pandas requests
+
+      - name: Preflight 1 - compile
+        run: |
+          python -m py_compile             gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/population_validation.py
+
+      - name: Preflight 2 - verify and download exactly 64 shard artifacts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/pop-validation
+          gh api --paginate             "repos/Brkzgrc/Botum_LAB/actions/runs/35459462576/artifacts?per_page=100"             --jq '.artifacts[] | select(.name | startswith("outcome-second-pop-shard-")) | [.id,.name] | @tsv'             > /tmp/pop-artifacts.tsv
+          count=$(wc -l < /tmp/pop-artifacts.tsv)
+          echo "artifact_count=$count"
+          test "$count" -eq 64
+
+          while IFS=$'\t' read -r id name; do
+            mkdir -p "/tmp/pop-validation/$name"
+            gh api "repos/Brkzgrc/Botum_LAB/actions/artifacts/$id/zip" > "/tmp/$name.zip"
+            unzip -q "/tmp/$name.zip" -d "/tmp/pop-validation/$name"
+            rm -f "/tmp/$name.zip"
+          done < /tmp/pop-artifacts.tsv
+
+          test "$(find /tmp/pop-validation -name meta.json | wc -l)" -eq 64
+
+      - name: Re-aggregate existing completed shards
+        run: |
+          rm -rf /tmp/recovery-output
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/population_validation.py             --aggregate-dir /tmp/pop-validation             --outdir /tmp/recovery-output
+
+      - name: Preflight 3 - validate aggregate and repository-size guard
+        run: |
+          set -euo pipefail
+          test -s /tmp/recovery-output/summary.json
+          test -s /tmp/recovery-output/REPORT.md
+          test -s /tmp/recovery-output/population_events.csv
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("/tmp/recovery-output/summary.json")
+          s=json.loads(p.read_text(encoding="utf-8"))
+          assert s["rule"]["h1_atr_pct_min"] == 1.58953710752988
+          assert s["periods"]["CALIBRATION_2025"]["cooldown24"]["metrics"]["n"] > 1000
+          assert s["periods"]["OOS_2026"]["cooldown24"]["metrics"]["n"] > 1000
+          assert s["events_cooldown24"] > 10000
+          print("summary validation OK")
+          PY
+
+          bytes=$(stat -c%s /tmp/recovery-output/population_events.csv)
+          echo "population_events_bytes=$bytes"
+          test "$bytes" -gt 104857600
+          echo "Large CSV correctly blocked from git persistence."
+
+      - name: Upload large event table as artifact, not git
+        uses: actions/upload-artifact@v4
+        with:
+          name: outcome-second-population-events
+          path: /tmp/recovery-output/population_events.csv
+          retention-days: 30
+
+      - name: Persist compact validated results only
+        run: |
+          set -euo pipefail
+          dst=gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/output
+          mkdir -p "$dst"
+          cp /tmp/recovery-output/summary.json "$dst/summary.json"
+          cp /tmp/recovery-output/REPORT.md "$dst/REPORT.md"
+          rm -f "$dst/population_events.csv"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$dst/summary.json" "$dst/REPORT.md"
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist compact second-family population validation [skip ci]"
+          git pull --rebase origin main
+          git push
