@@ -1,0 +1,55 @@
+name: GPT - r2 DIP Entry Promotion Audit
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dip_entry_promotion/**'
+      - '.github/workflows/gpt-r2-dip-entry-promotion.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  promotion_audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+
+      - run: pip install --disable-pip-version-check numpy pandas
+
+      - name: Download verified round2 dataset
+        uses: actions/download-artifact@v4
+        with:
+          name: r2-round2-dataset
+          path: /tmp/r2-round2-dataset
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35452406018
+
+      - name: Static compile preflight
+        run: |
+          python -m py_compile             gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dip_entry_promotion/r2_dip_entry_promotion.py
+
+      - name: Dataset and baseline reproduction preflight
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dip_entry_promotion/r2_dip_entry_promotion.py             --dataset-dir /tmp/r2-round2-dataset             --outdir /tmp/r2-dip-preflight             --preflight
+
+      - name: Run promotion audit
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dip_entry_promotion/r2_dip_entry_promotion.py             --dataset-dir /tmp/r2-round2-dataset             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dip_entry_promotion/output
+
+      - name: Persist results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dip_entry_promotion/output
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist r2 dip entry promotion audit [skip ci]"
+          git pull --rebase origin main
+          git push
