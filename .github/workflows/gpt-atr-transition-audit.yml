@@ -1,0 +1,75 @@
+name: GPT - ATR Transition Audit
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/atr_transition_audit/**'
+      - '.github/workflows/gpt-atr-transition-audit.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+
+      - run: pip install --disable-pip-version-check numpy pandas
+
+      - name: Preflight 1 - compile
+        run: |
+          python -m py_compile             gpt/Multi-Timeframe-Independent-Evidence/large_studies/atr_transition_audit/atr_transition_audit.py
+
+      - name: Preflight 2 - verify source artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          count=$(gh api "repos/Brkzgrc/Botum_LAB/actions/runs/35460260226/artifacts?per_page=100"             --jq '[.artifacts[] | select(.name=="outcome-second-population-events" and .expired==false)] | length')
+          echo "matching_artifact_count=$count"
+          test "$count" -eq 1
+          size=$(gh api "repos/Brkzgrc/Botum_LAB/actions/runs/35460260226/artifacts?per_page=100"             --jq '.artifacts[] | select(.name=="outcome-second-population-events") | .size_in_bytes')
+          echo "artifact_zip_size=$size"
+          test "$size" -gt 80000000
+
+      - name: Download validated population event table
+        uses: actions/download-artifact@v4
+        with:
+          name: outcome-second-population-events
+          path: /tmp/events
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35460260226
+
+      - name: Preflight 3 - real dataset/cohort validation
+        run: |
+          set -euo pipefail
+          test -s /tmp/events/population_events.csv
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/atr_transition_audit/atr_transition_audit.py             --events /tmp/events/population_events.csv             --outdir /tmp/preflight             --preflight
+
+      - name: Run ATR transition audit
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/atr_transition_audit/atr_transition_audit.py             --events /tmp/events/population_events.csv             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/atr_transition_audit/output
+
+      - name: Persist compact result only
+        run: |
+          set -euo pipefail
+          test -s gpt/Multi-Timeframe-Independent-Evidence/large_studies/atr_transition_audit/output/summary.json
+          bytes=$(stat -c%s gpt/Multi-Timeframe-Independent-Evidence/large_studies/atr_transition_audit/output/summary.json)
+          echo "summary_bytes=$bytes"
+          test "$bytes" -lt 5000000
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/atr_transition_audit/output/summary.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist ATR transition audit [skip ci]"
+          git pull --rebase origin main
+          git push
