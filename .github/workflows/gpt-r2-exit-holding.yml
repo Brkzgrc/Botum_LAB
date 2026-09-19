@@ -1,0 +1,45 @@
+name: GPT - r2 Exit Holding
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_exit_holding/r2_exit_holding.py'
+      - 'gpt/Multi-Timeframe-Independent-Evidence/r2_candidate/r2_common.py'
+      - '.github/workflows/gpt-r2-exit-holding.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug-artifacts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - name: Run r2 exit holding research
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_exit_holding/r2_exit_holding.py \
+            --artifact-dir /tmp/indicator-aug-artifacts \
+            --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_exit_holding/output \
+            --workers 12
+      - name: Persist results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_exit_holding/output
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist r2 exit holding results [skip ci]"
+          for i in 1 2 3; do git pull --rebase origin main && git push && exit 0; sleep 5; done
+          exit 1
