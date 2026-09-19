@@ -20,14 +20,23 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
       - run: pip install --disable-pip-version-check numpy pandas
-      - name: Download completed outcome-first artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: outcome-rise-shard-*
-          path: /tmp/outcome-first
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: Brkzgrc/Botum_LAB
-          run-id: 35393050289
+      - name: Download all 128 completed outcome-first shard artifacts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/outcome-first
+          gh api --paginate             "repos/Brkzgrc/Botum_LAB/actions/runs/35393050289/artifacts?per_page=100"             --jq '.artifacts[] | select(.name | startswith("outcome-rise-shard-")) | [.id,.name] | @tsv'             > /tmp/outcome-artifacts.tsv
+          count=$(wc -l < /tmp/outcome-artifacts.tsv)
+          echo "artifact_count=$count"
+          test "$count" -eq 128
+          while IFS=$'\t' read -r id name; do
+            mkdir -p "/tmp/outcome-first/$name"
+            gh api "repos/Brkzgrc/Botum_LAB/actions/artifacts/$id/zip" > "/tmp/$name.zip"
+            unzip -q "/tmp/$name.zip" -d "/tmp/outcome-first/$name"
+            rm -f "/tmp/$name.zip"
+          done < /tmp/outcome-artifacts.tsv
+          test "$(find /tmp/outcome-first -name episodes.csv | wc -l)" -eq 128
       - name: Compile preflight
         run: python -m py_compile gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_screen/second_family_screen.py
       - name: Cohort preflight
