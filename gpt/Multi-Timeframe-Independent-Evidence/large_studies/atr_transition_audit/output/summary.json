@@ -1,0 +1,21 @@
+{
+  "status": "SUCCESS",
+  "purpose": "Audit whether the failed broad ATR screen contains a causal sparse transition state (first-cross/quiet-gap/early-run/ATR-direction) with positive real 24h expectancy. Candidate choice uses only 2025 DEV-symbol Discovery+Calibration; holdouts are diagnostic.",
+  "preflight": {
+    "rows": 1853978,
+    "symbols": 456,
+    "min_time": "2025-01-01 00:00:00+00:00",
+    "max_time": "2026-09-17 23:00:00+00:00",
+    "split_counts": {
+      "DISCOVERY": 403194,
+      "CALIBRATION": 378101,
+      "CROSS_HOLDOUT_2025": 398939,
+      "FINAL_HOLDOUT_2026": 206537,
+      "ALL_2026": 673744
+    },
+    "rules": 150
+  },
+  "stable_train_rules": 0,
+  "champion_selected_without_holdouts": null,
+  "top20": []
+}
