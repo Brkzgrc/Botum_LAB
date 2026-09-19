@@ -420,6 +420,9 @@ def shard_main(shard: int, shards: int, outdir: Path, symbols_arg: str | None,
                 frames.append(x)
             if k % 3 == 0 or k == len(futs):
                 print(f"[SHARD {shard}] {k}/{len(futs)} union_events={sum(len(q) for q in frames)} errors={len(errors)}", flush=True)
+    if errors:
+        for e in errors:
+            print("[SYMBOL_ERROR] " + json.dumps(e, ensure_ascii=False), flush=True)
     out = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
     out.to_csv(outdir / "events.csv", index=False)
     pd.DataFrame(errors).to_csv(outdir / "errors.csv", index=False)
