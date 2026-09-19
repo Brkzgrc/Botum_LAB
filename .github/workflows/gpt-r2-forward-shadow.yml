@@ -1,0 +1,42 @@
+name: GPT - r2 Forward Shadow
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '3,18,33,48 * * * *'
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/forward_shadow_r2/r2_forward_shadow.py'
+      - 'gpt/Multi-Timeframe-Independent-Evidence/r2_candidate/r2_candidate_scanner.py'
+      - '.github/workflows/gpt-r2-forward-shadow.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gpt-r2-forward-shadow
+  cancel-in-progress: false
+
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Scan and update frozen r2 shadow
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/forward_shadow_r2/r2_forward_shadow.py \
+            --outdir gpt/Multi-Timeframe-Independent-Evidence/forward_shadow_r2/output \
+            --workers 6
+      - name: Persist shadow state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/forward_shadow_r2/output
+          git diff --cached --quiet && exit 0
+          git commit -m "Update frozen r2 forward shadow [skip ci]"
+          for i in 1 2 3; do git pull --rebase origin main && git push && exit 0; sleep 5; done
+          exit 1
