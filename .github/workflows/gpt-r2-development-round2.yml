@@ -50,7 +50,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - run: pip install --disable-pip-version-check numpy pandas
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Import preflight in child environment
+        run: |
+          python -c "import requests, numpy, pandas"
       - uses: actions/download-artifact@v4
         with: {name: r2-round2-dataset, path: /tmp/dataset}
       - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/veto_robustness.py --dataset-dir /tmp/dataset --outdir /tmp/result
@@ -64,7 +67,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - run: pip install --disable-pip-version-check numpy pandas
+      - run: pip install --disable-pip-version-check numpy pandas requests
       - uses: actions/download-artifact@v4
         with: {name: r2-round2-dataset, path: /tmp/dataset}
       - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/entry_timing.py --dataset-dir /tmp/dataset --outdir /tmp/result
@@ -78,7 +81,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - run: pip install --disable-pip-version-check numpy pandas
+      - run: pip install --disable-pip-version-check numpy pandas requests
       - uses: actions/download-artifact@v4
         with: {name: r2-round2-dataset, path: /tmp/dataset}
       - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/concurrent_ranking.py --dataset-dir /tmp/dataset --outdir /tmp/result
@@ -92,7 +95,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - run: pip install --disable-pip-version-check numpy pandas
+      - run: pip install --disable-pip-version-check numpy pandas requests
       - uses: actions/download-artifact@v4
         with: {name: r2-round2-dataset, path: /tmp/dataset}
       - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/regime_filter.py --dataset-dir /tmp/dataset --outdir /tmp/result
@@ -106,7 +109,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - run: pip install --disable-pip-version-check numpy pandas
+      - run: pip install --disable-pip-version-check numpy pandas requests
       - uses: actions/download-artifact@v4
         with: {name: r2-round2-dataset, path: /tmp/dataset}
       - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/early_risk_exit.py --dataset-dir /tmp/dataset --outdir /tmp/result
