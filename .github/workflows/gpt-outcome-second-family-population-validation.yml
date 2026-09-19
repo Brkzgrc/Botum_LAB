@@ -1,0 +1,75 @@
+name: GPT - Outcome Second Family Population Validation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/**'
+      - '.github/workflows/gpt-outcome-second-family-population-validation.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Compile
+        run: python -m py_compile gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/population_validation.py
+      - name: Real-data smoke test
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/population_validation.py             --shard 0 --shards 1             --symbols ETHUSDT,SOLUSDT             --outdir /tmp/smoke
+
+  shard:
+    needs: preflight
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Validate frozen threshold on full hourly population shard
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/population_validation.py             --shard ${{ matrix.shard }} --shards 64             --outdir /tmp/pop-validation/shard-${{ matrix.shard }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: outcome-second-pop-shard-${{ matrix.shard }}
+          path: /tmp/pop-validation/shard-${{ matrix.shard }}
+          retention-days: 7
+
+  aggregate:
+    needs: shard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: outcome-second-pop-shard-*
+          path: /tmp/pop-validation
+      - name: Verify all 64 shard artifacts
+        run: |
+          test "$(find /tmp/pop-validation -name meta.json | wc -l)" -eq 64
+      - name: Aggregate population validation
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/population_validation.py             --aggregate-dir /tmp/pop-validation             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/output
+      - name: Persist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/outcome_second_family_population_validation/output
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist outcome second-family population validation [skip ci]"
+          git pull --rebase origin main
+          git push
