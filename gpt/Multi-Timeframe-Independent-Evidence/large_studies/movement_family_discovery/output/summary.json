@@ -1,0 +1,490 @@
+{
+  "status": "TRAIN_STABLE_HOLDOUT_EVALUATED",
+  "purpose": "Broad causal Spot movement-start discovery from video-derived price/momentum/volatility ideas. Four independent setup families are evaluated; they are NOT AND-stacked into one rare r2-style filter.",
+  "goal": {
+    "desired_signals_per_day": "2-3 across Spot; >=1/day acceptable only if movement quality is strong",
+    "target_move_pct": "3-5",
+    "win_rate_floor_context": "~40% can be acceptable if 3-5% winners and expectancy/PF remain positive"
+  },
+  "causality": {
+    "closed_15m_only": true,
+    "closed_1h_4h_only": true,
+    "entry": "next 15m open at decision t+15m",
+    "round_trip_cost_pct": 0.2,
+    "same_bar_tp_sl_ambiguity": "pessimistic: stop first",
+    "rule_selection": "Discovery + Calibration only; holdouts diagnostic"
+  },
+  "universe": "active Binance Spot/USDT, exact stable/fiat base exclusions, BTC excluded",
+  "study_window": [
+    "2023-01-01 00:00:00+00:00",
+    "2026-09-18 00:00:00+00:00"
+  ],
+  "candidate_rules": 48,
+  "aggregate_union_events": 1261096,
+  "aggregate_symbols": 466,
+  "champions": {
+    "EARLY_REVERSAL": {
+      "rule": {
+        "id": "ER_043",
+        "family": "EARLY_REVERSAL",
+        "ret2_max": -2.0,
+        "dd12_max": -4.0,
+        "mom_min": 2
+      },
+      "plan": "TP5_SL3",
+      "score": 0.8727956236854351,
+      "DISCOVERY": {
+        "metrics": {
+          "n": 655,
+          "symbols": 167,
+          "mean24": 0.9608396713902954,
+          "median24": -0.8361455834810736,
+          "win24": 46.25954198473283,
+          "pf24": 1.2350909748287202,
+          "mfe24": 12.251248216096077,
+          "mae24": -7.932280846076493,
+          "TP3_SL2": {
+            "mean": -0.04261039493538919,
+            "median": -2.2,
+            "win": 43.20610687022901,
+            "pf": 0.9658971057152009,
+            "target_first": 42.900763358778626,
+            "stop_first": 56.79389312977099
+          },
+          "TP4_SL2P5": {
+            "mean": 0.051613841657372254,
+            "median": -2.7,
+            "win": 42.595419847328245,
+            "pf": 1.0334127440154994,
+            "target_first": 41.6793893129771,
+            "stop_first": 57.099236641221374
+          },
+          "TP5_SL3": {
+            "mean": 0.21672634704880844,
+            "median": -3.2,
+            "win": 43.20610687022901,
+            "pf": 1.1199457735414977,
+            "target_first": 41.37404580152671,
+            "stop_first": 56.33587786259542
+          }
+        },
+        "frequency": {
+          "signals": 655,
+          "signals_per_day": 0.896032831737346,
+          "active_days": 315,
+          "active_day_share_pct": 43.09165526675787,
+          "median_on_active_day": 1.0,
+          "p90_on_active_day": 3.0,
+          "max_in_day": 77
+        }
+      },
+      "CALIBRATION": {
+        "metrics": {
+          "n": 693,
+          "symbols": 228,
+          "mean24": -0.09935307380978267,
+          "median24": 0.3676855895196508,
+          "win24": 51.515151515151516,
+          "pf24": 0.9739889857186186,
+          "mfe24": 10.33143846994085,
+          "mae24": -7.191456973969704,
+          "TP3_SL2": {
+            "mean": 0.337149989064088,
+            "median": 2.8,
+            "win": 50.79365079365079,
+            "pf": 1.3114435382850085,
+            "target_first": 50.649350649350644,
+            "stop_first": 49.2063492063492
+          },
+          "TP4_SL2P5": {
+            "mean": 0.48462397930181633,
+            "median": -2.7,
+            "win": 49.494949494949495,
+            "pf": 1.356291610853174,
+            "target_first": 48.05194805194805,
+            "stop_first": 50.21645021645021
+          },
+          "TP5_SL3": {
+            "mean": 0.6877407401062333,
+            "median": -1.1150326797385477,
+            "win": 49.78354978354979,
+            "pf": 1.4357219059020614,
+            "target_first": 45.02164502164502,
+            "stop_first": 48.484848484848484
+          }
+        },
+        "frequency": {
+          "signals": 693,
+          "signals_per_day": 1.8986301369863015,
+          "active_days": 223,
+          "active_day_share_pct": 61.09589041095891,
+          "median_on_active_day": 2.0,
+          "p90_on_active_day": 5.0,
+          "max_in_day": 90
+        }
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "metrics": {
+          "n": 692,
+          "symbols": 115,
+          "mean24": 0.7749307703811614,
+          "median24": 0.24650031714876797,
+          "win24": 50.72254335260116,
+          "pf24": 1.21186293373924,
+          "mfe24": 11.065391593714212,
+          "mae24": -7.2709250480014385,
+          "TP3_SL2": {
+            "mean": 0.1165953542360169,
+            "median": -2.2,
+            "win": 46.38728323699422,
+            "pf": 1.0988532040324972,
+            "target_first": 46.09826589595375,
+            "stop_first": 53.612716763005785
+          },
+          "TP4_SL2P5": {
+            "mean": 0.3150503679305105,
+            "median": -2.7,
+            "win": 46.53179190751445,
+            "pf": 1.2194871277099075,
+            "target_first": 45.664739884393065,
+            "stop_first": 53.03468208092485
+          },
+          "TP5_SL3": {
+            "mean": 0.5818285666685236,
+            "median": -3.2,
+            "win": 48.12138728323699,
+            "pf": 1.3543586339263878,
+            "target_first": 44.94219653179191,
+            "stop_first": 51.01156069364162
+          }
+        },
+        "frequency": {
+          "signals": 692,
+          "signals_per_day": 0.6313868613138686,
+          "active_days": 352,
+          "active_day_share_pct": 32.11678832116788,
+          "median_on_active_day": 1.0,
+          "p90_on_active_day": 3.0,
+          "max_in_day": 57
+        }
+      },
+      "FINAL_HOLDOUT_2026": {
+        "metrics": {
+          "n": 182,
+          "symbols": 74,
+          "mean24": 1.3179025915779443,
+          "median24": -3.148608343586967,
+          "win24": 36.26373626373626,
+          "pf24": 1.2245891518818153,
+          "mfe24": 16.138648869681848,
+          "mae24": -9.910547465067998,
+          "TP3_SL2": {
+            "mean": -0.44175824175824185,
+            "median": -2.2,
+            "win": 35.16483516483517,
+            "pf": 0.6902927580893685,
+            "target_first": 35.16483516483517,
+            "stop_first": 64.83516483516483
+          },
+          "TP4_SL2P5": {
+            "mean": -0.1101523476523477,
+            "median": -2.7,
+            "win": 40.10989010989011,
+            "pf": 0.9318799616964758,
+            "target_first": 39.56043956043956,
+            "stop_first": 59.89010989010989
+          },
+          "TP5_SL3": {
+            "mean": -0.040899643165940434,
+            "median": -3.2,
+            "win": 39.56043956043956,
+            "pf": 0.9783950376231221,
+            "target_first": 38.46153846153847,
+            "stop_first": 58.24175824175825
+          }
+        },
+        "frequency": {
+          "signals": 182,
+          "signals_per_day": 0.7,
+          "active_days": 121,
+          "active_day_share_pct": 46.53846153846154,
+          "median_on_active_day": 1.0,
+          "p90_on_active_day": 3.0,
+          "max_in_day": 6
+        }
+      },
+      "ALL_2026": {
+        "metrics": {
+          "n": 726,
+          "symbols": 249,
+          "mean24": -0.555252624508238,
+          "median24": -3.0765364804104856,
+          "win24": 35.26170798898072,
+          "pf24": 0.9109581455510706,
+          "mfe24": 16.04364379037677,
+          "mae24": -10.234684238307455,
+          "TP3_SL2": {
+            "mean": -0.2731692405775524,
+            "median": -2.2,
+            "win": 38.56749311294766,
+            "pf": 0.7970806759212418,
+            "target_first": 38.29201101928375,
+            "stop_first": 61.15702479338842
+          },
+          "TP4_SL2P5": {
+            "mean": -0.20726359525928728,
+            "median": -2.7,
+            "win": 38.56749311294766,
+            "pf": 0.874281804171576,
+            "target_first": 37.74104683195592,
+            "stop_first": 61.019283746556475
+          },
+          "TP5_SL3": {
+            "mean": -0.2638944316920975,
+            "median": -3.2,
+            "win": 37.1900826446281,
+            "pf": 0.8665470546223818,
+            "target_first": 35.12396694214876,
+            "stop_first": 61.43250688705234
+          }
+        },
+        "frequency": {
+          "signals": 726,
+          "signals_per_day": 2.792307692307692,
+          "active_days": 232,
+          "active_day_share_pct": 89.23076923076924,
+          "median_on_active_day": 3.0,
+          "p90_on_active_day": 6.0,
+          "max_in_day": 15
+        }
+      }
+    }
+  },
+  "combined_selected_families": {
+    "DISCOVERY": {
+      "metrics": {
+        "n": 655,
+        "symbols": 167,
+        "mean24": 0.9608396713902951,
+        "median24": -0.8361455834810736,
+        "win24": 46.25954198473283,
+        "pf24": 1.2350909748287204,
+        "mfe24": 12.251248216096078,
+        "mae24": -7.932280846076493,
+        "TP3_SL2": {
+          "mean": -0.04261039493538924,
+          "median": -2.2,
+          "win": 43.20610687022901,
+          "pf": 0.9658971057152009,
+          "target_first": 42.900763358778626,
+          "stop_first": 56.79389312977099
+        },
+        "TP4_SL2P5": {
+          "mean": 0.051613841657372234,
+          "median": -2.7,
+          "win": 42.595419847328245,
+          "pf": 1.0334127440154992,
+          "target_first": 41.6793893129771,
+          "stop_first": 57.099236641221374
+        },
+        "TP5_SL3": {
+          "mean": 0.2167263470488085,
+          "median": -3.2,
+          "win": 43.20610687022901,
+          "pf": 1.1199457735414977,
+          "target_first": 41.37404580152671,
+          "stop_first": 56.33587786259542
+        }
+      },
+      "frequency": {
+        "signals": 655,
+        "signals_per_day": 0.896032831737346,
+        "active_days": 315,
+        "active_day_share_pct": 43.09165526675787,
+        "median_on_active_day": 1.0,
+        "p90_on_active_day": 3.0,
+        "max_in_day": 77
+      }
+    },
+    "CALIBRATION": {
+      "metrics": {
+        "n": 693,
+        "symbols": 228,
+        "mean24": -0.09935307380978263,
+        "median24": 0.3676855895196508,
+        "win24": 51.515151515151516,
+        "pf24": 0.9739889857186187,
+        "mfe24": 10.331438469940851,
+        "mae24": -7.191456973969704,
+        "TP3_SL2": {
+          "mean": 0.3371499890640879,
+          "median": 2.8,
+          "win": 50.79365079365079,
+          "pf": 1.3114435382850085,
+          "target_first": 50.649350649350644,
+          "stop_first": 49.2063492063492
+        },
+        "TP4_SL2P5": {
+          "mean": 0.48462397930181633,
+          "median": -2.7,
+          "win": 49.494949494949495,
+          "pf": 1.3562916108531737,
+          "target_first": 48.05194805194805,
+          "stop_first": 50.21645021645021
+        },
+        "TP5_SL3": {
+          "mean": 0.6877407401062333,
+          "median": -1.1150326797385477,
+          "win": 49.78354978354979,
+          "pf": 1.4357219059020616,
+          "target_first": 45.02164502164502,
+          "stop_first": 48.484848484848484
+        }
+      },
+      "frequency": {
+        "signals": 693,
+        "signals_per_day": 1.8986301369863015,
+        "active_days": 223,
+        "active_day_share_pct": 61.09589041095891,
+        "median_on_active_day": 2.0,
+        "p90_on_active_day": 5.0,
+        "max_in_day": 90
+      }
+    },
+    "CROSS_HOLDOUT_PRE2026": {
+      "metrics": {
+        "n": 692,
+        "symbols": 115,
+        "mean24": 0.7749307703811613,
+        "median24": 0.24650031714876797,
+        "win24": 50.72254335260116,
+        "pf24": 1.21186293373924,
+        "mfe24": 11.065391593714212,
+        "mae24": -7.2709250480014385,
+        "TP3_SL2": {
+          "mean": 0.11659535423601688,
+          "median": -2.2,
+          "win": 46.38728323699422,
+          "pf": 1.0988532040324972,
+          "target_first": 46.09826589595375,
+          "stop_first": 53.612716763005785
+        },
+        "TP4_SL2P5": {
+          "mean": 0.3150503679305104,
+          "median": -2.7,
+          "win": 46.53179190751445,
+          "pf": 1.2194871277099073,
+          "target_first": 45.664739884393065,
+          "stop_first": 53.03468208092485
+        },
+        "TP5_SL3": {
+          "mean": 0.5818285666685236,
+          "median": -3.2,
+          "win": 48.12138728323699,
+          "pf": 1.3543586339263873,
+          "target_first": 44.94219653179191,
+          "stop_first": 51.01156069364162
+        }
+      },
+      "frequency": {
+        "signals": 692,
+        "signals_per_day": 0.6313868613138686,
+        "active_days": 352,
+        "active_day_share_pct": 32.11678832116788,
+        "median_on_active_day": 1.0,
+        "p90_on_active_day": 3.0,
+        "max_in_day": 57
+      }
+    },
+    "FINAL_HOLDOUT_2026": {
+      "metrics": {
+        "n": 182,
+        "symbols": 74,
+        "mean24": 1.317902591577944,
+        "median24": -3.148608343586967,
+        "win24": 36.26373626373626,
+        "pf24": 1.2245891518818153,
+        "mfe24": 16.138648869681855,
+        "mae24": -9.910547465068001,
+        "TP3_SL2": {
+          "mean": -0.44175824175824197,
+          "median": -2.2,
+          "win": 35.16483516483517,
+          "pf": 0.6902927580893685,
+          "target_first": 35.16483516483517,
+          "stop_first": 64.83516483516483
+        },
+        "TP4_SL2P5": {
+          "mean": -0.11015234765234773,
+          "median": -2.7,
+          "win": 40.10989010989011,
+          "pf": 0.9318799616964758,
+          "target_first": 39.56043956043956,
+          "stop_first": 59.89010989010989
+        },
+        "TP5_SL3": {
+          "mean": -0.040899643165940455,
+          "median": -3.2,
+          "win": 39.56043956043956,
+          "pf": 0.9783950376231219,
+          "target_first": 38.46153846153847,
+          "stop_first": 58.24175824175825
+        }
+      },
+      "frequency": {
+        "signals": 182,
+        "signals_per_day": 0.7,
+        "active_days": 121,
+        "active_day_share_pct": 46.53846153846154,
+        "median_on_active_day": 1.0,
+        "p90_on_active_day": 3.0,
+        "max_in_day": 6
+      }
+    },
+    "ALL_2026": {
+      "metrics": {
+        "n": 726,
+        "symbols": 249,
+        "mean24": -0.555252624508238,
+        "median24": -3.0765364804104856,
+        "win24": 35.26170798898072,
+        "pf24": 0.9109581455510706,
+        "mfe24": 16.04364379037677,
+        "mae24": -10.234684238307455,
+        "TP3_SL2": {
+          "mean": -0.2731692405775524,
+          "median": -2.2,
+          "win": 38.56749311294766,
+          "pf": 0.7970806759212418,
+          "target_first": 38.29201101928375,
+          "stop_first": 61.15702479338842
+        },
+        "TP4_SL2P5": {
+          "mean": -0.20726359525928734,
+          "median": -2.7,
+          "win": 38.56749311294766,
+          "pf": 0.874281804171576,
+          "target_first": 37.74104683195592,
+          "stop_first": 61.019283746556475
+        },
+        "TP5_SL3": {
+          "mean": -0.2638944316920975,
+          "median": -3.2,
+          "win": 37.1900826446281,
+          "pf": 0.8665470546223818,
+          "target_first": 35.12396694214876,
+          "stop_first": 61.43250688705234
+        }
+      },
+      "frequency": {
+        "signals": 726,
+        "signals_per_day": 2.792307692307692,
+        "active_days": 232,
+        "active_day_share_pct": 89.23076923076924,
+        "median_on_active_day": 3.0,
+        "p90_on_active_day": 6.0,
+        "max_in_day": 15
+      }
+    }
+  }
+}
