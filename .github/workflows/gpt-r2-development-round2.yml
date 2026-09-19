@@ -1,0 +1,145 @@
+name: GPT - r2 Development Round 2
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  preflight_prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Download frozen indicator artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug-artifacts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - name: Static compile before any long research
+        run: |
+          python -m py_compile             gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/prepare_round2.py             gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/veto_robustness.py             gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/entry_timing.py             gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/concurrent_ranking.py             gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/regime_filter.py             gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/early_risk_exit.py
+      - name: Data/schema preflight before long fetch
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/prepare_round2.py             --artifact-dir /tmp/indicator-aug-artifacts             --outdir /tmp/preflight --preflight
+      - name: Prepare shared r2 events and paths once
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/prepare_round2.py             --artifact-dir /tmp/indicator-aug-artifacts             --outdir /tmp/r2-round2-dataset --workers 12
+      - uses: actions/upload-artifact@v4
+        with:
+          name: r2-round2-dataset
+          path: /tmp/r2-round2-dataset
+          retention-days: 7
+
+  veto_robustness:
+    needs: preflight_prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-dataset, path: /tmp/dataset}
+      - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/veto_robustness.py --dataset-dir /tmp/dataset --outdir /tmp/result
+      - uses: actions/upload-artifact@v4
+        with: {name: r2-round2-veto, path: /tmp/result}
+
+  entry_timing:
+    needs: preflight_prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-dataset, path: /tmp/dataset}
+      - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/entry_timing.py --dataset-dir /tmp/dataset --outdir /tmp/result
+      - uses: actions/upload-artifact@v4
+        with: {name: r2-round2-entry, path: /tmp/result}
+
+  concurrent_ranking:
+    needs: preflight_prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-dataset, path: /tmp/dataset}
+      - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/concurrent_ranking.py --dataset-dir /tmp/dataset --outdir /tmp/result
+      - uses: actions/upload-artifact@v4
+        with: {name: r2-round2-ranking, path: /tmp/result}
+
+  regime_filter:
+    needs: preflight_prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-dataset, path: /tmp/dataset}
+      - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/regime_filter.py --dataset-dir /tmp/dataset --outdir /tmp/result
+      - uses: actions/upload-artifact@v4
+        with: {name: r2-round2-regime, path: /tmp/result}
+
+  early_risk_exit:
+    needs: preflight_prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-dataset, path: /tmp/dataset}
+      - run: python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/early_risk_exit.py --dataset-dir /tmp/dataset --outdir /tmp/result
+      - uses: actions/upload-artifact@v4
+        with: {name: r2-round2-risk, path: /tmp/result}
+
+  persist:
+    needs: [veto_robustness, entry_timing, concurrent_ranking, regime_filter, early_risk_exit]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-veto, path: /tmp/veto}
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-entry, path: /tmp/entry}
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-ranking, path: /tmp/ranking}
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-regime, path: /tmp/regime}
+      - uses: actions/download-artifact@v4
+        with: {name: r2-round2-risk, path: /tmp/risk}
+      - name: Collect outputs
+        run: |
+          base=gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/output
+          mkdir -p "$base"/{veto_robustness,entry_timing,concurrent_ranking,regime_filter,early_risk_exit}
+          cp -a /tmp/veto/. "$base/veto_robustness/"
+          cp -a /tmp/entry/. "$base/entry_timing/"
+          cp -a /tmp/ranking/. "$base/concurrent_ranking/"
+          cp -a /tmp/regime/. "$base/regime_filter/"
+          cp -a /tmp/risk/. "$base/early_risk_exit/"
+      - name: Persist once
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/output
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist r2 development round2 results [skip ci]"
+          git pull --rebase origin main
+          git push
