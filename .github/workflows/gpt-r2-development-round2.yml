@@ -37,6 +37,14 @@ jobs:
       - name: Prepare shared r2 events and paths once
         run: |
           python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/prepare_round2.py             --artifact-dir /tmp/indicator-aug-artifacts             --outdir /tmp/r2-round2-dataset --workers 12
+      - name: Runtime smoke-test every research script before parallel jobs
+        run: |
+          set -e
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/veto_robustness.py --dataset-dir /tmp/r2-round2-dataset --outdir /tmp/smoke/veto
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/entry_timing.py --dataset-dir /tmp/r2-round2-dataset --outdir /tmp/smoke/entry
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/concurrent_ranking.py --dataset-dir /tmp/r2-round2-dataset --outdir /tmp/smoke/ranking
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/regime_filter.py --dataset-dir /tmp/r2-round2-dataset --outdir /tmp/smoke/regime
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_dev_round2/early_risk_exit.py --dataset-dir /tmp/r2-round2-dataset --outdir /tmp/smoke/risk
       - uses: actions/upload-artifact@v4
         with:
           name: r2-round2-dataset

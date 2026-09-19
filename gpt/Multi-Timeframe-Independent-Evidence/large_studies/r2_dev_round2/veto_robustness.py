@@ -45,7 +45,7 @@ def main():
     d=pd.read_csv(args.dataset_dir/"r2_events.csv",low_memory=False)
     d["decision_time"]=pd.to_datetime(d.decision_time,utc=True)
     for c in [A,B,"net_24h","danger_dn2_first"]: d[c]=pd.to_numeric(d[c],errors="coerce")
-    if d[[A,B]].notna().min()<150: raise RuntimeError("veto features unexpectedly sparse")
+    if int(d[[A,B]].notna().sum().min())<150: raise RuntimeError("veto features unexpectedly sparse")
     masks=ext.split_masks(d); disc=masks["DISCOVERY"]
     base={k:met(d[m]) for k,m in masks.items()}
     fixed=(d[A]>A_FIXED)&(d[B]>B_FIXED)
