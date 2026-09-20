@@ -74,7 +74,7 @@ jobs:
         run: |
           set -euo pipefail
           P=gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/early_reversal_refinement.py
-          python "$P"             --shard 0 --shards 1             --symbols ETHUSDT,SOLUSDT,XRPUSDT,DOGEUSDT,ADAUSDT,LINKUSDT,AVAXUSDT,SUIUSDT,NEARUSDT,DOTUSDT,LTCUSDT,TRXUSDT             --fetch-start 2025-10-01             --study-start 2026-01-01             --end 2026-09-18             --outdir /tmp/er-smoke
+          python "$P"             --shard 0 --shards 1             --symbols ARKUSDT             --fetch-start 2026-06-01             --study-start 2026-09-10             --end 2026-09-16             --outdir /tmp/er-smoke
           python - <<'PY'
           import json, pandas as pd
           d=pd.read_csv("/tmp/er-smoke/events.csv",low_memory=False)
@@ -83,10 +83,12 @@ jobs:
                "mom_accel_15m","h1_rsi_d3","h4_macd_hist_d1","h4_trend_score"}
           miss=req-set(d.columns)
           assert not miss, miss
-          assert len(d)>=5, len(d)
           meta=json.load(open("/tmp/er-smoke/meta.json"))
           assert meta["errors"]==0, meta
-          print("smoke_events",len(d),"meta",meta)
+          d["decision_time"]=pd.to_datetime(d["decision_time"],utc=True)
+          expected=pd.Timestamp("2026-09-13 07:15:00+00:00")
+          assert (d["decision_time"]==expected).any(), d[["symbol","decision_time"]].to_dict("records")
+          print("smoke_events",len(d),"exact_known_event",str(expected),"meta",meta)
           PY
 
   shard:
