@@ -1,0 +1,192 @@
+name: GPT - Early Reversal Refinement
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/**'
+      - '.github/workflows/gpt-early-reversal-refinement.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+
+      - name: Preflight 1 - compile and deterministic self-test
+        run: |
+          set -euo pipefail
+          P=gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/early_reversal_refinement.py
+          python -m py_compile "$P"
+          python "$P" --self-test --outdir /tmp/er-selftest
+
+      - name: Preflight 2 - universe, dependency and feature schema
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+          p=Path("gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/early_reversal_refinement.py")
+          spec=importlib.util.spec_from_file_location("er",p)
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          syms=m.mfd.load_symbols()
+          assert len(syms)>=400, len(syms)
+          assert len(m.FEATURE_COLUMNS)>=90, len(m.FEATURE_COLUMNS)
+          assert m.BASE_RULE["ret2_max"]==-2.0
+          assert m.BASE_RULE["dd12_max"]==-4.0
+          assert m.BASE_RULE["mom_min"]==2
+          print("spot_usdt_symbols",len(syms),"features",len(m.FEATURE_COLUMNS))
+          PY
+
+      - name: Preflight 3a - full-span pagination and derived features
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import importlib.util, pandas as pd
+          from pathlib import Path
+          p=Path("gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/early_reversal_refinement.py")
+          spec=importlib.util.spec_from_file_location("er",p)
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          d=m.mfd.core.fetch_15m("ETHUSDT",start=m.FETCH_START,end=m.END+pd.Timedelta(days=2))
+          assert len(d)>120000, len(d)
+          assert d.index.is_monotonic_increasing
+          assert not d.index.duplicated().any()
+          z=m.add_derived(m.mfd.build_symbol_frame(d,m.START,m.END))
+          req={"mom_accel_15m","mom_accel_1h","mom_accel_4h","break_strength_pct","h4_trend_score",
+               "h1_rsi_d3","h4_macd_hist_d1","h1_bb_width_ratio"}
+          miss=req-set(z.columns)
+          assert not miss, miss
+          assert len(z)>100000, len(z)
+          b=m.baseline_mask(z)
+          assert int(b.sum())>50, int(b.sum())
+          print("full_span_eth_15m",len(d),"study_rows",len(z),"raw_er_hits",int(b.sum()))
+          PY
+
+      - name: Preflight 3b - real signal/outcome smoke
+        run: |
+          set -euo pipefail
+          P=gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/early_reversal_refinement.py
+          python "$P"             --shard 0 --shards 1             --symbols ETHUSDT,SOLUSDT             --fetch-start 2026-04-01             --study-start 2026-05-01             --end 2026-09-18             --outdir /tmp/er-smoke
+          python - <<'PY'
+          import json, pandas as pd
+          d=pd.read_csv("/tmp/er-smoke/events.csv",low_memory=False)
+          req={"symbol","hash_mod","decision_time","entry_time","net24","mfe24","mae24",
+               "ret_TP3_SL2","ret_TP4_SL2P5","ret_TP5_SL3",
+               "mom_accel_15m","h1_rsi_d3","h4_macd_hist_d1","h4_trend_score"}
+          miss=req-set(d.columns)
+          assert not miss, miss
+          assert len(d)>=20, len(d)
+          meta=json.load(open("/tmp/er-smoke/meta.json"))
+          assert meta["errors"]==0, meta
+          print("smoke_events",len(d),"meta",meta)
+          PY
+
+  shard:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Build early-reversal feature snapshots 2023-2026
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/early_reversal_refinement.py             --shard ${{ matrix.shard }} --shards 64             --outdir /tmp/er-refine/shard-${{ matrix.shard }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: er-refine-shard-${{ matrix.shard }}
+          path: /tmp/er-refine/shard-${{ matrix.shard }}
+          retention-days: 7
+
+  aggregate:
+    needs: shard
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: er-refine-shard-*
+          path: /tmp/er-refine
+
+      - name: Verify complete shards
+        run: |
+          set -euo pipefail
+          test "$(find /tmp/er-refine -name meta.json | wc -l)" -eq 64
+          test "$(find /tmp/er-refine -name events.csv | wc -l)" -eq 64
+          python - <<'PY'
+          import glob,json
+          ms=[json.load(open(p)) for p in glob.glob("/tmp/er-refine/**/meta.json",recursive=True)]
+          assert len(ms)==64
+          assert {m["shard"] for m in ms}==set(range(64))
+          assert all(m["shards"]==64 for m in ms)
+          assert sum(m["symbols"] for m in ms)>=400
+          assert sum(m["errors"] for m in ms)==0
+          assert sum(m["events"] for m in ms)>=2000
+          print("symbols_total",sum(m["symbols"] for m in ms),"events_total",sum(m["events"] for m in ms))
+          PY
+
+      - name: Select refinement on DEV only and evaluate untouched holdouts
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/early_reversal_refinement.py             --aggregate-dir /tmp/er-refine             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output
+
+      - name: Validate outputs
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output
+          test -s "$O/summary.json"
+          test -s "$O/REPORT.md"
+          test "$(stat -c%s "$O/summary.json")" -lt 5000000
+          python - <<'PY'
+          import json
+          p="gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output/summary.json"
+          s=json.load(open(p))
+          assert s["events"]>=2000
+          assert s["symbols"]>=250
+          assert s["feature_count"]>=90
+          print("status",s["status"],"events",s["events"],"symbols",s["symbols"])
+          if s.get("champion"):
+              a=s["champion"]["evaluation"]["ALL_2026"]
+              print("all2026",a)
+          PY
+          if test -f "$O/selected_events.csv"; then
+            test "$(stat -c%s "$O/selected_events.csv")" -lt 100000000
+          fi
+
+      - name: Upload selected evidence
+        if: ${{ hashFiles('gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output/selected_events.csv') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: er-refinement-selected-events
+          path: gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output/selected_events.csv
+          retention-days: 14
+
+      - name: Persist compact results
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output
+          rm -f "$O/selected_events.csv"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$O/summary.json" "$O/REPORT.md"
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist early-reversal refinement [skip ci]"
+          git pull --rebase origin main
+          git push
