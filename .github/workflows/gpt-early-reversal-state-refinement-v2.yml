@@ -1,0 +1,89 @@
+name: GPT - Early Reversal State Refinement v2
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_state_refinement_v2/**'
+      - '.github/workflows/gpt-early-reversal-state-refinement-v2.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+
+      - name: Preflight 1 - compile
+        run: |
+          set -euo pipefail
+          python -m py_compile gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_state_refinement_v2/early_reversal_state_refinement_v2.py
+
+      - name: Preflight 2 - exact 64 source artifacts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          n=$(gh api "repos/Brkzgrc/Botum_LAB/actions/runs/35571926276/artifacts?per_page=100"             --jq '[.artifacts[] | select(.name | startswith("er-refine-shard-")) | select(.expired==false)] | length')
+          test "$n" -eq 64
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: er-refine-shard-*
+          path: /tmp/er-refine
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35571926276
+
+      - name: Preflight 3 - exact cohort, features and benign-error audit
+        run: |
+          set -euo pipefail
+          test "$(find /tmp/er-refine -name events.csv | wc -l)" -eq 64
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_state_refinement_v2/early_reversal_state_refinement_v2.py             --input-dir /tmp/er-refine --outdir /tmp/preflight --preflight
+          python - <<'PY'
+          import json
+          s=json.load(open("/tmp/preflight/preflight.json"))
+          assert s["events"]>=2500
+          assert s["symbols"]>=350
+          assert s["hard_errors"]==0
+          assert s["gates"]>=30
+          print(s)
+          PY
+
+      - name: Analyze categorical and movement-state gates
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_state_refinement_v2/early_reversal_state_refinement_v2.py             --input-dir /tmp/er-refine             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_state_refinement_v2/output
+
+      - name: Validate output
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_state_refinement_v2/output
+          test -s "$O/summary.json"
+          test "$(stat -c%s "$O/summary.json")" -lt 5000000
+          python - <<'PY'
+          import json
+          s=json.load(open("gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_state_refinement_v2/output/summary.json"))
+          assert s["preflight"]["events"]>=2500
+          print("status",s["status"])
+          print("champion",s.get("champion"))
+          PY
+
+      - name: Persist
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_state_refinement_v2/output
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$O"
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist ER categorical state refinement v2 [skip ci]"
+          git pull --rebase origin main
+          git push
