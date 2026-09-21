@@ -14,13 +14,20 @@ Bu klasör, Binance Spot USDT evreninde **LONG** sistem araştırmasının bana 
 
 | Konum | Rol |
 | --- | --- |
-| `baseline/r2_candidate_scanner.py` | R2 tarayıcısının salt-okunur referans kopyası. Araştırma kanıtı olmadan değiştirilmez. |
+| `baseline/r2_candidate_scanner.py` | Klasördeki çalışır durumdaki **kanonik sinyal tarayıcısı**. Frozen r2 referansıdır; araştırma kanıtı olmadan değiştirilmez. |
 | `research/impulse_origin_retest.py` | Güncel, bağımsız neden-sonuç/impuls kökeni retest çalışması. |
 | `research/independent_price_families_v2.py` | Price-path aile altyapısı. |
 | `research/movement_family_discovery.py` | Hareket ailesi altyapısı. |
 | `research/coin_mtf_causal_validation.py` | Ortak çoklu-zaman dilimi/doğrulama altyapısı. |
 | `evidence/*.json` | Tamamlanmış önceki taramaların taşınmış özet kanıtları. |
 | `output/` | Bu klasörde çalıştırılan workflow'ların kalıcı çıktı ve özetleri. |
+
+### Tarayıcı sürümleme kuralı
+
+- Her araştırma tamamlandığında (başarılı, elenmiş veya teknik hata) bu README'ye run kimliği, gerçek sonuç ve karar eklenir.
+- Kullanılacak sinyal Python sistemi `baseline/r2_candidate_scanner.py` dosyasında tutulur; böylece sıfırdan açılan bir oturumda çalıştırılabilir son sürüm nettir.
+- Yeni bir aile yalnız frekans + kalite + OOS doğrulamasını birlikte geçip r2 ile bağımsız OR eklemesine uygun bulunursa, bu dosya yeni sürüm olarak revize edilir. Elenen aileler tarayıcı mantığına eklenmez.
+- Her tarayıcı revizyonunun gerekçesi, eklenen aile, doğrulama metrikleri ve sürüm tarihi burada ayrıca kaydedilir. Frozen r2 eşikleri yeniden ayarlanmaz.
 
 ## Devralınan kanıt
 
@@ -45,6 +52,12 @@ Bu çalışma GitHub Actions run **`35635834726`** ile gerçek olarak `completed
 
 Yeni aktif hipotez: **Structural Acceptance Transition**. Kapanmış 1H yukarı displacement sonrası fiyat, impuls aralığının belirli üst bölümünü korur ve 15M'de yeni yapı kırılımıyla devamı teyit eder. Önceki Price Families v2 eventleri çakışma koruması ile dışlanır.
 
+Bu çalışma GitHub Actions run **`35640746144`** ile gerçek olarak `completed / success` bitti. Preflight ve gerçek-veri smoke geçti; 18 kural, 41.005 event ve 460 sembol tarandı. Discovery + Calibration'da stabil champion bulunmadı: `NO_STABLE_STRUCTURAL_ACCEPTANCE_TRANSITION`. R2'ye ve kanonik tarayıcıya ekleme yapılmaz.
+
+Sonraki bağımsız hipotez: **HTF Mitigation Reclaim**. Kapanmış 4H yukarı displacement kökeninin, belirli yaş aralığında tekrar test edilip 15M'de geri alınmasıyla oluşan devam yolunu test eder; önceki Price Families v2 eventleri skorlamadan önce dışlanır.
+
+Bu çalışma GitHub Actions run **`35645866305`** ile gerçek olarak `completed / success` bitti. Preflight ve gerçek-veri smoke geçti; 18 kural, 33.275 event ve 442 sembol tarandı. Discovery + Calibration'da stabil champion veya birleşik set bulunmadı: `NO_STABLE_HTF_MITIGATION_RECLAIM`. R2'ye ve kanonik tarayıcıya ekleme yapılmaz.
+
 ## Sıfır oturumdan devam protokolü (zorunlu)
 
 1. Önce bu `README.md` dosyasını tamamen oku.
@@ -67,6 +80,9 @@ Yeni aktif hipotez: **Structural Acceptance Transition**. Kapanmış 1H yukarı 
 | 2026-09-21 | Başlatılıyor | Sell Climax Reclaim: 1H satış doruğu → dip korunumu → 15M tepe geri alımı. | Derleme/self-test, gerçek-veri smoke, ardından 64-shard tarama. |
 | 2026-09-21 | Elendi | Run `35635834726` completed/success; 18 kural, 52.943 event, 459 sembol; stabil champion yok. | Yeni mekanizma tek-coin dönüşü değil, arz-talep geçişi/çoklu-zaman yapısına dayandırılmalı. |
 | 2026-09-21 | Başlatılıyor | Structural Acceptance Transition: 1H displacement → aralık kabulü → 15M devam kırılımı. | Preflight, gerçek-veri smoke, ardından 64-shard tarama. |
+| 2026-09-21 | Elendi | Run `35640746144` completed/success; 18 kural, 41.005 event, 460 sembol; stabil champion/birleşik set yok. | 4H mitigation/reclaim yolunu bağımsız çakışma korumasıyla test et. |
+| 2026-09-21 | Elendi | Run `35645866305` completed/success; 18 kural, 33.275 event, 442 sembol; stabil champion/birleşik set yok. | Yeni, önceki retest/dönüş ailelerinden yapısal olarak farklı outcome-first fiyat yolu tasarla. |
+| 2026-09-21 | Tarayıcı kuralı | Çalışır son sinyal sistemi `baseline/r2_candidate_scanner.py` olarak kanonikleştirildi. | Yalnız kanıtlı bağımsız OR ailesi bulunduğunda sürümleyerek güncelle. |
 
 ## Her güncellemede eklenecek kayıt şablonu
 
