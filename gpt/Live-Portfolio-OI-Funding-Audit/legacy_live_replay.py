@@ -289,7 +289,7 @@ def health(): return jsonify(runtime),200
 import sys
 scanner = sys.modules[__name__]
 #!/usr/bin/env python
-"""Local Portfolio-style replay (v5). Run from this folder; writes a JSON report.
+"""Production-parity Legacy replay. Run from this folder; writes a JSON report.
 
 v4 -> v5 (tarama/karar mantığı aynı; hız + hata düzeltmeleri):
   1) signal_features NameError düzeltildi. v4'te bu hata sessizce yutuluyor, HİÇ pozisyon açılmıyordu.
@@ -313,12 +313,8 @@ import requests
 from numpy.lib.stride_tricks import sliding_window_view
 
 COLS=["open_time","open","high","low","close","volume","close_time","quote_volume","trades","taker_base","taker_quote","ignore"]
-# Bu araştırmanın evreni: aktif USDT spot pariteleri, stable/fiat hariç.
-# JUP/SYRUP dahil; WBTC/PAXG/XAUT dahil.
-RESEARCH_EXCLUDED_BASES = {
-    "BFUSD", "EUR", "EURI", "FDUSD", "FRAX", "RLUSD", "TUSD", "U",
-    "USD1", "USDC", "USDE", "USDP", "USDS", "USTC", "XUSD",
-}
+# Canlı scanner ile aynı aktif USDT spot evren filtresi.
+RESEARCH_EXCLUDED_BASES = set(IGNORED_BASES)
 RESEARCH_BASE_URLS = [
     "https://data-api.binance.vision",
     "https://api.binance.com",
@@ -356,6 +352,10 @@ def research_universe():
             and item.get("status") == "TRADING"
             and item.get("isSpotTradingAllowed") is not False
             and item.get("baseAsset") not in RESEARCH_EXCLUDED_BASES
+            and not (
+                item.get("baseAsset", "").endswith(LEVERAGED_SUFFIXES)
+                and item.get("baseAsset", "") not in CRYPTO_BASES_ENDING_B
+            )
         ):
             symbols.append(item["symbol"])
     return sorted(set(symbols))
@@ -521,8 +521,20 @@ def main():
             p=R.price(s)
             if p is not None: prices[s]=p
     def selected():
+        # Production prefilter_candidates() ile aynı: core top-N, sonra seed önceliği, sonra doldurma.
         rows=[x for x in map(R.prefilter,active) if x]
-        rows.sort(key=lambda x:x[2],reverse=True); return [(s,q,r) for s,q,r,_ in rows[:scanner.PYTHON_TOP_N]]
+        rows.sort(key=lambda x:x[2],reverse=True)
+        chosen=list(rows[:scanner.PREFILTER_CORE_N]); seen={r[0] for r in chosen}
+        for r in rows[scanner.PREFILTER_CORE_N:]:
+            if len(chosen)>=scanner.PYTHON_TOP_N: break
+            if r[3] and r[0] not in seen:
+                chosen.append(r); seen.add(r[0])
+        if len(chosen)<scanner.PYTHON_TOP_N:
+            for r in rows[scanner.PREFILTER_CORE_N:]:
+                if len(chosen)>=scanner.PYTHON_TOP_N: break
+                if r[0] not in seen:
+                    chosen.append(r); seen.add(r[0])
+        return [(s,q,score) for s,q,score,_ in chosen]
 
     watch={}; positions={}; closed=[]; daily={}
     last=min(end,pd.Timestamp.now(tz="UTC"))
@@ -550,7 +562,17 @@ def main():
                     if c.decision["decision"]=="ALIM_ADAYI": finals.append(c)
                     elif c.decision["decision"]=="TETIK_BEKLE": waits.append(c)
                 except Exception as e: err("evaluate",e)
-            for c in waits: watch[c.symbol]={"first_seen":ts.timestamp(),"first_price":c.snapshot["live_price"],"observations":0,"last_bar_15m":int(c.snapshot["15m"]["bar_id"]),"phase":c.decision["state"],"setup_kind":c.decision["setup_kind"],"updated_at":ts.timestamp()}
+            # Production _clean_watch() eşdeğeri; replay saatini kullanır.
+            dead=[s for s,rec in watch.items() if ts.timestamp()-float((rec or {}).get("first_seen",0))>scanner.WATCH_TTL_HOURS*3600]
+            for s in dead: watch.pop(s,None)
+            # Production scan_cycle() gibi first_seen/first_price korunur.
+            for c in waits:
+                rec=watch.get(c.symbol) or {"first_seen":ts.timestamp(),"first_price":c.snapshot["live_price"],"observations":0,"last_bar_15m":0}
+                bar=int(c.snapshot["15m"]["bar_id"])
+                if int(rec.get("last_bar_15m",0) or 0) and bar>int(rec.get("last_bar_15m",0) or 0):
+                    rec["observations"]=int(rec.get("observations",0) or 0)+1
+                rec.update({"updated_at":ts.timestamp(),"phase":c.decision["state"],"setup_kind":c.decision["setup_kind"],"price":c.snapshot["live_price"],"score":c.decision["confidence"],"last_bar_15m":bar})
+                watch[c.symbol]=rec
             key=ts.strftime("%Y-%m-%d"); room=max(0,scanner.MAX_SIGNALS_PER_DAY-daily.get(key,0))
             for c in sorted(finals,key=lambda x:x.rank,reverse=True)[:room]:
                 if c.symbol in positions: continue
