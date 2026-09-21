@@ -25,10 +25,12 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: python -m pip install --disable-pip-version-check numpy pandas requests
+        run: python -m pip install --disable-pip-version-check numpy pandas requests flask
 
-      - name: Verify research code
-        run: python -m py_compile retrigger_high_guard_2026.py
+      - name: Verify imports and syntax
+        run: |
+          python -m py_compile retrigger_high_guard_2026.py
+          python -c "import flask, numpy, pandas, requests"
 
       - name: Replay 478 USDT spot universe
         run: |
@@ -37,13 +39,11 @@ jobs:
             --end 2026-09-20 \
             --output retrigger_high_guard_2026_result.json
 
-      - name: Upload result and cache
+      - name: Upload result
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: retrigger-high-guard-2026
-          path: |
-            research/retrigger_high_guard_2026/retrigger_high_guard_2026_result.json
-            research/retrigger_high_guard_2026/bt_cache
+          path: research/retrigger_high_guard_2026/retrigger_high_guard_2026_result.json
           if-no-files-found: warn
           retention-days: 14
