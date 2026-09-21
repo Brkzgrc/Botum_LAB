@@ -1,0 +1,56 @@
+{
+  "method": "Reverse engineer pre-entry movement fingerprint from existing r2 WINNERS versus r2 LOSERS, then find non-r2 events that resemble the winner path.",
+  "selection_uses_2026": false,
+  "movement_features_considered": 340,
+  "stable_winner_loser_features": 111,
+  "fingerprint_features_used": 24,
+  "r2_baseline": {
+    "discovery": {
+      "n": 27,
+      "symbols": 27,
+      "win24": 88.88888888888889,
+      "mean24": 3.400172271386731,
+      "median24": 4.024854162983904,
+      "pf24": 10.977066345372439,
+      "p10": 0.24009324009325128,
+      "up3_before_dn2": 66.66666666666666,
+      "danger_dn2_first": 33.33333333333333
+    },
+    "calibration": {
+      "n": 48,
+      "symbols": 45,
+      "win24": 85.41666666666666,
+      "mean24": 3.4795206061411172,
+      "median24": 3.2987176711575805,
+      "pf24": 14.689469507557831,
+      "p10": -0.7475557917109562,
+      "up3_before_dn2": 72.91666666666666,
+      "danger_dn2_first": 27.083333333333332
+    },
+    "cross_holdout_pre2026": {
+      "n": 40,
+      "symbols": 31,
+      "win24": 80.0,
+      "mean24": 2.7599377848894653,
+      "median24": 3.1100111978474283,
+      "pf24": 5.011412540448139,
+      "p10": -1.3878101252645934,
+      "up3_before_dn2": 55.00000000000001,
+      "danger_dn2_first": 45.0
+    },
+    "all_2026": {
+      "n": 36,
+      "symbols": 32,
+      "win24": 97.22222222222221,
+      "mean24": 5.806782466854985,
+      "median24": 3.489224799467172,
+      "pf24": 348.0771504998062,
+      "p10": 1.5117030594526628,
+      "up3_before_dn2": 83.33333333333334,
+      "danger_dn2_first": 16.666666666666664
+    }
+  },
+  "candidate_thresholds_tested": 0,
+  "viable_pre2026": 0,
+  "top": []
+}
