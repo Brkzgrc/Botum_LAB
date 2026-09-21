@@ -1,0 +1,129 @@
+name: GPT - Early Reversal Refinement Recovery
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/gpt-early-reversal-refinement-recovery.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+
+      - name: Preflight 1 - compile current aggregator
+        run: |
+          set -euo pipefail
+          python -m py_compile gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/early_reversal_refinement.py
+
+      - name: Preflight 2 - exact source artifact inventory
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          n=$(gh api "repos/Brkzgrc/Botum_LAB/actions/runs/35571926276/artifacts?per_page=100"             --jq '[.artifacts[] | select(.name | startswith("er-refine-shard-")) | select(.expired==false)] | length')
+          echo "live_er_shards=$n"
+          test "$n" -eq 64
+
+      - name: Download completed ER shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: er-refine-shard-*
+          path: /tmp/er-refine
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35571926276
+
+      - name: Preflight 3 - shard, schema and error audit
+        run: |
+          set -euo pipefail
+          test "$(find /tmp/er-refine -name meta.json | wc -l)" -eq 64
+          test "$(find /tmp/er-refine -name events.csv | wc -l)" -eq 64
+          python - <<'PY'
+          import glob,json,pandas as pd
+          ms=[json.load(open(p)) for p in glob.glob("/tmp/er-refine/**/meta.json",recursive=True)]
+          assert len(ms)==64
+          assert {int(m["shard"]) for m in ms}==set(range(64))
+          assert sum(int(m["symbols"]) for m in ms)>=400
+          benign=[];hard=[]
+          for p in glob.glob("/tmp/er-refine/**/errors.csv",recursive=True):
+              try:e=pd.read_csv(p)
+              except pd.errors.EmptyDataError:continue
+              for _,r in e.iterrows():
+                  err=str(r.get("error",""))
+                  rec={"symbol":str(r.get("symbol","")),"error":err}
+                  if err.startswith("too_short:") or err.startswith("study_too_short:"):benign.append(rec)
+                  else:hard.append(rec)
+          assert not hard, hard[:20]
+          files=glob.glob("/tmp/er-refine/**/events.csv",recursive=True)
+          nonempty=[]
+          for p in files:
+              try:
+                  q=pd.read_csv(p,nrows=5)
+                  if len(q):nonempty.append(q)
+              except pd.errors.EmptyDataError:pass
+          assert nonempty
+          cols=set(nonempty[0].columns)
+          req={"symbol","decision_time","entry_time","net24","mfe24","mae24","ret_TP5_SL3",
+               "mom_accel_15m","h1_rsi_d3","h4_macd_hist_d1","h4_trend_score"}
+          assert not (req-cols), sorted(req-cols)
+          print("symbols",sum(int(m["symbols"]) for m in ms),"events",sum(int(m["events"]) for m in ms),
+                "benign_short_history",len(benign),"hard_errors",len(hard))
+          PY
+
+      - name: Aggregate DEV selection and untouched holdouts
+        run: |
+          set -euo pipefail
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/early_reversal_refinement.py             --aggregate-dir /tmp/er-refine             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output
+
+      - name: Validate result and persistence size
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output
+          test -s "$O/summary.json"
+          test -s "$O/REPORT.md"
+          test "$(stat -c%s "$O/summary.json")" -lt 5000000
+          test "$(stat -c%s "$O/REPORT.md")" -lt 5000000
+          python - <<'PY'
+          import json
+          s=json.load(open("gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output/summary.json"))
+          assert s["events"]>=2000
+          assert s["symbols"]>=250
+          assert s["feature_count"]>=90
+          print("status",s["status"],"events",s["events"],"symbols",s["symbols"])
+          print("champion",s.get("champion"))
+          PY
+          if test -f "$O/selected_events.csv"; then
+            test "$(stat -c%s "$O/selected_events.csv")" -lt 100000000
+          fi
+
+      - name: Upload selected evidence
+        if: ${{ hashFiles('gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output/selected_events.csv') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: er-refinement-recovered-selected-events
+          path: gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output/selected_events.csv
+          retention-days: 14
+
+      - name: Persist compact result
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/early_reversal_refinement/output
+          rm -f "$O/selected_events.csv"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$O/summary.json" "$O/REPORT.md"
+          git diff --cached --quiet && exit 0
+          git commit -m "Recover ER refinement aggregate from completed shards [skip ci]"
+          git pull --rebase origin main
+          git push
