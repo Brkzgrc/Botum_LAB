@@ -36,7 +36,7 @@ def load(indir):
 def fetch_path(row):
     t=pd.Timestamp(row.decision_time)
     end_ms=int(t.timestamp()*1000)-1
-    start_ms=int((t-pd.Timedelta(hours=48)).timestamp()*1000)
+    start_ms=int((t-pd.Timedelta(hours=50)).timestamp()*1000)
     try:
         z=get_json("/api/v3/klines",{"symbol":str(row.symbol),"interval":"15m","startTime":start_ms,"endTime":end_ms,"limit":1000})
         if not isinstance(z,list) or len(z)<192: return row.row_id,None,f"short:{len(z) if isinstance(z,list) else -1}"
