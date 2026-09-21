@@ -43,6 +43,8 @@ Yeni aktif hipotez: **Sell Climax Reclaim**. Kapanmış 1H yüksek-hacimli satı
 
 Bu çalışma GitHub Actions run **`35635834726`** ile gerçek olarak `completed / success` bitti. Preflight ve gerçek-veri smoke geçti; 18 kural, 52.943 event ve 459 sembol tarandı. Discovery + Calibration'da stabil champion bulunmadı: `NO_STABLE_SELL_CLIMAX_RECLAIM`. R2'ye ekleme yapılmaz.
 
+Yeni aktif hipotez: **Structural Acceptance Transition**. Kapanmış 1H yukarı displacement sonrası fiyat, impuls aralığının belirli üst bölümünü korur ve 15M'de yeni yapı kırılımıyla devamı teyit eder. Önceki Price Families v2 eventleri çakışma koruması ile dışlanır.
+
 ## Sıfır oturumdan devam protokolü (zorunlu)
 
 1. Önce bu `README.md` dosyasını tamamen oku.
@@ -64,6 +66,7 @@ Bu çalışma GitHub Actions run **`35635834726`** ile gerçek olarak `completed
 | 2026-09-21 | Elendi | Run `35627163220` completed/success; 18 kural, 7.131 event, 440 sembol; stabil champion yok. | Farklı bir bağımsız mekanizma tasarla; r2 ve önceki fiyat-yolu aileleriyle çakışma koruması zorunlu. |
 | 2026-09-21 | Başlatılıyor | Sell Climax Reclaim: 1H satış doruğu → dip korunumu → 15M tepe geri alımı. | Derleme/self-test, gerçek-veri smoke, ardından 64-shard tarama. |
 | 2026-09-21 | Elendi | Run `35635834726` completed/success; 18 kural, 52.943 event, 459 sembol; stabil champion yok. | Yeni mekanizma tek-coin dönüşü değil, arz-talep geçişi/çoklu-zaman yapısına dayandırılmalı. |
+| 2026-09-21 | Başlatılıyor | Structural Acceptance Transition: 1H displacement → aralık kabulü → 15M devam kırılımı. | Preflight, gerçek-veri smoke, ardından 64-shard tarama. |
 
 ## Her güncellemede eklenecek kayıt şablonu
 
