@@ -1,0 +1,145 @@
+name: GPT - Independent Price Families v2
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/**'
+      - '.github/workflows/gpt-independent-price-families-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+
+      - name: Preflight 1 - compile and deterministic rule count
+        run: |
+          set -euo pipefail
+          P=gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/independent_price_families_v2.py
+          python -m py_compile "$P"
+          python "$P" --self-test --outdir /tmp/selftest
+
+      - name: Preflight 2 - universe and full-span feature integrity
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import importlib.util,pandas as pd
+          from pathlib import Path
+          p=Path("gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/independent_price_families_v2.py")
+          spec=importlib.util.spec_from_file_location("v2",p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          syms=m.mfd.load_symbols()
+          assert len(syms)>=400, len(syms)
+          assert len(m.candidate_rules())==62
+          d=m.mfd.core.fetch_15m("ETHUSDT",start=m.FETCH_START,end=m.END+pd.Timedelta(days=2))
+          assert len(d)>120000, len(d)
+          z=m.add_path_features(m.mfd.build_symbol_frame(d,m.START,m.END))
+          req={"from_high_6h","from_low_6h","range_pos_12h","h4_trend_score","h1_mom_turn_score","m15_mom_turn_score","h1_dist_ema20"}
+          miss=req-set(z.columns);assert not miss,miss
+          assert len(z)>100000,len(z)
+          print("symbols",len(syms),"rows",len(z),"rules",len(m.candidate_rules()))
+          PY
+
+      - name: Preflight 3 - real multi-symbol smoke
+        run: |
+          set -euo pipefail
+          P=gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/independent_price_families_v2.py
+          python "$P"             --shard 0 --shards 1             --symbols ETHUSDT,SOLUSDT,XRPUSDT,DOGEUSDT,ADAUSDT,LINKUSDT,AVAXUSDT,SUIUSDT,NEARUSDT,DOTUSDT,LTCUSDT,TRXUSDT             --fetch-start 2024-10-01             --study-start 2025-01-01             --end 2026-09-18             --outdir /tmp/v2-smoke
+          python - <<'PY'
+          import json,pandas as pd
+          p="/tmp/v2-smoke/events.csv"
+          d=pd.read_csv(p,low_memory=False)
+          req={"symbol","hash_mod","decision_time","rules","net24","mfe24","mae24",
+               "ret_TP3_SL2","ret_TP4_SL2P5","ret_TP5_SL3"}
+          miss=req-set(d.columns);assert not miss,miss
+          assert len(d)>=10,len(d)
+          m=json.load(open("/tmp/v2-smoke/meta.json"))
+          print("smoke_events",len(d),"meta",m)
+          PY
+
+  shard:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Scan independent price-path families
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/independent_price_families_v2.py             --shard ${{ matrix.shard }} --shards 64             --outdir /tmp/v2/shard-${{ matrix.shard }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: independent-price-v2-shard-${{ matrix.shard }}
+          path: /tmp/v2/shard-${{ matrix.shard }}
+          retention-days: 7
+
+  aggregate:
+    needs: shard
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: independent-price-v2-shard-*
+          path: /tmp/v2
+      - name: Verify shard completeness and output guard
+        run: |
+          set -euo pipefail
+          test "$(find /tmp/v2 -name meta.json | wc -l)" -eq 64
+          test "$(find /tmp/v2 -name events.csv | wc -l)" -eq 64
+          python - <<'PY'
+          import glob,json
+          ms=[json.load(open(p)) for p in glob.glob("/tmp/v2/**/meta.json",recursive=True)]
+          assert len(ms)==64
+          assert {m["shard"] for m in ms}==set(range(64))
+          assert sum(m["symbols"] for m in ms)>=400
+          print("symbols",sum(m["symbols"] for m in ms),"events",sum(m["events"] for m in ms),"errors",sum(m["errors"] for m in ms))
+          PY
+      - name: Aggregate and select on Discovery plus Calibration only
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/independent_price_families_v2.py             --aggregate-dir /tmp/v2             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/output
+      - name: Validate compact result
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/output
+          test -s "$O/summary.json"
+          test "$(stat -c%s "$O/summary.json")" -lt 5000000
+          python - <<'PY'
+          import json
+          s=json.load(open("gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/output/summary.json"))
+          assert s["candidate_rules"]==62
+          assert s["symbols"]>=350
+          assert s["events"]>=1000
+          print("status",s["status"],"events",s["events"],"symbols",s["symbols"])
+          print("combined",s.get("combined",{}).get("ALL_2026"))
+          PY
+      - name: Persist
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_price_families_v2/output
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$O"
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist independent price-family v2 analysis [skip ci]"
+          git pull --rebase origin main
+          git push
