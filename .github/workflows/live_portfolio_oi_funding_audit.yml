@@ -1,0 +1,25 @@
+name: Live Portfolio OI Funding Audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Live-Portfolio-OI-Funding-Audit/RUN'
+jobs:
+  legacy-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install numpy pandas requests flask
+      - name: Run live legacy replay
+        working-directory: gpt/Live-Portfolio-OI-Funding-Audit
+        run: python legacy_live_replay.py --start 2026-01-01 --end 2026-09-21 --output legacy_baseline.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: live-legacy-baseline
+          path: |
+            gpt/Live-Portfolio-OI-Funding-Audit/legacy_baseline.json
+          retention-days: 14
