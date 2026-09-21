@@ -1,0 +1,10 @@
+{
+  "status": "NO_STABLE_CAUSAL_RECOVERY_LEADERSHIP",
+  "candidate_rules": 18,
+  "events": 7131,
+  "symbols": 440,
+  "champions": {},
+  "combined": {},
+  "overlap_guard": "Events overlapping any Price Families v2 rule are excluded.",
+  "selection_lock": "Selection uses Discovery+Calibration only; holdout is diagnostic."
+}
