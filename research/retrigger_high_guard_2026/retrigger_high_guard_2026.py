@@ -18,7 +18,7 @@ import pandas as pd
 import requests
 from flask import Flask, jsonify
 
-BINANCE = "https://api.binance.com"
+BINANCE = "https://data-api.binance.vision"
 TR_TZ = timezone(timedelta(hours=3))
 HTTP = requests.Session()
 HTTP.headers.update({"User-Agent": "Botum-SPOT-SCANNER/11.0"})
@@ -359,7 +359,7 @@ def research_universe():
         ):
             symbols.append(item["symbol"])
     return sorted(set(symbols))
-API="https://api.binance.com/api/v3/klines"
+API="https://data-api.binance.vision/api/v3/klines"
 LOOKBACK={"15m":18,"1h":20,"4h":60,"1d":320}
 LIMITS={"15m":1000,"1h":260,"4h":260,"1d":260}
 CACHE_DIR=Path(__file__).resolve().parent/"bt_cache"
