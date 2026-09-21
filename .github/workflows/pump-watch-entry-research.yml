@@ -1,0 +1,19 @@
+name: PUMP WATCH to ENTRY Research
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/PUMP-WATCH-to-PUMP-ENTRY/research_runner.py'
+jobs:
+  phase1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run phase 1 research
+        run: python gpt/PUMP-WATCH-to-PUMP-ENTRY/research_runner.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pump-watch-entry-phase1
+          path: gpt/PUMP-WATCH-to-PUMP-ENTRY/results/
