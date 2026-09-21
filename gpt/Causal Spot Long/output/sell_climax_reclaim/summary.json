@@ -1,0 +1,10 @@
+{
+  "status": "NO_STABLE_SELL_CLIMAX_RECLAIM",
+  "candidate_rules": 18,
+  "events": 52943,
+  "symbols": 459,
+  "champions": {},
+  "combined": {},
+  "overlap_guard": "Events coinciding with any Independent Price Families v2 rule are excluded before scoring.",
+  "selection_lock": "Rule and plan selection use Discovery+Calibration only; holdouts are diagnostics."
+}
