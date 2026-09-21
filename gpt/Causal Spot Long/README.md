@@ -59,6 +59,8 @@ Sonraki bağımsız hipotez: **HTF Mitigation Reclaim**. Kapanmış 4H yukarı d
 
 Bu çalışma GitHub Actions run **`35645866305`** ile gerçek olarak `completed / success` bitti. Preflight ve gerçek-veri smoke geçti; 18 kural, 33.275 event ve 442 sembol tarandı. Discovery + Calibration'da stabil champion veya birleşik set bulunmadı: `NO_STABLE_HTF_MITIGATION_RECLAIM`. R2'ye ve kanonik tarayıcıya ekleme yapılmaz.
 
+Yeni bağımsız hipotez: **Relative Strength Persistence**. Bu aile dipten dönüş ya da BTC şoku sonrası tepkiyi değil; BTC nötr-yukarı izin rejimindeyken coinin BTC'ye göre kalıcı üstünlüğü, kendi kısa değer alanı üzerinde kabulü ve taze 15M genişlemesini sınar. Kural seçimi yalnız Discovery + Calibration ile yapılır; Price Families v2 eventleri skorlamadan önce dışlanır. Workflow: `.github/workflows/gpt-causal-spot-long-relative-strength-persistence.yml`.
+
 ## Sıfır oturumdan devam protokolü (zorunlu)
 
 1. Önce bu `README.md` dosyasını tamamen oku.
@@ -84,6 +86,7 @@ Bu çalışma GitHub Actions run **`35645866305`** ile gerçek olarak `completed
 | 2026-09-21 | Elendi | Run `35640746144` completed/success; 18 kural, 41.005 event, 460 sembol; stabil champion/birleşik set yok. | 4H mitigation/reclaim yolunu bağımsız çakışma korumasıyla test et. |
 | 2026-09-21 | Elendi | Run `35645866305` completed/success; 18 kural, 33.275 event, 442 sembol; stabil champion/birleşik set yok. | Yeni, önceki retest/dönüş ailelerinden yapısal olarak farklı outcome-first fiyat yolu tasarla. |
 | 2026-09-21 | Tarayıcı kuralı | Çalışır son sinyal sistemi `Causal Spot Long.py` olarak kanonikleştirildi; frozen r2 referans kopyası `baseline/` altında korundu. | Yalnız kanıtlı bağımsız OR ailesi bulunduğunda sürümleyerek güncelle. |
+| 2026-09-21 | Hazır | Relative Strength Persistence kodu derleme ve sentetik self-test geçti; GitHub workflow kodu gönderildi. | Workflow run kaydolduğunda gerçek-veri preflight/smoke, ardından 64-shard tarama. |
 
 ## Her güncellemede eklenecek kayıt şablonu
 
