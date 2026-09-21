@@ -78,7 +78,8 @@ def build_fingerprint(d,mask,features):
         strength=min(abs(ed),abs(ec))
         if strength<0.12:continue
         rows.append({"feature":c,"dir":1 if ed>0 else -1,"effect_disc":ed,"effect_cal":ec,"stable_strength":strength})
-    out=pd.DataFrame(rows,columns=["feature","dir","effect_disc","effect_cal","stable_strength"])\n    return out.sort_values("stable_strength",ascending=False)
+    out=pd.DataFrame(rows,columns=["feature","dir","effect_disc","effect_cal","stable_strength"])
+    return out.sort_values("stable_strength",ascending=False)
 
 def score_by_winner_similarity(d,trainmask,fingerprint,topn=24):
     fp=fingerprint.head(topn)
