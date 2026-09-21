@@ -8,9 +8,9 @@ import numpy as np
 import pandas as pd
 
 ROOT=Path(__file__).resolve().parent
-CORE=Path("gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_causal_validation")
+CORE=Path(__file__).resolve().parents[1]/"lib"
 sys.path.insert(0,str(CORE))
-import coin_mtf_causal_validation as core
+import coin_mtf_core_snapshot as core
 
 F1="btc1_tsi_d1"; F2="btc4_bb_width"
 COST=0.20
