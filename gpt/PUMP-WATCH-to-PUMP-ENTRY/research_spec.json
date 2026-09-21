@@ -1,0 +1,12 @@
+{
+  "project": "PUMP WATCH -> PUMP ENTRY",
+  "period": ["2026-01-01","2026-09-21"],
+  "market": "BINANCE_SPOT_USDT_LONG",
+  "force_include": ["JUP","SYRUP"],
+  "round_trip_cost_pct": 0.20,
+  "decision_rule": "closed_bars_only",
+  "entry_rule": "next_candle_open",
+  "timeframes": {"context":"4h","setup":"1h","trigger":"15m"},
+  "families": ["static_watch","motion_watch","hybrid_watch","watch_to_entry"],
+  "promotion": "out_of_sample_required"
+}
