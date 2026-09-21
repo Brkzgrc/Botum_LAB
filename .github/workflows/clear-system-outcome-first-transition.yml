@@ -1,0 +1,159 @@
+name: Clear System - Outcome First Transition
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Clear System/research/outcome_first_transition.py'
+      - '.github/workflows/clear-system-outcome-first-transition.yml'
+
+concurrency:
+  group: clear-system-outcome-first-transition
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Install pinned research runtime
+        timeout-minutes: 6
+        run: pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'scikit-learn<2'
+      - name: Compile and deterministic self-test
+        run: |
+          set -euo pipefail
+          P='gpt/Clear System/research/outcome_first_transition.py'
+          python -m py_compile "$P" 'gpt/Clear System/research/movement_family_discovery.py' 'gpt/Clear System/research/coin_mtf_causal_validation.py'
+          python "$P" --self-test --outdir /tmp/selftest
+      - name: Static causality and universe audit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('gpt/Clear System/research/outcome_first_transition.py').read_text()
+          req=['DISCOVERY','CALIBRATION','FINAL_HOLDOUT_2026','event_gate','COST = mfd.COST_PCT','expected_shards']
+          missing=[x for x in req if x not in s]
+          assert not missing,missing
+          u=Path('gpt/Clear System/research/movement_family_discovery.py').read_text()
+          for x in ['STABLE_BASE_ASSETS','FIAT_BASE_ASSETS','quote != "USDT"','isSpotTradingAllowed']:
+              assert x in u,x
+          print('static audit ok')
+          PY
+      - name: Real-data six-symbol smoke
+        timeout-minutes: 15
+        run: |
+          set -euo pipefail
+          P='gpt/Clear System/research/outcome_first_transition.py'
+          timeout 13m python "$P" --shard 0 --shards 1 \
+            --symbols ETHUSDT,SOLUSDT,XRPUSDT,DOGEUSDT,LINKUSDT,AVAXUSDT \
+            --fetch-start 2024-10-01 --study-start 2025-01-01 --end 2026-09-18 \
+            --outdir /tmp/outcome-smoke
+          test -s /tmp/outcome-smoke/meta.json
+          test -s /tmp/outcome-smoke/events.csv
+          python - <<'PY'
+          import json,pandas as pd
+          m=json.load(open('/tmp/outcome-smoke/meta.json'))
+          assert m['symbols']==6,m
+          assert m['errors']==0,m
+          d=pd.read_csv('/tmp/outcome-smoke/events.csv',low_memory=False)
+          req={'symbol','decision_time','m15_mom_delta','h1_mom_delta','h4_mom_delta','ret_TP3_SL2','ret_TP4_SL2P5','ret_TP5_SL3'}
+          assert len(d)>100,(len(d),m)
+          assert not(req-set(d.columns)),set(d.columns)
+          print('real smoke ok',m,'events',len(d))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: outcome-first-preflight
+          path: /tmp/outcome-smoke
+          if-no-files-found: error
+          retention-days: 7
+
+  shard:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Install pinned runtime
+        timeout-minutes: 6
+        run: pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'scikit-learn<2'
+      - name: Run bounded shard
+        timeout-minutes: 48
+        run: |
+          timeout 46m python 'gpt/Clear System/research/outcome_first_transition.py' \
+            --shard ${{ matrix.shard }} --shards 64 \
+            --outdir /tmp/outcome/shard-${{ matrix.shard }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: outcome-first-shard-${{ matrix.shard }}
+          path: /tmp/outcome
+          if-no-files-found: error
+          retention-days: 7
+
+  aggregate:
+    needs: shard
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Install pinned runtime
+        timeout-minutes: 6
+        run: pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'scikit-learn<2'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: outcome-first-shard-*
+          path: /tmp/outcome-shards
+      - name: Verify complete shards and aggregate
+        timeout-minutes: 14
+        run: |
+          set -euo pipefail
+          test "$(find /tmp/outcome-shards -name meta.json | wc -l)" -eq 64
+          test "$(find /tmp/outcome-shards -name events.csv | wc -l)" -eq 64
+          O='gpt/Clear System/output/outcome_first_transition'
+          python 'gpt/Clear System/research/outcome_first_transition.py' \
+            --aggregate-dir /tmp/outcome-shards --expected-shards 64 --outdir "$O"
+          test -s "$O/summary.json"
+          python - <<'PY'
+          import json
+          p='gpt/Clear System/output/outcome_first_transition/summary.json'
+          s=json.load(open(p))
+          assert s['symbols']>=350,s
+          assert s['events']>=10000,s
+          assert s['cost_pct']==0.2,s
+          print(s['status'],s['events'],s['symbols'])
+          PY
+      - name: Persist verified result
+        run: |
+          set -euo pipefail
+          O='gpt/Clear System/output/outcome_first_transition'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$O"
+          git diff --cached --quiet && exit 0
+          git commit -m 'Persist Clear System outcome-first transition result [skip ci]'
+          git pull --rebase origin main
+          git push
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: outcome-first-aggregate
+          path: gpt/Clear System/output/outcome_first_transition
+          if-no-files-found: warn
+          retention-days: 14
