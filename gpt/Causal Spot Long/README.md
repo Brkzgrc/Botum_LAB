@@ -14,7 +14,8 @@ Bu klasör, Binance Spot USDT evreninde **LONG** sistem araştırmasının bana 
 
 | Konum | Rol |
 | --- | --- |
-| `baseline/r2_candidate_scanner.py` | Klasördeki çalışır durumdaki **kanonik sinyal tarayıcısı**. Frozen r2 referansıdır; araştırma kanıtı olmadan değiştirilmez. |
+| `Causal Spot Long.py` | Klasör adıyla eşleşen, çalıştırılabilir **kanonik sinyal tarayıcısı**. Frozen r2 referansının birebir kopyasıdır; yalnız doğrulanmış bağımsız OR ailesiyle revize edilir. |
+| `baseline/r2_candidate_scanner.py` | Kanonik tarayıcının değişmez frozen r2 referans kopyası. |
 | `research/impulse_origin_retest.py` | Güncel, bağımsız neden-sonuç/impuls kökeni retest çalışması. |
 | `research/independent_price_families_v2.py` | Price-path aile altyapısı. |
 | `research/movement_family_discovery.py` | Hareket ailesi altyapısı. |
@@ -25,7 +26,7 @@ Bu klasör, Binance Spot USDT evreninde **LONG** sistem araştırmasının bana 
 ### Tarayıcı sürümleme kuralı
 
 - Her araştırma tamamlandığında (başarılı, elenmiş veya teknik hata) bu README'ye run kimliği, gerçek sonuç ve karar eklenir.
-- Kullanılacak sinyal Python sistemi `baseline/r2_candidate_scanner.py` dosyasında tutulur; böylece sıfırdan açılan bir oturumda çalıştırılabilir son sürüm nettir.
+- Kullanılacak sinyal Python sistemi `Causal Spot Long.py` dosyasında tutulur; böylece sıfırdan açılan bir oturumda çalıştırılabilir son sürüm nettir.
 - Yeni bir aile yalnız frekans + kalite + OOS doğrulamasını birlikte geçip r2 ile bağımsız OR eklemesine uygun bulunursa, bu dosya yeni sürüm olarak revize edilir. Elenen aileler tarayıcı mantığına eklenmez.
 - Her tarayıcı revizyonunun gerekçesi, eklenen aile, doğrulama metrikleri ve sürüm tarihi burada ayrıca kaydedilir. Frozen r2 eşikleri yeniden ayarlanmaz.
 
@@ -82,7 +83,7 @@ Bu çalışma GitHub Actions run **`35645866305`** ile gerçek olarak `completed
 | 2026-09-21 | Başlatılıyor | Structural Acceptance Transition: 1H displacement → aralık kabulü → 15M devam kırılımı. | Preflight, gerçek-veri smoke, ardından 64-shard tarama. |
 | 2026-09-21 | Elendi | Run `35640746144` completed/success; 18 kural, 41.005 event, 460 sembol; stabil champion/birleşik set yok. | 4H mitigation/reclaim yolunu bağımsız çakışma korumasıyla test et. |
 | 2026-09-21 | Elendi | Run `35645866305` completed/success; 18 kural, 33.275 event, 442 sembol; stabil champion/birleşik set yok. | Yeni, önceki retest/dönüş ailelerinden yapısal olarak farklı outcome-first fiyat yolu tasarla. |
-| 2026-09-21 | Tarayıcı kuralı | Çalışır son sinyal sistemi `baseline/r2_candidate_scanner.py` olarak kanonikleştirildi. | Yalnız kanıtlı bağımsız OR ailesi bulunduğunda sürümleyerek güncelle. |
+| 2026-09-21 | Tarayıcı kuralı | Çalışır son sinyal sistemi `Causal Spot Long.py` olarak kanonikleştirildi; frozen r2 referans kopyası `baseline/` altında korundu. | Yalnız kanıtlı bağımsız OR ailesi bulunduğunda sürümleyerek güncelle. |
 
 ## Her güncellemede eklenecek kayıt şablonu
 
