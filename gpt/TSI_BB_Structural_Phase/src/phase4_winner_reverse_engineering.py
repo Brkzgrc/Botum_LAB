@@ -1,8 +1,12 @@
 from __future__ import annotations
-import argparse, json, re
+import argparse, json, re, sys
 from pathlib import Path
 import numpy as np
 import pandas as pd
+
+ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/"lib"))
+import frozen_candidate_outcome_extension_snapshot as ext
 
 COST=0.20
 F1="btc1_tsi_d1"; F2="btc4_bb_width"
