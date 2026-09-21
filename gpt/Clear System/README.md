@@ -29,8 +29,27 @@ GitHub Actions'ın çalışabilmesi için workflow dosyasının teknik olarak `.
 
 ## Değişmez araştırma kuralları
 
+### Hareket-takibi zorunluluğu
+
+Nihai sistem statik gösterge değerleriyle çalışan bir “tek kare değer okuyucu” olmayacaktır. Örneğin yalnız `RSI < 30`, `StochRSI < 20` veya `ADX > 20` koşulu sinyal üretmeye yetmez.
+
+Sistem, kapanmış mumlar boyunca oluşan hareket dizilerini ölçmelidir:
+
+- fiyatın dip/tepe sırası, eğimi, hızlanması ve yavaşlaması
+- RSI/StochRSI/KDJ/Williams %R yön değişimi ve dönüş süreci
+- MACD çizgi/histogramının küçülme, dönüş ve genişleme dizisi
+- OBV/hacim akışının fiyat hareketine eşlik veya ayrışması
+- 4H → 1H → 15M hareket aktarımı
+- destek/dirence yaklaşım biçimi, sıkışma, kırılım ve retest
+- BTC/ETH hareketi ile altcoinin gecikme veya liderlik ilişkisi
+
+Araştırma sırasında statik seviyeler; olay havuzu oluşturma, rejim ayırma veya hareketin başladığı bağlamı tanımlama amacıyla denenebilir. Ancak üretim sinyali, en az bir nedensel hareket/transition dizisi ve kapanmış mum teyidi olmadan kabul edilmez.
+
+Araştırma yöntemi serbesttir: ileri yönlü event study, yükselen sonuçlardan geriye doğru outcome-first inceleme, önce değer sonra hareket, doğrudan hareket keşfi, kümeleme, ablation ve OR-aile karşılaştırmaları kullanılabilir. Tek ölçüt, veri sızıntısız biçimde hedefe yaklaşmasıdır.
+
+
 - Binance Spot USDT, long-only.
-- Stablecoin/fiat base varlıklar hariç.
+- Stablecoin ve fiat base varlıklar kesin olarak hariç; stable/fiat pariteleri araştırma ve canlı tarama evrenine alınmaz.
 - Round-trip maliyet: %0,20.
 - Yalnız kapanmış mum verisi; look-ahead yasak.
 - Kural seçimi 2023–2025 Discovery + Calibration üzerinde yapılır.
@@ -155,6 +174,7 @@ Bir aday ancak aşağıdakilerin tamamında olumluysa ana sisteme eklenebilir:
 | Tarih | Sürüm | Durum | Değişiklik | Sonuç / karar |
 | --- | --- | --- | --- | --- |
 | 2026-09-21 | v0.1 | Başlangıç | Frozen r2 kanonik tarayıcı `Clear System.py` olarak taşındı. Mevcut araştırmalar ve video kuralları sınıflandırıldı. | Yeni kural eklenmedi; kalite korunuyor. Önce baseline yeniden üretim. |
+| 2026-09-21 | Tasarım kilidi | Güncellendi | Nihai sistem için statik değer okuma yasaklandı; hareket/transition dizisi zorunlu kılındı. Spot USDT evreninden stablecoin ve fiat base varlıkların kesin dışlanması tekrar kilitlendi. | Baseline yalnız referans; yeni aileler hareket-takibi olarak araştırılacak. |
 
 ## Yeni session'da devam protokolü
 
