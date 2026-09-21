@@ -1,0 +1,71 @@
+{
+  "name": "Hipotez A - BTC frozen reversal fingerprint",
+  "provenance": {
+    "source_repository": "Brkzgrc/Botum",
+    "source_commit": "aedb91d5a0be831d0c27ddc65aa2147813618493",
+    "source_file": "CLAUDE.md",
+    "migrated_to": "Brkzgrc/Botum_LAB/gpt/btc-frozen-reversal-fingerprint-validation"
+  },
+  "rule": [
+    {
+      "feature": "4h_dip100_uzaklik_d3",
+      "source_window_hours_before_event": [
+        24,
+        12
+      ],
+      "aggregation": "mean",
+      "operator": "<=",
+      "threshold": 36.6
+    },
+    {
+      "feature": "4h_RSI2_ivme",
+      "source_window_hours_before_event": [
+        48,
+        24
+      ],
+      "aggregation": "mean",
+      "operator": ">=",
+      "threshold": 48.4
+    }
+  ],
+  "immutable_constraints": {
+    "threshold_tuning": false,
+    "add_third_condition": false,
+    "feature_substitution": false,
+    "broad_search_in_validation": false
+  },
+  "normalization": {
+    "coin_internal_percentile": true,
+    "causal_rolling_bars": 500
+  },
+  "episode": {
+    "max_total_span_days": 14,
+    "note": "Episode span is bounded from episode start; no single-linkage chaining beyond the span."
+  },
+  "outcome": {
+    "horizon_days": 30,
+    "target_pct": 10,
+    "adverse_pct": -10,
+    "path_aware": true,
+    "definition": "+10% must occur before -10% within 30 days."
+  },
+  "period_decision": {
+    "min_marked_episodes_to_run": 10,
+    "pass_empirical_p_max": 0.05,
+    "fail_requires_power_min": 0.8,
+    "power_reference_effect": {
+      "sensitivity": 0.6,
+      "false_alarm_rate": 0.15
+    },
+    "otherwise": "SONUCSUZ"
+  },
+  "overall_decision": {
+    "minimum_pass_periods": 2,
+    "fisher_combined_p_max": 0.01,
+    "no_period_with_reverse_direction": true
+  },
+  "discovery_context": {
+    "corrected_discovery_p": 0.0125,
+    "label": "discovery p-value, not independent validation"
+  }
+}
