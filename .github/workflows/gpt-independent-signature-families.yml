@@ -1,0 +1,98 @@
+name: GPT - Independent Signature Families
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_signature_families/**'
+      - '.github/workflows/gpt-independent-signature-families.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+
+      - name: Preflight 1 - compile
+        run: |
+          set -euo pipefail
+          python -m py_compile gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_signature_families/independent_signature_families.py
+
+      - name: Preflight 2 - artifact inventory
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          n=$(gh api "repos/Brkzgrc/Botum_LAB/actions/runs/35470936138/artifacts?per_page=100"             --jq '[.artifacts[] | select(.name | startswith("movement-family-shard-")) | select(.expired==false)] | length')
+          echo "movement_shards=$n"
+          test "$n" -eq 64
+          test -s gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frozen_robustness/output/summary.json
+
+      - name: Download movement-family population
+        uses: actions/download-artifact@v4
+        with:
+          pattern: movement-family-shard-*
+          path: /tmp/movement-family
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35470936138
+
+      - name: Preflight 3 - exact population, schema and r2 reference
+        run: |
+          set -euo pipefail
+          test "$(find /tmp/movement-family -name events.csv | wc -l)" -eq 64
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_signature_families/independent_signature_families.py             --movement-dir /tmp/movement-family             --r2-summary gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frozen_robustness/output/summary.json             --outdir /tmp/preflight             --preflight
+          python - <<'PY'
+          import json
+          s=json.load(open("/tmp/preflight/preflight.json"))
+          assert s["events"]>=1_000_000
+          assert s["symbols"]>=450
+          assert s["signatures"]>=10
+          assert s["split_counts"]["ALL_2026"]>=100_000
+          print(s)
+          PY
+
+      - name: Discover independent structural signature families
+        run: |
+          set -euo pipefail
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_signature_families/independent_signature_families.py             --movement-dir /tmp/movement-family             --r2-summary gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_frozen_robustness/output/summary.json             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_signature_families/output
+
+      - name: Validate output and size
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_signature_families/output
+          test -s "$O/summary.json"
+          test -s "$O/signature_table.csv"
+          test "$(stat -c%s "$O/summary.json")" -lt 5000000
+          test "$(stat -c%s "$O/signature_table.csv")" -lt 100000000
+          python - <<'PY'
+          import json
+          s=json.load(open("gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_signature_families/output/summary.json"))
+          assert s["preflight"]["events"]>=1_000_000
+          assert s["signature_groups_evaluated"]>=10
+          print("status",s["status"])
+          print("selected_tier",s.get("selected_tier"))
+          if s.get("selected"):
+              print("all2026",s["selected"]["evaluation"]["ALL_2026"])
+          PY
+
+      - name: Persist compact results
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/independent_signature_families/output
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$O"
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist independent movement-signature discovery [skip ci]"
+          git pull --rebase origin main
+          git push
