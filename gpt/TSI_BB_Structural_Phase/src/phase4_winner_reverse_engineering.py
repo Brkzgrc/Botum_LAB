@@ -59,7 +59,7 @@ def movement_columns(d):
 
 def robust_effect(a,b):
     a=pd.to_numeric(a,errors="coerce").dropna(); b=pd.to_numeric(b,errors="coerce").dropna()
-    if len(a)<8 or len(b)<4:return np.nan
+    if len(a)<8 or len(b)<3:return np.nan
     scale=pd.concat([a,b]).quantile(.75)-pd.concat([a,b]).quantile(.25)
     if not np.isfinite(scale) or scale==0:return np.nan
     return float((a.median()-b.median())/scale)
@@ -78,7 +78,7 @@ def build_fingerprint(d,mask,features):
         strength=min(abs(ed),abs(ec))
         if strength<0.12:continue
         rows.append({"feature":c,"dir":1 if ed>0 else -1,"effect_disc":ed,"effect_cal":ec,"stable_strength":strength})
-    return pd.DataFrame(rows).sort_values("stable_strength",ascending=False)
+    out=pd.DataFrame(rows,columns=["feature","dir","effect_disc","effect_cal","stable_strength"])\n    return out.sort_values("stable_strength",ascending=False)
 
 def score_by_winner_similarity(d,trainmask,fingerprint,topn=24):
     fp=fingerprint.head(topn)
