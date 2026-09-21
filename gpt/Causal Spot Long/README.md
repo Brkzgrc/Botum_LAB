@@ -41,6 +41,8 @@ Bu çalışma GitHub Actions run **`35627163220`** ile gerçek olarak `completed
 
 Yeni aktif hipotez: **Sell Climax Reclaim**. Kapanmış 1H yüksek-hacimli satış doruğundan sonra coin önce o mumun dibini korur, sonra 15M'de doruk mumun tepesini geri alır. Bu tek-coin akut satış emilimi yoludur; mevcut price-family eventleri çakışma koruması ile dışlanır.
 
+Bu çalışma GitHub Actions run **`35635834726`** ile gerçek olarak `completed / success` bitti. Preflight ve gerçek-veri smoke geçti; 18 kural, 52.943 event ve 459 sembol tarandı. Discovery + Calibration'da stabil champion bulunmadı: `NO_STABLE_SELL_CLIMAX_RECLAIM`. R2'ye ekleme yapılmaz.
+
 ## Sıfır oturumdan devam protokolü (zorunlu)
 
 1. Önce bu `README.md` dosyasını tamamen oku.
@@ -61,6 +63,7 @@ Yeni aktif hipotez: **Sell Climax Reclaim**. Kapanmış 1H yüksek-hacimli satı
 | 2026-09-21 | Başlatılıyor | Causal Recovery Leadership kodu derleme ve sentetik self-test geçti; gerçek-veri smoke GitHub preflight'ında zorunlu. | Preflight gerçek-veri smoke geçerse 64 shard tam tarama; değilse logla aynı çalışmayı düzelt. |
 | 2026-09-21 | Elendi | Run `35627163220` completed/success; 18 kural, 7.131 event, 440 sembol; stabil champion yok. | Farklı bir bağımsız mekanizma tasarla; r2 ve önceki fiyat-yolu aileleriyle çakışma koruması zorunlu. |
 | 2026-09-21 | Başlatılıyor | Sell Climax Reclaim: 1H satış doruğu → dip korunumu → 15M tepe geri alımı. | Derleme/self-test, gerçek-veri smoke, ardından 64-shard tarama. |
+| 2026-09-21 | Elendi | Run `35635834726` completed/success; 18 kural, 52.943 event, 459 sembol; stabil champion yok. | Yeni mekanizma tek-coin dönüşü değil, arz-talep geçişi/çoklu-zaman yapısına dayandırılmalı. |
 
 ## Her güncellemede eklenecek kayıt şablonu
 
