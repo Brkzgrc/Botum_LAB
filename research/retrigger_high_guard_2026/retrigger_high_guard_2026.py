@@ -319,9 +319,36 @@ RESEARCH_EXCLUDED_BASES = {
     "BFUSD", "EUR", "EURI", "FDUSD", "FRAX", "RLUSD", "TUSD", "U",
     "USD1", "USDC", "USDE", "USDP", "USDS", "USTC", "XUSD",
 }
+RESEARCH_BASE_URLS = [
+    "https://data-api.binance.vision",
+    "https://api.binance.com",
+    "https://api1.binance.com",
+    "https://api2.binance.com",
+    "https://api3.binance.com",
+]
+
+def research_get_json(path, params=None, timeout=30, tries=3):
+    last = None
+    for _ in range(tries):
+        for base in RESEARCH_BASE_URLS:
+            try:
+                response = requests.get(base + path, params=params or {}, timeout=timeout)
+                if response.status_code == 200:
+                    payload = response.json()
+                    if isinstance(payload, (dict, list)):
+                        return payload
+                last = RuntimeError(
+                    f"{base} HTTP {response.status_code}: {response.text[:120]}"
+                )
+            except Exception as exc:
+                last = exc
+        time.sleep(0.2)
+    raise RuntimeError(f"all Binance transports failed: {last}")
 
 def research_universe():
-    exchange = requests.get(BINANCE + "/api/v3/exchangeInfo", timeout=30).json()
+    exchange = research_get_json("/api/v3/exchangeInfo")
+    if not exchange.get("symbols"):
+        raise RuntimeError("exchangeInfo returned no symbols")
     symbols = []
     for item in exchange.get("symbols", []):
         if (
@@ -344,10 +371,10 @@ def as_frame(rows):
     return d.dropna(subset=["open","high","low","close","volume"]).drop_duplicates("open_time").sort_values("open_time").reset_index(drop=True)
 
 def fetch(symbol, interval, start, end):
-    rows=[]; cur=int(start.timestamp()*1000); finish=int(end.timestamp()*1000); http=requests.Session()
+    rows=[]; cur=int(start.timestamp()*1000); finish=int(end.timestamp()*1000)
     while cur<finish:
-        r=http.get(API,params={"symbol":symbol,"interval":interval,"startTime":cur,"endTime":finish-1,"limit":1000},timeout=30); r.raise_for_status(); batch=r.json()
-        if not batch: break
+        batch=research_get_json("/api/v3/klines",{"symbol":symbol,"interval":interval,"startTime":cur,"endTime":finish-1,"limit":1000})
+        if not isinstance(batch,list) or not batch: break
         rows.extend(batch); nxt=int(batch[-1][6])+1
         if nxt<=cur: break
         cur=nxt
