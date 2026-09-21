@@ -45,7 +45,7 @@ Başka GPT araştırma klasörlerine dosya yazma. Dış klasörleri yalnız kayn
 - `WORKSPACE_LOCK.md`: klasör sınırı.
 - `legacy_live_replay.py`: Legacy baseline replay üzerinde çalışılan dosya.
 - `oi_funding_audit.py`: baseline sonuçlarına BTC OI/Funding'i causal backward-join edip veto ailelerini development/validation/final-holdout üzerinde ölçer.
-- `signal_system_champion.py`: araştırmada o ana kadar **kanıtlanmış en iyi sinyal/veto sistemi**. Production değildir. Başlangıçta baseline/no-veto olarak tutulur; yalnız validation + untouched final holdout ile robust iyileşme kanıtlanan değişiklikler buraya promote edilir.
+- `live_portfolio_oi_funding_audit.py`: araştırmada o ana kadar **kanıtlanmış en iyi sinyal/veto sistemi**. Production değildir. Başlangıçta baseline/no-veto olarak tutulur; yalnız validation + untouched final holdout ile robust iyileşme kanıtlanan değişiklikler buraya promote edilir.
 - Eski `gpt/retrigger_high_guard_2026/retrigger_high_guard_2026.py` yalnız altyapı referansıdır. Canlı baseline değildir; RETRIGGER guard ve eski %2.5 trailing içeriyordu.
 - Eski/iddia edilen `backtest_standalone_v5.py` dosyasına bağımlı olma.
 
@@ -75,11 +75,11 @@ Tamamlanan somut işler:
 5. İki bağımsız akışı v12 orchestration/collision ve ayrı günlük kotalarla birleştir; COMBINED_PORTFOLIO baseline üret.
 6. Baseline güvenilir hale geldikten sonra `oi_funding_audit.py` ile OI/Funding coverage kontrolü yap. Binance OI history retention dönemi yetmiyorsa sonucu zorlamadan archive/public alternatif kaynağa geç.
 7. Veto taraması → validation → untouched final holdout. Robust iyileşme yoksa yeni causal özellik/kombinasyon dene; tek iyi in-sample sonucu başarı diye raporlama.
-8. Her deneyden sonra README'yi güncelle. Sonuç KEEP ise kanıtlanmış değişikliği `signal_system_champion.py` dosyasına uygula ve version/reason bilgisini güncelle. REJECT ise champion PY'ı değiştirme; README deney günlüğüne reddedilen kuralı yaz.
+8. Her deneyden sonra README'yi güncelle. Sonuç KEEP ise kanıtlanmış değişikliği `live_portfolio_oi_funding_audit.py` dosyasına uygula ve version/reason bilgisini güncelle. REJECT ise champion PY'ı değiştirme; README deney günlüğüne reddedilen kuralı yaz.
 9. Kullanıcıya yalnız **somut sonuç, hata/engel veya karar gerektiren durum** olduğunda yaz.
 
 ## GÜNCEL SİNYAL SİSTEMİ DOSYASI — ZORUNLU
-- `signal_system_champion.py` bu araştırmanın **o ana kadarki son/başarılı sinyal sistemini** taşır.
+- `live_portfolio_oi_funding_audit.py` bu araştırmanın **o ana kadarki son/başarılı sinyal sistemini** taşır.
 - Araştırmada daha iyi ve robust bir sonuç doğrulanırsa README ile birlikte bu PY da güncellenir.
 - PY içinde kullanılan aktif kurallar/eşikler ve sürüm açıkça bulunur; eski başarısız adaylar PY'a taşınmaz.
 - Başarısız araştırmada README mutlaka güncellenir fakat son başarılı sistem bozulmaz/değiştirilmez.
@@ -98,7 +98,7 @@ Her anlamlı işlemden sonra, session bitmeden veya kullanıcıya sonuç vermede
 6. Dosya adları veya mimari değişirse ilgili kaynak listesini güncelle.
 7. Varsayımı gerçekmiş gibi yazma. Çalışmayan workflow'a “çalışıyor”, tamamlanmayan teste “sonuçlandı” deme.
 8. README'yi başka klasöre kopyalama; tek authoritative handoff bu dosyadır.
-9. `signal_system_champion.py` yalnız daha iyi sonuç görüldüğü için güncellenmez; improvement validation + untouched final holdout'ta robust olmalı. Her promotion README'de eski/yeni metriklerle ve commit/run ile kayıtlı olmalı.
+9. `live_portfolio_oi_funding_audit.py` yalnız daha iyi sonuç görüldüğü için güncellenmez; improvement validation + untouched final holdout'ta robust olmalı. Her promotion README'de eski/yeni metriklerle ve commit/run ile kayıtlı olmalı.
 10. Başarısız deneylerde de README güncellenir; fakat champion PY geriye gitmemesi için değiştirilmez.
 
 ## Araştırma günlüğü formatı
