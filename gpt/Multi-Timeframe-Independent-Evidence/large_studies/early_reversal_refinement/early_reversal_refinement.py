@@ -318,6 +318,24 @@ def winner_loser_profile(dev: pd.DataFrame, plan: str) -> list[dict]:
     return rows[:25]
 
 
+def audit_shard_errors(indir: Path) -> tuple[list[dict], list[dict]]:
+    benign, hard = [], []
+    for p in sorted(indir.rglob("errors.csv")):
+        try:
+            e = pd.read_csv(p, low_memory=False)
+        except pd.errors.EmptyDataError:
+            continue
+        if e.empty:
+            continue
+        for _, row in e.iterrows():
+            rec = {"symbol": str(row.get("symbol", "")), "error": str(row.get("error", "")), "source": str(p)}
+            if rec["error"].startswith("too_short:") or rec["error"].startswith("study_too_short:"):
+                benign.append(rec)
+            else:
+                hard.append(rec)
+    return benign, hard
+
+
 def aggregate_main(indir: Path, outdir: Path) -> None:
     metas = sorted(indir.rglob("meta.json"))
     if len(metas) != 64:
@@ -327,8 +345,10 @@ def aggregate_main(indir: Path, outdir: Path) -> None:
         raise RuntimeError("missing/duplicate shard ids")
     if sum(int(m["symbols"]) for m in meta_rows) < 400:
         raise RuntimeError("unexpected symbol coverage")
-    if sum(int(m["errors"]) for m in meta_rows) != 0:
-        raise RuntimeError("symbol errors present; refusing aggregate")
+    benign_errors, hard_errors = audit_shard_errors(indir)
+    if hard_errors:
+        raise RuntimeError(f"hard symbol errors present; refusing aggregate: {hard_errors[:20]}")
+    print(json.dumps({"benign_short_history_exclusions": len(benign_errors), "hard_errors": 0}, ensure_ascii=False), flush=True)
 
     frames = []
     for p in sorted(indir.rglob("events.csv")):
@@ -424,6 +444,8 @@ def aggregate_main(indir: Path, outdir: Path) -> None:
         },
         "events": int(len(d)),
         "symbols": int(d.symbol.nunique()),
+        "benign_short_history_exclusions": benign_errors,
+        "hard_symbol_errors": hard_errors,
         "feature_count": int(len([f for f in FEATURE_COLUMNS if f in d.columns])),
         "candidate_gate_count": int(len(gates)),
         "eligible_single_count": int(len(singles)),
