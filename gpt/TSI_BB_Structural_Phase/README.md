@@ -254,3 +254,84 @@ Karar:
 - Greedy union selected 4 families and reached 199 signals in 2026 (~5.36/week), but 2026 quality dropped materially (24h win 71.86%, mean +1.99%, PF 2.84) and several individual families failed badly in 2026.
 - Decision: Phase 9 proves frequency can be expanded beyond 5/week, but discovery+calibration alone is not robust enough. Do NOT promote Phase 9 union.
 - Next: require the SAME chosen horizon to survive DISCOVERY + CALIBRATION + CROSS_HOLDOUT_PRE2026 before 2026 is opened. No 2026 selection.
+
+
+## 12. Phase 4–8 — Tersine mühendislik hattı
+
+### Phase 4 — Winner Reverse Engineering
+- Run: `35636346584` — SUCCESS.
+- r2 kazanan/kaybeden hareket özellikleri karşılaştırıldı; 340 özellikten 111 kararlı fark, 24 fingerprint özelliği.
+- Yeni viable genişleme: 0.
+- Ders: r2 kazananlarında ölçülebilir yapı var fakat az sayıdaki kaybeden nedeniyle scalar fingerprint kırılgan.
+
+### Phase 5 — Winner Prototype
+- Run: `35639850594` — SUCCESS.
+- 340 özellikten 40 özellikli kazanan-prototip benzerliği ile non-r2 R1 olayları arandı.
+- Yeni viable genişleme: 0.
+- Ders: scalar prototip benzerliği yeterli değil; doğrudan fiyat yolu/trajectory gerekli.
+
+### Phase 6 — Direct Trajectory
+- Run: `35640912701` — SUCCESS.
+- 577 frozen TSI+BB olayı; giriş öncesi 48 saatlik 15M fiyat yolu, 13 trajectory noktası.
+- Yeni viable genişleme: 0.
+- Ders: yalnız 48 saatlik fiyat şekli r2 kalitesinde ek sinyal ayırmadı.
+
+### Phase 7 — Broad Trajectory
+- Run: `35641902696` — SUCCESS.
+- Evren 1,847 olaya genişletildi.
+- İlk viable ikinci aile bulundu: `NON_R2_TRAJECTORY_Q925`.
+- r2 + ikinci aile 2026: 133 sinyal, 3.58/hafta; win24 %86.47, mean24 +%3.45, PF24 6.39.
+- Başarılı ilerleme fakat >=5/hafta hedefi karşılanmadı.
+
+### Phase 8 — Multiwindow Trajectory
+- Run: `35643848911` — SUCCESS.
+- 12/24/48 saat giriş-öncesi yollar ve 24/72/168 saat sonuç ufukları; 67 aile.
+- Viable: 0.
+- Metodolojik hata: bütün sonuç ufuklarını aynı anda pozitif tutma şartı gereğinden sertti. Kullanıcı sabit 24/48 saat çıkış şartı koymamıştır.
+- Bundan sonra her aile kendi uygun sonuç ufkunu pre-2026 veriden seçebilir; 12/24/48/72/168 saat ayrı incelenir.
+
+## 13. Phase 9 — Horizon-Adaptive Trajectory
+- Run: `35644195419` — SUCCESS.
+- 112 aile; Discovery+Calibration'da 49 viable.
+- 4 aile birleşimi 2026'da 199 sinyal = 5.36/hafta.
+- Ancak 24s kalite %71.86 WR, +%1.99 mean, PF 2.84'e düştü.
+- Frekans hedefi ilk kez aşıldı fakat kalite kaybı kabul edilmedi.
+- Ders: D+C tek başına overfit'i engellemiyor; cross-holdout zorunlu.
+
+## 14. Phase 10 — Cross-Holdout Gate
+- Run: `35645359556` — SUCCESS.
+- 112 aile; aynı sonuç ufkunda Discovery + Calibration + CROSS_HOLDOUT_PRE2026 şartı.
+- Cross-gated viable: 31.
+- Birleşim 2026: 199 sinyal = 5.36/hafta; win24 %71.86, mean24 +%1.99, median24 +%2.50, PF24 2.84.
+- Sonuç: frekans yeterli fakat kalite r2'ye göre fazla düştüğü için kabul edilmedi.
+- Ders: yalnız trajectory benzerliği, rejim değişimini yeterince açıklamıyor.
+
+## 15. Phase 11 — Regime-Conditioned Trajectory
+- Run: `35647958921` — SUCCESS.
+- Evren: 1,845 olay; veri hatası 0.
+- BTC/alt volatilite ve TSI rejimleri içinde causal trajectory tersine mühendisliği.
+- Pre-2026 Discovery + Calibration + Cross üzerinde 57 robust aday; 5 aile birleşime seçildi.
+- 2026 birleşim: 139 sinyal = 3.74/hafta, 120 sembol.
+- 24s: WR %85.61, mean +%3.33, median +%3.21, PF 5.77.
+- 48s: WR %84.89, mean +%4.97, median +%4.61, PF 8.02.
+- Sonuç: Phase 9/10'a göre kalite belirgin toparlandı; fakat >=5 sinyal/hafta hedefi karşılanmadı. Araştırma devam edecek.
+- 2026 seçimde kullanılmadı.
+
+## 16. Canonical sinyal sistemi dosyası
+
+- `latest_signal_system.py` bu projenin TEK güncel sinyal sistemi tanımıdır.
+- Araştırmada daha iyi ve kabul edilebilir bir sistem bulunduğunda bu dosya güncellenecek; eski başarısız deneyler README'den silinmeyecek.
+- Şu an PROMOTED çekirdek: frozen TSI+BB r2. Phase 11 genişlemesi araştırma adayıdır; frekans hedefini karşılamadığı için promoted çekirdeğin yerine geçirilmemiştir.
+- WR tek başına karar ölçütü değildir. WR düşüşü ancak mean/median P&L ve PF'deki yeterli artışla kabul edilebilir.
+
+## 17. Sıradaki araştırma
+
+Phase 11 kaliteyi koruyarak 3.74/haftaya ulaştı. Sıradaki çalışma aynı threshold taramasını tekrar etmeyecek.
+
+Öncelik:
+1. Phase 11'in iyi çalışan rejim/trajectory ailelerini koru.
+2. Eksik frekansı farklı ve bağımsız hareket ailesinden tamamla; mevcut aileleri gevşetip kaliteyi ezme.
+3. Discovery + Calibration + CROSS_HOLDOUT_PRE2026 zorunlu.
+4. 2026 yalnız final evaluation.
+5. >=5/hafta yakalanırsa aylık/haftalık kümelenme, sembol yoğunlaşması, overlap ve maliyet stres testi yap.
+6. Kabul edilen sistem değiştiğinde `latest_signal_system.py` aynı committe güncellenecek.
