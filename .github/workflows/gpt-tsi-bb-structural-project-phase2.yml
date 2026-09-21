@@ -1,0 +1,73 @@
+name: GPT - TSI BB Structural Project Phase 2
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  shards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Download indicator artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug-artifacts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - name: Build structural features
+        run: |
+          python gpt/TSI_BB_Structural_Phase/src/phase2_structural_extension.py \
+            --artifact-dir /tmp/indicator-aug-artifacts \
+            --shard ${{ matrix.shard }} --shards 8 \
+            --outdir /tmp/phase2/shard_${{ matrix.shard }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tsi-bb-structural-project-phase2-${{ matrix.shard }}
+          path: /tmp/phase2/shard_${{ matrix.shard }}
+          retention-days: 7
+  aggregate:
+    needs: shards
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: tsi-bb-structural-project-phase2-*
+          path: /tmp/phase2-all
+          merge-multiple: false
+      - name: Aggregate
+        run: |
+          python gpt/TSI_BB_Structural_Phase/src/phase2_structural_extension.py \
+            --aggregate-dir /tmp/phase2-all \
+            --outdir gpt/TSI_BB_Structural_Phase/results/phase2_latest
+      - name: Persist results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add gpt/TSI_BB_Structural_Phase/results/phase2_latest
+          if git diff --cached --quiet; then echo "No output changes"; else git commit -m "Persist TSI BB Structural Phase 2 [skip ci]" && git push; fi
