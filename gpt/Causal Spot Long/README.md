@@ -35,6 +35,8 @@ Taşınma sırasında eski çalışma alanında tamamlanan **`Causal Impulse Ori
 
 Yeni workflow `.github/workflows/gpt-causal-spot-long-impulse-origin-retest.yml` yalnız `workflow_dispatch` ile tutulur. Bu, taşınma yüzünden aynı 64-shard taramayı iki kez çalıştırmamak içindir. Eski run tamamlandıktan sonra sonraki anlamlı değişiklik için bu yeni workflow üzerinden preflight → gerçek-veri smoke → full scan sırası izlenir.
 
+Yeni aktif hipotez: **Causal Recovery Leadership**. Mekanizma, kapanmış BTC şoku sırasında BTC'ye göre daha az zayıflayan/önden güçlenen coinlerin, BTC düşüşü uzatmayı bıraktığında kendi 15M mikro-yapı kırılımını yapmasıdır. Bu, tek-coin breakout/pullback değil, coin--BTC tepki sırasını test eder; eski Price Families v2 eventleri çakışma koruması ile dışlanır. Workflow dosyası: `.github/workflows/gpt-causal-spot-long-recovery-leadership.yml`.
+
 ## Sıfır oturumdan devam protokolü (zorunlu)
 
 1. Önce bu `README.md` dosyasını tamamen oku.
@@ -52,6 +54,7 @@ Yeni workflow `.github/workflows/gpt-causal-spot-long-impulse-origin-retest.yml`
 | --- | --- | --- | --- |
 | 2026-09-21 | Taşındı | Gerekli araştırma kaynakları ve iki önceki özet kanıt bu klasöre kopyalandı; yeni dispatch-only workflow eklendi. | Tamamlanan impuls retest çıktısını içeri aktar ve değerlendirme kaydını ekle. |
 | 2026-09-21 | Elendi | Run `35619941624` gerçek olarak `completed/success`; 18 kural, 43.920 event, 455 sembol; stabil champion/birleşik set bulunmadı. | Yeni bağımsız outcome-first hipotezini, önceki ailelerle çakışma koruması altında tasarla. |
+| 2026-09-21 | Başlatılıyor | Causal Recovery Leadership kodu derleme ve sentetik self-test geçti; gerçek-veri smoke GitHub preflight'ında zorunlu. | Preflight gerçek-veri smoke geçerse 64 shard tam tarama; değilse logla aynı çalışmayı düzelt. |
 
 ## Her güncellemede eklenecek kayıt şablonu
 
