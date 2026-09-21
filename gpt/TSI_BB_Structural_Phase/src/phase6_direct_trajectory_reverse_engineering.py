@@ -39,7 +39,7 @@ def fetch_path(row):
     start_ms=int((t-pd.Timedelta(hours=48)).timestamp()*1000)
     try:
         z=get_json("/api/v3/klines",{"symbol":str(row.symbol),"interval":"15m","startTime":start_ms,"endTime":end_ms,"limit":1000})
-        if not isinstance(z,list) or len(z)<193: return row.row_id,None,f"short:{len(z) if isinstance(z,list) else -1}"
+        if not isinstance(z,list) or len(z)<192: return row.row_id,None,f"short:{len(z) if isinstance(z,list) else -1}"
         a=np.array([float(x[4]) for x in z[-193:]],float)
         h=np.array([float(x[2]) for x in z[-193:]],float)
         ref=a[-1]
