@@ -50,7 +50,7 @@ def main(indir,outdir):
         DZ=np.diff(Z,axis=1)
         good=disc&rg&r2
         if int(good.sum())<12: continue
-        y=g.loc[good,f'net_ret_{oh}'].to_numpy()
+        y=g.loc[good,f'net_{oh}h'].to_numpy()
         win=y>0
         if win.sum()<6 or (~win).sum()<3: continue
         pw=np.nanmedian(Z[good.to_numpy()][win],axis=0); pl=np.nanmedian(Z[good.to_numpy()][~win],axis=0)
