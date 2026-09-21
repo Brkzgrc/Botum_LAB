@@ -289,3 +289,19 @@ Do not convert this to RUNNING/SUCCESS/FAILURE without checking GitHub Actions.
 - Dedicated `pump-watch-entry-research.yml` workflow added.
 - README upgraded into the master cross-session handoff/state document.
 - Explicit README self-maintenance protocol added.
+
+
+## SIGNAL SYSTEM FILE PROTOCOL
+
+The project must maintain a separate executable Python representation of the best CURRENT signal-detection candidate:
+
+- `signal_system.py`
+
+Rules:
+1. `research_runner.py` is the experimental/search engine. `signal_system.py` is the latest best reproducible signal logic discovered by completed research.
+2. After EVERY completed experiment (success or failure), update this README with the verified run ID, result, conclusion, and next action.
+3. If a completed experiment produces a genuinely better validated candidate, update `signal_system.py` to that candidate and record the source run/phase and metrics in its header.
+4. Never replace `signal_system.py` with a weaker, unvalidated, or merely in-sample candidate.
+5. If an experiment fails or does not improve the incumbent, leave `signal_system.py` unchanged and record why in README.
+6. The signal file must obey the project's no-lookahead rules: closed candles only for decisions; future data only for labels/outcomes; final tradable entry logic must use the next eligible candle/open or a separately validated closed-candle lower-timeframe trigger.
+7. Until WATCH → ENTRY research is complete, the file must clearly label itself as a RESEARCH CANDIDATE, not a production/final trading system.
