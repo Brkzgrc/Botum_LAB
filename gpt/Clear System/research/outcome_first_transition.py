@@ -195,8 +195,21 @@ def aggregate_main(indir: Path, outdir: Path, expected_shards: int = 64) -> None
         raise RuntimeError("incomplete shard set")
     if sum(int(m["symbols"]) for m in metas) < 400:
         raise RuntimeError("unexpectedly small universe")
-    if sum(int(m["errors"]) for m in metas) > 0:
-        raise RuntimeError("hard shard errors present")
+    hard_errors = []
+    benign_errors = []
+    for p in indir.rglob("errors.csv"):
+        try:
+            e = pd.read_csv(p)
+        except pd.errors.EmptyDataError:
+            continue
+        for _, row in e.iterrows():
+            rec = {"symbol": str(row.get("symbol", "")), "error": str(row.get("error", ""))}
+            if rec["error"].startswith("too_short:"):
+                benign_errors.append(rec)
+            else:
+                hard_errors.append(rec)
+    if hard_errors:
+        raise RuntimeError("hard shard errors: " + json.dumps(hard_errors[:10]))
 
     frames = []
     for p in indir.rglob("events.csv"):
@@ -247,6 +260,7 @@ def aggregate_main(indir: Path, outdir: Path, expected_shards: int = 64) -> None
         "status": "NO_STABLE_OUTCOME_FIRST_TRANSITION",
         "events": int(len(d)), "symbols": int(d.symbol.nunique()),
         "features": FEATURES, "cost_pct": COST,
+        "benign_short_history_exclusions": len(benign_errors),
         "selection_lock": "Model fits Discovery; plan/threshold selection uses Discovery+Calibration; holdouts untouched until frozen.",
         "champion": {},
     }
