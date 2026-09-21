@@ -1,0 +1,10 @@
+{
+  "status": "NO_STABLE_MOTION_LEADERSHIP_PERSISTENCE",
+  "candidate_rules": 18,
+  "events": 162960,
+  "symbols": 465,
+  "champions": {},
+  "combined": {},
+  "overlap_guard": "Events overlapping any Price Families v2 rule are excluded.",
+  "selection_lock": "Selection uses Discovery+Calibration only; holdout is diagnostic."
+}
