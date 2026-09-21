@@ -35,14 +35,15 @@ jobs:
       - name: Run Phase 12
         run: |
           cd gpt/TSI_BB_Structural_Phase/src
-          python phase12_intersection_regime_trajectory.py --artifact-dir /tmp/indicator-aug-artifacts --outdir ../results/phase12
+          rm -rf /tmp/phase12-results
+          python phase12_intersection_regime_trajectory.py --artifact-dir /tmp/indicator-aug-artifacts --outdir /tmp/phase12-results
       - name: Persist
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add gpt/TSI_BB_Structural_Phase/results/phase12
-          git stash push --include-untracked -m phase12-results
           git pull --rebase origin main
-          git stash pop
+          rm -rf gpt/TSI_BB_Structural_Phase/results/phase12
+          mkdir -p gpt/TSI_BB_Structural_Phase/results/phase12
+          cp -a /tmp/phase12-results/. gpt/TSI_BB_Structural_Phase/results/phase12/
           git add gpt/TSI_BB_Structural_Phase/results/phase12
           if git diff --cached --quiet; then echo "No changes"; else git commit -m "Persist TSI BB Phase 12 [skip ci]" && git push; fi
