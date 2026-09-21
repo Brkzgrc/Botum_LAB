@@ -1,0 +1,103 @@
+name: GPT - r2 Movement Expansion
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_expansion/**'
+      - '.github/workflows/gpt-r2-movement-expansion.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+
+      - name: Preflight 1 - compile
+        run: |
+          set -euo pipefail
+          python -m py_compile gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_expansion/r2_movement_expansion.py
+
+      - name: Preflight 2 - source artifact inventory
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          n1=$(gh api "repos/Brkzgrc/Botum_LAB/actions/runs/35292657185/artifacts?per_page=100"             --jq '[.artifacts[] | select(.name | startswith("indicator-aug-shard-")) | select(.expired==false)] | length')
+          n2=$(gh api "repos/Brkzgrc/Botum_LAB/actions/runs/35452406018/artifacts?per_page=100"             --jq '[.artifacts[] | select(.name=="r2-round2-dataset") | select(.expired==false)] | length')
+          echo "indicator_artifacts=$n1 r2_dataset_artifacts=$n2"
+          test "$n1" -eq 8
+          test "$n2" -eq 1
+
+      - name: Download broad causal movement feature artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+
+      - name: Download frozen r2 event dataset
+        uses: actions/download-artifact@v4
+        with:
+          name: r2-round2-dataset
+          path: /tmp/r2-dataset
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35452406018
+
+      - name: Preflight 3 - exact cohort and movement schema
+        run: |
+          set -euo pipefail
+          test "$(find /tmp/indicator-aug -name features.csv | wc -l)" -eq 8
+          test -s /tmp/r2-dataset/r2_events.csv
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_expansion/r2_movement_expansion.py             --indicator-dir /tmp/indicator-aug             --r2-dataset-dir /tmp/r2-dataset             --outdir /tmp/preflight             --preflight
+
+      - name: Analyze movement states for high-frequency expansion
+        run: |
+          set -euo pipefail
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_expansion/r2_movement_expansion.py             --indicator-dir /tmp/indicator-aug             --r2-dataset-dir /tmp/r2-dataset             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_expansion/output
+
+      - name: Validate compact result
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_expansion/output
+          test -s "$O/summary.json"
+          test -s "$O/movement_effects.csv"
+          test -s "$O/candidates.csv"
+          test "$(stat -c%s "$O/summary.json")" -lt 5000000
+          python - <<'PY'
+          import json
+          p="gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_expansion/output/summary.json"
+          s=json.load(open(p))
+          assert s["preflight"]["broad_events"]==8174
+          assert s["preflight"]["r1"]==577
+          assert s["preflight"]["r2"]==225
+          assert s["preflight"]["splits"]["ALL_2026"]==1556
+          assert s["movement_feature_count"]>=80
+          assert len(s["selected_independent_movement_features"])>=6
+          print("status",s["status"])
+          print("champion",s.get("champion"))
+          PY
+
+      - name: Persist results
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_expansion/output
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$O"
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist r2 movement expansion analysis [skip ci]"
+          git pull --rebase origin main
+          git push
