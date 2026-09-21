@@ -1,0 +1,75 @@
+{
+  "purpose": "Phase 1: widen frozen TSI+BB pre-2026, then test measurable momentum/pressure/location filters inspired by SPOT_STRATEJI_KURALLARI. 2026 is evaluation only.",
+  "cost_pct": 0.2,
+  "selection_uses_2026": false,
+  "candidate_features": [
+    "m15_ppo_hist_d1",
+    "m15_ppo_hist_acc",
+    "h1_ppo_hist_d1",
+    "h1_ppo_hist_acc",
+    "h4_ppo_hist_d1",
+    "h4_ppo_hist_acc",
+    "m15_di_spread",
+    "h1_di_spread",
+    "h4_di_spread",
+    "m15_vwap_dist",
+    "h1_vwap_dist",
+    "m15_bb_pctb",
+    "h1_bb_pctb",
+    "m15_rvol20",
+    "h1_rvol20",
+    "m15_er10",
+    "h1_er10"
+  ],
+  "candidate_count": 6801,
+  "viable_pre2026_count": 0,
+  "base": {
+    "frozen_tsi_bb": {
+      "discovery": {
+        "n": 155,
+        "symbols": 101,
+        "win24": 69.6774193548387,
+        "mean24": 1.9439338260562602,
+        "median24": 1.8385674931129528,
+        "pf24": 2.993328122857208,
+        "p10_24": -4.3237362854530526,
+        "up3_before_dn2": 54.19354838709678,
+        "danger_dn2_first": 45.16129032258064
+      },
+      "calibration": {
+        "n": 115,
+        "symbols": 94,
+        "win24": 57.391304347826086,
+        "mean24": 0.8916117597067938,
+        "median24": 0.7396636993076247,
+        "pf24": 1.5833201708536568,
+        "p10_24": -5.9411303780018825,
+        "up3_before_dn2": 52.17391304347826,
+        "danger_dn2_first": 47.82608695652174
+      },
+      "cross_holdout_pre2026": {
+        "n": 157,
+        "symbols": 77,
+        "win24": 56.05095541401274,
+        "mean24": 0.504726755042955,
+        "median24": 0.4097560975609761,
+        "pf24": 1.2906467292670305,
+        "p10_24": -5.622898065300586,
+        "up3_before_dn2": 43.31210191082803,
+        "danger_dn2_first": 56.05095541401274
+      },
+      "holdout_2026": {
+        "n": 51,
+        "symbols": 44,
+        "win24": 86.27450980392157,
+        "mean24": 4.341850878590058,
+        "median24": 3.1898305084745893,
+        "pf24": 12.491958365149909,
+        "p10_24": -0.5284072249589487,
+        "up3_before_dn2": 70.58823529411765,
+        "danger_dn2_first": 29.411764705882355
+      }
+    }
+  },
+  "top_candidates": []
+}
