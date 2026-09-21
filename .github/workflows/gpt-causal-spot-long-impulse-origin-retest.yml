@@ -1,0 +1,108 @@
+name: GPT - Causal Spot Long - Impulse Origin Retest
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Compile, deterministic schema and synthetic causal audit
+        run: |
+          set -euo pipefail
+          P='gpt/Causal Spot Long/research/impulse_origin_retest.py'
+          python -m py_compile "$P"
+          python "$P" --self-test --outdir /tmp/ior-selftest
+      - name: Real-data multi-symbol smoke
+        run: |
+          set -euo pipefail
+          P='gpt/Causal Spot Long/research/impulse_origin_retest.py'
+          python "$P" --shard 0 --shards 1 \
+            --symbols ETHUSDT,SOLUSDT,XRPUSDT,DOGEUSDT,LINKUSDT,AVAXUSDT \
+            --fetch-start 2024-10-01 --study-start 2025-01-01 --end 2026-09-18 \
+            --outdir /tmp/ior-smoke
+          python - <<'PY'
+          import json,pandas as pd
+          m=json.load(open('/tmp/ior-smoke/meta.json'))
+          assert m['symbols']==6,m
+          assert m['errors']==0,m
+          d=pd.read_csv('/tmp/ior-smoke/events.csv',low_memory=False)
+          if len(d):
+              req={'symbol','hash_mod','decision_time','rules','net24','mfe24','mae24','ret_TP3_SL2','ret_TP4_SL2P5','ret_TP5_SL3'}
+              assert not(req-set(d.columns)),set(d.columns)
+          print('smoke',m,'events',len(d))
+          PY
+
+  shard:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    strategy:
+      fail-fast: false
+      max-parallel: 16
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - run: |
+          python 'gpt/Causal Spot Long/research/impulse_origin_retest.py' \
+            --shard ${{ matrix.shard }} --shards 64 --outdir /tmp/ior/shard-${{ matrix.shard }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: impulse-origin-retest-shard-${{ matrix.shard }}
+          path: /tmp/ior/shard-${{ matrix.shard }}
+          retention-days: 7
+
+  aggregate:
+    needs: shard
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: impulse-origin-retest-shard-*
+          path: /tmp/ior
+      - name: Verify shards, aggregate and validate compact output
+        run: |
+          set -euo pipefail
+          test "$(find /tmp/ior -name meta.json | wc -l)" -eq 64
+          test "$(find /tmp/ior -name events.csv | wc -l)" -eq 64
+          P='gpt/Causal Spot Long/research/impulse_origin_retest.py'
+          O='gpt/Causal Spot Long/output/impulse_origin_retest'
+          python "$P" --aggregate-dir /tmp/ior --outdir "$O"
+          test -s "$O/summary.json"
+          test "$(stat -c%s "$O/summary.json")" -lt 5000000
+          python - <<'PY'
+          import json
+          s=json.load(open('gpt/Causal Spot Long/output/impulse_origin_retest/summary.json'))
+          assert s['candidate_rules']==18
+          assert s['symbols']>=350
+          print('status',s['status'],'events',s['events'],'symbols',s['symbols'])
+          PY
+      - name: Persist result
+        run: |
+          set -euo pipefail
+          O='gpt/Causal Spot Long/output/impulse_origin_retest'
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$O"
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist causal impulse-origin retest analysis [skip ci]"
+          git pull --rebase origin main
+          git push

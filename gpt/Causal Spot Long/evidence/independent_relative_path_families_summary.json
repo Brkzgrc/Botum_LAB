@@ -1,0 +1,1203 @@
+{
+  "status": "NO_STABLE_RELATIVE_PATH_FAMILY",
+  "purpose": "Independent coin/BTC relative-price path mechanisms; frozen r2 is preserved and evaluated only as an OR baseline.",
+  "causality": {
+    "closed_15m_1h_4h_only": true,
+    "entry": "next 15m open",
+    "round_trip_cost_pct": 0.2,
+    "same_bar_ambiguity": "pessimistic stop first",
+    "selection": "Discovery+Calibration only; both holdouts are diagnostics"
+  },
+  "candidate_rules": 60,
+  "events": 552597,
+  "symbols": 466,
+  "families": [
+    "DEFENSIVE_LEADER_RELEASE",
+    "MARKET_LAG_CATCHUP",
+    "RELATIVE_COMPRESSION_RELEASE",
+    "LEADER_PULLBACK_RESUME",
+    "RELATIVE_WASHOUT_RECLAIM"
+  ],
+  "benign_short_history_exclusions": [
+    {
+      "symbol": "SQQQBUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "CRWDBUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "牛来USDT",
+      "error": "too_short:998"
+    },
+    {
+      "symbol": "RDDTBUSDT",
+      "error": "too_short:336"
+    },
+    {
+      "symbol": "HIMSBUSDT",
+      "error": "too_short:1008"
+    },
+    {
+      "symbol": "BNCBUSDT",
+      "error": "too_short:528"
+    },
+    {
+      "symbol": "CRMBUSDT",
+      "error": "too_short:1008"
+    },
+    {
+      "symbol": "GPROBUSDT",
+      "error": "too_short:336"
+    },
+    {
+      "symbol": "MARSCOINUSDT",
+      "error": "too_short:1484"
+    },
+    {
+      "symbol": "MRNABUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "STXBUSDT",
+      "error": "too_short:1680"
+    }
+  ],
+  "champions": {},
+  "combined_relative_families": {},
+  "frozen_r2_reference": {
+    "events": 225,
+    "symbols": 159,
+    "immutable": true,
+    "source": "r2-round2-dataset artifact"
+  },
+  "or_with_frozen_r2": {
+    "overlap_audit": {
+      "new_selected": 0,
+      "overlap_with_r2_12h": 0,
+      "incremental_new": 0,
+      "frozen_r2_preserved": 225,
+      "union": 225
+    },
+    "splits": {
+      "DISCOVERY": {
+        "metrics": {
+          "n": 27,
+          "symbols": 27,
+          "mean24": 3.400172271386731,
+          "median24": 4.024854162983904,
+          "win24": 88.88888888888889,
+          "pf24": 10.977066345372439,
+          "mfe24": 6.508313224757073,
+          "mae24": -2.4105393480906447,
+          "TP3_SL2": {
+            "mean": 1.133333333333333,
+            "median": 2.8,
+            "win": 66.66666666666666,
+            "pf": 2.545454545454545,
+            "target_first": 66.66666666666666,
+            "stop_first": 33.33333333333333
+          },
+          "TP4_SL2P5": {
+            "mean": 2.8240169167746276,
+            "median": 3.8,
+            "win": 88.88888888888889,
+            "pf": 14.187626167956987,
+            "target_first": 70.37037037037037,
+            "stop_first": 7.4074074074074066
+          },
+          "TP5_SL3": {
+            "mean": 3.64115426136812,
+            "median": 4.8,
+            "win": 92.5925925925926,
+            "pf": 28.44727958442465,
+            "target_first": 62.96296296296296,
+            "stop_first": 3.7037037037037033
+          }
+        },
+        "frequency": {
+          "signals": 27,
+          "signals_per_day": 0.036935704514363885,
+          "active_days": 9,
+          "active_day_share_pct": 1.231190150478796,
+          "median_on_active_day": 2.0,
+          "p90_on_active_day": 5.200000000000002,
+          "max_in_day": 14
+        },
+        "distribution": {
+          "year": {
+            "2023": {
+              "n": 8,
+              "symbols": 8,
+              "mean24": 3.2515019267671184
+            },
+            "2024": {
+              "n": 19,
+              "symbols": 19,
+              "mean24": 3.462770311226568
+            }
+          },
+          "top_symbols": [
+            {
+              "symbol": "TUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "NEARUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "FILUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "RLCUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "NEOUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "CVCUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "GALAUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "ZRXUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "IQUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "ETCUSDT",
+              "n": 1
+            }
+          ],
+          "max_symbol_share_pct": 3.7037037037037033,
+          "top10_share_pct": 37.03703703703704
+        }
+      },
+      "CALIBRATION": {
+        "metrics": {
+          "n": 48,
+          "symbols": 45,
+          "mean24": 3.4795206061411186,
+          "median24": 3.2987176711575805,
+          "win24": 85.41666666666666,
+          "pf24": 14.689469507557837,
+          "mfe24": 7.043396771823088,
+          "mae24": -2.8719978362748644,
+          "TP3_SL2": {
+            "mean": 1.4458333333333335,
+            "median": 2.8,
+            "win": 72.91666666666666,
+            "pf": 3.4265734265734262,
+            "target_first": 72.91666666666666,
+            "stop_first": 27.083333333333332
+          },
+          "TP4_SL2P5": {
+            "mean": 1.7586823465772312,
+            "median": 3.8,
+            "win": 70.83333333333334,
+            "pf": 3.2332474242250546,
+            "target_first": 62.5,
+            "stop_first": 29.166666666666668
+          },
+          "TP5_SL3": {
+            "mean": 2.0974118139719704,
+            "median": 4.8,
+            "win": 70.83333333333334,
+            "pf": 3.2472269435413965,
+            "target_first": 54.166666666666664,
+            "stop_first": 29.166666666666668
+          }
+        },
+        "frequency": {
+          "signals": 48,
+          "signals_per_day": 0.13150684931506848,
+          "active_days": 9,
+          "active_day_share_pct": 2.4657534246575343,
+          "median_on_active_day": 2.0,
+          "p90_on_active_day": 11.600000000000003,
+          "max_in_day": 26
+        },
+        "distribution": {
+          "year": {
+            "2025": {
+              "n": 48,
+              "symbols": 45,
+              "mean24": 3.4795206061411186
+            }
+          },
+          "top_symbols": [
+            {
+              "symbol": "PHAUSDT",
+              "n": 3
+            },
+            {
+              "symbol": "PEPEUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "ASTRUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "AVAXUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "BANANAUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "BATUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "BLURUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "BOMEUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "CAKEUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "CHRUSDT",
+              "n": 1
+            }
+          ],
+          "max_symbol_share_pct": 6.25,
+          "top10_share_pct": 27.083333333333332
+        }
+      },
+      "CROSS_HOLDOUT_PRE2026": {
+        "metrics": {
+          "n": 40,
+          "symbols": 31,
+          "mean24": 2.7599377848894653,
+          "median24": 3.1100111978474283,
+          "win24": 80.0,
+          "pf24": 5.011412540448138,
+          "mfe24": 7.048101103787873,
+          "mae24": -2.984119586454508,
+          "TP3_SL2": {
+            "mean": 0.6152439024390244,
+            "median": 2.8,
+            "win": 57.49999999999999,
+            "pf": 1.6580148689187417,
+            "target_first": 55.00000000000001,
+            "stop_first": 42.5
+          },
+          "TP4_SL2P5": {
+            "mean": 1.4445756293992846,
+            "median": 3.8,
+            "win": 67.5,
+            "pf": 2.6462400335034575,
+            "target_first": 57.49999999999999,
+            "stop_first": 32.5
+          },
+          "TP5_SL3": {
+            "mean": 1.6332956655710447,
+            "median": 3.1617710322159542,
+            "win": 67.5,
+            "pf": 2.639156336270559,
+            "target_first": 45.0,
+            "stop_first": 30.0
+          }
+        },
+        "frequency": {
+          "signals": 40,
+          "signals_per_day": 0.0364963503649635,
+          "active_days": 14,
+          "active_day_share_pct": 1.2773722627737227,
+          "median_on_active_day": 1.5,
+          "p90_on_active_day": 6.100000000000003,
+          "max_in_day": 12
+        },
+        "distribution": {
+          "year": {
+            "2023": {
+              "n": 6,
+              "symbols": 6,
+              "mean24": 1.7464254118904752
+            },
+            "2024": {
+              "n": 8,
+              "symbols": 8,
+              "mean24": 4.345012349754844
+            },
+            "2025": {
+              "n": 26,
+              "symbols": 24,
+              "mean24": 2.5061100048537313
+            }
+          },
+          "top_symbols": [
+            {
+              "symbol": "SKLUSDT",
+              "n": 3
+            },
+            {
+              "symbol": "HBARUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "APEUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "FLOKIUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "APTUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "MOVRUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "ZILUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "AIXBTUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "ALICEUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "CTKUSDT",
+              "n": 1
+            }
+          ],
+          "max_symbol_share_pct": 7.5,
+          "top10_share_pct": 47.5
+        }
+      },
+      "FINAL_HOLDOUT_2026": {
+        "metrics": {
+          "n": 36,
+          "symbols": 32,
+          "mean24": 5.806782466854984,
+          "median24": 3.489224799467172,
+          "win24": 97.22222222222221,
+          "pf24": 348.0771504998062,
+          "mfe24": 8.858566738684939,
+          "mae24": -1.3679544985561978,
+          "TP3_SL2": {
+            "mean": 1.9666666666666661,
+            "median": 2.8,
+            "win": 83.33333333333334,
+            "pf": 6.3636363636363615,
+            "target_first": 83.33333333333334,
+            "stop_first": 16.666666666666664
+          },
+          "TP4_SL2P5": {
+            "mean": 3.258333333333333,
+            "median": 3.8,
+            "win": 91.66666666666666,
+            "pf": 15.481481481481477,
+            "target_first": 91.66666666666666,
+            "stop_first": 8.333333333333332
+          },
+          "TP5_SL3": {
+            "mean": 3.9284031398888097,
+            "median": 4.8,
+            "win": 94.44444444444444,
+            "pf": 23.097267661874554,
+            "target_first": 80.55555555555556,
+            "stop_first": 5.555555555555555
+          }
+        },
+        "frequency": {
+          "signals": 36,
+          "signals_per_day": 0.13846153846153847,
+          "active_days": 2,
+          "active_day_share_pct": 0.7692307692307693,
+          "median_on_active_day": 18.0,
+          "p90_on_active_day": 20.4,
+          "max_in_day": 21
+        },
+        "distribution": {
+          "year": {
+            "2026": {
+              "n": 36,
+              "symbols": 32,
+              "mean24": 5.806782466854984
+            }
+          },
+          "top_symbols": [
+            {
+              "symbol": "DOGEUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "MUBARAKUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "ORDIUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "PLUMEUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "ARBUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "BANANAS31USDT",
+              "n": 1
+            },
+            {
+              "symbol": "CFXUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "DYDXUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "FLOKIUSDT",
+              "n": 1
+            },
+            {
+              "symbol": "IOTXUSDT",
+              "n": 1
+            }
+          ],
+          "max_symbol_share_pct": 5.555555555555555,
+          "top10_share_pct": 38.88888888888889
+        }
+      },
+      "ALL_2026": {
+        "metrics": {
+          "n": 110,
+          "symbols": 99,
+          "mean24": 3.978377523757902,
+          "median24": 3.489224799467172,
+          "win24": 92.72727272727272,
+          "pf24": 12.066525133676974,
+          "mfe24": 7.493055020462384,
+          "mae24": -1.7154265075234933,
+          "TP3_SL2": {
+            "mean": 1.8000000000000005,
+            "median": 2.8,
+            "win": 80.0,
+            "pf": 5.09090909090909,
+            "target_first": 80.0,
+            "stop_first": 20.0
+          },
+          "TP4_SL2P5": {
+            "mean": 2.909147346598942,
+            "median": 3.8,
+            "win": 86.36363636363636,
+            "pf": 9.446765809148024,
+            "target_first": 85.45454545454545,
+            "stop_first": 12.727272727272727
+          },
+          "TP5_SL3": {
+            "mean": 3.7407660510175633,
+            "median": 4.8,
+            "win": 91.81818181818183,
+            "pf": 17.020375507132417,
+            "target_first": 78.18181818181819,
+            "stop_first": 7.2727272727272725
+          }
+        },
+        "frequency": {
+          "signals": 110,
+          "signals_per_day": 0.4230769230769231,
+          "active_days": 5,
+          "active_day_share_pct": 1.9230769230769231,
+          "median_on_active_day": 2.0,
+          "p90_on_active_day": 57.400000000000006,
+          "max_in_day": 75
+        },
+        "distribution": {
+          "year": {
+            "2026": {
+              "n": 110,
+              "symbols": 99,
+              "mean24": 3.978377523757902
+            }
+          },
+          "top_symbols": [
+            {
+              "symbol": "LINKUSDT",
+              "n": 3
+            },
+            {
+              "symbol": "DOGEUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "EIGENUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "FILUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "MUBARAKUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "OPUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "ORDIUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "SUIUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "TAOUSDT",
+              "n": 2
+            },
+            {
+              "symbol": "PLUMEUSDT",
+              "n": 2
+            }
+          ],
+          "max_symbol_share_pct": 2.727272727272727,
+          "top10_share_pct": 19.090909090909093
+        }
+      }
+    }
+  },
+  "outcome_first_relative_feature_effects": {
+    "DISCOVERY": [
+      {
+        "feature": "btc_prev_3h",
+        "target_n": 54013,
+        "stop_n": 83567,
+        "target_median": 0.0533884763605607,
+        "stop_median": 0.035247655116577,
+        "robust_effect": 0.045990832975267674
+      },
+      {
+        "feature": "btc_ret_3h",
+        "target_n": 54013,
+        "stop_n": 83567,
+        "target_median": 0.2055725023926591,
+        "stop_median": 0.1911971682272639,
+        "robust_effect": 0.03784277906246437
+      },
+      {
+        "feature": "rel_range_pos_24h",
+        "target_n": 54001,
+        "stop_n": 83539,
+        "target_median": 0.7719590318232868,
+        "stop_median": 0.7634427873020938,
+        "robust_effect": 0.03173623934685825
+      },
+      {
+        "feature": "btc_ret_6h",
+        "target_n": 54013,
+        "stop_n": 83566,
+        "target_median": 0.1749625426713752,
+        "stop_median": 0.1617128887921426,
+        "robust_effect": 0.020919012049668416
+      },
+      {
+        "feature": "rel_ret_3h",
+        "target_n": 54013,
+        "stop_n": 83567,
+        "target_median": 1.3045199446857891,
+        "stop_median": 1.3180648765255043,
+        "robust_effect": -0.019028285907180705
+      },
+      {
+        "feature": "rel_ret_24h",
+        "target_n": 54001,
+        "stop_n": 83539,
+        "target_median": 0.8679529138956976,
+        "stop_median": 0.8333223788171695,
+        "robust_effect": 0.016171476117591947
+      },
+      {
+        "feature": "rel_prev_1h",
+        "target_n": 54013,
+        "stop_n": 83567,
+        "target_median": 0.1761894392662055,
+        "stop_median": 0.1707098147903929,
+        "robust_effect": 0.015436252205768108
+      },
+      {
+        "feature": "rel_dd_24h",
+        "target_n": 54001,
+        "stop_n": 83539,
+        "target_median": -0.9231278529496344,
+        "stop_median": -0.9396184028519494,
+        "robust_effect": 0.013452395594751513
+      },
+      {
+        "feature": "rel_prev_3h",
+        "target_n": 54013,
+        "stop_n": 83567,
+        "target_median": 0.2971849973937512,
+        "stop_median": 0.3004688614453243,
+        "robust_effect": -0.005490648449007569
+      },
+      {
+        "feature": "rel_dd_12h",
+        "target_n": 54009,
+        "stop_n": 83556,
+        "target_median": 0.0996298942804285,
+        "stop_median": 0.10142976034620554,
+        "robust_effect": -0.003754911661871128
+      },
+      {
+        "feature": "rel_ret_1h",
+        "target_n": 54013,
+        "stop_n": 83567,
+        "target_median": 1.0480185135442357,
+        "stop_median": 1.0495598904562753,
+        "robust_effect": -0.0030942931319579464
+      },
+      {
+        "feature": "rel_ret_6h",
+        "target_n": 54013,
+        "stop_n": 83566,
+        "target_median": 1.5237144496720534,
+        "stop_median": 1.526132973077221,
+        "robust_effect": -0.0029956176348068684
+      },
+      {
+        "feature": "rel_ret_12h",
+        "target_n": 54009,
+        "stop_n": 83556,
+        "target_median": 1.0951006882947256,
+        "stop_median": 1.0974860243857631,
+        "robust_effect": -0.001992252527682934
+      },
+      {
+        "feature": "rel_vol_ratio",
+        "target_n": 53861,
+        "stop_n": 83265,
+        "target_median": 0.7386246442972906,
+        "stop_median": 0.739010126366829,
+        "robust_effect": -0.0017445751876557526
+      },
+      {
+        "feature": "rel_accel_1h",
+        "target_n": 54013,
+        "stop_n": 83567,
+        "target_median": 0.8565999529541735,
+        "stop_median": 0.8566780192634349,
+        "robust_effect": -0.0001205265305125189
+      }
+    ],
+    "CALIBRATION": [
+      {
+        "feature": "rel_prev_3h",
+        "target_n": 39122,
+        "stop_n": 63767,
+        "target_median": 0.3624654170020558,
+        "stop_median": 0.3867981155182054,
+        "robust_effect": -0.04153324851430402
+      },
+      {
+        "feature": "rel_vol_ratio",
+        "target_n": 38967,
+        "stop_n": 63504,
+        "target_median": 0.7414355968329368,
+        "stop_median": 0.7329709261415476,
+        "robust_effect": 0.04131755898275438
+      },
+      {
+        "feature": "rel_ret_24h",
+        "target_n": 39116,
+        "stop_n": 63745,
+        "target_median": 0.8713317971575374,
+        "stop_median": 0.9503098951255896,
+        "robust_effect": -0.03642178838477798
+      },
+      {
+        "feature": "rel_range_pos_24h",
+        "target_n": 39116,
+        "stop_n": 63745,
+        "target_median": 0.7825546606226741,
+        "stop_median": 0.7882963796011893,
+        "robust_effect": -0.021916028918400117
+      },
+      {
+        "feature": "btc_ret_3h",
+        "target_n": 39122,
+        "stop_n": 63767,
+        "target_median": 0.2031962109218632,
+        "stop_median": 0.1959581622480222,
+        "robust_effect": 0.020064903911770345
+      },
+      {
+        "feature": "btc_prev_3h",
+        "target_n": 39122,
+        "stop_n": 63767,
+        "target_median": 0.0413036216174722,
+        "stop_median": 0.0346060096030997,
+        "robust_effect": 0.018897001043098615
+      },
+      {
+        "feature": "rel_ret_1h",
+        "target_n": 39122,
+        "stop_n": 63767,
+        "target_median": 1.0635252043625365,
+        "stop_median": 1.0570841975050538,
+        "robust_effect": 0.013924072610403185
+      },
+      {
+        "feature": "rel_dd_12h",
+        "target_n": 39121,
+        "stop_n": 63756,
+        "target_median": 0.1411328052733917,
+        "stop_median": 0.13632643205835343,
+        "robust_effect": 0.011501861816414376
+      },
+      {
+        "feature": "rel_accel_1h",
+        "target_n": 39122,
+        "stop_n": 63767,
+        "target_median": 0.8310177517669937,
+        "stop_median": 0.8365143034914202,
+        "robust_effect": -0.008808084565914085
+      },
+      {
+        "feature": "rel_dd_24h",
+        "target_n": 39116,
+        "stop_n": 63745,
+        "target_median": -0.8751108048051015,
+        "stop_median": -0.8648151028142204,
+        "robust_effect": -0.00865770645649962
+      },
+      {
+        "feature": "rel_ret_6h",
+        "target_n": 39122,
+        "stop_n": 63765,
+        "target_median": 1.5886772821894213,
+        "stop_median": 1.5947183567823764,
+        "robust_effect": -0.007940938465785407
+      },
+      {
+        "feature": "rel_ret_12h",
+        "target_n": 39121,
+        "stop_n": 63756,
+        "target_median": 1.2338942515504936,
+        "stop_median": 1.2272382949823357,
+        "robust_effect": 0.005553890350885058
+      },
+      {
+        "feature": "btc_ret_6h",
+        "target_n": 39122,
+        "stop_n": 63765,
+        "target_median": 0.2162014097695452,
+        "stop_median": 0.2134667305601967,
+        "robust_effect": 0.004961338013318123
+      },
+      {
+        "feature": "rel_ret_3h",
+        "target_n": 39122,
+        "stop_n": 63767,
+        "target_median": 1.3768521452765525,
+        "stop_median": 1.3750542163774917,
+        "robust_effect": 0.002702062674516003
+      },
+      {
+        "feature": "rel_prev_1h",
+        "target_n": 39122,
+        "stop_n": 63767,
+        "target_median": 0.19894682479194564,
+        "stop_median": 0.1983229166808708,
+        "robust_effect": 0.0017282160643668375
+      }
+    ],
+    "CROSS_HOLDOUT_PRE2026": [
+      {
+        "feature": "btc_ret_3h",
+        "target_n": 50531,
+        "stop_n": 80147,
+        "target_median": 0.2097905183864545,
+        "stop_median": 0.1964162766883159,
+        "robust_effect": 0.035950436903880445
+      },
+      {
+        "feature": "rel_prev_1h",
+        "target_n": 50531,
+        "stop_n": 80147,
+        "target_median": 0.1915673853044364,
+        "stop_median": 0.1824568302018825,
+        "robust_effect": 0.02551256598095407
+      },
+      {
+        "feature": "rel_prev_3h",
+        "target_n": 50531,
+        "stop_n": 80147,
+        "target_median": 0.3303706398663841,
+        "stop_median": 0.3450316217225246,
+        "robust_effect": -0.024844977447858376
+      },
+      {
+        "feature": "btc_prev_3h",
+        "target_n": 50531,
+        "stop_n": 80147,
+        "target_median": 0.0470316214654875,
+        "stop_median": 0.0381643187894242,
+        "robust_effect": 0.023784494419942664
+      },
+      {
+        "feature": "rel_ret_24h",
+        "target_n": 50525,
+        "stop_n": 80132,
+        "target_median": 0.8398417024789495,
+        "stop_median": 0.8889463115469232,
+        "robust_effect": -0.022984195567151217
+      },
+      {
+        "feature": "rel_ret_1h",
+        "target_n": 50531,
+        "stop_n": 80147,
+        "target_median": 1.0495308161832195,
+        "stop_median": 1.0394627947779789,
+        "robust_effect": 0.02136290466081019
+      },
+      {
+        "feature": "rel_range_pos_24h",
+        "target_n": 50525,
+        "stop_n": 80132,
+        "target_median": 0.7814068757267345,
+        "stop_median": 0.7773430201351614,
+        "robust_effect": 0.015397812319337088
+      },
+      {
+        "feature": "rel_ret_3h",
+        "target_n": 50531,
+        "stop_n": 80147,
+        "target_median": 1.342311783569472,
+        "stop_median": 1.333487062810068,
+        "robust_effect": 0.013070651627322148
+      },
+      {
+        "feature": "rel_vol_ratio",
+        "target_n": 50404,
+        "stop_n": 79920,
+        "target_median": 0.7381606223112422,
+        "stop_median": 0.7359480805640913,
+        "robust_effect": 0.01052554236916485
+      },
+      {
+        "feature": "rel_ret_12h",
+        "target_n": 50529,
+        "stop_n": 80143,
+        "target_median": 1.1653092595411252,
+        "stop_median": 1.1567783858601022,
+        "robust_effect": 0.007151372354999044
+      },
+      {
+        "feature": "rel_accel_1h",
+        "target_n": 50531,
+        "stop_n": 80147,
+        "target_median": 0.8385041994692033,
+        "stop_median": 0.8340062100713697,
+        "robust_effect": 0.007131567724580994
+      },
+      {
+        "feature": "rel_dd_24h",
+        "target_n": 50525,
+        "stop_n": 80132,
+        "target_median": -0.8829900679480307,
+        "stop_median": -0.8895435050661704,
+        "robust_effect": 0.005515462853870196
+      },
+      {
+        "feature": "btc_ret_6h",
+        "target_n": 50531,
+        "stop_n": 80146,
+        "target_median": 0.1983798960028426,
+        "stop_median": 0.19539836084393464,
+        "robust_effect": 0.00504901691417711
+      },
+      {
+        "feature": "rel_ret_6h",
+        "target_n": 50531,
+        "stop_n": 80146,
+        "target_median": 1.5530759588532783,
+        "stop_median": 1.5495757949098632,
+        "robust_effect": 0.004488513695002428
+      },
+      {
+        "feature": "rel_dd_12h",
+        "target_n": 50529,
+        "stop_n": 80143,
+        "target_median": 0.1201447500576158,
+        "stop_median": 0.1195235390548221,
+        "robust_effect": 0.001407358035880738
+      }
+    ],
+    "FINAL_HOLDOUT_2026": [
+      {
+        "feature": "rel_accel_1h",
+        "target_n": 14780,
+        "stop_n": 23765,
+        "target_median": 0.8913855462200249,
+        "stop_median": 0.8624893888365737,
+        "robust_effect": 0.04595525544549278
+      },
+      {
+        "feature": "btc_ret_3h",
+        "target_n": 14780,
+        "stop_n": 23765,
+        "target_median": 0.08079210263325359,
+        "stop_median": 0.0960350634687134,
+        "robust_effect": -0.04297426578420346
+      },
+      {
+        "feature": "rel_ret_3h",
+        "target_n": 14780,
+        "stop_n": 23765,
+        "target_median": 1.374850364402047,
+        "stop_median": 1.347512433537701,
+        "robust_effect": 0.040248408819658105
+      },
+      {
+        "feature": "rel_range_pos_24h",
+        "target_n": 14777,
+        "stop_n": 23755,
+        "target_median": 0.780724168908634,
+        "stop_median": 0.7698309534652702,
+        "robust_effect": 0.039917455710408105
+      },
+      {
+        "feature": "rel_vol_ratio",
+        "target_n": 14729,
+        "stop_n": 23680,
+        "target_median": 0.788469433887625,
+        "stop_median": 0.7798362785539634,
+        "robust_effect": 0.03865659871810374
+      },
+      {
+        "feature": "rel_ret_1h",
+        "target_n": 14780,
+        "stop_n": 23765,
+        "target_median": 1.0787275514716477,
+        "stop_median": 1.060895759475855,
+        "robust_effect": 0.037562987234547644
+      },
+      {
+        "feature": "rel_ret_24h",
+        "target_n": 14777,
+        "stop_n": 23755,
+        "target_median": 0.93613518509299,
+        "stop_median": 0.8714923379356643,
+        "robust_effect": 0.03289305693536692
+      },
+      {
+        "feature": "btc_prev_3h",
+        "target_n": 14780,
+        "stop_n": 23765,
+        "target_median": -0.026313193691424,
+        "stop_median": -0.0371688866955044,
+        "robust_effect": 0.02929837693242558
+      },
+      {
+        "feature": "rel_prev_3h",
+        "target_n": 14780,
+        "stop_n": 23765,
+        "target_median": 0.34911128517636225,
+        "stop_median": 0.3326494348299125,
+        "robust_effect": 0.028378565596606092
+      },
+      {
+        "feature": "rel_dd_24h",
+        "target_n": 14777,
+        "stop_n": 23755,
+        "target_median": -0.8212323268937394,
+        "stop_median": -0.8531115694690783,
+        "robust_effect": 0.027328452961348226
+      },
+      {
+        "feature": "rel_prev_1h",
+        "target_n": 14780,
+        "stop_n": 23765,
+        "target_median": 0.1908346842033892,
+        "stop_median": 0.181634661009733,
+        "robust_effect": 0.02598569562110239
+      },
+      {
+        "feature": "btc_ret_6h",
+        "target_n": 14780,
+        "stop_n": 23765,
+        "target_median": 0.0182920554516075,
+        "stop_median": 0.0053522168812936,
+        "robust_effect": 0.021973648511738417
+      },
+      {
+        "feature": "rel_ret_6h",
+        "target_n": 14780,
+        "stop_n": 23765,
+        "target_median": 1.593327008818024,
+        "stop_median": 1.5761885947583432,
+        "robust_effect": 0.021797648879213604
+      },
+      {
+        "feature": "rel_ret_12h",
+        "target_n": 14780,
+        "stop_n": 23761,
+        "target_median": 1.2017104360046216,
+        "stop_median": 1.1833613117396835,
+        "robust_effect": 0.016051591069274253
+      },
+      {
+        "feature": "rel_dd_12h",
+        "target_n": 14780,
+        "stop_n": 23761,
+        "target_median": 0.14127371505213698,
+        "stop_median": 0.1446477406685353,
+        "robust_effect": -0.0074002288366344995
+      }
+    ],
+    "ALL_2026": [
+      {
+        "feature": "btc_prev_3h",
+        "target_n": 47663,
+        "stop_n": 76003,
+        "target_median": -0.0293758257641219,
+        "stop_median": -0.0410415207869885,
+        "robust_effect": 0.031177158764595717
+      },
+      {
+        "feature": "rel_ret_3h",
+        "target_n": 47663,
+        "stop_n": 76003,
+        "target_median": 1.4016099052668096,
+        "stop_median": 1.382133571245614,
+        "robust_effect": 0.027832847423718964
+      },
+      {
+        "feature": "rel_prev_3h",
+        "target_n": 47663,
+        "stop_n": 76003,
+        "target_median": 0.3480351313924767,
+        "stop_median": 0.3331164965535427,
+        "robust_effect": 0.025266404888805494
+      },
+      {
+        "feature": "rel_accel_1h",
+        "target_n": 47663,
+        "stop_n": 76003,
+        "target_median": 0.9064463154672132,
+        "stop_median": 0.8921219542998404,
+        "robust_effect": 0.022249257192788814
+      },
+      {
+        "feature": "rel_ret_1h",
+        "target_n": 47663,
+        "stop_n": 76003,
+        "target_median": 1.1031996441111414,
+        "stop_median": 1.0934163519615625,
+        "robust_effect": 0.02010582466461741
+      },
+      {
+        "feature": "btc_ret_3h",
+        "target_n": 47663,
+        "stop_n": 76003,
+        "target_median": 0.0718288035246761,
+        "stop_median": 0.0786432480590404,
+        "robust_effect": -0.019084749466987988
+      },
+      {
+        "feature": "rel_vol_ratio",
+        "target_n": 47497,
+        "stop_n": 75730,
+        "target_median": 0.783012947870034,
+        "stop_median": 0.7798000925111883,
+        "robust_effect": 0.01419187146491108
+      },
+      {
+        "feature": "btc_ret_6h",
+        "target_n": 47663,
+        "stop_n": 76002,
+        "target_median": 0.0029166670464375,
+        "stop_median": -0.0053937686591953495,
+        "robust_effect": 0.014160719590005389
+      },
+      {
+        "feature": "rel_prev_1h",
+        "target_n": 47663,
+        "stop_n": 76003,
+        "target_median": 0.1845523061605902,
+        "stop_median": 0.1796754304985048,
+        "robust_effect": 0.013481538546855505
+      },
+      {
+        "feature": "rel_ret_6h",
+        "target_n": 47663,
+        "stop_n": 76002,
+        "target_median": 1.618719812437308,
+        "stop_median": 1.6098161877754147,
+        "robust_effect": 0.01104313685976716
+      },
+      {
+        "feature": "rel_dd_12h",
+        "target_n": 47661,
+        "stop_n": 75988,
+        "target_median": 0.1369637937205681,
+        "stop_median": 0.1415143679439734,
+        "robust_effect": -0.00964354330313485
+      },
+      {
+        "feature": "rel_range_pos_24h",
+        "target_n": 47651,
+        "stop_n": 75970,
+        "target_median": 0.7759853990285542,
+        "stop_median": 0.773819732507578,
+        "robust_effect": 0.007915107730662573
+      },
+      {
+        "feature": "rel_ret_12h",
+        "target_n": 47661,
+        "stop_n": 75988,
+        "target_median": 1.2137095382177998,
+        "stop_median": 1.2193669107787852,
+        "robust_effect": -0.004820216849022755
+      },
+      {
+        "feature": "rel_dd_24h",
+        "target_n": 47651,
+        "stop_n": 75970,
+        "target_median": -0.8603558937061218,
+        "stop_median": -0.8660493231831379,
+        "robust_effect": 0.0047741192664088414
+      },
+      {
+        "feature": "rel_ret_24h",
+        "target_n": 47651,
+        "stop_n": 75970,
+        "target_median": 0.924265630356147,
+        "stop_median": 0.9155533132141124,
+        "robust_effect": 0.00433470043672769
+      }
+    ]
+  }
+}

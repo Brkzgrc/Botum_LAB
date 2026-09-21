@@ -1,0 +1,62 @@
+{
+  "status": "NO_STABLE_INDEPENDENT_PRICE_FAMILIES",
+  "candidate_rules": 62,
+  "events": 695463,
+  "symbols": 466,
+  "benign_short_history_exclusions": [
+    {
+      "symbol": "GPROBUSDT",
+      "error": "too_short:336"
+    },
+    {
+      "symbol": "牛来USDT",
+      "error": "too_short:998"
+    },
+    {
+      "symbol": "BNCBUSDT",
+      "error": "too_short:528"
+    },
+    {
+      "symbol": "MARSCOINUSDT",
+      "error": "too_short:1484"
+    },
+    {
+      "symbol": "CRMBUSDT",
+      "error": "too_short:1008"
+    },
+    {
+      "symbol": "HIMSBUSDT",
+      "error": "too_short:1008"
+    },
+    {
+      "symbol": "SQQQBUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "CRWDBUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "RDDTBUSDT",
+      "error": "too_short:336"
+    },
+    {
+      "symbol": "MRNABUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "STXBUSDT",
+      "error": "too_short:1680"
+    }
+  ],
+  "champions": {},
+  "combined": {},
+  "selection_lock": "Rule and plan selection use Discovery+Calibration only; holdouts are diagnostics.",
+  "families": [
+    "CONFIRMED_REVERSAL",
+    "SECOND_WAVE",
+    "BREAKOUT_HOLD",
+    "BEAR_TRAP_CONFIRM",
+    "PULLBACK_CONTINUATION"
+  ]
+}
