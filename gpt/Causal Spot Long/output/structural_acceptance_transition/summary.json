@@ -1,0 +1,10 @@
+{
+  "status": "NO_STABLE_STRUCTURAL_ACCEPTANCE_TRANSITION",
+  "candidate_rules": 18,
+  "events": 41005,
+  "symbols": 460,
+  "champions": {},
+  "combined": {},
+  "overlap_guard": "Events coinciding with any Independent Price Families v2 rule are excluded before scoring.",
+  "selection_lock": "Rule and plan selection use Discovery+Calibration only; holdouts are diagnostics."
+}
