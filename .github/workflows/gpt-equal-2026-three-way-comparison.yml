@@ -1,0 +1,40 @@
+name: GPT - Equal 2026 Three-Way Comparison
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/btc-frozen-reversal-fingerprint-validation/equal_2026_comparison/equal_2026_comparison.py'
+      - '.github/workflows/gpt-equal-2026-three-way-comparison.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Run equal 2026 comparison
+        run: |
+          python gpt/btc-frozen-reversal-fingerprint-validation/equal_2026_comparison/equal_2026_comparison.py
+      - name: Persist results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add gpt/btc-frozen-reversal-fingerprint-validation/equal_2026_comparison/output
+          if git diff --cached --quiet; then
+            echo "No output changes"
+          else
+            git commit -m "Persist equal 2026 three-way comparison [skip ci]"
+            git push
+          fi
