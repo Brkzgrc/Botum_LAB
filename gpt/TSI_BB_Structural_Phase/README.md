@@ -243,3 +243,14 @@ Karar:
 - Phase 3 hedefe ulaşmadı.
 - Aynı sequence şablonlarını daha fazla threshold tarayarak tekrar etme.
 - Sıradaki çalışma daha yüksek seviyede rejim/relative-strength ayrımı veya candidate-ranking yaklaşımına geçmelidir; tek binary filtre zinciri tekrarlanmamalıdır.
+
+
+## Phase 9 — Horizon-Adaptive Trajectory Families (2026-09-21)
+- Workflow run: 35644195419 — SUCCESS.
+- Method: 12h/24h/48h pre-entry paths; winner labels at 12/24/48/72/168h. Each family chooses its own outcome horizon using PRE-2026 only.
+- Events: 1845, data errors: 0.
+- Candidate families tested: 112.
+- Viable on discovery+calibration: 49.
+- Greedy union selected 4 families and reached 199 signals in 2026 (~5.36/week), but 2026 quality dropped materially (24h win 71.86%, mean +1.99%, PF 2.84) and several individual families failed badly in 2026.
+- Decision: Phase 9 proves frequency can be expanded beyond 5/week, but discovery+calibration alone is not robust enough. Do NOT promote Phase 9 union.
+- Next: require the SAME chosen horizon to survive DISCOVERY + CALIBRATION + CROSS_HOLDOUT_PRE2026 before 2026 is opened. No 2026 selection.
