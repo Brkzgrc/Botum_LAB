@@ -177,6 +177,7 @@ Bir aday ancak aşağıdakilerin tamamında olumluysa ana sisteme eklenebilir:
 | 2026-09-21 | Tasarım kilidi | Güncellendi | Nihai sistem için statik değer okuma yasaklandı; hareket/transition dizisi zorunlu kılındı. Spot USDT evreninden stablecoin ve fiat base varlıkların kesin dışlanması tekrar kilitlendi. | Baseline yalnız referans; yeni aileler hareket-takibi olarak araştırılacak. |
 | 2026-09-21 | Preflight run 35656755689 | GEÇTİ | Compile, hareket korumaları, kapanmış mum kodu ve gerçek Binance Spot evren smoke testi çalıştı. | `completed/success`; yaklaşık 29 saniye. USDC ve EUR dışlandı, BTC/ETH/SOL/XRP kabul edildi. |
 | 2026-09-22 | Motion Leadership run 35662533375 | ELENDİ | Coinin BTC'ye göre birkaç mum boyunca kalıcı liderliği + değer alanı kabulü + taze 15M genişleme araştırıldı. | `completed/success`; 34 dakika 2 saniye; 18 kural, 162.960 event, 465 sembol; Discovery + Calibration'da stabil champion yok: `NO_STABLE_MOTION_LEADERSHIP_PERSISTENCE`. `Clear System.py` değiştirilmedi. |
+| 2026-09-22 | Outcome-First Transition | HAZIR / BAŞLATILACAK | Statik eşik kuralı yerine 26 kapalı-mum hareket özelliği; model yalnız Discovery'de öğrenir, eşik yalnız Calibration'da seçilir, 2026 dokunulmaz. | 64 shard; preflight 22 dk, shard 55 dk/komut 46 dk, aggregate 25 dk; en kötü runner bütçesi 3.567 dk, en kötü duvar saati yaklaşık 4 sa 7 dk. Yerel compile + AST + statik güvenlik denetimleri geçti. |
 
 ## Yeni session'da devam protokolü
 
