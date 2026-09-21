@@ -154,3 +154,5 @@ def main():
     print(json.dumps(payload["top"][:5],indent=2),flush=True)
 
 if __name__=="__main__": main()
+
+# workflow trigger: 2026-09-21 phase1
