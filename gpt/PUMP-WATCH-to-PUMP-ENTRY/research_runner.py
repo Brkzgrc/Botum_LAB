@@ -6,153 +6,162 @@ from pathlib import Path
 
 START_MS=1767225600000
 END_MS=1790035199000
+SPLIT_MS=1782864000000
 COST=0.002
-FORCE_INCLUDE={"JUP","SYRUP"}
 EXCLUDE={"USDT","USDC","TUSD","USDP","FDUSD","BUSD","DAI","EURI","EUR","TRY","GBP","BRL","AUD","BIDR","AEUR","USD1","USDE","USDS","USTC","FRAX","RLUSD","BFUSD","XUSD"}
-
 ROOT=Path(__file__).resolve().parent
-OUT=ROOT/"results"
-OUT.mkdir(exist_ok=True)
+OUT=ROOT/"results"; OUT.mkdir(exist_ok=True)
 
-def get(path, params=None, retries=6):
+def get(path,params=None,retries=6):
     url="https://data-api.binance.vision"+path
-    if params: url+="?"+urlencode(params)
+    if params:url+="?"+urlencode(params)
     for n in range(retries):
         try:
-            with urlopen(Request(url,headers={"User-Agent":"Botum-LAB-research"}),timeout=30) as r:
-                return json.loads(r.read())
+            with urlopen(Request(url,headers={"User-Agent":"Botum-LAB-research"}),timeout=30) as r:return json.loads(r.read())
         except Exception:
-            if n==retries-1: raise
+            if n==retries-1:raise
             time.sleep(2**n)
 
 def universe():
-    x=get("/api/v3/exchangeInfo")
-    out=[]
+    x=get("/api/v3/exchangeInfo"); z=[]
     for s in x["symbols"]:
         b=s["baseAsset"]
-        if s["quoteAsset"]!="USDT" or s["status"]!="TRADING" or not s.get("isSpotTradingAllowed",False): continue
-        if b not in FORCE_INCLUDE and b in EXCLUDE: continue
-        if s["symbol"].endswith(("UPUSDT","DOWNUSDT","BULLUSDT","BEARUSDT")): continue
-        out.append(s["symbol"])
-    return sorted(set(out))
+        if s["quoteAsset"]!="USDT" or s["status"]!="TRADING" or not s.get("isSpotTradingAllowed",False):continue
+        if b in EXCLUDE:continue
+        if s["symbol"].endswith(("UPUSDT","DOWNUSDT","BULLUSDT","BEARUSDT")):continue
+        z.append(s["symbol"])
+    return sorted(set(z))
 
-def klines(symbol, interval, start=START_MS, end=END_MS):
-    rows=[]; cur=start
-    while cur<=end:
-        x=get("/api/v3/klines",{"symbol":symbol,"interval":interval,"startTime":cur,"endTime":end,"limit":1000})
-        if not x: break
-        rows.extend(x)
-        nxt=x[-1][0]+1
-        if nxt<=cur: break
-        cur=nxt
-        time.sleep(.025)
+def klines(sym,intv):
+    rows=[]; cur=START_MS
+    while cur<=END_MS:
+        x=get("/api/v3/klines",{"symbol":sym,"interval":intv,"startTime":cur,"endTime":END_MS,"limit":1000})
+        if not x:break
+        rows+=x; nxt=x[-1][0]+1
+        if nxt<=cur:break
+        cur=nxt; time.sleep(.02)
     return rows
 
 def ema(a,n):
     if not a:return []
-    k=2/(n+1); v=a[0]; z=[]
-    for x in a: v=x*k+v*(1-k); z.append(v)
-    return z
+    k=2/(n+1); v=a[0]; out=[]
+    for x in a:v=x*k+v*(1-k);out.append(v)
+    return out
+def mean(a):return sum(a)/len(a) if a else 0
+def sd(a):
+    m=mean(a);return math.sqrt(mean([(x-m)**2 for x in a])) if a else 0
 
-def mean(a): return sum(a)/len(a) if a else float("nan")
-def std(a):
-    if not a:return float("nan")
-    m=mean(a); return math.sqrt(sum((x-m)**2 for x in a)/len(a))
-
-def features(rows):
-    o=[float(x[1]) for x in rows]; h=[float(x[2]) for x in rows]; l=[float(x[3]) for x in rows]
-    c=[float(x[4]) for x in rows]; v=[float(x[5]) for x in rows]; q=[float(x[7]) for x in rows]
-    e20=ema(c,20); e50=ema(c,50)
-    ef=ema(c,12); es=ema(c,26); mac=[a-b for a,b in zip(ef,es)]; sg=ema(mac,9); hist=[a-b for a,b in zip(mac,sg)]
-    obv=[0.0]
-    for i in range(1,len(c)): obv.append(obv[-1]+(v[i] if c[i]>c[i-1] else -v[i] if c[i]<c[i-1] else 0))
+def prep(rows):
+    o=[float(x[1]) for x in rows];h=[float(x[2]) for x in rows];l=[float(x[3]) for x in rows];c=[float(x[4]) for x in rows]
+    v=[float(x[5]) for x in rows];q=[float(x[7]) for x in rows]
+    e20=ema(c,20);e50=ema(c,50);e12=ema(c,12);e26=ema(c,26)
+    mac=[a-b for a,b in zip(e12,e26)];sig=ema(mac,9);hist=[a-b for a,b in zip(mac,sig)]
     tr=[h[0]-l[0]]
-    for i in range(1,len(c)): tr.append(max(h[i]-l[i],abs(h[i]-c[i-1]),abs(l[i]-c[i-1])))
-    atr=ema(tr,14)
-    z=[]
-    for i in range(60,len(c)-20):
-        vol20=mean(q[i-19:i+1]); rvol=mean(q[i-2:i+1])/(vol20 or 1)
-        prev_hi=max(h[i-12:i]); dist=(prev_hi-c[i])/c[i]
-        low_old=min(l[i-11:i-5]); low_new=min(l[i-5:i+1]); hl=low_new/(low_old or low_new)-1
-        r0=(max(h[i-11:i-5])-min(l[i-11:i-5]))/c[i]
-        r1=(max(h[i-5:i+1])-min(l[i-5:i+1]))/c[i]
-        contract=r1/(r0 or 1)
-        obvs=(obv[i]-obv[i-6])/(abs(obv[i-6])+1)
-        obva=((obv[i]-obv[i-3])-(obv[i-3]-obv[i-6]))/(abs(obv[i-6])+1)
-        hs=(hist[i]-hist[i-3])/(atr[i]+1e-12)
-        bw=4*std(c[i-19:i+1])/(mean(c[i-19:i+1]) or 1)
-        bwp=4*std(c[i-25:i-5])/(mean(c[i-25:i-5]) or 1)
-        z.append(dict(i=i,t=rows[i][0],rvol=rvol,dist=dist,hl=hl,contract=contract,obvs=obvs,obva=obva,
-                      hs=hs,bwch=bw/(bwp or 1),es=e20[i]/e20[i-6]-1,trend=c[i]/e50[i]-1,atr=atr[i]))
-    return dict(rows=rows,o=o,h=h,l=l,c=c,f=z)
+    for i in range(1,len(c)):tr.append(max(h[i]-l[i],abs(h[i]-c[i-1]),abs(l[i]-c[i-1])))
+    atr=ema(tr,14);obv=[0.]
+    for i in range(1,len(c)):obv.append(obv[-1]+(v[i] if c[i]>c[i-1] else -v[i] if c[i]<c[i-1] else 0))
+    fs=[]
+    for i in range(80,len(c)-80):
+        # Motion is measured as a sequence, not as a dip/oversold state.
+        lows=[min(l[i-23:i-15]),min(l[i-15:i-7]),min(l[i-7:i+1])]
+        hl1=lows[1]/lows[0]-1;hl2=lows[2]/lows[1]-1
+        hi=max(h[i-24:i])
+        d0=(hi-c[i-8])/c[i-8];d1=(hi-c[i-4])/c[i-4];d2=(hi-c[i])/c[i]
+        approach=(d0-d2)
+        # pullback decay: recent downside excursion versus prior excursion
+        pb_old=(max(h[i-16:i-8])-min(l[i-16:i-8]))/c[i]
+        pb_new=(max(h[i-8:i])-min(l[i-8:i]))/c[i]
+        pb_decay=pb_new/(pb_old or 1)
+        # resistance pressure: touches near rolling resistance in last 12h
+        tol=.012
+        touches=sum(1 for x in h[i-11:i+1] if (hi-x)/hi<=tol)
+        # flow/momentum evolution normalized cross-coin
+        obv1=(obv[i-4]-obv[i-8])/(abs(obv[i-8])+1)
+        obv2=(obv[i]-obv[i-4])/(abs(obv[i-4])+1)
+        obv_acc=obv2-obv1
+        mh1=(hist[i-4]-hist[i-8])/(atr[i]+1e-12);mh2=(hist[i]-hist[i-4])/(atr[i]+1e-12)
+        mac_acc=mh2-mh1
+        rv_old=mean(q[i-15:i-7])/(mean(q[i-31:i-15]) or 1)
+        rv_new=mean(q[i-7:i+1])/(mean(q[i-23:i-7]) or 1)
+        rv_traj=rv_new-rv_old
+        bw_old=4*sd(c[i-39:i-19])/(mean(c[i-39:i-19]) or 1)
+        bw_new=4*sd(c[i-19:i+1])/(mean(c[i-19:i+1]) or 1)
+        compression=bw_new/(bw_old or 1)
+        fs.append(dict(i=i,t=rows[i][0],hl1=hl1,hl2=hl2,approach=approach,dist=(hi-c[i])/c[i],
+          pb=pb_decay,touches=touches,obva=obv_acc,maca=mac_acc,rvt=rv_traj,comp=compression,
+          es=e20[i]/e20[i-8]-1,trend=c[i]/e50[i]-1,atr=atr[i]))
+    return dict(rows=rows,o=o,h=h,l=l,c=c,f=fs)
 
-def signal(f,p):
-    return (f["rvol"]>=p["rvol"] and f["dist"]<=p["dist"] and f["hl"]>=p["hl"] and
-            f["contract"]<=p["contract"] and f["obvs"]>p["obvs"] and f["hs"]>=p["hs"] and
-            f["es"]>0 and f["trend"]>p["trend"] and f["bwch"]<=p["bwch"])
+def watch(f,p):
+    # Deliberately no RSI/Stoch oversold requirement: this is continuation/pressure detection.
+    score=0
+    score+=f["hl2"]>=p["hl"]
+    score+=f["approach"]>=p["approach"] and f["dist"]<=p["dist"]
+    score+=f["pb"]<=p["pb"]
+    score+=f["touches"]>=p["touches"]
+    score+=f["obva"]>0
+    score+=f["maca"]>=p["maca"]
+    score+=f["rvt"]>=p["rvt"]
+    score+=f["comp"]<=p["comp"]
+    return score>=p["need"] and f["es"]>0 and f["trend"]>-0.06
 
-def test(ds,p,start,end):
-    trades=[]
+def evaluate(ds,p,start,end):
+    tr=[]
     for sym,d in ds.items():
         last=-999
         for f in d["f"]:
-            if f["t"]<start or f["t"]>end or f["i"]-last<6 or not signal(f,p): continue
+            if f["t"]<start or f["t"]>end or f["i"]-last<12 or not watch(f,p):continue
             ei=f["i"]+1; entry=d["o"][ei]
-            swing=min(d["l"][max(0,f["i"]-6):f["i"]+1])
-            stop=max(entry*.88,min(entry*.94,swing-.25*f["atr"]))
-            tp=entry*(1+p["tp"])
-            ret=None
-            for j in range(ei,min(ei+13,len(d["c"]))):
-                hs=d["h"][j]>=tp; ss=d["l"][j]<=stop
-                if hs and ss: ret=stop/entry-1-COST; break
-                if ss: ret=stop/entry-1-COST; break
-                if hs: ret=tp/entry-1-COST; break
-            if ret is None:
-                j=min(ei+12,len(d["c"])-1); ret=d["c"][j]/entry-1-COST
-            trades.append((sym,f["t"],ret)); last=f["i"]
-    n=len(trades); wins=[x[2] for x in trades if x[2]>0]; losses=[x[2] for x in trades if x[2]<=0]
-    gp=sum(wins); gl=-sum(losses)
-    return dict(n=n,wr=len(wins)/n if n else 0,pnl=sum(x[2] for x in trades),avg=sum(x[2] for x in trades)/n if n else 0,
-                pf=gp/gl if gl else 99, trades=trades)
+            # WATCH quality labels: forward MFE/MAE and +10/+15/+20; not pretending WATCH itself is final entry.
+            endi=min(ei+73,len(d["c"]))
+            hh=max(d["h"][ei:endi]);ll=min(d["l"][ei:endi])
+            mfe=hh/entry-1;mae=ll/entry-1
+            tr.append((sym,f["t"],mfe,mae));last=f["i"]
+    n=len(tr)
+    if not n:return dict(n=0)
+    return dict(n=n,unique=len(set(x[0] for x in tr)),per_day=n/((end-start)/86400000+1),
+      mfe_avg=mean([x[2] for x in tr]),mfe_med=sorted(x[2] for x in tr)[n//2],mae_avg=mean([x[3] for x in tr]),
+      hit10=mean([x[2]>=.10 for x in tr]),hit15=mean([x[2]>=.15 for x in tr]),hit20=mean([x[2]>=.20 for x in tr]),
+      false5=mean([x[2]<.05 for x in tr]),trades=tr)
 
 def main():
-    syms=universe()
-    print("UNIVERSE",len(syms),"JUP", "JUPUSDT" in syms,"SYRUP","SYRUPUSDT" in syms,flush=True)
+    syms=universe();print("UNIVERSE",len(syms),flush=True)
     ds={}
     for k,s in enumerate(syms,1):
         try:
-            r=klines(s,"4h")
-            if len(r)>=150: ds[s]=features(r)
-        except Exception as e: print("FAIL",s,e,flush=True)
-        if k%20==0: print("LOADED",k,len(ds),flush=True)
-    params=[]
-    for rv in (.75,.9,1.05,1.2):
-      for di in (.015,.03,.05):
-       for hl in (0,.004,.008):
-        for co in (.65,.8,1.0):
-         for hs in (-.05,.05,.15):
-          for bw in (.8,1.0,1.2):
-           for tp in (.08,.12,.16):
-            params.append(dict(rvol=rv,dist=di,hl=hl,contract=co,obvs=0,hs=hs,trend=-.08,bwch=bw,tp=tp))
-    split=1782864000000 # 2026-07-01 UTC
+            r=klines(s,"1h")
+            if len(r)>=300:ds[s]=prep(r)
+        except Exception as e:print("FAIL",s,e,flush=True)
+        if k%20==0:print("LOADED",k,len(ds),flush=True)
+    grid=[]
+    for hl in (0,.002,.005):
+      for ap in (.005,.015,.03):
+       for dist in (.015,.03,.05):
+        for pb in (.7,.9,1.1):
+         for touches in (2,3):
+          for maca in (-.03,0,.03):
+           for rvt in (-.1,0,.1):
+            for comp in (.8,1.0,1.2):
+             for need in (5,6,7):
+              grid.append(dict(hl=hl,approach=ap,dist=dist,pb=pb,touches=touches,maca=maca,rvt=rvt,comp=comp,need=need))
     ranked=[]
-    for p in params:
-        r=test(ds,p,START_MS,split-1)
-        if r["n"]>=35:
-            score=r["avg"]*min(r["pf"],4)*math.sqrt(r["n"])
+    for p in grid:
+        r=evaluate(ds,p,START_MS,SPLIT_MS-1)
+        if r.get("n",0)>=50:
+            score=(r["hit10"]*2+r["hit15"]*2+r["hit20"]-r["false5"])*math.sqrt(r["n"])
             ranked.append((score,p,{k:v for k,v in r.items() if k!="trades"}))
-    ranked.sort(key=lambda x:x[0],reverse=True)
+    ranked.sort(reverse=True,key=lambda x:x[0])
     finals=[]
-    for score,p,tr in ranked[:40]:
-        va=test(ds,p,split,END_MS); full=test(ds,p,START_MS,END_MS)
-        finals.append(dict(params=p,train=tr,validation={k:v for k,v in va.items() if k!="trades"},
-                           full={k:v for k,v in full.items() if k!="trades"}))
-    finals.sort(key=lambda x:(x["validation"]["avg"]*min(x["validation"]["pf"],4)*math.sqrt(max(1,x["validation"]["n"]))),reverse=True)
-    payload={"generated_utc":datetime.now(timezone.utc).isoformat(),"universe":len(syms),"loaded":len(ds),
-             "period":["2026-01-01","2026-09-21"],"entry":"next 4h candle open","cost":COST,"top":finals[:20]}
-    (OUT/"phase1_4h_motion_search.json").write_text(json.dumps(payload,indent=2),encoding="utf-8")
+    for score,p,trn in ranked[:60]:
+        va=evaluate(ds,p,SPLIT_MS,END_MS);full=evaluate(ds,p,START_MS,END_MS)
+        finals.append(dict(params=p,train=trn,validation={k:v for k,v in va.items() if k!="trades"},
+          full={k:v for k,v in full.items() if k!="trades"}))
+    finals.sort(key=lambda x:(x["validation"].get("hit10",0)*2+x["validation"].get("hit15",0)*2+x["validation"].get("hit20",0)-x["validation"].get("false5",1))*math.sqrt(max(1,x["validation"].get("n",0))),reverse=True)
+    payload={"generated_utc":datetime.now(timezone.utc).isoformat(),"phase":"2 - 1H motion WATCH discovery",
+      "period":["2026-01-01","2026-09-21"],"split":"2026-07-01","universe":len(syms),"loaded":len(ds),
+      "note":"WATCH quality research only; forward highs/lows are labels, not entries. No dip/oversold requirement.",
+      "top":finals[:25]}
+    (OUT/"phase2_1h_motion_watch.json").write_text(json.dumps(payload,indent=2),encoding="utf-8")
     print(json.dumps(payload["top"][:5],indent=2),flush=True)
 
-if __name__=="__main__": main()
-
-# workflow trigger: 2026-09-21 phase1
+if __name__=="__main__":main()
