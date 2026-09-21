@@ -15,7 +15,7 @@ OUT=ROOT/"results"
 OUT.mkdir(exist_ok=True)
 
 def get(path, params=None, retries=6):
-    url="https://api.binance.com"+path
+    url="https://data-api.binance.vision"+path
     if params: url+="?"+urlencode(params)
     for n in range(retries):
         try:
