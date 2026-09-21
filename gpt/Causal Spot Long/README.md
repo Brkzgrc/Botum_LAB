@@ -39,6 +39,8 @@ Yeni aktif hipotez: **Causal Recovery Leadership**. Mekanizma, kapanmış BTC ş
 
 Bu çalışma GitHub Actions run **`35627163220`** ile gerçek olarak `completed / success` bitti. Preflight ve gerçek-veri smoke geçti; 18 kural, 7.131 event ve 440 sembol tarandı. Discovery + Calibration'da stabil champion bulunmadı: `NO_STABLE_CAUSAL_RECOVERY_LEADERSHIP`. R2'ye ekleme yapılmaz.
 
+Yeni aktif hipotez: **Sell Climax Reclaim**. Kapanmış 1H yüksek-hacimli satış doruğundan sonra coin önce o mumun dibini korur, sonra 15M'de doruk mumun tepesini geri alır. Bu tek-coin akut satış emilimi yoludur; mevcut price-family eventleri çakışma koruması ile dışlanır.
+
 ## Sıfır oturumdan devam protokolü (zorunlu)
 
 1. Önce bu `README.md` dosyasını tamamen oku.
@@ -58,6 +60,7 @@ Bu çalışma GitHub Actions run **`35627163220`** ile gerçek olarak `completed
 | 2026-09-21 | Elendi | Run `35619941624` gerçek olarak `completed/success`; 18 kural, 43.920 event, 455 sembol; stabil champion/birleşik set bulunmadı. | Yeni bağımsız outcome-first hipotezini, önceki ailelerle çakışma koruması altında tasarla. |
 | 2026-09-21 | Başlatılıyor | Causal Recovery Leadership kodu derleme ve sentetik self-test geçti; gerçek-veri smoke GitHub preflight'ında zorunlu. | Preflight gerçek-veri smoke geçerse 64 shard tam tarama; değilse logla aynı çalışmayı düzelt. |
 | 2026-09-21 | Elendi | Run `35627163220` completed/success; 18 kural, 7.131 event, 440 sembol; stabil champion yok. | Farklı bir bağımsız mekanizma tasarla; r2 ve önceki fiyat-yolu aileleriyle çakışma koruması zorunlu. |
+| 2026-09-21 | Başlatılıyor | Sell Climax Reclaim: 1H satış doruğu → dip korunumu → 15M tepe geri alımı. | Derleme/self-test, gerçek-veri smoke, ardından 64-shard tarama. |
 
 ## Her güncellemede eklenecek kayıt şablonu
 
