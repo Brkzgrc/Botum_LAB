@@ -211,3 +211,35 @@ gpt/TSI_BB_Structural_Phase/
 ```
 
 Bu klasör aktif araştırma alanıdır. Eski klasörler yalnız provenance / arşiv amaçlıdır.
+
+
+## 11. Phase 3 — Movement Path — 2026-09-21
+
+Workflow:
+- `GPT - TSI BB Structural Project Phase 3`
+- Run: `35630137879`
+- Conclusion: `success`
+
+Amaç:
+Tek filtre yerine girişe kadar olan hareket dizisini test etmek:
+- pullback,
+- momentum/satış baskısının yavaşlaması,
+- momentum dönüşü,
+- higher-low,
+- reclaim / önceki tepe kırılımı,
+- bunların gevşetilmiş TSI+BB havuzlarıyla birleşimi.
+
+Seçim disiplini:
+- 2026 seçimde kullanılmadı.
+- Aday seçimi yalnız pre-2026 discovery/calibration üzerinden yapıldı.
+
+Sonuç:
+- enriched rows: 1,848
+- tested candidates: 187
+- viable pre-2026 candidates: 0
+- top candidates: none
+
+Karar:
+- Phase 3 hedefe ulaşmadı.
+- Aynı sequence şablonlarını daha fazla threshold tarayarak tekrar etme.
+- Sıradaki çalışma daha yüksek seviyede rejim/relative-strength ayrımı veya candidate-ranking yaklaşımına geçmelidir; tek binary filtre zinciri tekrarlanmamalıdır.
