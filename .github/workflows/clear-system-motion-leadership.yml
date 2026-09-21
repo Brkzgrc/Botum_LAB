@@ -54,7 +54,8 @@ jobs:
         if: always()
         with:
           name: clear-motion-preflight
-          path: /tmp
+          path: /tmp/smoke
+          if-no-files-found: error
           retention-days: 7
 
   shard:
