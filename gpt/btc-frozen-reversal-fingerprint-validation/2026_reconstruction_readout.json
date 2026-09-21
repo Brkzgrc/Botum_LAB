@@ -1,0 +1,58 @@
+{
+  "run_label": "2026 reconstruction validation - exploratory fidelity check",
+  "as_of": "2026-09-21",
+  "market": "BTCUSDT spot",
+  "candidate_generator": "FROZEN_2026_MARKET_STRUCTURE_TRIGGER.md",
+  "feature_spec": "RECONSTRUCTED_FEATURE_SPEC.md",
+  "status_warning": "Exact legacy scratchpad implementation was unavailable. This is not the confirmatory p-value for the original frozen implementation.",
+  "raw_candidates": {
+    "total": 43,
+    "mature": 34,
+    "censored": 9,
+    "baseline_success": 17,
+    "baseline_success_rate": 0.5,
+    "baseline_avg_pnl_pct": 3.88,
+    "fingerprint_fires_total": 12,
+    "fingerprint_fires_mature": 8,
+    "fingerprint_success": 6,
+    "fingerprint_success_rate": 0.75,
+    "fingerprint_avg_pnl_pct": 6.54,
+    "fingerprint_sum_fixed_notional_pct": 52.3,
+    "no_fire_mature": 26,
+    "no_fire_success": 11,
+    "no_fire_success_rate": 0.423,
+    "no_fire_avg_pnl_pct": 3.07,
+    "one_sided_fixed_subset_hypergeometric_p": 0.1122515477354187
+  },
+  "episode14": {
+    "total": 14,
+    "mature": 12,
+    "censored": 2,
+    "baseline_success": 6,
+    "baseline_success_rate": 0.5,
+    "fingerprint_fires_total": 4,
+    "fingerprint_fires_mature": 3,
+    "fingerprint_success": 3,
+    "fingerprint_success_rate": 1,
+    "fingerprint_avg_pnl_pct": 10,
+    "no_fire_mature": 9,
+    "no_fire_success": 3,
+    "no_fire_success_rate": 0.333,
+    "no_fire_avg_pnl_pct": 0.76,
+    "one_sided_fixed_subset_hypergeometric_p": 0.09090909090909091
+  },
+  "pending_fire_times_utc": [
+    "2026-08-27T08:00:00Z",
+    "2026-09-03T12:00:00Z",
+    "2026-09-03T19:00:00Z",
+    "2026-09-09T04:00:00Z"
+  ],
+  "pnl_definition": {
+    "take_profit_pct": 10,
+    "stop_loss_pct": -10,
+    "horizon_days": 30,
+    "expiry_exit": "30-day close if neither threshold hit",
+    "fees_and_slippage": "not included",
+    "note": "P&L is descriptive fixed-notional event return, not portfolio return; candidates can overlap."
+  }
+}
