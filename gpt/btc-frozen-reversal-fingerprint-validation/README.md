@@ -31,3 +31,14 @@ Therefore the exact legacy feature implementation is **not recoverable from Git*
 - `Botum`: live system; source-only during this migration.
 - `Botum_LAB`: all future research code, data transforms, backtests, and validation.
 - No future research should require writes to `Botum`.
+
+
+## Archive status — 2026-09-21
+
+This folder is NOT an active standalone project anymore. It is a legacy/archive area for the historical BTC reversal-fingerprint work and provenance notes only.
+
+Active TSI+BB structural research was migrated to:
+
+`gpt/TSI_BB_Structural_Phase/`
+
+Do not add new TSI+BB research code, workflows, or outputs here. New work must continue in the dedicated TSI_BB_Structural_Phase folder. Existing non-TSI legacy fingerprint material remains here only for historical provenance.
