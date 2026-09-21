@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'gpt/Clear System/**'
+      - 'gpt/Clear System/Clear System.py'
+      - 'gpt/Clear System/research/**'
       - '.github/workflows/clear-system-preflight.yml'
 
 concurrency:
