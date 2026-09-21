@@ -1,0 +1,45 @@
+name: GPT - TSI BB Structural Project Phase 10 Cross Holdout Gate
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/TSI_BB_Structural_Phase/src/phase10_cross_holdout_gated_trajectory.py'
+      - '.github/workflows/gpt-tsi-bb-structural-project-phase10.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Download frozen indicator artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug-artifacts
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+      - name: Run Phase 10
+        run: |
+          python gpt/TSI_BB_Structural_Phase/src/phase10_cross_holdout_gated_trajectory.py \
+            --artifact-dir /tmp/indicator-aug-artifacts \
+            --outdir gpt/TSI_BB_Structural_Phase/results/phase10
+      - name: Persist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add gpt/TSI_BB_Structural_Phase/results/phase10
+          if git diff --cached --quiet; then echo "No changes"; else git commit -m "Persist TSI BB Phase 10 [skip ci]" && git push; fi
