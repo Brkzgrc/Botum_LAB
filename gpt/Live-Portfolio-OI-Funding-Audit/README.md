@@ -52,6 +52,14 @@ Başka GPT araştırma klasörlerine dosya yazma. Dış klasörleri yalnız kayn
 ## Ölçümler
 Her veto için baseline n, blocked LOSS, blocked WIN, expired, net P&L delta, expectancy, PF, WR, max DD, signals/day, büyük winner kaybı ve setup-family kırılımı.
 
+## REPLAY ÖLÇEKLENEBİLİRLİK KURALI — ZORUNLU
+- 4–5 yıllık araştırma, her 15 dakikada yüzlerce coin üzerinde pandas indikatörlerini baştan hesaplayan monolitik döngüyle çalıştırılmayacak.
+- OHLCV bir kez indirilecek/cache'lenecek; indikatör ve snapshot serileri coin/timeframe bazında ön-hesaplanacak.
+- Chronological replay yalnız ön-hesaplanmış feature/state satırlarını okuyacak; watch, quota, collision ve position state sıralı tutulacak.
+- Uzun dönem testleri parçalara ayrılabilir veri/feature hazırlığı + tek global chronological state merge şeklinde yürütülecek.
+- Önce kısa smoke/parity testi, sonra 2026 baseline, ancak bunlar doğrulandıktan sonra çok yıllı run yapılacak.
+- Bir run saatler sürüyorsa sonuç beklenmeden darboğaz incelenecek; aynı verimsiz mimari çok yıllık teste taşınmayacak.
+
 ## GÜNCEL DURUM — HER SESSION BURAYI ESAS ALSIN
 **Son güncelleme: 2026-09-21**
 
@@ -65,13 +73,17 @@ Tamamlanan somut işler:
 - GitHub Actions run ID: **35623193985**
 - Başlatıldığı anda durum: **in_progress**
 - Test dönemi: **2026-01-01 → 2026-09-21**
-- Bu run henüz sonuçlanmış kabul edilmez; yeni session önce run durumunu kontrol etmelidir.
+- Run **35623193985** eski/hatalı replay koduyla başlatıldığı için **GEÇERSİZ / SONUCU KULLANMA** olarak işaretlendi. Bu connector üzerinden çalışan GitHub Actions job'unu iptal edecek yazma aksiyonu mevcut değil; run bitse bile artifact/result baseline kabul edilmeyecek.
+- Production-parity düzeltme commit'i: **2d17090f89356d3c01aa96e6bbdde1fbd3bc3717**
+- Düzeltilenler: canlı IGNORED_BASES + leveraged evren filtresi, canlı core+seed prefilter seçimi, watch first_seen/first_price korunması, historical WATCH_TTL temizliği.
+- Performans mimarisi henüz çok yıllı test için yeterli kabul edilmiyor; bir sonraki run'dan önce feature/snapshot precompute mimarisi uygulanmalı ve kısa smoke test ile doğrulanmalı.
 
 ## SONRAKİ ADIM — SIRAYI BOZMA
-1. İlk iş run **35623193985** durumunu kontrol et.
-2. Başarısızsa job logunu oku, hatayı düzelt ve aynı baseline'ı tekrar çalıştır. Hata çözülmeden performans yorumu yapma.
-3. Başarılıysa artifact `live-legacy-baseline` içindeki `legacy_baseline.json` sonucunu incele; signal/trade sayıları ve diagnostikleri kaydet.
-4. Legacy baseline doğrulanınca **Frozen r1 historical replay** motorunu aynı klasörde tamamla ve çalıştır. r2'yi production baseline sanma.
+1. Eski run **35623193985** sonucunu kullanma.
+2. `legacy_live_replay.py` performans mimarisini düzelt: indikatör/snapshot'ları her 15M adımda yeniden pandas ile hesaplamak yerine coin/timeframe bazında bir kez ön-hesapla ve chronological state loop'ta O(1) lookup kullan.
+3. Önce kısa dönem smoke/parity run çalıştır; süre, sinyal state'i, watch TTL, prefilter seçimi ve exit davranışını doğrula. Hatalıysa uzun run başlatma.
+4. Smoke başarılıysa 2026 Legacy baseline'ı çalıştır ve runtime'ı README'ye yaz. Saatler ölçeğinde kalan tasarımı çok yıllı teste taşıma.
+5. Legacy baseline doğrulanınca **Frozen r1 historical replay** motorunu aynı klasörde tamamla ve çalıştır. r2'yi production baseline sanma.
 5. İki bağımsız akışı v12 orchestration/collision ve ayrı günlük kotalarla birleştir; COMBINED_PORTFOLIO baseline üret.
 6. Baseline güvenilir hale geldikten sonra `oi_funding_audit.py` ile OI/Funding coverage kontrolü yap. Binance OI history retention dönemi yetmiyorsa sonucu zorlamadan archive/public alternatif kaynağa geç.
 7. Veto taraması → validation → untouched final holdout. Robust iyileşme yoksa yeni causal özellik/kombinasyon dene; tek iyi in-sample sonucu başarı diye raporlama.
