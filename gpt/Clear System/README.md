@@ -176,6 +176,7 @@ Bir aday ancak aşağıdakilerin tamamında olumluysa ana sisteme eklenebilir:
 | 2026-09-21 | v0.1 | Başlangıç | Frozen r2 kanonik tarayıcı `Clear System.py` olarak taşındı. Mevcut araştırmalar ve video kuralları sınıflandırıldı. | Yeni kural eklenmedi; kalite korunuyor. Önce baseline yeniden üretim. |
 | 2026-09-21 | Tasarım kilidi | Güncellendi | Nihai sistem için statik değer okuma yasaklandı; hareket/transition dizisi zorunlu kılındı. Spot USDT evreninden stablecoin ve fiat base varlıkların kesin dışlanması tekrar kilitlendi. | Baseline yalnız referans; yeni aileler hareket-takibi olarak araştırılacak. |
 | 2026-09-21 | Preflight run 35656755689 | GEÇTİ | Compile, hareket korumaları, kapanmış mum kodu ve gerçek Binance Spot evren smoke testi çalıştı. | `completed/success`; yaklaşık 29 saniye. USDC ve EUR dışlandı, BTC/ETH/SOL/XRP kabul edildi. |
+| 2026-09-22 | Motion Leadership run 35662533375 | ELENDİ | Coinin BTC'ye göre birkaç mum boyunca kalıcı liderliği + değer alanı kabulü + taze 15M genişleme araştırıldı. | `completed/success`; 34 dakika 2 saniye; 18 kural, 162.960 event, 465 sembol; Discovery + Calibration'da stabil champion yok: `NO_STABLE_MOTION_LEADERSHIP_PERSISTENCE`. `Clear System.py` değiştirilmedi. |
 
 ## Yeni session'da devam protokolü
 
@@ -202,4 +203,4 @@ Bir aday ancak aşağıdakilerin tamamında olumluysa ana sisteme eklenebilir:
 
 ## Sonraki somut adım
 
-Baseline r2'nin bağımsız yeniden üretimini çalıştırmak; ardından C09 ve C12'yi aynı veri evreni, aynı maliyet ve aynı first-touch hedef/stop planlarıyla karşılaştırmak.
+Motion Leadership Persistence elendi. Aynı liderlik/eşik ailesini yeniden adlandırarak tekrarlama. Sonraki çalışma, statik değer okumayan ve bu aileden yapısal olarak bağımsız bir hareket yolu olmalı: önce C09/C12'nin eski bağlamını yalnız olay havuzu olarak incele, ardından coin düzeyinde 4H→1H→15M dönüş/continuation hareket dizisini outcome-first ve kapalı mumlarla yeniden kur.
