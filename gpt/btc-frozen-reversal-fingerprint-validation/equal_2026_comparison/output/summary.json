@@ -1,0 +1,49 @@
+{
+  "period": {
+    "start": "2026-01-01 00:00:00+00:00",
+    "end_exclusive": "2026-09-18 00:00:00+00:00",
+    "days": 260.0,
+    "weeks": 37.142857142857146
+  },
+  "universe_source": "gpt/Multi-Timeframe-Independent-Evidence/large_studies/coin_mtf_broad_frozen_validation/output/frozen_rule_events.csv",
+  "universe_symbols": 354,
+  "cost_pct_round_trip": 0.2,
+  "fingerprint_status": "reconstructed exploratory system; exact legacy implementation unavailable",
+  "comparison": [
+    {
+      "system": "TSI+BB",
+      "n": 150,
+      "symbols": 129,
+      "win24": 84.0,
+      "net24_mean": 3.2567791865870346,
+      "net24_median": 3.199618956894501,
+      "pf24": 6.126463426414806,
+      "p10_24": -1.3046087070777554,
+      "signals_per_week": 4.038461538461538
+    },
+    {
+      "system": "TSI+BB r2",
+      "n": 110,
+      "symbols": 99,
+      "win24": 92.72727272727272,
+      "net24_mean": 3.9783775237579024,
+      "net24_median": 3.489224799467172,
+      "pf24": 12.066525133676974,
+      "p10_24": 3.2282364382624738,
+      "signals_per_week": 2.9615384615384612
+    },
+    {
+      "system": "Reconstructed fingerprint",
+      "n": 3169,
+      "symbols": 348,
+      "win24": 41.65351846008205,
+      "net24_mean": -0.4279699566495597,
+      "net24_median": -0.6410143329658167,
+      "pf24": 0.7920066654992863,
+      "p10_24": -6.038672453300669,
+      "sum24_fixed_notional": -1356.2367926224547,
+      "signals_per_week": 85.31923076923076
+    }
+  ],
+  "errors": 5
+}
