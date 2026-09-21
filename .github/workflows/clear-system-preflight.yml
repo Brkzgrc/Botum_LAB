@@ -1,0 +1,79 @@
+name: Clear System - Preflight and Live Smoke
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Clear System/**'
+      - '.github/workflows/clear-system-preflight.yml'
+
+concurrency:
+  group: clear-system-preflight
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install runtime
+        timeout-minutes: 5
+        run: pip install --disable-pip-version-check numpy pandas requests
+      - name: Compile canonical single-file system
+        run: python -m py_compile 'gpt/Clear System/Clear System.py'
+      - name: Verify movement and universe safeguards exist
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('gpt/Clear System/Clear System.py').read_text(encoding='utf-8')
+          required=['motion_pos','motion_net','motion_rise','turn4','STABLE_BASE_ASSETS','FIAT_BASE_ASSETS','quote_asset != "USDT"','status != "TRADING"','close_time']
+          missing=[x for x in required if x not in s]
+          if missing:
+              raise SystemExit(f'missing safeguards/features: {missing}')
+          print('Static movement/universe audit OK')
+          PY
+      - name: Real Binance Spot closed-candle smoke
+        timeout-minutes: 15
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/clear-system-smoke
+          cd /tmp/clear-system-smoke
+          timeout 12m python "$GITHUB_WORKSPACE/gpt/Clear System/Clear System.py" \
+            --symbols BTCUSDT,ETHUSDT,SOLUSDT,XRPUSDT,USDCUSDT,EURUSDT \
+            --workers 3
+          test -s spot_universe_audit.csv
+          python - <<'PY'
+          import pandas as pd
+          d=pd.read_csv('spot_universe_audit.csv')
+          by=dict(zip(d.symbol,d.reason))
+          assert by.get('USDCUSDT') in {'STABLE_BASE','STABLE_LIKE_BASE'},by.get('USDCUSDT')
+          assert by.get('EURUSDT')=='FIAT_BASE',by.get('EURUSDT')
+          for s in ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT']:
+              assert by.get(s)=='INCLUDED',(s,by.get(s))
+          print('Real Spot universe smoke OK')
+          PY
+      - name: Write run summary
+        if: always()
+        run: |
+          {
+            echo '## Clear System preflight'
+            echo '- Job limit: 25 minutes'
+            echo '- Live smoke command limit: 12 minutes'
+            echo '- Stablecoin/fiat exclusions audited'
+            echo '- Closed-candle and movement feature guards audited'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload smoke evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clear-system-preflight
+          path: /tmp/clear-system-smoke
+          if-no-files-found: warn
+          retention-days: 14
