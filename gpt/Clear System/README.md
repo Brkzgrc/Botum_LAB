@@ -175,6 +175,7 @@ Bir aday ancak aşağıdakilerin tamamında olumluysa ana sisteme eklenebilir:
 | --- | --- | --- | --- | --- |
 | 2026-09-21 | v0.1 | Başlangıç | Frozen r2 kanonik tarayıcı `Clear System.py` olarak taşındı. Mevcut araştırmalar ve video kuralları sınıflandırıldı. | Yeni kural eklenmedi; kalite korunuyor. Önce baseline yeniden üretim. |
 | 2026-09-21 | Tasarım kilidi | Güncellendi | Nihai sistem için statik değer okuma yasaklandı; hareket/transition dizisi zorunlu kılındı. Spot USDT evreninden stablecoin ve fiat base varlıkların kesin dışlanması tekrar kilitlendi. | Baseline yalnız referans; yeni aileler hareket-takibi olarak araştırılacak. |
+| 2026-09-21 | Preflight run 35656755689 | GEÇTİ | Compile, hareket korumaları, kapanmış mum kodu ve gerçek Binance Spot evren smoke testi çalıştı. | `completed/success`; yaklaşık 29 saniye. USDC ve EUR dışlandı, BTC/ETH/SOL/XRP kabul edildi. |
 
 ## Yeni session'da devam protokolü
 
@@ -187,6 +188,17 @@ Bir aday ancak aşağıdakilerin tamamında olumluysa ana sisteme eklenebilir:
 7. Sonuç pozitifse önce OOS + OR birleşim doğrulamasını yap.
 8. Kabul kapısını geçmeden `Clear System.py` sinyal mantığını değiştirme.
 9. Her anlamlı değişiklikte tarih, run ID, veri dönemi, maliyet, metrikler ve sonraki adımı kaydet.
+
+## Action süre ve hata disiplini
+
+- Her job açık `timeout-minutes` taşır.
+- Komut düzeyinde mümkünse ayrıca `timeout` kullanılır.
+- Uzun tarama başlamadan compile, self-test, şema ve gerçek-veri smoke zorunludur.
+- Full scan shard'lara bölünür; eksik shard varsa aggregate başarısız olur.
+- `if: always()` ile hata halinde de log/ara kanıt artifact olarak saklanır.
+- Workflow yeşil olsa bile summary/metrik dosyası okunmadan araştırma başarılı sayılmaz.
+- Her deneyden önce yaklaşık toplam runner dakikası hesaplanıp bu README'ye yazılır.
+- İlk preflight sınırı 25 dakika, canlı smoke komut sınırı 12 dakikadır; gerçek çalışma yaklaşık 29 saniyede tamamlanmıştır.
 
 ## Sonraki somut adım
 
