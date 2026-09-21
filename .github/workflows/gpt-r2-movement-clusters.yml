@@ -1,0 +1,95 @@
+name: GPT - r2 Movement Clusters
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_clusters/**'
+      - '.github/workflows/gpt-r2-movement-clusters.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install --disable-pip-version-check numpy pandas
+
+      - name: Preflight 1 - compile
+        run: |
+          set -euo pipefail
+          python -m py_compile             gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_expansion/r2_movement_expansion.py             gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_clusters/r2_movement_clusters.py
+
+      - name: Preflight 2 - source artifacts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          n1=$(gh api "repos/Brkzgrc/Botum_LAB/actions/runs/35292657185/artifacts?per_page=100"             --jq '[.artifacts[] | select(.name | startswith("indicator-aug-shard-")) | select(.expired==false)] | length')
+          n2=$(gh api "repos/Brkzgrc/Botum_LAB/actions/runs/35452406018/artifacts?per_page=100"             --jq '[.artifacts[] | select(.name=="r2-round2-dataset") | select(.expired==false)] | length')
+          test "$n1" -eq 8
+          test "$n2" -eq 1
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: indicator-aug-shard-*
+          path: /tmp/indicator-aug
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35292657185
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: r2-round2-dataset
+          path: /tmp/r2-dataset
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: Brkzgrc/Botum_LAB
+          run-id: 35452406018
+
+      - name: Preflight 3 - exact cohort and cluster schema
+        run: |
+          set -euo pipefail
+          test "$(find /tmp/indicator-aug -name features.csv | wc -l)" -eq 8
+          test -s /tmp/r2-dataset/r2_events.csv
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_clusters/r2_movement_clusters.py             --indicator-dir /tmp/indicator-aug             --r2-dataset-dir /tmp/r2-dataset             --outdir /tmp/preflight             --preflight
+
+      - name: Analyze nonlinear movement states
+        run: |
+          python gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_clusters/r2_movement_clusters.py             --indicator-dir /tmp/indicator-aug             --r2-dataset-dir /tmp/r2-dataset             --outdir gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_clusters/output
+
+      - name: Validate result
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_clusters/output
+          test -s "$O/summary.json"
+          test "$(stat -c%s "$O/summary.json")" -lt 5000000
+          python - <<'PY'
+          import json
+          p="gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_clusters/output/summary.json"
+          s=json.load(open(p))
+          assert s["preflight"]["broad_events"]==8174
+          assert s["preflight"]["r2"]==225
+          assert s["movement_features"]>=80
+          assert s["pca_components"]==18
+          print("status",s["status"],"candidate_count",s["candidate_count"])
+          print("champion",s.get("champion"))
+          PY
+
+      - name: Persist
+        run: |
+          set -euo pipefail
+          O=gpt/Multi-Timeframe-Independent-Evidence/large_studies/r2_movement_clusters/output
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$O"
+          git diff --cached --quiet && exit 0
+          git commit -m "Persist nonlinear r2 movement-cluster analysis [skip ci]"
+          git pull --rebase origin main
+          git push
