@@ -29,18 +29,14 @@ def metrics(x):
     }
 
 def load(indir:Path):
-    fs=sorted(indir.rglob("features.csv"))
-    frames=[pd.read_csv(f,low_memory=False) for f in fs]
-    frames=[x for x in frames if len(x)]
-    if not frames: raise RuntimeError("no features.csv artifacts")
-    d=pd.concat(frames,ignore_index=True)
-    d["decision_time"]=pd.to_datetime(d.decision_time,utc=True)
-    for c in d.columns:
-        if c not in {"symbol","decision_time","entry_time"}:
-            d[c]=pd.to_numeric(d[c],errors="ignore")
+    # Exact frozen TSI+BB base, then reconstruct the exact causal 48h pullback
+    # used by the frozen r2 rule from only candles available before decision time.
+    d=ext.load_frozen_candidate(indir)
+    d=ext.add_causal_pullbacks(d,workers=12)
+    d=d[d.pullback_error.fillna("")==""].copy()
     need=[F1,F2,"h4_bb_width","causal_dd_high_48h","net_24h","up3_before_dn2","danger_dn2_first"]
     miss=[c for c in need if c not in d.columns]
-    if miss: raise RuntimeError("missing required columns: "+str(miss))
+    if miss: raise RuntimeError("missing required columns after causal enrichment: "+str(miss))
     return d
 
 def movement_columns(d):
