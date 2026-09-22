@@ -1,0 +1,101 @@
+{
+  "status": "TAKER_FLOW_DATA_READY",
+  "window": [
+    "2025-01-01 00:00:00+00:00",
+    "2026-09-18 00:00:00+00:00"
+  ],
+  "symbols": 6,
+  "rows": [
+    {
+      "symbol": "ETHUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "valid_share_pct": 100.0,
+      "base_quote_share_mae": 5.745181719168066e-05,
+      "buy_share_mean": 0.49165257931178574,
+      "buy_share_std": 0.10641297769183934,
+      "absorption_events": 5038,
+      "release_events": 2940,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "SOLUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "valid_share_pct": 100.0,
+      "base_quote_share_mae": 7.491157141912998e-05,
+      "buy_share_mean": 0.49911814202193866,
+      "buy_share_std": 0.11039320005858326,
+      "absorption_events": 5828,
+      "release_events": 3127,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "XRPUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "valid_share_pct": 100.0,
+      "base_quote_share_mae": 6.517858155364276e-05,
+      "buy_share_mean": 0.4861185659512099,
+      "buy_share_std": 0.10204339304037174,
+      "absorption_events": 5962,
+      "release_events": 2564,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "valid_share_pct": 100.0,
+      "base_quote_share_mae": 8.739502065907809e-05,
+      "buy_share_mean": 0.48972543875306573,
+      "buy_share_std": 0.11754071194906233,
+      "absorption_events": 5759,
+      "release_events": 2630,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "LINKUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "valid_share_pct": 100.0,
+      "base_quote_share_mae": 0.00011682462448839996,
+      "buy_share_mean": 0.4834276325126888,
+      "buy_share_std": 0.13430455635773636,
+      "absorption_events": 4944,
+      "release_events": 2589,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "valid_share_pct": 100.0,
+      "base_quote_share_mae": 0.00010709088980733009,
+      "buy_share_mean": 0.49240681361154326,
+      "buy_share_std": 0.13171169453948725,
+      "absorption_events": 5891,
+      "release_events": 2674,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    }
+  ],
+  "decision": "Proceed to causal taker-flow absorption/release research only if this audit passes."
+}
