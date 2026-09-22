@@ -290,3 +290,39 @@ verisi olarak kullanılabilir.
    2023-2024/2025-2026'da tek koşuda doğrula.
 3. `donus_tarayici_izleme.json`'ı birkaç gün arayla tekrar iste, forward
    setin büyümesini bekle.
+
+## 10. İki adayın doğrulaması — İKİSİ DE REDDEDİLDİ
+
+Dondurulmuş eşiklerle (değiştirilmedi) 2023-2024 ve 2025-2026'da tek koşu:
+
+### Piyasa-bağlamlı aday (bölüm 7)
+
+| dönem | taban -%10gör | aday -%10gör | yön |
+|---|---|---|---|
+| 2021-2022 (keşif) | %71.3 | %62.1 | kayıp azalıyor |
+| 2023-2024 | %63.6 | %45.3 | kayıp azalıyor (güçlü) |
+| **2025-2026** | %70.3 | **%79.7** | **kayıp ARTIYOR — ters yön** |
+
+### Ayrışma adayı (bölüm 5)
+
+| dönem | kabul (ayrışma yok) -%10gör | red (ayrışma var) -%10gör | fark |
+|---|---|---|---|
+| 2021-2022 (keşif) | %71.1 | %75.4 | gerçek (4.3 puan) |
+| 2023-2024 | %63.7 | %62.5 | ters yön, anlamsız |
+| 2025-2026 | %70.3 | %71.0 | gürültü (0.7 puan) |
+
+**HÜKÜM: İKİ ADAY DA REDDEDİLDİ.** Piyasa-bağlamlı kural 3 dönemin 2'sinde
+kayıp azaltıyor ama en güncel dönemde (2025-2026) TAM TERSİ yapıyor —
+CLAUDE.md kural 6 kalıbının bir örneği daha (rejim ayardan baskın). Ayrışma
+adayı sadece keşif döneminde gerçekmiş, ikisi de doğrulamada eriyor.
+
+**Bu oturumun kayıp-azaltma sorusuna cevabı: BULUNAMADI.** Mevcut 58 yeni
+ölçünün (43 coin-içi + 6 ayrışma + 15 piyasa bağlamı — hepsi 2021-2022
+üzerinde arandı) üzerinde daha fazla dönmek sahte-pozitif riski taşıyor
+(CLAUDE.md uyarısı: aynı veride tekrar arama artık keşiftir, kanıt değil).
+
+Elde kalan tek GERÇEKTEN kanıtlı kayıp-kontrolü, bu oturumun ürünü değil —
+`donus_tarayici.pyw`'nin kendi 78 coin/489 günlük ölçümündeki RS_ESIK ve
+hız kapısı. Kayıp azaltma sorusu AÇIK; yeni bir hipotezle, YENİ bir veri
+kaynağından (emir defteri, farklı zaman dilimi etkileşimi, ya da doğrudan
+donus_tarayici'nin kendi büyüyen forward-set'i) başlanmalı.
