@@ -18,7 +18,7 @@ Kullanıcının önceliği:
 
 Bu araştırmada oluşturulan veya güncellenen bütün araştırma ve teslim dosyaları yalnız `gpt/Clear System/` altında tutulur.
 
-GitHub Actions'ın çalışabilmesi için workflow dosyasının teknik olarak `.github/workflows/` altında bulunması gerekir. Bu konum klasör sınırıyla çeliştiği için şu an repo köküne workflow yazılmadı. Araştırma tasarımı burada tutulacak; kullanıcı klasör dışı tek istisnaya izin verirse Actions workflow ayrıca eklenebilir.
+GitHub Actions workflow dosyaları teknik zorunluluk nedeniyle yalnız `.github/workflows/` altında tutulur. Araştırma kodu, çıktı ve teslim dosyaları `gpt/Clear System/` sınırında kalır.
 
 ## Kanonik teslim dosyası
 
@@ -178,6 +178,7 @@ Bir aday ancak aşağıdakilerin tamamında olumluysa ana sisteme eklenebilir:
 | 2026-09-21 | Preflight run 35656755689 | GEÇTİ | Compile, hareket korumaları, kapanmış mum kodu ve gerçek Binance Spot evren smoke testi çalıştı. | `completed/success`; yaklaşık 29 saniye. USDC ve EUR dışlandı, BTC/ETH/SOL/XRP kabul edildi. |
 | 2026-09-22 | Motion Leadership run 35662533375 | ELENDİ | Coinin BTC'ye göre birkaç mum boyunca kalıcı liderliği + değer alanı kabulü + taze 15M genişleme araştırıldı. | `completed/success`; 34 dakika 2 saniye; 18 kural, 162.960 event, 465 sembol; Discovery + Calibration'da stabil champion yok: `NO_STABLE_MOTION_LEADERSHIP_PERSISTENCE`. `Clear System.py` değiştirilmedi. |
 | 2026-09-22 | Outcome-First Transition run 35666323044 | ELENDİ | 26 kapalı-mum hareket özelliğiyle geniş olay havuzu; model yalnız Discovery'de öğrendi, plan/eşik yalnız Calibration'da seçildi, 2026 seçim için kullanılmadı. | `completed/success`; 27 dk 32 sn; 1.433.251 event, 466 sembol, 11 yeni/eksik geçmişli coin zararsız dışlandı; Discovery + Calibration kabul kapısını geçen champion yok: `NO_STABLE_OUTCOME_FIRST_TRANSITION`. Bu nedenle sinyal/gün, active-day, expectancy, PF ve OOS champion metrikleri oluşmadı; `Clear System.py` değiştirilmedi. |
+| 2026-09-22 | Taker Flow Data Preflight run 35670232639 | GEÇTİ | Binance 15M kline taker-buy alanlarının tarihsel kapsaması, oran geçerliliği ve emilim/serbestleşme olay yoğunluğu altı likit sembolde denetlendi. | `completed/success`; 4 dk 37 sn; veri 2025-01-01–2026-09-18; 360.000 mum; her sembolde %100 kapsama ve %100 geçerli pay; 49.946 olay. Bu bir veri denetimi olduğundan maliyet, sinyal/gün, active-day, expectancy, PF, target/stop-first, MFE/MAE ve OOS: N/A. Tam nedensel araştırmaya geçilebilir. |
 
 ## Yeni session'da devam protokolü
 
@@ -201,7 +202,8 @@ Bir aday ancak aşağıdakilerin tamamında olumluysa ana sisteme eklenebilir:
 - Workflow yeşil olsa bile summary/metrik dosyası okunmadan araştırma başarılı sayılmaz.
 - Her deneyden önce yaklaşık toplam runner dakikası hesaplanıp bu README'ye yazılır.
 - İlk preflight sınırı 25 dakika, canlı smoke komut sınırı 12 dakikadır; gerçek çalışma yaklaşık 29 saniyede tamamlanmıştır.
+- Taker-flow tam araştırma bütçesi (preflight hızından): yaklaşık 730–900 runner-dakikası; 16 paralel runner ile yaklaşık 50–65 dakika duvar süresi. Preflight 22 dk, her shard 55 dk, komut 46 dk, aggregate 25 dk ile ayrıca sınırlandırılır.
 
 ## Sonraki somut adım
 
-Motion Leadership Persistence ve geniş Outcome-First Transition elendi. Aynı liderlik veya genel momentum modeli farklı eşiklerle tekrarlanmayacak. Sonraki araştırma, mevcut OHLCV momentum ailesinden veri olarak bağımsız bir mekanizmaya geçmeli: Binance spot mumlarındaki taker-buy/taker-sell akış değişimi, fiyat emilimi ve 4H→1H→15M yapı aktarımı. Önce veri alanlarının tarihsel erişimi ve nedenselliği kısa preflight ile doğrulanmalı; uygun değilse workflow başlatılmamalı.
+Taker-flow veri preflight'ı geçti. Sıradaki çalışma, 15M taker dengesindeki emilim, akış dönüşü ve serbestleşmeyi; kapanmış 1H/4H akış dizileriyle birlikte, %0,20 maliyetle Discovery + Calibration üzerinde araştırmaktır. 2026 yalnız aday dondurulduktan sonra açılacak. Aday çıkarsa doğrudan sisteme eklenmeyecek; önce frozen r2 ile dedupe/OR birleşimi ve kuyruk kalitesi doğrulanacaktır. Tahmini Action bütçesi 730–900 runner-dakikasıdır; aynı anda ikinci pahalı çalışma başlatılmayacaktır.
