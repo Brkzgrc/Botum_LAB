@@ -1,5 +1,15 @@
 # CLAUDE.md — Botum_LAB
 
+## User Interaction Preferences
+
+- Always respond in Turkish.
+- Explain technical topics clearly, practically, and step by step.
+- Assume the user has limited coding knowledge.
+- When code is required, prefer complete, ready-to-run solutions over partial snippets.
+- The user's local environment is Windows; when local terminal commands are relevant, prefer PowerShell-compatible commands.
+- If a long-running task is already in progress, do not start an unrelated new command or workflow until it finishes, unless a critical correction is required.
+- Give instructions in chronological order. Avoid guidance that requires the user to backtrack, such as "do this first, but before that do something else."
+
 ## Purpose
 
 This repository is a cryptocurrency research laboratory.
@@ -94,6 +104,8 @@ Primary market scope:
 - real spot crypto assets
 - no real SHORT positions
 - no leveraged trading assumptions unless a specific research task explicitly says otherwise
+- prefer analysis, signal generation, and decision support over automatic order execution
+- clearly separate test, backtest, walk-forward, holdout, paper/simulation, and live results
 
 Spot universe filtering:
 
