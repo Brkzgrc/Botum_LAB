@@ -1,0 +1,41 @@
+{
+  "status": "NO_STABLE_TAKER_FLOW_ABSORPTION_RELEASE",
+  "data_period": [
+    "2023-01-01 00:15:00+00:00",
+    "2026-09-17 23:45:00+00:00"
+  ],
+  "events": 912836,
+  "symbols": 466,
+  "features": [
+    "f15_share",
+    "f15_imb4",
+    "f15_imb_prev4",
+    "f15_imb_delta",
+    "f15_share_slope",
+    "f15_pos_count8",
+    "f15_vol_ratio",
+    "f15_price_ret4",
+    "f15_price_accel",
+    "f15_absorption",
+    "f15_release",
+    "f15_flow_reversal",
+    "f15_close_loc",
+    "h1_share",
+    "h1_imb4",
+    "h1_imb_delta",
+    "h1_share_slope",
+    "h1_price_ret4",
+    "h1_absorption",
+    "h1_release",
+    "h4_share",
+    "h4_imb4",
+    "h4_imb_delta",
+    "h4_price_ret4",
+    "h4_absorption",
+    "h4_release"
+  ],
+  "cost_pct": 0.2,
+  "benign_short_history_exclusions": 11,
+  "selection_lock": "Fit Discovery; select plan/threshold on Discovery+Calibration; open holdouts only after freeze.",
+  "champion": {}
+}
