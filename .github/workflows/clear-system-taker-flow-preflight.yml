@@ -1,0 +1,71 @@
+name: Clear System - Taker Flow Data Preflight
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gpt/Clear System/research/taker_flow_preflight.py'
+      - '.github/workflows/clear-system-taker-flow-preflight.yml'
+
+concurrency:
+  group: clear-system-taker-flow-preflight
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - name: Install pinned runtime
+        timeout-minutes: 5
+        run: pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3'
+      - name: Compile and deterministic self-test
+        run: |
+          set -euo pipefail
+          P='gpt/Clear System/research/taker_flow_preflight.py'
+          python -m py_compile "$P"
+          python "$P" --self-test --outdir /tmp/taker-selftest
+      - name: Historical six-symbol taker-flow audit
+        timeout-minutes: 15
+        run: |
+          set -euo pipefail
+          O='gpt/Clear System/output/taker_flow_preflight'
+          timeout 13m python 'gpt/Clear System/research/taker_flow_preflight.py' \
+            --symbols ETHUSDT,SOLUSDT,XRPUSDT,DOGEUSDT,LINKUSDT,AVAXUSDT \
+            --start 2025-01-01 --end 2026-09-18 --outdir "$O"
+          test -s "$O/summary.json"
+          python - <<'PY'
+          import json
+          p='gpt/Clear System/output/taker_flow_preflight/summary.json'
+          s=json.load(open(p))
+          assert s['status']=='TAKER_FLOW_DATA_READY',s
+          assert s['symbols']==6,s
+          assert min(x['coverage_pct'] for x in s['rows'])>=95,s
+          assert min(x['valid_share_pct'] for x in s['rows'])>=99.9,s
+          print(s['status'],sum(x['absorption_events']+x['release_events'] for x in s['rows']))
+          PY
+      - name: Persist verified audit
+        run: |
+          set -euo pipefail
+          O='gpt/Clear System/output/taker_flow_preflight'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$O"
+          git diff --cached --quiet && exit 0
+          git commit -m 'Persist Clear System taker-flow preflight [skip ci]'
+          git pull --rebase origin main
+          git push
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: taker-flow-preflight
+          path: gpt/Clear System/output/taker_flow_preflight
+          if-no-files-found: warn
+          retention-days: 14
