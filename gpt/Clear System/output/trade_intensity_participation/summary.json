@@ -1,0 +1,43 @@
+{
+  "status": "NO_STABLE_TRADE_INTENSITY_PARTICIPATION",
+  "data_period": [
+    "2023-01-01 00:00:00+00:00",
+    "2026-09-17 23:45:00+00:00"
+  ],
+  "events": 1365143,
+  "symbols": 466,
+  "features": [
+    "m15_count_ratio",
+    "m15_size_ratio",
+    "m15_count_delta",
+    "m15_size_delta",
+    "m15_count_slope",
+    "m15_size_slope",
+    "m15_price_ret4",
+    "m15_price_accel",
+    "m15_churn",
+    "m15_close_loc",
+    "m15_range_pct",
+    "m15_body_frac",
+    "m15_break8",
+    "m15_hl_count4",
+    "h1_count_ratio",
+    "h1_size_ratio",
+    "h1_count_delta",
+    "h1_size_delta",
+    "h1_price_ret4",
+    "h1_churn",
+    "h1_break8",
+    "h4_count_ratio",
+    "h4_size_ratio",
+    "h4_count_delta",
+    "h4_size_delta",
+    "h4_price_ret4",
+    "h4_churn",
+    "h4_break8"
+  ],
+  "cost_pct": 0.2,
+  "benign_short_history_exclusions": 11,
+  "selection_lock": "Fit Discovery; select plan/threshold on Discovery+Calibration; open holdouts only after freeze.",
+  "champion": {}
+}
