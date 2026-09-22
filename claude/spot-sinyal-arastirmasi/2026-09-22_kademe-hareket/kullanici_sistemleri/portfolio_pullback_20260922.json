@@ -1,0 +1,38 @@
+[
+  {
+    "coin": "ORCA/USDT",
+    "date": "2026-09-08 03:27",
+    "score": 4,
+    "entry_price": 1.518,
+    "stop": 1.3944993392437854,
+    "rs": 21.55,
+    "rvol": 2.91,
+    "atr_pct": 4.72,
+    "strategy": "PULLBACK / GERI CEKILME",
+    "note": ""
+  },
+  {
+    "coin": "PEPE/USDT",
+    "date": "2026-09-08 03:28",
+    "score": 4,
+    "entry_price": 3.61e-06,
+    "stop": 3.439451849299455e-06,
+    "rs": 1.58,
+    "rvol": 2.03,
+    "atr_pct": 2.62,
+    "strategy": "PULLBACK / GERI CEKILME",
+    "note": ""
+  },
+  {
+    "coin": "BIGTIME/USDT",
+    "date": "2026-09-08 04:36",
+    "score": 4,
+    "entry_price": 0.00725,
+    "stop": 0.006946175007862564,
+    "rs": 9.76,
+    "rvol": 1.78,
+    "atr_pct": 2.42,
+    "strategy": "PULLBACK / GERI CEKILME",
+    "note": ""
+  }
+]

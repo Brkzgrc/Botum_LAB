@@ -1,0 +1,121 @@
+[
+  {
+    "coin": "ETH/USDT",
+    "date": "2026-09-21 20:02",
+    "score": 6,
+    "entry_price": 2755.42,
+    "note": ""
+  },
+  {
+    "coin": "UNI/USDT",
+    "date": "2026-09-21 20:02",
+    "score": 5,
+    "entry_price": 8.926,
+    "note": ""
+  },
+  {
+    "coin": "ONDO/USDT",
+    "date": "2026-09-21 20:02",
+    "score": 6,
+    "entry_price": 0.4463,
+    "note": ""
+  },
+  {
+    "coin": "NVDAB/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 6,
+    "entry_price": 226.23,
+    "note": ""
+  },
+  {
+    "coin": "LINK/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 12.985,
+    "note": ""
+  },
+  {
+    "coin": "ONE/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 0.004227,
+    "note": ""
+  },
+  {
+    "coin": "FET/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 0.2052,
+    "note": ""
+  },
+  {
+    "coin": "SEI/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 0.06011,
+    "note": ""
+  },
+  {
+    "coin": "XPL/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 0.09984,
+    "note": ""
+  },
+  {
+    "coin": "MSTRB/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 166.71,
+    "note": ""
+  },
+  {
+    "coin": "RENDER/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 1.808,
+    "note": ""
+  },
+  {
+    "coin": "FORM/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 0.4204,
+    "note": ""
+  },
+  {
+    "coin": "SOXLB/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 140.16,
+    "note": ""
+  },
+  {
+    "coin": "OPG/USDT",
+    "date": "2026-09-21 20:03",
+    "score": 5,
+    "entry_price": 0.1341,
+    "note": ""
+  },
+  {
+    "coin": "LDO/USDT",
+    "date": "2026-09-21 20:04",
+    "score": 5,
+    "entry_price": 0.436,
+    "note": ""
+  },
+  {
+    "coin": "KMNO/USDT",
+    "date": "2026-09-21 20:04",
+    "score": 5,
+    "entry_price": 0.03539,
+    "note": ""
+  },
+  {
+    "coin": "TIA/USDT",
+    "date": "2026-09-21 20:04",
+    "score": 5,
+    "entry_price": 0.4373,
+    "note": ""
+  }
+]

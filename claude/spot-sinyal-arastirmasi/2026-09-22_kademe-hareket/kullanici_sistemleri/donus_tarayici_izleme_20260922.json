@@ -1,0 +1,630 @@
+{
+  "guncelleme": "22-09-2026 11:02",
+  "izleme": [
+    {
+      "sembol": "XLMUSDT",
+      "coin": "XLM",
+      "eklenme_ts": 1789990314.8182404,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 0.2124,
+      "fiyat": 0.2125,
+      "en_yuksek": 0.2125,
+      "en_dusuk": 0.2062,
+      "sinyal_skor": 0.262,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.352,
+        "4h": 0.246,
+        "1h": 0.202,
+        "15m": 0.063
+      },
+      "cikis": {
+        "atr": 0.0038071428571428523,
+        "stop": 0.1971714285714286,
+        "hedef": 0.24285714285714283,
+        "stop_yuzde": -7.169760559591058,
+        "hedef_yuzde": 14.339521119182116
+      }
+    },
+    {
+      "sembol": "HBARUSDT",
+      "coin": "HBAR",
+      "eklenme_ts": 1789990315.4485404,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 0.09016,
+      "fiyat": 0.09512,
+      "en_yuksek": 0.09512,
+      "en_dusuk": 0.08972,
+      "sinyal_skor": 0.228,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.278,
+        "4h": 0.196,
+        "1h": 0.216,
+        "15m": 0.095
+      },
+      "cikis": {
+        "atr": 0.0015728571428571397,
+        "stop": 0.08386857142857145,
+        "hedef": 0.10274285714285712,
+        "stop_yuzde": -6.978070731398136,
+        "hedef_yuzde": 13.956141462796271
+      }
+    },
+    {
+      "sembol": "PROVEUSDT",
+      "coin": "PROVE",
+      "eklenme_ts": 1789990315.7910552,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 0.2465,
+      "fiyat": 0.2305,
+      "en_yuksek": 0.2953,
+      "en_dusuk": 0.2302,
+      "sinyal_skor": 0.224,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.278,
+        "4h": 0.127,
+        "1h": 0.276,
+        "15m": 0.059
+      },
+      "cikis": {
+        "atr": 0.009778571428571432,
+        "stop": 0.20738571428571428,
+        "hedef": 0.3247285714285715,
+        "stop_yuzde": -15.867864387134171,
+        "hedef_yuzde": 31.735728774268342
+      }
+    },
+    {
+      "sembol": "WLDUSDT",
+      "coin": "WLD",
+      "eklenme_ts": 1789990316.182393,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 0.4499,
+      "fiyat": 0.4529,
+      "en_yuksek": 0.4555,
+      "en_dusuk": 0.4353,
+      "sinyal_skor": 0.21,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.297,
+        "4h": 0.221,
+        "1h": 0.124,
+        "15m": 0.115
+      },
+      "cikis": {
+        "atr": 0.009985714285714289,
+        "stop": 0.40995714285714285,
+        "hedef": 0.5297857142857143,
+        "stop_yuzde": -8.878163401390788,
+        "hedef_yuzde": 17.756326802781576
+      }
+    },
+    {
+      "sembol": "ADAUSDT",
+      "coin": "ADA",
+      "eklenme_ts": 1789990316.5922618,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 0.2423,
+      "fiyat": 0.2461,
+      "en_yuksek": 0.2488,
+      "en_dusuk": 0.2402,
+      "sinyal_skor": 0.205,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.247,
+        "4h": 0.185,
+        "1h": 0.189,
+        "15m": 0.059
+      },
+      "cikis": {
+        "atr": 0.0039999999999999975,
+        "stop": 0.2263,
+        "hedef": 0.2743,
+        "stop_yuzde": -6.603384234420137,
+        "hedef_yuzde": 13.206768468840274
+      }
+    },
+    {
+      "sembol": "FILUSDT",
+      "coin": "FIL",
+      "eklenme_ts": 1789990316.9800317,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 0.9896,
+      "fiyat": 0.9938,
+      "en_yuksek": 0.9981,
+      "en_dusuk": 0.9611,
+      "sinyal_skor": 0.197,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.133,
+        "4h": 0.302,
+        "1h": 0.148,
+        "15m": 0.013
+      },
+      "cikis": {
+        "atr": 0.01940714285714287,
+        "stop": 0.9119714285714285,
+        "hedef": 1.144857142857143,
+        "stop_yuzde": -7.844439311698816,
+        "hedef_yuzde": 15.688878623397631
+      }
+    },
+    {
+      "sembol": "RENDERUSDT",
+      "coin": "RENDER",
+      "eklenme_ts": 1789990317.4069622,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 1.787,
+      "fiyat": 1.801,
+      "en_yuksek": 1.829,
+      "en_dusuk": 1.756,
+      "sinyal_skor": 0.195,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.231,
+        "4h": 0.213,
+        "1h": 0.145,
+        "15m": 0.079
+      },
+      "cikis": {
+        "atr": 0.0435,
+        "stop": 1.613,
+        "hedef": 2.135,
+        "stop_yuzde": -9.736989367655289,
+        "hedef_yuzde": 19.473978735310578
+      }
+    },
+    {
+      "sembol": "ONDOUSDT",
+      "coin": "ONDO",
+      "eklenme_ts": 1789990317.8267722,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 0.4543,
+      "fiyat": 0.4334,
+      "en_yuksek": 0.4586,
+      "en_dusuk": 0.4333,
+      "sinyal_skor": 0.194,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.202,
+        "4h": 0.188,
+        "1h": 0.192,
+        "15m": 0.077
+      },
+      "cikis": {
+        "atr": 0.011007142857142863,
+        "stop": 0.4102714285714285,
+        "hedef": 0.5423571428571429,
+        "stop_yuzde": -9.691519134618414,
+        "hedef_yuzde": 19.383038269236827
+      }
+    },
+    {
+      "sembol": "ETHUSDT",
+      "coin": "ETH",
+      "eklenme_ts": 1789990318.238035,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 2723.84,
+      "fiyat": 2731.45,
+      "en_yuksek": 2767.66,
+      "en_dusuk": 2712.96,
+      "sinyal_skor": 0.192,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.247,
+        "4h": 0.112,
+        "1h": 0.225,
+        "15m": 0.058
+      },
+      "cikis": {
+        "atr": 31.11357142857144,
+        "stop": 2599.3857142857146,
+        "hedef": 2972.7485714285717,
+        "stop_yuzde": -4.569074751611172,
+        "hedef_yuzde": 9.138149503222344
+      }
+    },
+    {
+      "sembol": "PENGUUSDT",
+      "coin": "PENGU",
+      "eklenme_ts": 1789990318.6332521,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 0.00838,
+      "fiyat": 0.009112,
+      "en_yuksek": 0.009112,
+      "en_dusuk": 0.008175,
+      "sinyal_skor": 0.19,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.013,
+        "4h": 0.283,
+        "1h": 0.248,
+        "15m": -0.021
+      },
+      "cikis": {
+        "atr": 0.00017285714285714324,
+        "stop": 0.007688571428571427,
+        "hedef": 0.009762857142857146,
+        "stop_yuzde": -8.250937606546218,
+        "hedef_yuzde": 16.501875213092436
+      }
+    },
+    {
+      "sembol": "ZAMAUSDT",
+      "coin": "ZAMA",
+      "eklenme_ts": 1789990319.0278733,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 0.10331,
+      "fiyat": 0.09344,
+      "en_yuksek": 0.10544,
+      "en_dusuk": 0.09344,
+      "sinyal_skor": 0.189,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.216,
+        "4h": 0.217,
+        "1h": 0.138,
+        "15m": 0.313
+      },
+      "cikis": {
+        "atr": 0.005960714285714286,
+        "stop": 0.07946714285714285,
+        "hedef": 0.1509957142857143,
+        "stop_yuzde": -23.078944093366708,
+        "hedef_yuzde": 46.157888186733416
+      }
+    },
+    {
+      "sembol": "TAOUSDT",
+      "coin": "TAO",
+      "eklenme_ts": 1789990319.4396157,
+      "eklenme": "21-09-2026 14:31",
+      "giris_fiyat": 287.0,
+      "fiyat": 317.3,
+      "en_yuksek": 318.0,
+      "en_dusuk": 281.2,
+      "sinyal_skor": 0.188,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.187,
+        "4h": 0.244,
+        "1h": 0.133,
+        "15m": 0.067
+      },
+      "cikis": {
+        "atr": 6.528571428571423,
+        "stop": 260.8857142857143,
+        "hedef": 339.2285714285714,
+        "stop_yuzde": -9.099054255848674,
+        "hedef_yuzde": 18.19810851169735
+      }
+    },
+    {
+      "sembol": "SOLUSDT",
+      "coin": "SOL",
+      "eklenme_ts": 1789990321.9069395,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 116.44,
+      "fiyat": 116.5,
+      "en_yuksek": 119.05,
+      "en_dusuk": 116.21,
+      "sinyal_skor": 0.185,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.141,
+        "4h": 0.205,
+        "1h": 0.204,
+        "15m": 0.054
+      },
+      "cikis": {
+        "atr": 1.4757142857142875,
+        "stop": 110.53714285714285,
+        "hedef": 128.24571428571429,
+        "stop_yuzde": -5.069441036462685,
+        "hedef_yuzde": 10.13888207292537
+      }
+    },
+    {
+      "sembol": "APTUSDT",
+      "coin": "APT",
+      "eklenme_ts": 1789990322.246981,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 0.78,
+      "fiyat": 0.775,
+      "en_yuksek": 0.791,
+      "en_dusuk": 0.763,
+      "sinyal_skor": 0.175,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.168,
+        "4h": 0.21,
+        "1h": 0.147,
+        "15m": -0.015
+      },
+      "cikis": {
+        "atr": 0.01821428571428573,
+        "stop": 0.7071428571428571,
+        "hedef": 0.9257142857142859,
+        "stop_yuzde": -9.340659340659348,
+        "hedef_yuzde": 18.681318681318697
+      }
+    },
+    {
+      "sembol": "XRPUSDT",
+      "coin": "XRP",
+      "eklenme_ts": 1789990322.9072583,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 1.4944,
+      "fiyat": 1.5212,
+      "en_yuksek": 1.5212,
+      "en_dusuk": 1.472,
+      "sinyal_skor": 0.18,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.231,
+        "4h": 0.218,
+        "1h": 0.098,
+        "15m": -0.072
+      },
+      "cikis": {
+        "atr": 0.019950000000000023,
+        "stop": 1.4145999999999999,
+        "hedef": 1.6540000000000001,
+        "stop_yuzde": -5.339935760171312,
+        "hedef_yuzde": 10.679871520342624
+      }
+    },
+    {
+      "sembol": "SUIUSDT",
+      "coin": "SUI",
+      "eklenme_ts": 1789990324.5481462,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 1.0268,
+      "fiyat": 1.0138,
+      "en_yuksek": 1.0565,
+      "en_dusuk": 1.006,
+      "sinyal_skor": 0.173,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.277,
+        "4h": 0.176,
+        "1h": 0.082,
+        "15m": 0.029
+      },
+      "cikis": {
+        "atr": 0.03030000000000001,
+        "stop": 0.9055999999999998,
+        "hedef": 1.2692,
+        "stop_yuzde": -11.803661862095836,
+        "hedef_yuzde": 23.607323724191673
+      }
+    },
+    {
+      "sembol": "DOGEUSDT",
+      "coin": "DOGE",
+      "eklenme_ts": 1789990324.802908,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 0.09354,
+      "fiyat": 0.09903,
+      "en_yuksek": 0.09906,
+      "en_dusuk": 0.09233,
+      "sinyal_skor": 0.173,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.107,
+        "4h": 0.311,
+        "1h": 0.092,
+        "15m": 0.193
+      },
+      "cikis": {
+        "atr": 0.001476428571428571,
+        "stop": 0.08763428571428572,
+        "hedef": 0.10535142857142857,
+        "stop_yuzde": -6.313570970402271,
+        "hedef_yuzde": 12.627141940804542
+      }
+    },
+    {
+      "sembol": "BNBUSDT",
+      "coin": "BNB",
+      "eklenme_ts": 1789990325.1668963,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 789.77,
+      "fiyat": 786.56,
+      "en_yuksek": 807.19,
+      "en_dusuk": 786.0,
+      "sinyal_skor": 0.165,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.187,
+        "4h": 0.043,
+        "1h": 0.267,
+        "15m": 0.037
+      },
+      "cikis": {
+        "atr": 7.615000000000009,
+        "stop": 759.31,
+        "hedef": 850.69,
+        "stop_yuzde": -3.8568190739075985,
+        "hedef_yuzde": 7.713638147815197
+      }
+    },
+    {
+      "sembol": "AAVEUSDT",
+      "coin": "AAVE",
+      "eklenme_ts": 1789990326.19296,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 145.99,
+      "fiyat": 141.63,
+      "en_yuksek": 148.16,
+      "en_dusuk": 141.63,
+      "sinyal_skor": 0.173,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.131,
+        "4h": 0.177,
+        "1h": 0.204,
+        "15m": -0.039
+      },
+      "cikis": {
+        "atr": 2.7242857142857155,
+        "stop": 135.09285714285716,
+        "hedef": 167.78428571428574,
+        "stop_yuzde": -7.46430773144932,
+        "hedef_yuzde": 14.92861546289864
+      }
+    },
+    {
+      "sembol": "GRAMUSDT",
+      "coin": "GRAM",
+      "eklenme_ts": 1789990326.8558507,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 1.432,
+      "fiyat": 1.433,
+      "en_yuksek": 1.447,
+      "en_dusuk": 1.413,
+      "sinyal_skor": 0.164,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.2,
+        "4h": 0.177,
+        "1h": 0.12,
+        "15m": 0.043
+      },
+      "cikis": {
+        "atr": 0.013071428571428527,
+        "stop": 1.379714285714286,
+        "hedef": 1.5365714285714283,
+        "stop_yuzde": -3.6512370311252873,
+        "hedef_yuzde": 7.302474062250575
+      }
+    },
+    {
+      "sembol": "ICPUSDT",
+      "coin": "ICP",
+      "eklenme_ts": 1789990327.2013886,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 2.965,
+      "fiyat": 2.959,
+      "en_yuksek": 2.984,
+      "en_dusuk": 2.924,
+      "sinyal_skor": 0.163,
+      "sinyal_sinif": "B — 15D TEYİT BEKLE",
+      "sinyal_tf": {
+        "1d": 0.245,
+        "4h": 0.043,
+        "1h": 0.214,
+        "15m": -0.016
+      },
+      "cikis": {
+        "atr": 0.05192857142857145,
+        "stop": 2.757285714285714,
+        "hedef": 3.3804285714285713,
+        "stop_yuzde": -7.0055408335340905,
+        "hedef_yuzde": 14.011081667068181
+      }
+    },
+    {
+      "sembol": "DOTUSDT",
+      "coin": "DOT",
+      "eklenme_ts": 1789990327.7610903,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 1.195,
+      "fiyat": 1.168,
+      "en_yuksek": 1.2,
+      "en_dusuk": 1.166,
+      "sinyal_skor": 0.157,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.189,
+        "4h": 0.203,
+        "1h": 0.084,
+        "15m": 0.13
+      },
+      "cikis": {
+        "atr": 0.02192857142857141,
+        "stop": 1.1072857142857144,
+        "hedef": 1.3704285714285713,
+        "stop_yuzde": -7.340107591153609,
+        "hedef_yuzde": 14.680215182307219
+      }
+    },
+    {
+      "sembol": "TRXUSDT",
+      "coin": "TRX",
+      "eklenme_ts": 1789990328.097219,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 0.3446,
+      "fiyat": 0.3486,
+      "en_yuksek": 0.3487,
+      "en_dusuk": 0.344,
+      "sinyal_skor": 0.155,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.281,
+        "4h": 0.057,
+        "1h": 0.145,
+        "15m": -0.062
+      },
+      "cikis": {
+        "atr": 0.0007428571428571404,
+        "stop": 0.34162857142857145,
+        "hedef": 0.35054285714285716,
+        "stop_yuzde": -0.8622833927535002,
+        "hedef_yuzde": 1.7245667855070004
+      }
+    },
+    {
+      "sembol": "PUMPUSDT",
+      "coin": "PUMP",
+      "eklenme_ts": 1789990328.4452002,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 0.004431,
+      "fiyat": 0.004568,
+      "en_yuksek": 0.004573,
+      "en_dusuk": 0.004279,
+      "sinyal_skor": 0.154,
+      "sinyal_sinif": "C — 1S DÖNÜŞ BEKLE",
+      "sinyal_tf": {
+        "1d": 0.203,
+        "4h": 0.098,
+        "1h": 0.168,
+        "15m": -0.155
+      },
+      "cikis": {
+        "atr": 0.00010600000000000007,
+        "stop": 0.004007,
+        "hedef": 0.005279000000000001,
+        "stop_yuzde": -9.568946061837064,
+        "hedef_yuzde": 19.137892123674128
+      }
+    },
+    {
+      "sembol": "CAKEUSDT",
+      "coin": "CAKE",
+      "eklenme_ts": 1789990328.7978735,
+      "eklenme": "21-09-2026 14:32",
+      "giris_fiyat": 2.539,
+      "fiyat": 2.495,
+      "en_yuksek": 2.625,
+      "en_dusuk": 2.491,
+      "sinyal_skor": 0.152,
+      "sinyal_sinif": "B — 15D TEYİT BEKLE",
+      "sinyal_tf": {
+        "1d": 0.194,
+        "4h": 0.0,
+        "1h": 0.267,
+        "15m": 0.142
+      },
+      "cikis": {
+        "atr": 0.04442857142857145,
+        "stop": 2.361285714285714,
+        "hedef": 2.8944285714285716,
+        "stop_yuzde": -6.999381083666238,
+        "hedef_yuzde": 13.998762167332476
+      }
+    }
+  ]
+}

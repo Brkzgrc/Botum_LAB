@@ -209,3 +209,84 @@ ilgili — henuz test edilmedi, sonraki adim.
    (korelasyon + tekini çıkarınca sonuç değişiyor mu).
 3. Ayrışma ölçüsünü (StochRSI ters yön) piyasa-bağlamlı aday kuralla
    birlikte dene.
+
+## 9. Kullanıcının 3 canlı sistemi incelendi
+
+`kullanici_sistemleri/` altına eklendi: `donus_tarayici.pyw` (huni/funnel
+sistemi, ölçülmüş), `crypto_scanner_pullback.pyw` ve
+`crypto_app2_role_based_v2.pyw` (rol-dağılımlı 4h/1h/15m puanlama), artı
+üç JSON anlık görüntü.
+
+### donus_tarayici.pyw — huni tasarımı bu çalışmanın 3. bölümünü doğrudan
+doğruluyor
+
+Sistem 4h/1h/15m'yi SIRALI TETİKLEYİCİ değil, **huni/elemedir**: 1G ve 4S
+uygun değilse alt zaman dilimlerine hiç bakılmaz (elenir), 1S'te dönüş
+aranır, **15m hiçbir zaman sıralama skoruna girmez** (`TF_AGIRLIK["15m"]=0.0`)
+— sadece "giriş penceresi açık mı" kapısı. Bu, bu çalışmanın 3. bölümünde
+ölçülen "4h bağlam olarak işliyor, sıralı tetikleyici olarak işlemiyor"
+sonucuyla BİREBİR aynı yapıyı, bağımsız bir tasarımda gösteriyor.
+
+### İki yeni, ölçülmüş eksen (önceden hiç test edilmemiş)
+
+**a) Hız kapısı (24s ROC, MONOTON DEĞİL):** kaçmış (>%50, 24s): tipik -%9.4,
+kazanan %42, risk 5x. Geç kalınmış (%25-50): -%2.8, risk 3x. **%10-25 "en
+verimli bölge"** (pozitif puan). <%10: nötr.
+
+Kendi 25.538 sinyallik tabloda test edildi (`roc6` = gerçek 6x4h=24 saat —
+İLK DENEMEDE `roc24` (96 saat) kullanılmıştı, YANLIŞ BİRİM, düzeltildi):
+
+| bant | n | medyan tepe | +%10 gören | temiz |
+|---|---|---|---|---|
+| taban | 25.538 | %25.1 | %71.3 | %36.2 |
+| <10 (yavaş) | 25.404 | %25.1 | %71.2 | %36.2 |
+| 10-25 (iddia: verimli) | 120 | %26.5 | %89.2 | %25.0 |
+
+**Kendi 4h ızgaramda doğrulanamadı** — n=120 çok küçük (orijinal sistem 1h
+ızgarada ölçmüş, benimki 4h; 4h barında 24 saatlik hızlı hareket nadir
+görülüyor). Yön belirsiz, örnek yetersiz. Doğru test 1h ızgarada yapılmalı.
+
+**b) RS_ESIK — coin BTC'den ZAYIF olmalı (ters sezgi):** "coin 24s getirisi
+− BTC 24s getirisi ≤ 0" filtresiyle filtresiz +%0.56/işlem'den +%3.20/işlem'e
+çıkmış (78 coin/489 gün ölçümü, kayıtlı).
+
+Kendi tabloda test edildi (roc6 - btc_ret_24s):
+
+| | n | medyan tepe | −%10 gören | temiz |
+|---|---|---|---|---|
+| RS≤0 (zayıf, iddia) | 17.530 | %26.0 | %71.7 | **%37.1** |
+| RS>0 (güçlü) | 8.008 | %23.0 | %70.4 | %34.2 |
+
+**Yön doğrulandı** — küçük ama tutarlı, bağımsız ölçümle aynı taraf.
+
+### Üçüncü kanıt: skor_hacim'deki hacim/hız birleşik bulgusu
+
+87 coin / 183 bin saatlik veri: hacimsiz osilatör kurulumu RASTGELEDEN
+KÖTÜ (+%20 olasılığı %1.2, taban %2.2); hacim ≥5× ile %11.2'ye çıkıyor.
+AMA coin 7 günde %30+ yükselmişken hacim patlarsa bu "spike & fade"
+(medyan -%1.2); coin düşüşten geliyorken hacim patlarsa %56 kazanan,
+yarı risk. **Hacim tek başına değil, ÖNCEKİ HAREKETLE BİRLİKTE** anlamlı —
+bu çalışmanın 5. bölümündeki "göstergeler tek başına değil birlikte"
+bulgusuyla aynı disiplin, farklı bir örnekte.
+
+### Gerçek ileriye dönük (forward) set — hindsight yok
+
+`donus_tarayici_izleme_20260922.json`: 21.09.2026 14:31'de kaydedilmiş 25
+sinyal, 22.09.2026 11:02 itibarıyla ~21 saatlik takip. ÇOK ERKEN, hüküm
+verilemez. Anlık durum: 23/25 "C — 1S dönüş bekle", 2/25 "B — 15D teyit
+bekle". En büyük hareket TAO +%10.8, tek belirgin kayıp ZAMA -%9.6.
+
+`portfolio_role_based_20260922.json` (17 kayıt) ve
+`portfolio_pullback_20260922.json` (3 kayıt): sadece giriş fiyatı var,
+çıkış/sonuç henüz yok — ileride bu dosyalar büyüdükçe gerçek forward-test
+verisi olarak kullanılabilir.
+
+## Sıradaki adım (güncellendi)
+
+1. Hız kapısını (24s ROC, monoton olmayan bant) 1h ızgarada, kullanıcının
+   `_vek_donus_sayisi` (5 şartlı, OBV'siz) tanımıyla yeniden test et — 4h
+   ızgara bu ekseni ölçmek için yanlış çözünürlük.
+2. Piyasa-bağlamlı aday kuralı (bölüm 7) + RS_ESIK yönünü BİRLEŞTİRİP
+   2023-2024/2025-2026'da tek koşuda doğrula.
+3. `donus_tarayici_izleme.json`'ı birkaç gün arayla tekrar iste, forward
+   setin büyümesini bekle.
