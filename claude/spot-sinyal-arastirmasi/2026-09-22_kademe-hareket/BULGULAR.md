@@ -150,3 +150,62 @@ Analiz henüz yapılmadı — sıradaki adım.
    KOŞUDA doğrula — eşik/özellik DEĞİŞTİRİLMEDEN.
 3. Ayrışma ölçüsünü (StochRSI ters yön) filtre olarak deneyip beklenen
    getiriye etkisini gör.
+
+## 7. Piyasa bağlamlı tablo analizi — SONUÇ
+
+`tablo2_2021-2022_N4.npz` (77 ölçü: 43 coin-içi + 6 ayrışma + 15 piyasa
+bağlamı + sart_sayisi). En iyi tekil ölçüler taban %36.2 (temiz yükseliş):
+
+| ölçü | dilim | temiz | -%10 gören |
+|---|---|---|---|
+| coin ema50-200 farkı | alt %20 | %44.1 | %73.4 |
+| BTC ema200 uzaklığı | alt %20 | %41.3 | %68.3 |
+| BTC 7g getiri | alt %20 | %39.8 | %67.3 |
+| piyasa genişliği 7g | alt %20 | %39.7 | %67.1 |
+
+**ON KAYIT — ADAY (henüz doğrulanmadı):**
+
+    coin_ema50_200_fark <= [kendi 2021-2022 %20 yuzdeligi]
+      VE
+    btc_ret_7g          <= [kendi 2021-2022 %20 yuzdeligi]
+
+Kesif verisinde: n=1.727 · medyan tepe %39.0 (taban %25.1) · +%50'ye ulasan
+%37.3 (taban %26.6) · -%10 goren %62.1 (taban %71.3) · temiz yukselis %51.0
+(taban %36.2).
+
+Icerigi: **coin kendi uzun-donem ortalamasinin altinda VE BTC son 7 gunde
+dusmus** — yani "piyasa genelinde geri cekilme sirasinda, kendi trendi de
+geri cekilmis coin" ariyor. Sezgisel olarak "herkes korkarken al" fikrine
+yakin.
+
+**Esik degistirilmeyecek, ucuncu kosul eklenmeyecek** — 2023-2024 ve
+2025-2026'da TEK KOSUDA doğrulanacak.
+
+## 8. GPT/Multi-Timeframe capraz kontrol
+
+`Botum_LAB/gpt/Multi-Timeframe-Independent-Evidence/reports/stage4/
+FROZEN_RULES.json` incelendi. O sistemin 3 dondurulmus kuralinin (C02/C09/C12)
+UCU DE coin'in kendi gostergesine degil, BTC durumuna ve piyasa genisligine
+bakiyor (`btc_ret_24h`, `btc_d1_ema20_uzaklik`, `breadth_ret72_delta72` gibi
+alanlar). Bu bagimsiz bulgu, bu calismanin 6. ve 7. bolumlerindeki "piyasa
+baglami katki sagliyor" sonucuyla AYNI YONDE — farkli bir ekipten (GPT),
+farkli bir metodolojiden (kural madenciligi + rejim modeli) gelen bir
+yakinsama. Bagimsiz replikasyon degildir (farkli veri/donem kullanmis
+olabilirler, kontrol edilmedi) ama yon tutarliligi kayda deger.
+
+`SPOT_STRATEJI_KURALLARI.txt` (37 video, YouTube egitim ozeti) da incelendi.
+Video 6'nin "birlesik islem zinciri" (4H trend baglam -> 1H pullback/momentum
+zamanlamasi -> 15M fiyat tetikleyicisi) bu calismanin 3. bolumdeki sonucla
+(4h SIRALI TETIKLEYICI olarak islemiyor, ama BAGLAM/FILTRE olarak isliyor)
+AYNI AYRIMI yapiyor. Ayrica 6.D.9 uyarisi (RSI/StochRSI/Stochastic bagimsiz
+kanit sayilmamali) bu calismanin 5. bolumdeki ayrisma olcumune dogrudan
+ilgili — henuz test edilmedi, sonraki adim.
+
+## Sıradaki adım (güncellendi)
+
+1. Piyasa-bağlamlı aday kuralı (bölüm 7) 2023-2024 ve 2025-2026'da tek
+   koşuda doğrula.
+2. RSI/StochRSI/Stochastic'in ne kadar bağımsız bilgi taşıdığını ölç
+   (korelasyon + tekini çıkarınca sonuç değişiyor mu).
+3. Ayrışma ölçüsünü (StochRSI ters yön) piyasa-bağlamlı aday kuralla
+   birlikte dene.
