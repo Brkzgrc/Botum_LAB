@@ -1,0 +1,115 @@
+{
+  "status": "HISTORICAL_SOURCE_PARITY_SMOKE_PASSED",
+  "source_blob_shas": {
+    "spot_opportunity_scanner.py": "f93655b474cdf2126bde8cc043689bbc5c270dac",
+    "tsi_bb_frozen_candidate.py": "d98f9b164f1f7df10bd7f65f77e8267a451166ff"
+  },
+  "period": [
+    "2025-01-01 00:00:00+00:00",
+    "2025-08-29 00:00:00+00:00"
+  ],
+  "expected_symbols": 6,
+  "completed_symbols": 6,
+  "expected_shards": 1,
+  "completed_shards": 1,
+  "fee_pct_for_next_outcome_study": 0.2,
+  "symbols": [
+    {
+      "symbol": "BTCUSDT",
+      "15m_rows": 23042,
+      "coverage_pct": 100.0,
+      "prefilter_score": 90,
+      "prefilter_seed": "RETRIGGER",
+      "first_phase": "BROKEN",
+      "next_phase": "BROKEN",
+      "first_kind": "NONE",
+      "next_kind": "NONE",
+      "first_15m_bar": 1756424700,
+      "next_15m_bar": 1756425600,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "ETHUSDT",
+      "15m_rows": 23042,
+      "coverage_pct": 100.0,
+      "prefilter_score": 65,
+      "prefilter_seed": "",
+      "first_phase": "BROKEN",
+      "next_phase": "BROKEN",
+      "first_kind": "NONE",
+      "next_kind": "NONE",
+      "first_15m_bar": 1756424700,
+      "next_15m_bar": 1756425600,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "SOLUSDT",
+      "15m_rows": 23042,
+      "coverage_pct": 100.0,
+      "prefilter_score": 90,
+      "prefilter_seed": "RETRIGGER",
+      "first_phase": "ARMED",
+      "next_phase": "ENTRY",
+      "first_kind": "RETRIGGER",
+      "next_kind": "PRESSURE",
+      "first_15m_bar": 1756424700,
+      "next_15m_bar": 1756425600,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "XRPUSDT",
+      "15m_rows": 23042,
+      "coverage_pct": 100.0,
+      "prefilter_score": 58,
+      "prefilter_seed": "",
+      "first_phase": "BROKEN",
+      "next_phase": "BROKEN",
+      "first_kind": "NONE",
+      "next_kind": "NONE",
+      "first_15m_bar": 1756424700,
+      "next_15m_bar": 1756425600,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "LINKUSDT",
+      "15m_rows": 23042,
+      "coverage_pct": 100.0,
+      "prefilter_score": 90,
+      "prefilter_seed": "RETRIGGER",
+      "first_phase": "FORMING",
+      "next_phase": "FORMING",
+      "first_kind": "FORMING",
+      "next_kind": "FORMING",
+      "first_15m_bar": 1756424700,
+      "next_15m_bar": 1756425600,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "15m_rows": 23042,
+      "coverage_pct": 100.0,
+      "prefilter_score": 94,
+      "prefilter_seed": "RETRIGGER",
+      "first_phase": "NONE",
+      "next_phase": "NONE",
+      "first_kind": "NONE",
+      "next_kind": "NONE",
+      "first_15m_bar": 1756424700,
+      "next_15m_bar": 1756425600,
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    }
+  ],
+  "limitations": "Source decisions checked at two 2025 closed bars; not a historical trade or exit simulation. Closed 15m price replaces unavailable historical live ticker, which requires future fill modeling."
+}
