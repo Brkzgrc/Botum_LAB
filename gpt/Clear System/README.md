@@ -259,3 +259,24 @@ Sonraki somut adım: kaynak tarayıcıyı tam zaman akışı ve günlük kota/s�
 Kaynak parity smoke geçtiği için bir sonraki sınırlı kapı hazırlandı: `research/pressure_confirmation/pressure_replay_preflight.py`. Kapsam yalnız BTC/ETH/SOL/XRP/LINK/AVAX, 2025-08-28 12:00–2025-08-30 00:00 UTC arasında en fazla 36 saatlik zaman akışı; geçmiş indikatör ısınması 2025-01-01'den başlar. Her 15 dakikada yalnız o anda kapanmış mumlar, geçmiş 24 saatlik quote-volume, 18 saat watch süresi, aday rank sırası ve günlük 3 legacy kota uygulanır. Üretilen her girişte gelecek 24 saatlik 5M mumlarla kaynak TP1 ve brüt %0,25/%0,50/%0,80/%1/%1,5/%2/%3/%5 hedefleri aynı kaynak stopuna karşı ilk-geçiş olarak ölçülür; hedef ve stop aynı 5M mumdaysa muhafazakâr stop-first sayılır. Round-trip maliyet %0,20.
 
 Bu çalışma strateji seçimi veya OOS değildir; yalnız replay ve çıkış sırası mekanizmasının gerçek veride çalışmasını denetler. Beklenen yaklaşık 6–10 runner-dk; workflow job üst sınırı 24 dk, gerçek veri komutu 13 dk. 1/1 shard, 6/6 sembol, en az 100 kronolojik tarama ve en az bir tarihsel giriş zorunludur. Derleme+SHA self-test, AST/UTC/nedensellik ve yazma-güvenliği denetimi, workflow YAML/kabuk sözdizimi, sentetik hedef/stop çakışması birbirinden ayrı geçti. İlk statik kontrolde kaynak klasörü adındaki `2026-09-26` yanlışlıkla veri sızıntısı sanıldı; workflow başlamadan kural yalnız yasaklı kâğıt-kohort tarihi `2026-09-22` olacak şekilde düzeltildi ve tüm kontroller yeniden geçti. Sonuç artifact'i okunmadan daha büyük çalışma açılmayacak; `Clear System.py` değişmedi.
+
+
+### PRESSURE zaman-akışlı replay ön denetimi — run 36254327009
+
+[GitHub Actions run 36254327009](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36254327009) `completed/success`; 2026-09-26 16:07:27–16:11:31 UTC, 4 dk 04 sn duvar süresi. Tahmini 6–10 runner-dk bütçenin altında tamamlandı. Compile, kaynak SHA/self-test, AST nedensellik/evren/yazma güvenliği, 6 sembollü gerçek-veri replay, 1/1 shard ve artifact tamlık kapıları geçti. `summary.json` artifact'ten okunup `research/pressure_confirmation/output/pressure_replay_preflight/summary.json` altına arşivlendi.
+
+Veri: indikatör ısınması 2025-01-01'den; replay 2025-08-28 12:00–2025-08-30 00:00 UTC. BTC/ETH/SOL/XRP/LINK/AVAX'ın her birinde 23.233 adet 15M ve 720 adet 5M mum, %100 kapsama; 145 kronolojik tarama. Maliyet %0,20 ve hedef/stop aynı 5M mumdaysa stop-first. Dört girişin tamamı SOL: iki PRESSURE, iki RETRIGGER; 2 aktif gün, bu seçilmiş 36 saatlik altı-coin smoke içinde yaklaşık 2,67 sinyal/gün ve %100 aktif gün. Bunlar tam evren sıklığı değildir.
+
+| Çıkış | Target-first | Stop-first | Expired | Net yüzde toplamı | İşlem başı net beklenti | PF |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Kaynak TP1/stop | 0 | 3 | 1 | −%15,59 | −%3,90 | 0,00 |
+| Brüt %0,25 | 4 | 0 | 0 | +%0,20 | +%0,05 | tanımsız (kayıp yok) |
+| Brüt %0,50 | 4 | 0 | 0 | +%1,20 | +%0,30 | tanımsız (kayıp yok) |
+| Brüt %0,80 | 4 | 0 | 0 | +%2,40 | +%0,60 | tanımsız (kayıp yok) |
+| Brüt %1,00 | 3 | 1 | 0 | −%2,61 | −%0,65 | 0,48 |
+| Brüt %1,50 | 1 | 3 | 0 | −%12,76 | −%3,19 | 0,10 |
+| Brüt %2/%3/%5 | 0 | 3 | 1 | −%15,59 | −%3,90 | 0,00 |
+
+Aynı-mum çakışması: 0. MFE/MAE bu mekanizma smoke'unda ayrıca üretilmedi; OOS: N/A. Bu pencere önceki parity olayı etrafında seçildi, yalnız bir coin ve dört işlem içeriyor; dolayısıyla %0,80 hedef **champion veya doğrulanmış eşik değildir**. Ancak kullanıcının “önce pozitife gidip sonra zarara dönen işlemi sabit/kademeli çıkışla kurtarma” fikrinin çalıştırılabilir biçimde test edilebildiğini doğruladı. Ayrıca 29 Ağustos'ta aynı SOL hareketi üç kez sinyal üreterek günlük kotayı doldurdu; tam araştırmada setup bağımsızlığı, aynı-coin/aynı-hareket cooldown ve yeniden giriş ablation'ı zorunlu.
+
+Karar: replay ve 5M ilk-geçiş altyapısı **GEÇTİ**, strateji henüz doğrulanmadı; `Clear System.py` değişmedi. Sonraki somut adım, 2023–2025 Discovery/Calibration üzerinde farklı ay ve coinleri kapsayan olay örneği üretmek; mevcut çıkışlar yanında kademeli TP, hareket sönmesi, süreli çıkış ve aynı-hareket cooldown'u birlikte değerlendirmek. Önce olay yoğunluğu ve süre için küçük çok-dönem preflight hazırlanacak; tam evren/parçalı pahalı run yalnız bu bütçe doğrulanırsa açılacak.
