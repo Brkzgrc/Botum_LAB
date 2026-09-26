@@ -168,13 +168,15 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
     if cooldown_hours not in {0, 6, 12, 24, 48}:
         raise ValueError("unapproved online cooldown")
     sys.path.insert(0, str(SOURCE))
+    sys.path.insert(0, str(HERE))
     import spot_opportunity_scanner as scanner  # type: ignore
+    import pressure_path_exit as path_exit  # type: ignore
 
     raw15, raw5, frames, coverage = {}, {}, {}, []
-    data_end = replay_end + pd.Timedelta(hours=24, minutes=15)
+    data_end = replay_end + pd.Timedelta(hours=72, minutes=15)
     for symbol in symbols:
         r15 = fetch(symbol, "15m", history_start, data_end)
-        r5 = fetch(symbol, "5m", replay_start, replay_end + pd.Timedelta(hours=24))
+        r5 = fetch(symbol, "5m", replay_start, replay_end + pd.Timedelta(hours=72))
         raw15[symbol], raw5[symbol], frames[symbol] = r15, r5, build_frames(r15)
         expected = int((data_end - history_start).total_seconds() // 900)
         cov = len(r15) / expected * 100
@@ -258,6 +260,8 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
                 target = lv["tp1"] if fixed is None else lv["price"] * (1 + fixed / 100)
                 event["policies"][name] = first_passage(raw5[c.symbol], current, lv["price"],
                                                           lv["stop"], target)
+            event["path_policies"] = path_exit.evaluate_all(
+                raw5[c.symbol], raw15[c.symbol], current, lv["price"], lv["stop"], lv["tp1"])
             signals.append(event)
             last_signal_at[c.symbol] = current
             daily_count[day] = daily_count.get(day, 0) + 1
