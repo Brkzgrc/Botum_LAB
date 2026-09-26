@@ -1,0 +1,40 @@
+{
+  "status": "NO_STABLE_MARKET_BREADTH_IGNITION",
+  "data_period": [
+    "2023-01-01 09:45:00+00:00",
+    "2026-09-17 23:45:00+00:00"
+  ],
+  "events": 634806,
+  "symbols": 466,
+  "features": [
+    "breadth_pos1h",
+    "breadth_pos4h",
+    "breadth_high16",
+    "breadth_vol_expand",
+    "breadth_accel",
+    "breadth_pos1h_d1",
+    "breadth_pos1h_d4",
+    "breadth_high16_d4",
+    "breadth_vol_expand_d4",
+    "breadth_ignition_age",
+    "coin_mom_now",
+    "coin_mom_prev",
+    "coin_mom_delta",
+    "coin_ret3",
+    "coin_price_accel",
+    "coin_close_loc",
+    "coin_body_frac",
+    "coin_rvol20",
+    "coin_hl_count4",
+    "coin_hh_count4",
+    "coin_bb_expand",
+    "h1_mom_delta",
+    "h1_ema20_slope",
+    "h4_mom_delta",
+    "h4_ema20_slope"
+  ],
+  "cost_pct": 0.2,
+  "benign_short_history_exclusions": 15,
+  "selection_lock": "Fit Discovery; gate on Discovery+Calibration+CROSS_HOLDOUT_PRE2026; open 2026 only after freeze.",
+  "champion": {}
+}

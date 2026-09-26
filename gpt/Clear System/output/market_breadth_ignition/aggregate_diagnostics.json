@@ -1,0 +1,135 @@
+{
+  "status": "AGGREGATE_AUDIT_READY",
+  "expected_shards": 64,
+  "found_shards": 64,
+  "shard_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63
+  ],
+  "declared_symbols": 481,
+  "benign_history_gaps": [
+    {
+      "symbol": "HYPEUSDT",
+      "error": "RuntimeError:no 15m data"
+    },
+    {
+      "symbol": "AMCBUSDT",
+      "error": "RuntimeError:no 15m data"
+    },
+    {
+      "symbol": "HIMSBUSDT",
+      "error": "too_short:1008"
+    },
+    {
+      "symbol": "BNCBUSDT",
+      "error": "too_short:528"
+    },
+    {
+      "symbol": "SQQQBUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "\u725b\u6765USDT",
+      "error": "too_short:998"
+    },
+    {
+      "symbol": "GPROBUSDT",
+      "error": "too_short:336"
+    },
+    {
+      "symbol": "AGPUBUSDT",
+      "error": "RuntimeError:no 15m data"
+    },
+    {
+      "symbol": "MRNABUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "STXBUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "CYPHBUSDT",
+      "error": "RuntimeError:no 15m data"
+    },
+    {
+      "symbol": "MARSCOINUSDT",
+      "error": "too_short:1484"
+    },
+    {
+      "symbol": "RDDTBUSDT",
+      "error": "too_short:336"
+    },
+    {
+      "symbol": "CRWDBUSDT",
+      "error": "too_short:1680"
+    },
+    {
+      "symbol": "CRMBUSDT",
+      "error": "too_short:1008"
+    }
+  ],
+  "hard_errors": []
+}
