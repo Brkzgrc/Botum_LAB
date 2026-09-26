@@ -19,6 +19,7 @@ import pandas as pd
 COST_PCT = 0.20
 PLANS = ("TP3_SL2", "TP4_SL2P5", "TP5_SL3")
 COOLDOWN_HOURS = 12
+NO_HISTORY_ERROR = "RuntimeError:no 15m data"
 FEATURES = [
     "breadth_pos1h", "breadth_pos4h", "breadth_high16", "breadth_vol_expand",
     "breadth_accel", "breadth_pos1h_d1", "breadth_pos1h_d4",
@@ -231,18 +232,23 @@ def metrics(x: pd.DataFrame, plan: str) -> dict:
     }
 
 
+def classify_shard_error(error: str) -> str:
+    """Separate expected listing-history gaps from real processing failures."""
+    if error.startswith("too_short:") or error == NO_HISTORY_ERROR:
+        return "benign_history_gap"
+    return "hard"
+
+
 def aggregate_main(indir: Path, outdir: Path, expected_shards: int) -> None:
     from sklearn.impute import SimpleImputer
     from sklearn.linear_model import LogisticRegression
     from sklearn.pipeline import Pipeline
     from sklearn.preprocessing import StandardScaler
 
+    outdir.mkdir(parents=True, exist_ok=True)
     metas = [json.loads(p.read_text()) for p in indir.rglob("meta.json")]
     ids = {int(m["shard"]) for m in metas}
-    if len(metas) != expected_shards or ids != set(range(expected_shards)):
-        raise RuntimeError("incomplete shard set: {}".format(sorted(ids)))
-    if sum(int(m["symbols"]) for m in metas) < 400:
-        raise RuntimeError("unexpectedly small universe")
+    declared_symbols = sum(int(m.get("symbols", 0)) for m in metas)
     hard, benign = [], []
     for p in indir.rglob("errors.csv"):
         try:
@@ -251,7 +257,24 @@ def aggregate_main(indir: Path, outdir: Path, expected_shards: int) -> None:
             continue
         for _, r in e.iterrows():
             rec = {"symbol": str(r.get("symbol", "")), "error": str(r.get("error", ""))}
-            (benign if rec["error"].startswith("too_short:") else hard).append(rec)
+            (benign if classify_shard_error(rec["error"]) == "benign_history_gap" else hard).append(rec)
+    diagnostics = {
+        "status": "AGGREGATE_AUDIT_READY",
+        "expected_shards": expected_shards,
+        "found_shards": len(metas),
+        "shard_ids": sorted(ids),
+        "declared_symbols": declared_symbols,
+        "benign_history_gaps": benign,
+        "hard_errors": hard,
+    }
+    (outdir / "aggregate_diagnostics.json").write_text(
+        json.dumps(diagnostics, indent=2), encoding="utf-8")
+    if len(metas) != expected_shards or ids != set(range(expected_shards)):
+        raise RuntimeError("incomplete shard set: {}".format(sorted(ids)))
+    if declared_symbols < 400:
+        raise RuntimeError("unexpectedly small universe")
+    if len(benign) > max(10, int(np.ceil(declared_symbols * 0.05))):
+        raise RuntimeError("excessive history gaps: {} of {}".format(len(benign), declared_symbols))
     if hard:
         raise RuntimeError("hard shard errors: " + json.dumps(hard[:10]))
     frames = []
@@ -326,7 +349,6 @@ def aggregate_main(indir: Path, outdir: Path, expected_shards: int) -> None:
             zip(FEATURES, map(float, model.named_steps["logit"].coef_[0])),
             key=lambda kv: abs(kv[1]), reverse=True))
         summary["champion"] = result
-    outdir.mkdir(parents=True, exist_ok=True)
     (outdir / "summary.json").write_text(json.dumps(summary, indent=2, allow_nan=False), encoding="utf-8")
     print(json.dumps(summary, allow_nan=False), flush=True)
 
@@ -346,6 +368,9 @@ def self_test() -> None:
     assert e.loc[idx[44], "breadth_ignition_age"] == 4
     assert pd.isna(e.loc[idx[39], "breadth_ignition_age"])
     assert len(FEATURES) == 25
+    assert classify_shard_error("too_short:123") == "benign_history_gap"
+    assert classify_shard_error(NO_HISTORY_ERROR) == "benign_history_gap"
+    assert classify_shard_error("RuntimeError:API schema mismatch") == "hard"
     print(json.dumps({"self_test": "ok", "features": len(FEATURES)}))
 
 
@@ -368,7 +393,19 @@ def main() -> None:
         self_test()
         return
     if a.aggregate_dir:
-        aggregate_main(a.aggregate_dir, a.outdir, a.expected_shards)
+        a.outdir.mkdir(parents=True, exist_ok=True)
+        try:
+            aggregate_main(a.aggregate_dir, a.outdir, a.expected_shards)
+        except Exception as ex:
+            p = a.outdir / "aggregate_diagnostics.json"
+            try:
+                audit = json.loads(p.read_text()) if p.exists() else {}
+            except Exception:
+                audit = {}
+            audit.update({"status": "AGGREGATE_FAILED",
+                          "fatal_error": type(ex).__name__ + ":" + str(ex)})
+            p.write_text(json.dumps(audit, indent=2), encoding="utf-8")
+            raise
         return
     load_dependencies()
     fs = pd.Timestamp(a.fetch_start, tz="UTC") if a.fetch_start else mfd.FETCH_START
