@@ -34,7 +34,7 @@ Ayrı r2 çalışmalarında genel loss-veto kuralı bazı kayıpları azaltırke
 
 ## Çalışma bütçesi ve güvenlik kapısı
 
-Aşama 0 yerel, yaklaşık saniyeler; GitHub Actions başlatmaz. Tarihsel 6 coin smoke için öngörülen üst süre 15 dakika ve yaklaşık 15 runner-dk; kurulan workflow'da açık job ve komut timeout, derleme, self-test, evren/nedensellik denetimi, gerçek veri smoke, eksik shard/artifact kontrolü ve başarısızlıkta artifact zorunlu. Tam pazar taraması ancak smoke süresi ve olay yoğunluğundan yeniden bütçelenir. Şu anda böyle bir pahalı çalışma başlamadı.
+Aşama 0 yerel, yaklaşık saniyeler. Tarihsel 6 coin smoke bütçesi: 2025-01-01–08-29 arasında yaklaşık 138.000 adet 15M mum ve yaklaşık 140 sayfalı HTTP isteği; önceki 360.000 mumluk veri denetimi 4 dk 37 sn olduğundan kurulumla birlikte tahmini **8–12 runner-dk**, 20 dk açık job sınırı ve 10 dk gerçek-veri komut sınırı. 20 dakika sınırı aşılırsa işlem hata verip kapanır; tam taramaya geçilmez. Workflow derleme, SHA self-test, statik nedensellik, gerçek veri smoke, tek shard/altı sembol eksiksizlik kontrolü ve hata halinde artifact koruması içerir. Push yalnız workflow dosyasının oluşturulmasıyla tetiklenir; kod/snapshot değişikliği tekrar tetiklemez. Tam pazar taraması ancak smoke süresi ve olay yoğunluğundan yeniden bütçelenir. Şu anda böyle bir pahalı çalışma başlamadı.
 
 ## 2026-09-26 durum ve sonraki adım
 
