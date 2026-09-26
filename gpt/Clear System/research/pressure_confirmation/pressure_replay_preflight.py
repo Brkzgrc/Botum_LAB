@@ -153,7 +153,7 @@ def self_test() -> None:
 
 def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
            replay_end: pd.Timestamp, symbols: tuple[str, ...],
-           require_signal: bool = True) -> dict:
+           require_signal: bool = True, cooldown_hours: int = 0) -> dict:
     verify_sources()
     if replay_start.year != 2025 or replay_end.year != 2025:
         raise ValueError("bounded 2025 replay windows required")
@@ -165,6 +165,8 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
         raise ValueError("six-to-twelve unique symbols required")
     if not set(symbols).issubset(APPROVED_SYMBOLS):
         raise ValueError("unapproved symbol in bounded replay")
+    if cooldown_hours not in {0, 6, 12, 24, 48}:
+        raise ValueError("unapproved online cooldown")
     sys.path.insert(0, str(SOURCE))
     import spot_opportunity_scanner as scanner  # type: ignore
 
@@ -199,7 +201,9 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
     scanner.ohlcv, scanner._get = historical_ohlcv, historical_get
     watch: dict[str, dict] = {}
     daily_count: dict[str, int] = {}
+    last_signal_at: dict[str, pd.Timestamp] = {}
     signals, scan_count = [], 0
+    final_candidates = cooldown_blocked = quota_blocked = 0
     while current <= replay_end:
         scan_count += 1
         day = current.strftime("%Y-%m-%d")
@@ -220,6 +224,7 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
         candidates.sort(key=lambda c: c.rank, reverse=True)
         waits = [c for c in candidates if c.decision["decision"] == "TETIK_BEKLE"]
         finals = [c for c in candidates if c.decision["decision"] == "ALIM_ADAYI"]
+        final_candidates += len(finals)
         for c in waits:
             rec = watch.get(c.symbol) or {"first_seen": str(current),
                                           "first_price": c.snapshot["live_price"],
@@ -231,7 +236,15 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
                         "last_bar_15m": bar, "updated_at": str(current)})
             watch[c.symbol] = rec
         room = max(0, 3 - daily_count.get(day, 0))
-        for c in finals[:room]:
+        eligible = []
+        for c in finals:
+            prior_signal = last_signal_at.get(c.symbol)
+            if prior_signal is not None and current - prior_signal < pd.Timedelta(hours=cooldown_hours):
+                cooldown_blocked += 1
+                continue
+            eligible.append(c)
+        quota_blocked += max(0, len(eligible) - room)
+        for c in eligible[:room]:
             lv = scanner.levels(c)
             event = {"symbol": c.symbol, "decision_time": str(current),
                      "setup_kind": c.decision["setup_kind"], "score": c.decision["confidence"],
@@ -246,6 +259,7 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
                 event["policies"][name] = first_passage(raw5[c.symbol], current, lv["price"],
                                                           lv["stop"], target)
             signals.append(event)
+            last_signal_at[c.symbol] = current
             daily_count[day] = daily_count.get(day, 0) + 1
             watch.pop(c.symbol, None)
         current += pd.Timedelta(minutes=15)
@@ -267,9 +281,12 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
     return {"status": "PRESSURE_REPLAY_PREFLIGHT_PASSED", "source_blob_shas": SOURCE_SHA,
             "history_start": str(history_start), "replay_window": [str(replay_start), str(replay_end)],
             "fee_pct": FEE_PCT, "same_bar_policy": "conservative_stop_first",
+            "online_cooldown_hours": cooldown_hours,
             "expected_shards": 1, "completed_shards": 1,
             "expected_symbols": len(symbols), "completed_symbols": len(coverage), "coverage": coverage,
             "scan_count": scan_count, "signals": signals, "signal_count": len(signals),
+            "final_candidates": final_candidates, "cooldown_blocked": cooldown_blocked,
+            "quota_blocked": quota_blocked,
             "active_days": len({e["decision_time"][:10] for e in signals}),
             "policy_summary": policy_summary,
             "limitations": "Six-symbol <=48h mechanism preflight, not strategy selection, portfolio P&L or OOS. "
@@ -284,6 +301,7 @@ def main() -> None:
     ap.add_argument("--replay-end", default="2025-08-30T00:00:00Z")
     ap.add_argument("--symbols", default=",".join(SYMBOLS))
     ap.add_argument("--allow-zero-signals", action="store_true")
+    ap.add_argument("--cooldown-hours", type=int, default=0)
     ap.add_argument("--outdir", type=Path)
     a = ap.parse_args()
     if a.self_test:
@@ -295,7 +313,7 @@ def main() -> None:
     if any(x.tzinfo is None for x in dates):
         ap.error("all timestamps must be timezone-aware")
     result = replay(*dates, tuple(x.strip() for x in a.symbols.split(",") if x.strip()),
-                    require_signal=not a.allow_zero_signals)
+                    require_signal=not a.allow_zero_signals, cooldown_hours=a.cooldown_hours)
     a.outdir.mkdir(parents=True, exist_ok=True)
     (a.outdir / "summary.json").write_text(json.dumps(result, indent=2, allow_nan=False) + "\n",
                                              encoding="utf-8")
