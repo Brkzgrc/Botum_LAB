@@ -83,6 +83,21 @@ def audit(snapshot: dict) -> dict:
         by_kind_regime[(r["extra"]["setup_kind"], r["extra"]["btc_regime"])].append(r)
     losses = sorted((r for r in records if float(r["close_pct"]) < 0),
                     key=lambda r: float(r["close_pct"]))
+    target_ceiling = []
+    for target in (.25, .35, .5, .8, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5):
+        reached = [r for r in records if float(r["peak_pct"]) >= target]
+        optimistic_points = sum(
+            target - .2 if float(r["peak_pct"]) >= target else float(r["close_pct"])
+            for r in records
+        )
+        target_ceiling.append({
+            "gross_target_pct": target,
+            "net_if_target_filled_pct": round(target - .2, 4),
+            "observed_peak_reached_count": len(reached),
+            "negative_trade_peaks_reached_count": sum(float(r["close_pct"]) < 0 for r in reached),
+            "optimistic_sum_points": round(optimistic_points, 4),
+            "interpretation": "optimistic peak ceiling only; NOT a first-passage or executable exit backtest",
+        })
     return {
         "status": "PAPER_COHORT_DIAGNOSTIC_ONLY",
         "snapshot_time": snapshot.get("updated_at"),
@@ -102,6 +117,7 @@ def audit(snapshot: dict) -> dict:
              "mae_pct": r["low_pct"], "exit": r["close_reason"]}
             for r in losses
         ],
+        "fixed_target_peak_ceiling_not_a_backtest": target_ceiling,
         "interpretation_limit": (
             "These are post-hoc subsets of emitted, closed paper trades. Removed signals can free daily "
             "quota and alter candidate selection; neither replacement signals nor new entry fills are "
