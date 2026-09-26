@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 
 FEE_PCT = 0.20
+ACTIVATION_POLICY = "arm on completed 5m; protective floor effective from next 5m bar"
 PATH_POLICIES = (
     "source_atr_trail",
     "protect_0.50_floor_0.20",
@@ -98,8 +99,9 @@ def protected_floor(bars5: pd.DataFrame, entry_time: pd.Timestamp, entry: float,
                           row.close_time, collision)
         if not armed and high >= target:
             armed = True
-            if low <= floor:
-                return result("PROTECTED_AMBIGUOUS", floor_pct, row.close_time, True)
+            # High/low order is unknowable inside one 5m bar.  A floor armed by
+            # this bar therefore becomes executable only from the next bar.
+            continue
         elif armed and low <= floor:
             return result("PROTECTED_FLOOR", floor_pct, row.close_time)
     last = bars.iloc[-1]
@@ -119,8 +121,6 @@ def mfe_giveback(bars5: pd.DataFrame, entry_time: pd.Timestamp, entry: float, st
         if not armed and high >= arm:
             armed = True
             peak = high
-            if low <= floor:
-                return result("GIVEBACK_AMBIGUOUS", 0.20, row.close_time, True)
             continue
         if armed:
             trail = max(floor, peak - entry * 0.005)
@@ -144,9 +144,12 @@ def staged(bars5: pd.DataFrame, entry_time: pd.Timestamp, entry: float, stop: fl
                           (stop / entry - 1) * 100, row.close_time, collision, partial=False)
         if not partial and high >= first:
             partial = True
-            if low <= floor:
-                gross = 0.5 * 0.50 + 0.5 * 0.20
-                return result("STAGED_FLOOR_AMBIGUOUS", gross, row.close_time, True, partial=True)
+            # Crossing the higher target guarantees crossing the first target;
+            # the protective floor, however, is active only from the next bar.
+            if high >= final:
+                return result("STAGED_FINAL", 0.5 * 0.50 + 0.5 * 1.50,
+                              row.close_time, partial=True)
+            continue
         if partial:
             hit_floor, hit_final = low <= floor, high >= final
             if hit_floor and hit_final:
@@ -183,8 +186,8 @@ def motion_fade(bars5: pd.DataFrame, raw15: pd.DataFrame, entry_time: pd.Timesta
     armed = False
     for row in bars.itertuples(index=False):
         high, low, close = float(row.high), float(row.low), float(row.close)
-        if not armed and low <= stop:
-            collision = high >= arm
+        if low <= stop:
+            collision = (not armed) and high >= arm
             return result("STOP_AMBIGUOUS" if collision else "STOP_FIRST",
                           (stop / entry - 1) * 100, row.close_time, collision)
         if high >= arm:
@@ -225,17 +228,28 @@ def self_test() -> None:
     t = pd.date_range("2025-01-01", periods=36, freq="5min", tz="UTC")
     bars = pd.DataFrame({"open_time": t, "close_time": t + pd.Timedelta(minutes=5),
                          "open": 100.0, "high": 100.1, "low": 99.9, "close": 100.0})
-    bars.loc[1, ["high", "low", "close"]] = [100.6, 100.3, 100.5]
+    bars.loc[1, ["high", "low", "close"]] = [100.6, 99.9, 100.5]
     bars.loc[2, ["low", "close"]] = [100.1, 100.2]
     p = protected_floor(bars, t[0], 100, 95, .5, .2)
     assert p["outcome"] == "PROTECTED_FLOOR" and p["net_pct"] == 0
+    assert p["exit_time"] == str(bars.iloc[2].close_time)
     q = staged(bars, t[0], 100, 95)
     assert q["partial"] and q["net_pct"] == 0.15
+    raw15_t = pd.date_range("2024-12-31 12:00", periods=60, freq="15min", tz="UTC")
+    raw15 = pd.DataFrame({"open_time": raw15_t,
+                          "close_time": raw15_t + pd.Timedelta(minutes=15),
+                          "open": 100.0, "high": 100.2, "low": 99.8,
+                          "close": 100.0, "volume": 1.0})
+    stop_bars = bars.copy()
+    stop_bars.loc[2, ["low", "close"]] = [94.0, 94.5]
+    f = motion_fade(stop_bars, raw15, t[0], 100, 95)
+    assert f["outcome"] == "STOP_FIRST" and not f["same_bar_collision"]
     s = time_exit(bars, t[0], 100, 95, 6)
     assert s["outcome"] == "TIME_EXIT"
     assert set(evaluate_all.__annotations__) >= {"bars5", "raw15", "entry_time"}
     print(json.dumps({"self_test": "ok", "policies": PATH_POLICIES,
-                      "fee_pct": FEE_PCT, "closed_candle_only": True}))
+                      "fee_pct": FEE_PCT, "closed_candle_only": True,
+                      "activation_policy": ACTIVATION_POLICY}))
 
 
 if __name__ == "__main__":
