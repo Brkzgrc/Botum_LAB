@@ -62,7 +62,7 @@ jobs:
           assert all(x in path for x in required)
           text=path+'\n'+replay+'\n'+agg
           assert 'shift(-' not in text and 'requests.post' not in text and 'HTTP.post' not in text
-          assert 'hours=72' in path and 'hours=72' in replay
+          assert 'hours: int = 72' in path and 'pd.Timedelta(hours=72)' in replay
           assert 'INCOMPLETE_SHARDS' in agg and 'CENSORED' in agg
           print('static path-exit audit ok')
           PY
