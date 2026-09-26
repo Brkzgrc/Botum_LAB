@@ -331,3 +331,19 @@ Karar: çok-dönem olay/çıkış altyapısı **GEÇTİ** ve geniş 2023–2025 
 Küçük ve sabit smoke kapsamı: 2025-02-15 00:00–2025-02-16 12:00 UTC, 2024-10-01'den başlayan en az 100 kapalı günlük mum warmup'ı, 12 likit ve stable/fiat olmayan Binance Spot USDT sembolü, 15 dakikalık yeniden tarama, 24 saat 5M first-passage ve %0,20 round-trip maliyet. Bütçe: dört paralel replay için yaklaşık **28–40 runner-dakika**, **8–14 dakika duvar süresi**; preflight 8 dk, her replay job 22 dk/komut 17 dk, aggregate 10 dk ile açıkça sınırlandı. Derleme+self-test, AST/nedensellik ve çevrimiçi seçim sırası, YAML/shell/timeout/artifact, geçersiz cooldown fail-closed ve eksik/sentetik dört-shard aggregate kontrolleri yerelde ayrı ayrı geçti.
 
 Bu yalnız mekanizma smoke'udur; tam piyasa sıralaması, açık pozisyon sermaye slotları ve OOS'u modellemez. Sonuç eşik seçmek veya üretimi değiştirmek için kullanılmayacak. Run başarılı olsa bile aggregate `summary.json` incelenmeden karar verilmeyecek; `Clear System.py` bu aşamada değişmedi. Sonraki somut adım: smoke'ta online ikame gerçekten çalışıyorsa full-market/sermaye-slotlu tarihsel deney tasarlamak; çalışmıyorsa cooldown'u posthoc iyileşme gibi yorumlamayı bırakmak.
+
+
+## PRESSURE çevrimiçi cooldown/kota ikamesi sonucu — run 36261426243
+
+[GitHub Actions run 36261426243](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36261426243) `completed/success` oldu; yalnız yeşil durumla yetinilmeyip 4/4 shard ve aggregate artifact içindeki `summary.json` incelendi ve `research/pressure_confirmation/output/pressure_online_cooldown/summary.json` altında arşivlendi. Duvar süresi 7 dk 49 sn, toplam yaklaşık **24,65 runner-dk**; tahminin altında kaldı. Veri: 2025-02-15 00:00–2025-02-16 12:00 UTC (1,5 gün), 12 stable/fiat olmayan Binance Spot USDT sembolü, %0,20 round-trip maliyet, kapanmış mumlar ve aynı mum çakışmasında ihtiyatlı stop-first.
+
+| Online cooldown | Sinyal | Sinyal/gün | Aktif tarih | Bazdan çıkan / gerçek ikame | MFE / MAE ort. | Kaynak TP1: target/stop/exp, net, exp., PF | Sabit brüt %0,50: target/stop/exp, net, exp., PF |
+| ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| 0s | 6 | 4,00 | %100 | 0 / 0 | +%1,782 / -%5,030 | 0/3/3, -%18,252, -%3,042, 0,009 | 6/0/0, +%1,80, +%0,30, tanımsız (kayıp yok) |
+| 6s | 6 | 4,00 | %100 | 3 / 3 | +%1,299 / -%4,105 | 0/3/3, -%15,421, -%2,570, 0,011 | 4/1/1, -%5,437, -%0,906, 0,181 |
+| 24s | 3 | 2,00 | %100 | 5 / 2 | +%2,248 / -%3,749 | 1/1/1, -%0,206, -%0,069, 0,944 | 3/0/0, +%0,90, +%0,30, tanımsız (kayıp yok) |
+| 48s | 2 | 1,33 | %50 | 5 / 1 | +%3,019 / -%3,868 | 1/0/1, +%3,474, +%1,737, tanımsız (kayıp yok) | 2/0/0, +%0,60, +%0,30, tanımsız (kayıp yok) |
+
+Mekanizma denetimi **GEÇTİ**: cooldown kota kesiminden önce uygulanıyor ve 6/24/48 saatte sırasıyla 3/2/1 gerçek ikame olay üretti. Ancak strateji sonucu henüz doğrulanmış değildir. Özellikle 6 saat cooldown aynı sinyal sayısını korurken ikame RETRIGGER olaylarıyla sabit %0,50 politikasını +%1,80'dan -%5,44'e düşürdü; yani “tekrarı sil, yerine sıradakini al” otomatik iyileşme değil. 48 saat iyi görünüyor fakat yalnız iki sinyal ve tek sabit pencere olduğundan eşik seçmek için kullanılamaz. Sabit brüt %0,25'in maliyet sonrası kazancı işlem başına yalnız +%0,05; slippage payı çok zayıf. Brüt %0,50 bu küçük örnekte en sağlam görünen adaydır, fakat burada keşfedildiği için OOS değildir.
+
+OOS: **N/A**; tek sabit 2025 mekanizma penceresi. Full-market sıralama, açık pozisyon/sermaye slotları ve ikame evreni hâlâ modellenmedi. Karar: cooldown veya sabit TP üretime alınmadı; `Clear System.py` değiştirilmedi. Sonraki somut adım, 0/24/48 saat ile sabit/kademeli çıkışları 2023–2025 Discovery/Calibration'da full-market yeniden sıralama ve gerçek sermaye slotlarıyla test edecek, önce süre bütçesi çıkarılmış parçalı deney tasarlamaktır; 6 saat aynı biçimde terfi adayı değildir.
