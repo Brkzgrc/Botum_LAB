@@ -1,0 +1,87 @@
+name: Clear System - PRESSURE Historical Parity Smoke
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/clear-system-pressure-parity-smoke.yml'
+
+concurrency:
+  group: clear-system-pressure-parity-smoke
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 5
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile and source SHA self-test
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            'gpt/Clear System/research/pressure_confirmation/historical_parity_smoke.py' \
+            'gpt/Clear System/research/taker_flow_preflight.py' \
+            'gpt/Clear System/sources/botum_2026-09-26/spot_opportunity_scanner.py' \
+            'gpt/Clear System/sources/botum_2026-09-26/tsi_bb_frozen_candidate.py'
+          python 'gpt/Clear System/research/pressure_confirmation/historical_parity_smoke.py' --self-test
+      - name: Static causality and scope preflight
+        timeout-minutes: 2
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+          p = Path('gpt/Clear System/research/pressure_confirmation/historical_parity_smoke.py')
+          s = p.read_text()
+          ast.parse(s)
+          required = ('first-scan entry forbidden', 'completed_shards', '2025-only',
+                      'closed_ohlcv', 'coverage < 98.0', 'unexpected live API access')
+          assert all(x in s for x in required), 'missing causal/data contract'
+          assert 'HTTP.post' not in s and '_send_portfolio' not in s
+          assert 'shift(-' not in s and '2026-09-22' not in s
+          print('static scope audit ok')
+          PY
+      - name: Six-symbol closed-candle real-data smoke
+        timeout-minutes: 12
+        run: |
+          set -euo pipefail
+          timeout 10m python 'gpt/Clear System/research/pressure_confirmation/historical_parity_smoke.py' \
+            --start 2025-01-01 --decision 2025-08-29T00:00:00Z \
+            --symbols BTCUSDT,ETHUSDT,SOLUSDT,XRPUSDT,LINKUSDT,AVAXUSDT \
+            --outdir 'gpt/Clear System/research/pressure_confirmation/output/historical_parity_smoke'
+      - name: Check complete single shard and every symbol
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/output/historical_parity_smoke/summary.json')
+          assert p.is_file() and p.stat().st_size > 100, 'missing smoke artifact'
+          x=json.loads(p.read_text())
+          assert x['status']=='HISTORICAL_SOURCE_PARITY_SMOKE_PASSED'
+          assert x['expected_shards']==x['completed_shards']==1
+          assert x['expected_symbols']==x['completed_symbols']==len(x['symbols'])==6
+          assert len({r['symbol'] for r in x['symbols']})==6
+          assert min(r['coverage_pct'] for r in x['symbols'])>=98
+          assert all(r['next_15m_bar']>r['first_15m_bar'] for r in x['symbols'])
+          print('all expected smoke records present')
+          PY
+      - name: Preserve summary on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clear-system-pressure-parity-smoke
+          path: gpt/Clear System/research/pressure_confirmation/output/historical_parity_smoke
+          if-no-files-found: warn
+          retention-days: 14
