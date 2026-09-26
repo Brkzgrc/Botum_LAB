@@ -58,7 +58,7 @@ jobs:
           assert 'TP1 bir kapanış değil' in tracker and 'spot_opportunity_trail_stop' in tracker
           required=('source_atr_trail','closed_hour_atr','protect_0.50_floor_0.20',
                     'staged50_0.50_then_1.50_floor0.20','motion_fade_after0.50',
-                    'time_48h','FEE_PCT = 0.20')
+                    'time_48h','FEE_PCT = 0.20','floor effective from next 5m bar')
           assert all(x in path for x in required)
           text=path+'\n'+replay+'\n'+agg
           assert 'shift(-' not in text and 'requests.post' not in text and 'HTTP.post' not in text
@@ -222,6 +222,7 @@ jobs:
           assert x['expected_shards']==x['completed_shards']==['q1','q2','q3','q4']
           assert x['observed_days']==6 and x['fee_pct']==0.20
           assert len(x['policies'])==10 and x['signals']>0
+          assert x['activation_policy'].endswith('effective from next 5m bar')
           assert x['oos'].startswith('N/A') and 'capital slots' in x['limitations']
           print('path aggregate evidence complete',x['signals'])
           PY
