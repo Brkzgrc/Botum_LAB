@@ -55,10 +55,12 @@ jobs:
         timeout-minutes: 12
         run: |
           set -euo pipefail
+          mkdir -p 'gpt/Clear System/research/pressure_confirmation/output/historical_parity_smoke'
           timeout 10m python 'gpt/Clear System/research/pressure_confirmation/historical_parity_smoke.py' \
-            --start 2025-01-01 --decision 2025-08-29T00:00:00Z \
+            --start 2025-01-01T00:00:00Z --decision 2025-08-29T00:00:00Z \
             --symbols BTCUSDT,ETHUSDT,SOLUSDT,XRPUSDT,LINKUSDT,AVAXUSDT \
-            --outdir 'gpt/Clear System/research/pressure_confirmation/output/historical_parity_smoke'
+            --outdir 'gpt/Clear System/research/pressure_confirmation/output/historical_parity_smoke' \
+            2>&1 | tee 'gpt/Clear System/research/pressure_confirmation/output/historical_parity_smoke/run.log'
       - name: Check complete single shard and every symbol
         timeout-minutes: 1
         run: |
