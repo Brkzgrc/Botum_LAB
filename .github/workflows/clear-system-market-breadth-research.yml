@@ -2,10 +2,11 @@ name: Clear System - Market Breadth Ignition
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'gpt/Clear System/research/market_breadth_ignition.py'
-      - '.github/workflows/clear-system-market-breadth-research.yml'
+    inputs:
+      source_run_id:
+        description: 'Reuse the 64 shard artifacts from this run; blank runs full research'
+        required: false
+        default: ''
 
 concurrency:
   group: clear-system-market-breadth-ignition
@@ -110,6 +111,7 @@ jobs:
 
   shard:
     needs: preflight
+    if: ${{ inputs.source_run_id == '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 55
     strategy:
@@ -144,7 +146,8 @@ jobs:
           retention-days: 7
 
   aggregate:
-    needs: shard
+    needs: [preflight, shard]
+    if: ${{ always() && needs.preflight.result == 'success' && (inputs.source_run_id != '' || needs.shard.result == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -156,9 +159,18 @@ jobs:
         timeout-minutes: 6
         run: pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'scikit-learn<2'
       - uses: actions/download-artifact@v4
+        if: ${{ inputs.source_run_id == '' }}
         with:
           pattern: breadth-research-shard-*
           path: /tmp/breadth-shards
+      - name: Reuse verified shard artifacts
+        uses: actions/download-artifact@v4
+        if: ${{ inputs.source_run_id != '' }}
+        with:
+          pattern: breadth-research-shard-*
+          path: /tmp/breadth-shards
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Verify complete shards and aggregate
         timeout-minutes: 14
         run: |
