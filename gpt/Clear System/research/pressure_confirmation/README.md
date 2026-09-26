@@ -39,3 +39,12 @@ Aşama 0 yerel, yaklaşık saniyeler. Tarihsel 6 coin smoke bütçesi: 2025-01-0
 ## 2026-09-26 durum ve sonraki adım
 
 Kaynak beş dosya birebir alındı; gözlemsel audit derleme, self-test ve gerçek 23 kayıtta geçti. Sonraki somut adım: tarihsel zaman sıralı yeniden oynatma kodunu küçük gerçek-veri smoke üzerinde doğrulayıp, tam çalışma için süre tahmini çıkarmak. Üretim sisteme kural eklenmedi.
+
+
+## Kaynak parity smoke sonucu — 2026-09-26
+
+İlk deneme [36247391259](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36247391259) UTC olmayan `--start` nedeniyle veri çekmeden hata verdi; compile/self-test/static denetimler geçmişti. UTC `Z` ve hata halinde `run.log` saklama düzeltmesi yerel derleme+self-test, AST/YAML/UTC ve `bash -n` ile ayrı denetlendi.
+
+Düzeltilmiş [36250743664](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36250743664) başarıyla bitti (2 dk 17 sn). Artifact içindeki `summary.json` arşivlendi: 2025-01-01–08-29, 6/6 sembol, 1/1 shard, sembol başına 23.042 kapalı 15M mum, %100 kapsama, kaynak SHA'ları tam. İlk taramada `ALIM_ADAYI` yok; ikinci 15M barı zaman olarak ilerliyor. SOL örneği `ARMED → ENTRY` / `PRESSURE`; kârlılık kanıtı değil.
+
+Bu smoke gerçek geçmiş 24 saatlik ticker hacmini, tüm sembol sıralamasını/kotaları, işlemlerin giriş fill'ini veya çıkışları yeniden üretmedi. Ücret %0,20 gelecek outcome çalışmasının varsayımı; bu testte hiç işlem sonuçlandırılmadı. Bu nedenle sinyal/gün, active-day, expectancy, PF, target-first/stop-first, MFE/MAE ve OOS: N/A. Sonraki adım tam zamanlı ve tarihsel evrenli replay ile çıkış karşılaştırmasının küçük veri ön denetimini kodlamak; yeni pahalı run açılmadı, `Clear System.py` değişmedi.
