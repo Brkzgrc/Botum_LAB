@@ -146,7 +146,7 @@ def audit(start: pd.Timestamp, decision: pd.Timestamp, symbols: tuple[str, ...])
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
-    ap.add_argument("--start", default="2025-01-01")
+    ap.add_argument("--start", default="2025-01-01T00:00:00Z")
     ap.add_argument("--decision", default="2025-08-29T00:00:00Z")
     ap.add_argument("--symbols", default=",".join(SYMBOLS))
     ap.add_argument("--outdir", type=Path)
