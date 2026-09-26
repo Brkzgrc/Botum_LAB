@@ -105,17 +105,21 @@ def audit(start: pd.Timestamp, decision: pd.Timestamp, symbols: tuple[str, ...])
 
         scanner.ohlcv = historical_ohlcv
         scanner._get = historical_get
-        first = scanner.evaluate(symbol, 1e7, 100.0, "GREEN", None)
+        pre = scanner._prefilter(symbol, 1e7)
+        if pre is None or pre[0] != symbol:
+            raise RuntimeError("archived prefilter failed")
+        first = scanner.evaluate(symbol, 1e7, pre[2], "GREEN", None)
         if first.decision["decision"] == "ALIM_ADAYI":
             raise RuntimeError("first-scan entry forbidden")
         prior = {"phase": first.decision["state"],
                  "first_price": first.snapshot["live_price"],
                  "last_bar_15m": first.snapshot["15m"]["bar_id"]}
         current = decision + pd.Timedelta(minutes=15)
-        second = scanner.evaluate(symbol, 1e7, 100.0, "GREEN", prior)
+        second = scanner.evaluate(symbol, 1e7, pre[2], "GREEN", prior)
         if second.snapshot["15m"]["bar_id"] <= prior["last_bar_15m"]:
             raise RuntimeError("missing next closed 15m bar")
         result = {"symbol": symbol, "15m_rows": int(len(raw)), "coverage_pct": round(coverage, 4),
+                  "prefilter_score": pre[2], "prefilter_seed": pre[3],
                   "first_phase": first.decision["state"], "next_phase": second.decision["state"],
                   "first_kind": first.decision["setup_kind"],
                   "next_kind": second.decision["setup_kind"],
