@@ -52,6 +52,8 @@ jobs:
           assert all(x in text for x in required), 'missing causal/metric contract'
           assert 'HTTP.post' not in text and 'requests.post' not in text
           assert 'shift(-' not in text and '2026-09-22' not in text
+          assert 'len(coverage) != 6' not in text
+          assert 'at least 100 closed daily bars of warmup required' in text
           print('static multi-period audit ok')
           PY
 
@@ -98,7 +100,7 @@ jobs:
           out="gpt/Clear System/research/pressure_confirmation/output/pressure_multiperiod/$SHARD"
           mkdir -p "$out"
           timeout 17m python 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py' \
-            --history-start 2025-01-01T00:00:00Z \
+            --history-start 2024-10-01T00:00:00Z \
             --replay-start "$START" --replay-end "$END" \
             --symbols BTCUSDT,ETHUSDT,SOLUSDT,XRPUSDT,LINKUSDT,AVAXUSDT,BNBUSDT,DOGEUSDT,ADAUSDT,TRXUSDT,LTCUSDT,SUIUSDT \
             --allow-zero-signals --outdir "$out" 2>&1 | tee "$out/run.log"
