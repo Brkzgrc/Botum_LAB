@@ -24,6 +24,7 @@ SOURCE_SHA = {
     "tsi_bb_frozen_candidate.py": "d98f9b164f1f7df10bd7f65f77e8267a451166ff",
 }
 SYMBOLS = ("BTCUSDT", "ETHUSDT", "SOLUSDT", "XRPUSDT", "LINKUSDT", "AVAXUSDT")
+APPROVED_SYMBOLS = SYMBOLS + ("BNBUSDT", "DOGEUSDT", "ADAUSDT", "TRXUSDT", "LTCUSDT", "SUIUSDT")
 BASE_URLS = ("https://data-api.binance.vision", "https://api.binance.com")
 RULES = {"source_tp1": None, "fixed_0.25": 0.25, "fixed_0.50": 0.50,
          "fixed_0.80": 0.80, "fixed_1.00": 1.00, "fixed_1.50": 1.50,
@@ -151,14 +152,17 @@ def self_test() -> None:
 
 
 def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
-           replay_end: pd.Timestamp, symbols: tuple[str, ...]) -> dict:
+           replay_end: pd.Timestamp, symbols: tuple[str, ...],
+           require_signal: bool = True) -> dict:
     verify_sources()
     if history_start.year != 2025 or replay_start.year != 2025 or replay_end.year != 2025:
         raise ValueError("bounded 2025-only preflight")
     if not history_start < replay_start < replay_end or replay_end - replay_start > pd.Timedelta(hours=48):
         raise ValueError("replay window must be positive and <=48h")
-    if len(symbols) != 6 or len(set(symbols)) != 6 or set(symbols) != set(SYMBOLS):
-        raise ValueError("exact six-symbol smoke required")
+    if not 6 <= len(symbols) <= len(APPROVED_SYMBOLS) or len(set(symbols)) != len(symbols):
+        raise ValueError("six-to-twelve unique symbols required")
+    if not set(symbols).issubset(APPROVED_SYMBOLS):
+        raise ValueError("unapproved symbol in bounded replay")
     sys.path.insert(0, str(SOURCE))
     import spot_opportunity_scanner as scanner  # type: ignore
 
@@ -231,6 +235,10 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
                      "setup_kind": c.decision["setup_kind"], "score": c.decision["confidence"],
                      "rank": c.rank, "btc_regime": regime, "entry": lv["price"],
                      "stop": lv["stop"], "source_tp1": lv["tp1"], "policies": {}}
+            future = raw5[c.symbol][(raw5[c.symbol].open_time >= current) &
+                                    (raw5[c.symbol].open_time < current + pd.Timedelta(hours=24))]
+            event["mfe_pct_24h"] = round((float(future.high.max()) / lv["price"] - 1) * 100, 6)
+            event["mae_pct_24h"] = round((float(future.low.min()) / lv["price"] - 1) * 100, 6)
             for name, fixed in RULES.items():
                 target = lv["tp1"] if fixed is None else lv["price"] * (1 + fixed / 100)
                 event["policies"][name] = first_passage(raw5[c.symbol], current, lv["price"],
@@ -242,7 +250,7 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
 
     if scan_count < 100 or len(coverage) != 6:
         raise RuntimeError("incomplete replay shard")
-    if not signals:
+    if require_signal and not signals:
         raise RuntimeError("no historical signal; exit-order smoke not exercised")
     policy_summary = {}
     for name in RULES:
@@ -258,7 +266,7 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
             "history_start": str(history_start), "replay_window": [str(replay_start), str(replay_end)],
             "fee_pct": FEE_PCT, "same_bar_policy": "conservative_stop_first",
             "expected_shards": 1, "completed_shards": 1,
-            "expected_symbols": 6, "completed_symbols": len(coverage), "coverage": coverage,
+            "expected_symbols": len(symbols), "completed_symbols": len(coverage), "coverage": coverage,
             "scan_count": scan_count, "signals": signals, "signal_count": len(signals),
             "active_days": len({e["decision_time"][:10] for e in signals}),
             "policy_summary": policy_summary,
@@ -273,6 +281,7 @@ def main() -> None:
     ap.add_argument("--replay-start", default="2025-08-28T12:00:00Z")
     ap.add_argument("--replay-end", default="2025-08-30T00:00:00Z")
     ap.add_argument("--symbols", default=",".join(SYMBOLS))
+    ap.add_argument("--allow-zero-signals", action="store_true")
     ap.add_argument("--outdir", type=Path)
     a = ap.parse_args()
     if a.self_test:
@@ -283,7 +292,8 @@ def main() -> None:
     dates = [pd.Timestamp(x) for x in (a.history_start, a.replay_start, a.replay_end)]
     if any(x.tzinfo is None for x in dates):
         ap.error("all timestamps must be timezone-aware")
-    result = replay(*dates, tuple(x.strip() for x in a.symbols.split(",") if x.strip()))
+    result = replay(*dates, tuple(x.strip() for x in a.symbols.split(",") if x.strip()),
+                    require_signal=not a.allow_zero_signals)
     a.outdir.mkdir(parents=True, exist_ok=True)
     (a.outdir / "summary.json").write_text(json.dumps(result, indent=2, allow_nan=False) + "\n",
                                              encoding="utf-8")
