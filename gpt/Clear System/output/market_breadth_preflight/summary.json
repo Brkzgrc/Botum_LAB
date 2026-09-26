@@ -1,0 +1,91 @@
+{
+  "status": "BREADTH_DATA_READY",
+  "window": [
+    "2025-01-01 00:00:00+00:00",
+    "2026-09-18 00:00:00+00:00"
+  ],
+  "references": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "BNBUSDT",
+    "SOLUSDT",
+    "XRPUSDT",
+    "DOGEUSDT"
+  ],
+  "reference_count": 6,
+  "rows": [
+    {
+      "symbol": "BTCUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "first_decision_time": "2025-01-01 00:15:00+00:00",
+      "last_decision_time": "2026-09-18 00:00:00+00:00",
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "ETHUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "first_decision_time": "2025-01-01 00:15:00+00:00",
+      "last_decision_time": "2026-09-18 00:00:00+00:00",
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "BNBUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "first_decision_time": "2025-01-01 00:15:00+00:00",
+      "last_decision_time": "2026-09-18 00:00:00+00:00",
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "SOLUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "first_decision_time": "2025-01-01 00:15:00+00:00",
+      "last_decision_time": "2026-09-18 00:00:00+00:00",
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "XRPUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "first_decision_time": "2025-01-01 00:15:00+00:00",
+      "last_decision_time": "2026-09-18 00:00:00+00:00",
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "rows": 60000,
+      "expected_rows": 60000,
+      "coverage_pct": 100.0,
+      "first_decision_time": "2025-01-01 00:15:00+00:00",
+      "last_decision_time": "2026-09-18 00:00:00+00:00",
+      "transports": [
+        "https://data-api.binance.vision"
+      ]
+    }
+  ],
+  "common_rows": 60000,
+  "common_coverage_pct": 100.0,
+  "valid_feature_rows": 59996,
+  "ignition_events": 3077,
+  "ignition_active_days": 618,
+  "closed_candle_contract": "Raw open_time is shifted +15m; decision_time therefore sees only a closed 15m candle.",
+  "decision": "Proceed only if coverage, closed-candle alignment, and ignition density pass."
+}
