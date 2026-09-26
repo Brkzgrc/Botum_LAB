@@ -155,8 +155,10 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
            replay_end: pd.Timestamp, symbols: tuple[str, ...],
            require_signal: bool = True) -> dict:
     verify_sources()
-    if history_start.year != 2025 or replay_start.year != 2025 or replay_end.year != 2025:
-        raise ValueError("bounded 2025-only preflight")
+    if replay_start.year != 2025 or replay_end.year != 2025:
+        raise ValueError("bounded 2025 replay windows required")
+    if replay_start - history_start < pd.Timedelta(days=100):
+        raise ValueError("at least 100 closed daily bars of warmup required")
     if not history_start < replay_start < replay_end or replay_end - replay_start > pd.Timedelta(hours=48):
         raise ValueError("replay window must be positive and <=48h")
     if not 6 <= len(symbols) <= len(APPROVED_SYMBOLS) or len(set(symbols)) != len(symbols):
@@ -248,7 +250,7 @@ def replay(history_start: pd.Timestamp, replay_start: pd.Timestamp,
             watch.pop(c.symbol, None)
         current += pd.Timedelta(minutes=15)
 
-    if scan_count < 100 or len(coverage) != 6:
+    if scan_count < 100 or len(coverage) != len(symbols):
         raise RuntimeError("incomplete replay shard")
     if require_signal and not signals:
         raise RuntimeError("no historical signal; exit-order smoke not exercised")
