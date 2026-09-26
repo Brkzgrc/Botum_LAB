@@ -370,3 +370,27 @@ Aynı run yeniden çalıştırılmadı. Denetim semantik olarak iki gerçek söz
 Run [36265124177](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36265124177) 4/4 shard ve aggregate ile teknik olarak geçti; veri dört sabit 2025 penceresinde 12 sinyal, 2,0 sinyal/gözlem günü, %50 aktif tarih, ortalama MFE +%1,947 ve MAE -%5,097 idi. Ancak summary incelemesi koruma/kademeli politikalarda **12 olayın 8'inde aynı 5M aktivasyon-taban çakışması** gösterdi. İlk motor, mum içindeki high/low sırası bilinmediği halde tabanı aynı mumda aktif sayarak +%0,50 korumayı 12/12 sıfır net ve kademeliyi 12/12 pozitif/+%3,10 göstermişti. Bu sonuçlar aşırı iyimser ve **karar için geçersizdir**; arşivlenmedi, eşik seçilmedi ve üretime taşınmadı.
 
 Düzeltme: koruma/MFE/kademeli tabanları, aktivasyonu gösteren tamamlanmış 5M mumdan sonraki ilk mumda etkinleşir. Kademeli +%1,50 aynı mumda gerçekten görülmüşse fiyatın +%0,50 seviyesini de geçtiği matematiksel olarak kesin olduğundan iki hedef dolmuş sayılabilir; taban ise sonraki mumdan önce kullanılamaz. Hareket-sönmesi aktive olduktan sonra da acil yapısal stop artık her mumda korunur. Yeni self-test özellikle aynı-mum tabanını reddetmeyi ve aktivasyon sonrası stopu doğrular. Derleme/self-test, AST/YAML/bash/timeout ve kaynak sözleşmesi kontrolleri tekrar geçti. Sonraki somut adım, düzeltilmiş next-bar sözleşmesiyle yeni run; eski yeşil run yeniden kullanılmayacak. `Clear System.py` değişmedi.
+
+
+
+## PRESSURE path-dependent çıkış — düzeltilmiş sonuç, run 36266065604
+
+[GitHub Actions run 36266065604](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36266065604) `completed/success` oldu. Preflight, 4/4 gerçek-veri shard, eksik-shard kapısı ve aggregate geçti. Yalnız yeşil durum kullanılmadı; aggregate artifact içindeki `summary.json` olay bazında yeniden hesaplandı ve `research/pressure_confirmation/output/pressure_path_exit/summary.json` altında arşivlendi. Run 26 Eylül 2026 19:26:33–19:38:17 UTC arasında 11 dk 44 sn duvar süresi ve yaklaşık **33,02 runner-dk** kullandı; 40–55 runner-dk bütçesinin altında kaldı.
+
+Veri ve sözleşme: dört sabit 2025 tanı penceresi (15–16 Şubat, Mayıs, Ağustos, Kasım), toplam 144 saat/6 gözlem günü, 12 likit ve stable/fiat olmayan Binance Spot USDT sembolü, yalnız kapanmış mumlar ve **%0,20 round-trip maliyet**. Koruma, aktivasyonu gösteren tamamlanmış 5M mumdan sonraki mumda etkinleşti; same-bar politika ihtiyatlı stop-first. 4/4 shard eksiksiz, 12 olay benzersiz, tüm ücret kimlikleri doğru ve tüm path politikalarında same-bar collision sayısı sıfırdır.
+
+Frekans: 12 sinyal, **2,00 sinyal/gözlem günü**; aktif tarih oranı **%50**. Sinyaller ADA/LTC/XRP ve yalnız Q1/Q3 pencerelerinde oluştu; Q2/Q4 sıfır. 24H MFE ortalama/medyan **+%1,947 / +%2,031**; MAE ortalama/medyan **−%5,097 / −%5,171**.
+
+| Çıkış politikası | Pozitif / negatif / düz | Target/koruma – stop – expiry/time | Net toplam | Expectancy | PF |
+| --- | ---: | --- | ---: | ---: | ---: |
+| Kaynak ATR trailing | 2 / 10 / 0 | 0 trailing-target, 7 stop, 5 expiry | −%36,584 | −%3,049 | 0,081 |
+| +%0,50 sonrası brüt +%0,20 taban | 0 / 0 / 12 | 12 protected-floor, 0 stop/expiry | %0,000 | %0,000 | tanımsız |
+| +%0,80 sonrası brüt +%0,20 taban | 0 / 3 / 9 | 9 protected-floor, 2 stop, 1 expiry | −%13,021 | −%1,085 | 0,000 |
+| MFE +%1,00, tepeden %0,50 geri-verme | 8 / 4 / 0 | 8 giveback, 3 stop, 1 expiry | −%11,783 | −%0,982 | 0,377 |
+| %50 @ +%0,50; kalan +%1,50 veya +%0,20 taban | **12 / 0 / 0** | 3 final-target, 9 staged-floor, 0 stop/expiry | **+%3,750** | **+%0,313** | tanımsız; kayıp yok |
+| 15M hareket sönmesi | 6 / 6 / 0 | 12 motion-fade | −%0,573 | −%0,048 | 0,894 |
+| 6H / 12H / 24H / 48H | 3/9, 1/11, 3/9, 0/12 | stop+time | −%17,119 / −%31,894 / −%33,536 / −%44,601 | −%1,427 / −%2,658 / −%2,795 / −%3,717 | 0,157 / 0,024 / 0,101 / 0,000 |
+
+Düzeltilmiş sonuç, önceki geçersiz aynı-mum iyimserliğine bağlı değildir. Özellikle kademeli politika: her işlemde önce pozisyonun yarısını brüt +%0,50'de alıyor; kalan yarı ya +%1,50'ye ulaşıyor ya da sonraki mumlarda brüt +%0,20 tabanında kapanıyor. Maliyet sonrası dokuz işlem +%0,15, üç işlem +%0,80; toplam +%3,75. Basit +%0,50 koruma ise büyük kayıpları tamamen kaldırsa da maliyet sonrası yalnız başa baştır. 6/12/24/48 saat sabit çıkışlar ve mevcut hareket-sönmesi bu örnekte elendi; aynı eşik taraması yeni adla tekrarlanmayacak.
+
+Bu güçlü bir **mekanizma kanıtı**, fakat champion/üretim kanıtı değildir: yalnız 12 olay, üç coin, kısa sabit 2025 pencereleri; full-market yeniden sıralama, gerçek sermaye slotları, cooldown ikamesi ve dokunulmamış OOS yoktur. OOS: **N/A**. Karar: kademeli aile geniş 2023–2025 Discovery/Calibration araştırmasına terfi eder; +%0,50 düz-koruma yalnız zarar tavanı referansı olarak tutulur. Sonraki pahalı deney 0/24/48 saat cooldown, full-market yeniden sıralama ve sermaye slotları içinde kademeli aileyi sabit çıkış ile kaynak ATR trailing'e karşı test edecek; önce süre bütçesi çıkarılacak. Doğrulanmış OOS gelmeden `Clear System.py` değişmeyecek; bu turda değiştirilmedi.
