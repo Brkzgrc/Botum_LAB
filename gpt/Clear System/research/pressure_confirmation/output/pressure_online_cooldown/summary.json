@@ -1,0 +1,1834 @@
+{
+  "status": "PRESSURE_ONLINE_COOLDOWN_PREFLIGHT_PASSED",
+  "expected_cooldowns": [
+    0,
+    6,
+    24,
+    48
+  ],
+  "completed_cooldowns": [
+    0,
+    6,
+    24,
+    48
+  ],
+  "replay_window": [
+    "2025-02-15 00:00:00+00:00",
+    "2025-02-16 12:00:00+00:00"
+  ],
+  "observed_days": 1.5,
+  "symbols_per_shard": 12,
+  "fee_pct": 0.2,
+  "same_bar_policy": "conservative_stop_first",
+  "comparison": {
+    "0": {
+      "signals": 6,
+      "signals_per_observed_day": 4.0,
+      "active_dates": [
+        "2025-02-15",
+        "2025-02-16"
+      ],
+      "active_date_ratio_pct": 100.0,
+      "symbols": {
+        "LTCUSDT": 3,
+        "XRPUSDT": 3
+      },
+      "setups": {
+        "PRESSURE": 5,
+        "RETRIGGER": 1
+      },
+      "final_candidates": 29,
+      "cooldown_blocked_observations": 0,
+      "quota_blocked_observations": 23,
+      "removed_vs_baseline": [],
+      "replacement_vs_baseline": [],
+      "mfe_pct_24h_mean": 1.78189,
+      "mae_pct_24h_mean": -5.030201,
+      "policy_summary": {
+        "source_tp1": {
+          "trades": 6,
+          "target_first": 0,
+          "stop_first": 3,
+          "expired": 3,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -18.251795
+        },
+        "fixed_0.25": {
+          "trades": 6,
+          "target_first": 6,
+          "stop_first": 0,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 0.3
+        },
+        "fixed_0.50": {
+          "trades": 6,
+          "target_first": 6,
+          "stop_first": 0,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 1.8
+        },
+        "fixed_0.80": {
+          "trades": 6,
+          "target_first": 4,
+          "stop_first": 1,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -5.605924
+        },
+        "fixed_1.00": {
+          "trades": 6,
+          "target_first": 4,
+          "stop_first": 1,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -4.805924
+        },
+        "fixed_1.50": {
+          "trades": 6,
+          "target_first": 4,
+          "stop_first": 1,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -2.805924
+        },
+        "fixed_2.00": {
+          "trades": 6,
+          "target_first": 3,
+          "stop_first": 1,
+          "expired": 2,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -2.432079
+        },
+        "fixed_3.00": {
+          "trades": 6,
+          "target_first": 0,
+          "stop_first": 3,
+          "expired": 3,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -18.251795
+        },
+        "fixed_5.00": {
+          "trades": 6,
+          "target_first": 0,
+          "stop_first": 3,
+          "expired": 3,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -18.251795
+        }
+      },
+      "events": [
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 02:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 100.0,
+          "btc_regime": "GREEN",
+          "entry": 2.7819,
+          "stop": 2.6244075,
+          "source_tp1": 2.8792664999999995,
+          "policies": {
+            "source_tp1": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-15 02:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-15 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 1.854847,
+          "mae_pct_24h": -2.476725
+        },
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 02:30:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 100.0,
+          "btc_regime": "GREEN",
+          "entry": 2.8154,
+          "stop": 2.6244075,
+          "source_tp1": 2.9139389999999996,
+          "policies": {
+            "source_tp1": {
+              "outcome": "EXPIRED",
+              "gross_pct": -1.0336009092846377,
+              "net_pct": -1.2336009092846376,
+              "exit_time": "2025-02-16 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-15 02:34:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-15 02:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "EXPIRED",
+              "gross_pct": -1.0336009092846377,
+              "net_pct": -1.2336009092846376,
+              "exit_time": "2025-02-16 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -1.0336009092846377,
+              "net_pct": -1.2336009092846376,
+              "exit_time": "2025-02-16 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "EXPIRED",
+              "gross_pct": -1.0336009092846377,
+              "net_pct": -1.2336009092846376,
+              "exit_time": "2025-02-16 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -1.0336009092846377,
+              "net_pct": -1.2336009092846376,
+              "exit_time": "2025-02-16 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -1.0336009092846377,
+              "net_pct": -1.2336009092846376,
+              "exit_time": "2025-02-16 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -1.0336009092846377,
+              "net_pct": -1.2336009092846376,
+              "exit_time": "2025-02-16 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 0.642893,
+          "mae_pct_24h": -3.637139
+        },
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 08:00:00+00:00",
+          "setup_kind": "RETRIGGER",
+          "score": 95.0,
+          "rank": 97.5,
+          "btc_regime": "YELLOW",
+          "entry": 2.7638,
+          "stop": 2.6244075,
+          "source_tp1": 2.8335,
+          "policies": {
+            "source_tp1": {
+              "outcome": "EXPIRED",
+              "gross_pct": -0.12663723858454823,
+              "net_pct": -0.32663723858454824,
+              "exit_time": "2025-02-16 07:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-15 08:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-15 08:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-15 08:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-15 08:19:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-15 08:34:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 2.0000000000000018,
+              "net_pct": 1.8000000000000018,
+              "exit_time": "2025-02-15 13:34:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -0.12663723858454823,
+              "net_pct": -0.32663723858454824,
+              "exit_time": "2025-02-16 07:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -0.12663723858454823,
+              "net_pct": -0.32663723858454824,
+              "exit_time": "2025-02-16 07:59:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 2.207106,
+          "mae_pct_24h": -1.838049
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-16 00:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 108.0,
+          "btc_regime": "YELLOW",
+          "entry": 133.86,
+          "stop": 127.50075000000001,
+          "source_tp1": 138.5451,
+          "policies": {
+            "source_tp1": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -4.750672344240248,
+              "net_pct": -4.950672344240248,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-16 00:39:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-16 00:39:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-16 01:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 2.0000000000000018,
+              "net_pct": 1.8000000000000018,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -4.750672344240248,
+              "net_pct": -4.950672344240248,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -4.750672344240248,
+              "net_pct": -4.950672344240248,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 2.719259,
+          "mae_pct_24h": -6.588974
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-16 00:45:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 108.0,
+          "btc_regime": "YELLOW",
+          "entry": 134.13,
+          "stop": 127.50075000000001,
+          "source_tp1": 138.82455,
+          "policies": {
+            "source_tp1": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -4.94240662044284,
+              "net_pct": -5.1424066204428405,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-16 00:49:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-16 00:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 2.0000000000000018,
+              "net_pct": 1.8000000000000018,
+              "exit_time": "2025-02-16 02:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -4.94240662044284,
+              "net_pct": -5.1424066204428405,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -4.94240662044284,
+              "net_pct": -5.1424066204428405,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 2.512488,
+          "mae_pct_24h": -7.023037
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-16 01:30:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 108.0,
+          "btc_regime": "YELLOW",
+          "entry": 136.47,
+          "stop": 127.50075000000001,
+          "source_tp1": 141.24644999999998,
+          "policies": {
+            "source_tp1": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -6.572323587601659,
+              "net_pct": -6.772323587601659,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-16 02:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-16 02:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -6.572323587601659,
+              "net_pct": -6.772323587601659,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -6.572323587601659,
+              "net_pct": -6.772323587601659,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -6.572323587601659,
+              "net_pct": -6.772323587601659,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -6.572323587601659,
+              "net_pct": -6.772323587601659,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -6.572323587601659,
+              "net_pct": -6.772323587601659,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -6.572323587601659,
+              "net_pct": -6.772323587601659,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 0.754745,
+          "mae_pct_24h": -8.617279
+        }
+      ]
+    },
+    "6": {
+      "signals": 6,
+      "signals_per_observed_day": 4.0,
+      "active_dates": [
+        "2025-02-15",
+        "2025-02-16"
+      ],
+      "active_date_ratio_pct": 100.0,
+      "symbols": {
+        "LTCUSDT": 2,
+        "XRPUSDT": 4
+      },
+      "setups": {
+        "PRESSURE": 2,
+        "RETRIGGER": 4
+      },
+      "final_candidates": 29,
+      "cooldown_blocked_observations": 19,
+      "quota_blocked_observations": 4,
+      "removed_vs_baseline": [
+        [
+          "LTCUSDT",
+          "2025-02-16 00:45:00+00:00"
+        ],
+        [
+          "LTCUSDT",
+          "2025-02-16 01:30:00+00:00"
+        ],
+        [
+          "XRPUSDT",
+          "2025-02-15 02:30:00+00:00"
+        ]
+      ],
+      "replacement_vs_baseline": [
+        [
+          "LTCUSDT",
+          "2025-02-16 11:30:00+00:00"
+        ],
+        [
+          "XRPUSDT",
+          "2025-02-15 14:00:00+00:00"
+        ],
+        [
+          "XRPUSDT",
+          "2025-02-16 04:15:00+00:00"
+        ]
+      ],
+      "mfe_pct_24h_mean": 1.29934,
+      "mae_pct_24h_mean": -4.104799,
+      "policy_summary": {
+        "source_tp1": {
+          "trades": 6,
+          "target_first": 0,
+          "stop_first": 3,
+          "expired": 3,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -15.420531
+        },
+        "fixed_0.25": {
+          "trades": 6,
+          "target_first": 5,
+          "stop_first": 0,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -2.698113
+        },
+        "fixed_0.50": {
+          "trades": 6,
+          "target_first": 4,
+          "stop_first": 1,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -5.437062
+        },
+        "fixed_0.80": {
+          "trades": 6,
+          "target_first": 3,
+          "stop_first": 2,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -8.517067
+        },
+        "fixed_1.00": {
+          "trades": 6,
+          "target_first": 3,
+          "stop_first": 2,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -7.917067
+        },
+        "fixed_1.50": {
+          "trades": 6,
+          "target_first": 3,
+          "stop_first": 2,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -6.417067
+        },
+        "fixed_2.00": {
+          "trades": 6,
+          "target_first": 2,
+          "stop_first": 2,
+          "expired": 2,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -6.543222
+        },
+        "fixed_3.00": {
+          "trades": 6,
+          "target_first": 0,
+          "stop_first": 3,
+          "expired": 3,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -15.420531
+        },
+        "fixed_5.00": {
+          "trades": 6,
+          "target_first": 0,
+          "stop_first": 3,
+          "expired": 3,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -15.420531
+        }
+      },
+      "events": [
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 02:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 100.0,
+          "btc_regime": "GREEN",
+          "entry": 2.7819,
+          "stop": 2.6244075,
+          "source_tp1": 2.8792664999999995,
+          "policies": {
+            "source_tp1": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-15 02:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-15 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 1.854847,
+          "mae_pct_24h": -2.476725
+        },
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 08:00:00+00:00",
+          "setup_kind": "RETRIGGER",
+          "score": 95.0,
+          "rank": 97.5,
+          "btc_regime": "YELLOW",
+          "entry": 2.7638,
+          "stop": 2.6244075,
+          "source_tp1": 2.8335,
+          "policies": {
+            "source_tp1": {
+              "outcome": "EXPIRED",
+              "gross_pct": -0.12663723858454823,
+              "net_pct": -0.32663723858454824,
+              "exit_time": "2025-02-16 07:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-15 08:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-15 08:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-15 08:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-15 08:19:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-15 08:34:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 2.0000000000000018,
+              "net_pct": 1.8000000000000018,
+              "exit_time": "2025-02-15 13:34:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -0.12663723858454823,
+              "net_pct": -0.32663723858454824,
+              "exit_time": "2025-02-16 07:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -0.12663723858454823,
+              "net_pct": -0.32663723858454824,
+              "exit_time": "2025-02-16 07:59:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 2.207106,
+          "mae_pct_24h": -1.838049
+        },
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 14:00:00+00:00",
+          "setup_kind": "RETRIGGER",
+          "score": 95.0,
+          "rank": 103.0,
+          "btc_regime": "YELLOW",
+          "entry": 2.8092,
+          "stop": 2.67735,
+          "source_tp1": 2.9075219999999997,
+          "policies": {
+            "source_tp1": {
+              "outcome": "EXPIRED",
+              "gross_pct": -2.74811334187669,
+              "net_pct": -2.9481133418766903,
+              "exit_time": "2025-02-16 13:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "EXPIRED",
+              "gross_pct": -2.74811334187669,
+              "net_pct": -2.9481133418766903,
+              "exit_time": "2025-02-16 13:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "EXPIRED",
+              "gross_pct": -2.74811334187669,
+              "net_pct": -2.9481133418766903,
+              "exit_time": "2025-02-16 13:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "EXPIRED",
+              "gross_pct": -2.74811334187669,
+              "net_pct": -2.9481133418766903,
+              "exit_time": "2025-02-16 13:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -2.74811334187669,
+              "net_pct": -2.9481133418766903,
+              "exit_time": "2025-02-16 13:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "EXPIRED",
+              "gross_pct": -2.74811334187669,
+              "net_pct": -2.9481133418766903,
+              "exit_time": "2025-02-16 13:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -2.74811334187669,
+              "net_pct": -2.9481133418766903,
+              "exit_time": "2025-02-16 13:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -2.74811334187669,
+              "net_pct": -2.9481133418766903,
+              "exit_time": "2025-02-16 13:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": -2.74811334187669,
+              "net_pct": -2.9481133418766903,
+              "exit_time": "2025-02-16 13:59:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 0.042717,
+          "mae_pct_24h": -3.424462
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-16 00:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 108.0,
+          "btc_regime": "YELLOW",
+          "entry": 133.86,
+          "stop": 127.50075000000001,
+          "source_tp1": 138.5451,
+          "policies": {
+            "source_tp1": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -4.750672344240248,
+              "net_pct": -4.950672344240248,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-16 00:39:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-16 00:39:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-16 01:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 2.0000000000000018,
+              "net_pct": 1.8000000000000018,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -4.750672344240248,
+              "net_pct": -4.950672344240248,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -4.750672344240248,
+              "net_pct": -4.950672344240248,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 2.719259,
+          "mae_pct_24h": -6.588974
+        },
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-16 04:15:00+00:00",
+          "setup_kind": "RETRIGGER",
+          "score": 100.0,
+          "rank": 107.5,
+          "btc_regime": "YELLOW",
+          "entry": 2.7857,
+          "stop": 2.6887575,
+          "source_tp1": 2.8831994999999995,
+          "policies": {
+            "source_tp1": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-16 04:34:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-16 05:49:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 0.707183,
+          "mae_pct_24h": -3.510787
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-16 11:30:00+00:00",
+          "setup_kind": "RETRIGGER",
+          "score": 87.0,
+          "rank": 87.75,
+          "btc_regime": "YELLOW",
+          "entry": 132.11,
+          "stop": 127.50075000000001,
+          "source_tp1": 136.73385,
+          "policies": {
+            "source_tp1": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.488948603436537,
+              "net_pct": -3.688948603436537,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-16 12:54:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.488948603436537,
+              "net_pct": -3.688948603436537,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.488948603436537,
+              "net_pct": -3.688948603436537,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.488948603436537,
+              "net_pct": -3.688948603436537,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.488948603436537,
+              "net_pct": -3.688948603436537,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.488948603436537,
+              "net_pct": -3.688948603436537,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.488948603436537,
+              "net_pct": -3.688948603436537,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.488948603436537,
+              "net_pct": -3.688948603436537,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 0.264931,
+          "mae_pct_24h": -6.789796
+        }
+      ]
+    },
+    "24": {
+      "signals": 3,
+      "signals_per_observed_day": 2.0,
+      "active_dates": [
+        "2025-02-15",
+        "2025-02-16"
+      ],
+      "active_date_ratio_pct": 100.0,
+      "symbols": {
+        "LTCUSDT": 1,
+        "XRPUSDT": 2
+      },
+      "setups": {
+        "PRESSURE": 2,
+        "RETRIGGER": 1
+      },
+      "final_candidates": 30,
+      "cooldown_blocked_observations": 27,
+      "quota_blocked_observations": 0,
+      "removed_vs_baseline": [
+        [
+          "LTCUSDT",
+          "2025-02-16 00:00:00+00:00"
+        ],
+        [
+          "LTCUSDT",
+          "2025-02-16 00:45:00+00:00"
+        ],
+        [
+          "LTCUSDT",
+          "2025-02-16 01:30:00+00:00"
+        ],
+        [
+          "XRPUSDT",
+          "2025-02-15 02:30:00+00:00"
+        ],
+        [
+          "XRPUSDT",
+          "2025-02-15 08:00:00+00:00"
+        ]
+      ],
+      "replacement_vs_baseline": [
+        [
+          "LTCUSDT",
+          "2025-02-15 19:30:00+00:00"
+        ],
+        [
+          "XRPUSDT",
+          "2025-02-16 04:15:00+00:00"
+        ]
+      ],
+      "mfe_pct_24h_mean": 2.248161,
+      "mae_pct_24h_mean": -3.748628,
+      "policy_summary": {
+        "source_tp1": {
+          "trades": 3,
+          "target_first": 1,
+          "stop_first": 1,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -0.20616
+        },
+        "fixed_0.25": {
+          "trades": 3,
+          "target_first": 3,
+          "stop_first": 0,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 0.15
+        },
+        "fixed_0.50": {
+          "trades": 3,
+          "target_first": 3,
+          "stop_first": 0,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 0.9
+        },
+        "fixed_0.80": {
+          "trades": 3,
+          "target_first": 2,
+          "stop_first": 1,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -2.480005
+        },
+        "fixed_1.00": {
+          "trades": 3,
+          "target_first": 2,
+          "stop_first": 1,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -2.080005
+        },
+        "fixed_1.50": {
+          "trades": 3,
+          "target_first": 2,
+          "stop_first": 1,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -1.080005
+        },
+        "fixed_2.00": {
+          "trades": 3,
+          "target_first": 1,
+          "stop_first": 1,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -1.70616
+        },
+        "fixed_3.00": {
+          "trades": 3,
+          "target_first": 1,
+          "stop_first": 1,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -0.70616
+        },
+        "fixed_5.00": {
+          "trades": 3,
+          "target_first": 0,
+          "stop_first": 2,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -7.100045
+        }
+      },
+      "events": [
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 02:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 100.0,
+          "btc_regime": "GREEN",
+          "entry": 2.7819,
+          "stop": 2.6244075,
+          "source_tp1": 2.8792664999999995,
+          "policies": {
+            "source_tp1": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-15 02:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-15 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 1.854847,
+          "mae_pct_24h": -2.476725
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-15 19:30:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 107.5,
+          "btc_regime": "YELLOW",
+          "entry": 131.98,
+          "stop": 127.50075000000001,
+          "source_tp1": 136.59929999999997,
+          "policies": {
+            "source_tp1": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 3.499999999999992,
+              "net_pct": 3.299999999999992,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-15 19:34:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-15 23:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-15 23:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-15 23:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-15 23:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 2.0000000000000018,
+              "net_pct": 1.8000000000000018,
+              "exit_time": "2025-02-16 00:39:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 3.0000000000000027,
+              "net_pct": 2.8000000000000025,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.3938854371874383,
+              "net_pct": -3.5938854371874385,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 4.182452,
+          "mae_pct_24h": -5.258372
+        },
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-16 04:15:00+00:00",
+          "setup_kind": "RETRIGGER",
+          "score": 100.0,
+          "rank": 107.5,
+          "btc_regime": "YELLOW",
+          "entry": 2.7857,
+          "stop": 2.6887575,
+          "source_tp1": 2.8831994999999995,
+          "policies": {
+            "source_tp1": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-16 04:34:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-16 05:49:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.480005025666799,
+              "net_pct": -3.6800050256667993,
+              "exit_time": "2025-02-16 18:29:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 0.707183,
+          "mae_pct_24h": -3.510787
+        }
+      ]
+    },
+    "48": {
+      "signals": 2,
+      "signals_per_observed_day": 1.333333,
+      "active_dates": [
+        "2025-02-15"
+      ],
+      "active_date_ratio_pct": 50.0,
+      "symbols": {
+        "LTCUSDT": 1,
+        "XRPUSDT": 1
+      },
+      "setups": {
+        "PRESSURE": 2
+      },
+      "final_candidates": 31,
+      "cooldown_blocked_observations": 29,
+      "quota_blocked_observations": 0,
+      "removed_vs_baseline": [
+        [
+          "LTCUSDT",
+          "2025-02-16 00:00:00+00:00"
+        ],
+        [
+          "LTCUSDT",
+          "2025-02-16 00:45:00+00:00"
+        ],
+        [
+          "LTCUSDT",
+          "2025-02-16 01:30:00+00:00"
+        ],
+        [
+          "XRPUSDT",
+          "2025-02-15 02:30:00+00:00"
+        ],
+        [
+          "XRPUSDT",
+          "2025-02-15 08:00:00+00:00"
+        ]
+      ],
+      "replacement_vs_baseline": [
+        [
+          "LTCUSDT",
+          "2025-02-15 19:30:00+00:00"
+        ]
+      ],
+      "mfe_pct_24h_mean": 3.018649,
+      "mae_pct_24h_mean": -3.867548,
+      "policy_summary": {
+        "source_tp1": {
+          "trades": 2,
+          "target_first": 1,
+          "stop_first": 0,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 3.473845
+        },
+        "fixed_0.25": {
+          "trades": 2,
+          "target_first": 2,
+          "stop_first": 0,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 0.1
+        },
+        "fixed_0.50": {
+          "trades": 2,
+          "target_first": 2,
+          "stop_first": 0,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 0.6
+        },
+        "fixed_0.80": {
+          "trades": 2,
+          "target_first": 2,
+          "stop_first": 0,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 1.2
+        },
+        "fixed_1.00": {
+          "trades": 2,
+          "target_first": 2,
+          "stop_first": 0,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 1.6
+        },
+        "fixed_1.50": {
+          "trades": 2,
+          "target_first": 2,
+          "stop_first": 0,
+          "expired": 0,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 2.6
+        },
+        "fixed_2.00": {
+          "trades": 2,
+          "target_first": 1,
+          "stop_first": 0,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 1.973845
+        },
+        "fixed_3.00": {
+          "trades": 2,
+          "target_first": 1,
+          "stop_first": 0,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": 2.973845
+        },
+        "fixed_5.00": {
+          "trades": 2,
+          "target_first": 0,
+          "stop_first": 1,
+          "expired": 1,
+          "same_bar_collisions": 0,
+          "net_pct_sum": -3.42004
+        }
+      },
+      "events": [
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 02:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 100.0,
+          "btc_regime": "GREEN",
+          "entry": 2.7819,
+          "stop": 2.6244075,
+          "source_tp1": 2.8792664999999995,
+          "policies": {
+            "source_tp1": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-15 02:04:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-15 02:09:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-15 02:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "EXPIRED",
+              "gross_pct": 0.3738452137028725,
+              "net_pct": 0.17384521370287248,
+              "exit_time": "2025-02-16 01:59:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 1.854847,
+          "mae_pct_24h": -2.476725
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-15 19:30:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 107.5,
+          "btc_regime": "YELLOW",
+          "entry": 131.98,
+          "stop": 127.50075000000001,
+          "source_tp1": 136.59929999999997,
+          "policies": {
+            "source_tp1": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 3.499999999999992,
+              "net_pct": 3.299999999999992,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.25": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.24999999999999467,
+              "net_pct": 0.04999999999999466,
+              "exit_time": "2025-02-15 19:34:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.49999999999998934,
+              "net_pct": 0.29999999999998933,
+              "exit_time": "2025-02-15 23:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_0.80": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 0.8000000000000007,
+              "net_pct": 0.6000000000000008,
+              "exit_time": "2025-02-15 23:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.0000000000000009,
+              "net_pct": 0.8000000000000009,
+              "exit_time": "2025-02-15 23:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_1.50": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 1.4999999999999902,
+              "net_pct": 1.2999999999999903,
+              "exit_time": "2025-02-15 23:59:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_2.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 2.0000000000000018,
+              "net_pct": 1.8000000000000018,
+              "exit_time": "2025-02-16 00:39:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_3.00": {
+              "outcome": "TARGET_FIRST",
+              "gross_pct": 3.0000000000000027,
+              "net_pct": 2.8000000000000025,
+              "exit_time": "2025-02-16 01:29:59.999000+00:00",
+              "same_bar_collision": false
+            },
+            "fixed_5.00": {
+              "outcome": "STOP_FIRST",
+              "gross_pct": -3.3938854371874383,
+              "net_pct": -3.5938854371874385,
+              "exit_time": "2025-02-16 14:14:59.999000+00:00",
+              "same_bar_collision": false
+            }
+          },
+          "mfe_pct_24h": 4.182452,
+          "mae_pct_24h": -5.258372
+        }
+      ]
+    }
+  },
+  "limitations": "Online daily quota and candidate replacement are replayed inside the 12-symbol set. Open-position capital slots, full-market universe replacement and 2026 OOS are not modeled.",
+  "decision": "Mechanism smoke only; do not select cooldown/exit thresholds or change production.",
+  "oos": "N/A: one fixed 2025 mechanism window."
+}
