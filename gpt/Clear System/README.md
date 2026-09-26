@@ -213,6 +213,19 @@ Bir aday ancak aşağıdakilerin tamamında olumluysa ana sisteme eklenebilir:
 - Market Breadth aggregate-kurtarma bütçesi (run 36237687553): mevcut 64 shard yeniden kullanılacak; tam compile/self-test/context/iki-coin smoke + aggregate yaklaşık 25–35 runner-dk ve 20–30 dk duvar süresi. Preflight 25 dk, context komutu 18 dk, smoke 4 dk ve aggregate 25/14 dk job/step sınırları korunur; shard matrisi açılmaz.
 - Peer Network Lead–Lag veri preflight bütçesi: 24–32 likit fakat stable/fiat olmayan Spot USDT sembolünde 2025–2026 kapalı 15M→1H veri; yaklaşık 25–40 runner-dk / 20–30 dk duvar süresi, workflow 35 dk ve veri komutu 27 dk sınırı. Yeterli tekrarlanan pair-event, kapsama ve zaman hizası yoksa tam araştırma açılmaz.
 
+## Canlı takip dosyası denetimi — 2026-09-26
+
+Kullanıcı, `tsi_bb_frozen_candidate(1)(2).py` kodu ile 2026-09-26 15:20:30 yerel zamanlı `portfolio_snapshot(2).json` dosyalarını doğrudan sağladı. Bu, gerçek alım değil, portföye yansıyan takip kaydıdır; yalnız 2026-09-22–26 arasındaki beş günün 23 kapanmış işlemi vardır. Gönderilen Python dosyası sadece `TSI_BB_FROZEN_CANDIDATE` taramasını tanımlar: kapanmış 15M/1H/4H mumlarda RSI/MACD/KDJ/WPR/OBV/StochRSI yön değişimleri, BTC TSI+BB rejimi, 15M–1H lead gap, engulf/HL/HH ve 15 dakika gecikmeli yayın. Diğer stratejilerin giriş/tarama kodları bu dosyada yoktur.
+
+| Takip alt türü | Kapanış | Pozitif | Kapanış yüzdelerinin toplamı | Ortalama / sinyal | Gözlem |
+| --- | ---: | ---: | ---: | ---: | --- |
+| PRESSURE | 7 | 7 | +%24,57 | +%3,51 | Yedi işlemin tamamında TP1 görülmüş; stop uzaklığı örneklerde %3,36–14,86. Bağımsız mekanizma ve seçim kuralı henüz incelenmedi. |
+| RETRIGGER | 8 | 6 | +%3,87 | +%0,48 | Dört 24 saatlik expiry, bir stop, üç trailing. |
+| TSI_BB_FROZEN | 8 | 5 | -%0,09 | -%0,01 | Dört trailing, iki stop, iki expiry; yalnız 22–23 Eylül günlerinde sinyal. |
+| Toplam | 23 | 18 | +%28,35 | +%1,23 | Kaydın `win_rate` alanı %78,3, `avg_peak` %3,76; açık işlem yok. |
+
+`close_pct` toplamı eşit ağırlıklı sinyal yüzdelerinin aritmetik toplamıdır; sermaye getirisi veya eşzamanlı işlemlerle uygulanabilir portföy P&L olarak sunulamaz. Kayıtlarda `fee_pct=0.2` görülür. `PRESSURE` ve `RETRIGGER` giriş kodu, günlük üç adayın seçilme biçimi, fill/slippage ve ortak risk bütçesi doğrulanmadı. Beş günlük gözlem kalıcı avantaj kanıtı değildir. Bu nedenle ne `PRESSURE` ne `RETRIGGER` OR olarak `Clear System.py` içine eklenmiştir. Bu veri, sonraki araştırma önceliğini günceller.
+
 ## Sonraki somut adım
 
-Market Breadth ve Phase 11–13 aktarım seçenekleri elendi. Sıradaki aday, breadth ortalaması veya BTC-relative leadership tekrarı olmayan `Peer Network Lead–Lag Propagation` veri preflight’ıdır: kapanmış 1H mumlarda coinler arası tekrarlanan lider→takipçi gecikmesi, takipçinin henüz genişlememiş yerel sıkışması ve ardından 15M momentum/hacim serbestleşmesi ölçülecek. İlk çalışma yalnız veri uygunluğu ve olay sayısı denetimi olacak; tahmini 25–40 runner-dk / 20–30 dk duvar süresi, job üst sınırı 35 dk. Compile, self-test, nedensellik/evren denetimi ve gerçek-veri smoke geçmeden tam evren araştırması tasarlanmayacak. `Clear System.py` değişmeyecek.
+İlk somut adım, kullanıcının sağladığı beş günlük takipte olumlu görünen `PRESSURE` ailesinin gerçek sinyal üretim ve üç aday seçimi kodunu bulup nedensellik, fill, maliyet, stop ve expiry kurallarını çıkarmaktır. Ardından bu kurallar 2023–2025 Discovery + Calibration + pre-2026 cross ve dokunulmamış 2026 OOS ile r2 OR birleşiminde test edilecek. Kuralın kodu ve seçilen tüm adayların eksiksiz kaydı olmadan canlı takip yüzdeleri genellenmeyecek. `Peer Network Lead–Lag Propagation` bağımsız sonraki hipotez olarak bekler. Yeni pahalı Action başlatılmadı; `Clear System.py` değişmedi.
