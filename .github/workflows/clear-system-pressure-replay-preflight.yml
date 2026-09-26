@@ -1,0 +1,95 @@
+name: Clear System - PRESSURE Replay and Exit Preflight
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/clear-system-pressure-replay-preflight.yml'
+
+concurrency:
+  group: clear-system-pressure-replay-preflight
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 5
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile and deterministic self-test
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py' \
+            'gpt/Clear System/sources/botum_2026-09-26/spot_opportunity_scanner.py' \
+            'gpt/Clear System/sources/botum_2026-09-26/tsi_bb_frozen_candidate.py'
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py' --self-test
+      - name: Static causality universe and safety check
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py')
+          s=p.read_text()
+          ast.parse(s)
+          required=('close_time < current', 'open_time >= entry_time',
+                    'conservative_stop_first', 'daily_count', 'watch',
+                    'expected_shards', 'completed_shards', 'FEE_PCT = 0.20')
+          assert all(x in s for x in required), 'missing replay contract'
+          assert 'HTTP.post' not in s and 'requests.post' not in s
+          assert 'shift(-' not in s and '2026-09-22' not in s
+          assert 'USDCUSDT' not in s and 'EURUSDT' not in s and 'TRYUSDT' not in s
+          print('static replay scope audit ok')
+          PY
+      - name: Six-symbol chronological replay and 5m exit-order smoke
+        timeout-minutes: 15
+        run: |
+          set -euo pipefail
+          out='gpt/Clear System/research/pressure_confirmation/output/pressure_replay_preflight'
+          mkdir -p "$out"
+          timeout 13m python 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py' \
+            --history-start 2025-01-01T00:00:00Z \
+            --replay-start 2025-08-28T12:00:00Z \
+            --replay-end 2025-08-30T00:00:00Z \
+            --symbols BTCUSDT,ETHUSDT,SOLUSDT,XRPUSDT,LINKUSDT,AVAXUSDT \
+            --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Check shard symbols chronology and exit evidence
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/output/pressure_replay_preflight/summary.json')
+          assert p.is_file() and p.stat().st_size > 500, 'missing replay summary'
+          x=json.loads(p.read_text())
+          assert x['status']=='PRESSURE_REPLAY_PREFLIGHT_PASSED'
+          assert x['expected_shards']==x['completed_shards']==1
+          assert x['expected_symbols']==x['completed_symbols']==6
+          assert len(x['coverage'])==6 and min(r['coverage_pct'] for r in x['coverage'])>=98
+          assert x['scan_count']>=100 and x['signal_count']>=1
+          assert set(x['policy_summary'])=={'source_tp1','fixed_0.25','fixed_0.50','fixed_0.80',
+                                            'fixed_1.00','fixed_1.50','fixed_2.00','fixed_3.00','fixed_5.00'}
+          assert all(v['trades']==x['signal_count'] for v in x['policy_summary'].values())
+          print('complete replay and exit evidence present')
+          PY
+      - name: Preserve summary and log on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clear-system-pressure-replay-preflight
+          path: gpt/Clear System/research/pressure_confirmation/output/pressure_replay_preflight
+          if-no-files-found: warn
+          retention-days: 14
