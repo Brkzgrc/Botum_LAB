@@ -298,3 +298,27 @@ Her pencere ayrı shard; 1D/4H/1H/15M yalnız kapanmış mum, geçmiş 24 saat q
 Bu teknik başarısızlık araştırma sonucu değildir: veri dönemi planlanan dört 2025 penceresi; maliyet varsayımı %0,20; sinyal/gün, active-day, expectancy, PF, target-first/stop-first, MFE/MAE ve OOS: **N/A**, çünkü geçerli shard summary oluşmadı. Aynı kod körlemesine yeniden çalıştırılmayacak.
 
 Düzeltme: geçmiş ısınma başlangıcı 2024-10-01'e çekildi ve replay başlangıcından en az 100 gün önce olmasını zorunlu yapan erken guard eklendi; shard tamlığı sabit 6 yerine `len(symbols)` ile bağlandı. Derleme+iki self-test, 12 benzersiz sembol/cardinality ve kısa ısınmayı reddeden sentetik guard, AST/YAML/UTC, 10 ayrı `bash -n` ve 4/4 sentetik aggregate yeniden geçti. Düzeltilmiş run aynı dört takvim penceresini kullanacak; hipotez/eşik değişmedi. `Clear System.py` değişmedi.
+
+
+### PRESSURE çok-dönem ön denetimi — başarılı run 36258570711
+
+[Düzeltilmiş GitHub Actions run 36258570711](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36258570711) `completed/success`; 2026-09-26 17:18:40–17:28:21 UTC, 9 dk 41 sn duvar ve job sürelerinden hesaplanan yaklaşık 32,5 runner-dk. 4/4 shard, her shard 12/12 sembol, aggregate ve artifact kapıları geçti. Summary artifact'ten okunup `research/pressure_confirmation/output/pressure_multiperiod/summary.json` altında arşivlendi.
+
+Veri: 2024-10-01'den indikatör ısınması; sabit 36 saatlik 15–16 Şubat, Mayıs, Ağustos, Kasım 2025 replay pencereleri. Toplam 144 saat/6 gözlem günü, 580 kronolojik tarama, maliyet %0,20. 12 sinyal, 2,00 sinyal/gözlem günü; sekiz tarih etiketinin dördünde sinyal, aktif-tarih oranı %50. Sinyaller yalnız ADA/LTC/XRP ve yalnız Q1/Q3'te; Q2/Q4 sıfır. 24H MFE ortalama +%1,95, medyan +%2,03; MAE ortalama −%5,10, medyan −%5,17. Aynı 5M mum hedef+stop çakışması yok.
+
+| Aynı-coin cooldown | Kalan / elenen | Dikkat çeken çalıştırılabilir sonuç | Net toplam | İşlem başı net | PF |
+| --- | ---: | --- | ---: | ---: | ---: |
+| 0 saat | 12 / 0 | Kaynak TP1: 0 target, 7 stop, 5 expiry | −%33,54 | −%2,79 | 0,10 |
+| 0 saat | 12 / 0 | Brüt %0,50: 12/12 target-first | +%3,60 | +%0,30 | tanımsız; kayıp yok |
+| 0 saat | 12 / 0 | Brüt %0,80: 9 target, 2 stop, 1 expiry | −%7,62 | −%0,64 | 0,41 |
+| 6 saat | 6 / 6 | Brüt %0,80: 6/6 target-first | +%3,60 | +%0,60 | tanımsız; kayıp yok |
+| 12 saat | 4 / 8 | Brüt %0,80: 4/4 target-first | +%2,40 | +%0,60 | tanımsız; kayıp yok |
+| 24 saat | 4 / 8 | Brüt %1,00: 4/4 target-first | +%3,20 | +%0,80 | tanımsız; kayıp yok |
+| 48 saat | 3 / 9 | Brüt %1,50: 3/3 target-first | +%3,90 | +%1,30 | tanımsız; kayıp yok |
+| 48 saat | 3 / 9 | Brüt %2,00: 2 target, 0 stop, 1 expiry | +%3,77 | +%1,26 | tanımsız; netlerin hepsi pozitif |
+
+Bu tablo eşik seçimi değildir. Dört kısa pencere, 12 olay ve üç coin; cooldown sonrası örnek 3–6 işleme düşüyor. Üstelik post-hoc cooldown, elenen tekrar sinyallerinin yerine tam piyasadan gelecek sonraki adayları yeniden sıralamıyor ve sermaye/kota serbestleşmesini yeniden oynatmıyor. Dolayısıyla “48 saat + %1,50” veya “6 saat + %0,80” champion ilan edilmedi. 2025 tanı dönemi; OOS: N/A.
+
+Buna rağmen iki yapı araştırmaya taşınmaya değer: **(1)** sinyal sonrası fiyatların çoğunda küçük/orta pozitif alan oluşup daha sonra geniş negatif yola dönmesi, **(2)** aynı coin ve aynı hareket içindeki tekrar girişlerin kaybı/kotayı büyütmesi. Sonraki tam araştırma yalnız sabit TP aramayacak. Birbirinden ayrı ve birleşik olarak: sabit TP+stop matrisi; %25/%50/%75 kademeli kâr alma; ilk kârdan sonra break-even/pozitif taban; MFE'den geri-verme sınırı; kapanmış 15M/1H momentum-hacim sönmesi; ATR/yapısal/sabit stop; 24H/48H zorunlu kapanış; 6/12/24/48H aynı-hareket cooldown; PRESSURE/RETRIGGER/TSI-BB teyit ve BTC rejimi araştırılacak. Bazı kazananlar küçülse bile büyük kayıplar azalırken toplam net aynı kalıyor veya yükseliyorsa aday başarılı sayılabilir; yalnız win rate veya “hiç negatif yok” yeterli değildir.
+
+Karar: çok-dönem olay/çıkış altyapısı **GEÇTİ** ve geniş 2023–2025 Discovery/Calibration çalışmasına değer. Tam çalışma önce full-market yeniden sıralama, kota/sermaye ikamesi ve süre bütçesi tasarlandıktan sonra parçalı açılacak. Dokunulmamış/ileri dönem terfi testi olmadan `Clear System.py` değişmeyecek; bu turda değiştirilmedi.
