@@ -9,7 +9,7 @@ from pathlib import Path
 
 import numpy as np
 
-from pressure_path_exit import PATH_POLICIES
+from pressure_path_exit import ACTIVATION_POLICY, PATH_POLICIES
 
 EXPECTED_SHARDS = ("q1", "q2", "q3", "q4")
 
@@ -83,6 +83,7 @@ def aggregate(root: Path) -> dict:
         "status": "PRESSURE_PATH_EXIT_PREFLIGHT_PASSED",
         "expected_shards": list(EXPECTED_SHARDS), "completed_shards": sorted(shards),
         "fee_pct": 0.20, "same_bar_policy": "conservative_stop_first",
+        "activation_policy": ACTIVATION_POLICY,
         "atr_contract": "ATR(14) from last fully closed 1H; x0.6; entry floor",
         "replay_hours": hours, "observed_days": hours / 24, "replay_dates": dates,
         "signals": len(events), "signals_per_observed_day": round(len(events) / (hours / 24), 6),
