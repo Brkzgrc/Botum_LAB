@@ -1,0 +1,177 @@
+name: Clear System - PRESSURE Online Cooldown Preflight
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/clear-system-pressure-online-cooldown-preflight.yml'
+
+concurrency:
+  group: clear-system-pressure-online-cooldown-preflight
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 4
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile and self-test replay plus aggregate
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_online_cooldown_aggregate.py' \
+            'gpt/Clear System/sources/botum_2026-09-26/spot_opportunity_scanner.py' \
+            'gpt/Clear System/sources/botum_2026-09-26/tsi_bb_frozen_candidate.py'
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py' --self-test
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_online_cooldown_aggregate.py' --self-test
+      - name: Static causality universe and online-selection audit
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+          replay=Path('gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py')
+          aggregate=Path('gpt/Clear System/research/pressure_confirmation/pressure_online_cooldown_aggregate.py')
+          rt,at=replay.read_text(),aggregate.read_text()
+          ast.parse(rt); ast.parse(at)
+          required=('close_time < current','open_time >= entry_time','eligible[:room]',
+                    'last_signal_at','cooldown_blocked','quota_blocked',
+                    'conservative_stop_first','mfe_pct_24h','mae_pct_24h')
+          assert all(x in rt for x in required), 'missing causal/online contract'
+          assert rt.index('eligible = []') < rt.index('eligible[:room]')
+          assert 'EXPECTED = (0, 6, 24, 48)' in at
+          assert 'replacement_vs_baseline' in at and 'INCOMPLETE_SHARDS' in at
+          text=rt+'\n'+at
+          assert 'requests.post' not in text and 'HTTP.post' not in text
+          assert 'shift(-' not in text and '2026-09-22' not in text
+          assert 'len(coverage) != 6' not in text
+          print('static online cooldown audit ok')
+          PY
+
+  replay:
+    needs: preflight
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        cooldown: [0, 6, 24, 48]
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 5
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile shard code
+        timeout-minutes: 1
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py'
+      - name: Fixed-calendar real-data online cooldown replay
+        timeout-minutes: 19
+        env:
+          COOLDOWN: ${{ matrix.cooldown }}
+        run: |
+          set -euo pipefail
+          out="gpt/Clear System/research/pressure_confirmation/output/pressure_online_cooldown/c$COOLDOWN"
+          mkdir -p "$out"
+          timeout 17m python 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py' \
+            --history-start 2024-10-01T00:00:00Z \
+            --replay-start 2025-02-15T00:00:00Z --replay-end 2025-02-16T12:00:00Z \
+            --symbols BTCUSDT,ETHUSDT,SOLUSDT,XRPUSDT,LINKUSDT,AVAXUSDT,BNBUSDT,DOGEUSDT,ADAUSDT,TRXUSDT,LTCUSDT,SUIUSDT \
+            --allow-zero-signals --cooldown-hours "$COOLDOWN" --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Verify shard symbol time and cooldown completeness
+        timeout-minutes: 1
+        env:
+          COOLDOWN: ${{ matrix.cooldown }}
+        run: |
+          set -euo pipefail
+          python - "$COOLDOWN" <<'PY'
+          import json,sys
+          from pathlib import Path
+          h=int(sys.argv[1])
+          p=Path('gpt/Clear System/research/pressure_confirmation/output/pressure_online_cooldown')/f'c{h}'/'summary.json'
+          x=json.loads(p.read_text())
+          assert x['status']=='PRESSURE_REPLAY_PREFLIGHT_PASSED'
+          assert x['online_cooldown_hours']==h
+          assert x['expected_shards']==x['completed_shards']==1
+          assert x['expected_symbols']==x['completed_symbols']==12 and len(x['coverage'])==12
+          assert min(r['coverage_pct'] for r in x['coverage'])>=98 and x['scan_count']>=100
+          assert all(k in x for k in ('final_candidates','cooldown_blocked','quota_blocked'))
+          print('cooldown shard complete',h,x['signal_count'])
+          PY
+      - name: Preserve shard evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-online-cooldown-${{ matrix.cooldown }}
+          path: gpt/Clear System/research/pressure_confirmation/output/pressure_online_cooldown/c${{ matrix.cooldown }}
+          if-no-files-found: warn
+          retention-days: 14
+
+  aggregate:
+    if: always()
+    needs: [preflight, replay]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install aggregate runtime
+        timeout-minutes: 4
+        run: python -m pip install --disable-pip-version-check 'numpy<3'
+      - name: Download all shard artifacts
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pressure-online-cooldown-*
+          path: downloaded
+      - name: Aggregate and fail on missing shard
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          out='gpt/Clear System/research/pressure_confirmation/output/pressure_online_cooldown/aggregate'
+          mkdir -p "$out"
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_online_cooldown_aggregate.py' \
+            --input-root downloaded --output "$out/summary.json" 2>&1 | tee "$out/run.log"
+      - name: Verify aggregate metrics
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/output/pressure_online_cooldown/aggregate/summary.json')
+          x=json.loads(p.read_text())
+          assert x['status']=='PRESSURE_ONLINE_COOLDOWN_PREFLIGHT_PASSED'
+          assert x['expected_cooldowns']==x['completed_cooldowns']==[0,6,24,48]
+          assert x['observed_days']==1.5 and x['symbols_per_shard']==12
+          assert x['fee_pct']==0.20 and x['oos'].startswith('N/A')
+          for h in ('0','6','24','48'):
+              assert all(k in x['comparison'][h] for k in ('signals','replacement_vs_baseline','policy_summary','mfe_pct_24h_mean','mae_pct_24h_mean'))
+          print('aggregate evidence complete')
+          PY
+      - name: Preserve aggregate on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-online-cooldown-aggregate
+          path: gpt/Clear System/research/pressure_confirmation/output/pressure_online_cooldown/aggregate
+          if-no-files-found: warn
+          retention-days: 14
