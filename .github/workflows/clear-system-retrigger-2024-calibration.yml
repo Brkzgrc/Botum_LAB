@@ -48,6 +48,7 @@ jobs:
           p=Path('gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py')
           j=Path('gpt/Clear System/research/pressure_confirmation/retrigger_calibration/preregistration.json')
           source=p.read_text(); tree=ast.parse(source); x=json.loads(j.read_text())
+          common=Path('gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py').read_text()
           assert x['status']=='PREREGISTERED_NOT_RUN'
           assert x['locked_candidate']['setup_kind']=='RETRIGGER'
           assert x['locked_candidate']['cooldown_hours']==0
@@ -65,6 +66,9 @@ jobs:
           assert 'shift(-' not in source and 'requests.post' not in source
           assert 'gated_result(' not in source and 'time_exit(' not in source
           assert x['action_budget']['hard_runner_minute_ceiling_from_job_timeouts']==164
+          assert 'engine.ALLOW_TERMINATED_SYMBOLS = True' in source
+          assert all(v in common for v in ('def coverage_metadata(', 'def symbol_active_at(',
+                                            'span_coverage_pct', 'MAX_ACTIVE_BAR_AGE'))
           assert 8+4*12+4*25+8==164
           assert sum(isinstance(n,ast.FunctionDef) and n.name=='aggregate' for n in ast.walk(tree))==1
           print('static RETRIGGER calibration audit ok')
@@ -158,7 +162,13 @@ jobs:
           assert x['history_start'].startswith('2023-09-01')
           assert x['replay_window'][0].startswith('2023-12-30') and x['replay_window'][1].startswith('2025-01-01')
           for rec in x['files']:
-              p=root/rec['file']; assert p.is_file() and rec['coverage_pct']>=98
+              p=root/rec['file']; assert p.is_file()
+              if rec['coverage_pct'] < 98:
+                  assert rec['limited_history'] is True and rec['span_coverage_pct']>=98
+                  assert rec['available_from'].startswith('2023-09-01')
+                  assert rec['available_until'] < '2025-01-01'
+              else:
+                  assert rec['limited_history'] is False
               assert hashlib.sha256(p.read_bytes()).hexdigest()==rec['sha256']
           print('reusable 2024 shard complete',shard,sum(r['rows'] for r in x['files']))
           PY
