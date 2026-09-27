@@ -720,3 +720,25 @@ Bu sonuç iki ayrı kayıp mekanizması gösterir. **19 olay** hiç pozitif kapa
 Kullanıcının sabit daha küçük çıkış fikri aynı olaylarda yalnız betimleyici karşı-olgu olarak ayrıca hesaplandı; kural seçimi yapılmadı. Brüt +%0,10 / +%0,20 / +%0,30 / +%0,40 hedeflerinin net toplamları sırasıyla **-%81,941 / -%82,163 / -%102,138 / -%97,832** oldu; mevcut brüt +%0,50 baseline **-%80,270** ile bunların tümünden daha az kötüdür. +%0,30 hedef kayıp sayısını 39'dan 28'e indirse de kazanan başına net getiriyi +%0,10'a düşürdüğü için toplam sonucu ağır biçimde bozdu. Dolayısıyla **küçük sabit TP ailesi elendi**; aynı eşikler yeni adla tekrar taranmayacaktır.
 
 Karar: teşhis RETRIGGER'ı veya üretim sistemini kurtarmış değildir; yalnız yeni ve nedensel bir araştırma yönünü gerekçelendirmiştir. Sonraki somut adım, iki mekanizmayı tek statik stopla karıştırmayan bir **kapalı-mum hareket-bozulması korumasını** önceden kilitlemektir: olumlu hareket oluşmuş kol için rolling-peak sonrası fiyat/momentum/hacim/taker katılım kaybı; hiç olumlu kapanış üretmeyen kol için önceki elenmiş 30/60 dakika sabit kapılarını tekrarlamayan sıralı başarısızlık kanıtı. 2024 yalnız geliştirme/tanı dönemi sayılacak; eşik ve kural dondurulduktan sonra karar dokunulmamış 2025'te verilecek, 2026 hâlâ final OOS kalacaktır. Yeni pahalı run bu turda açılmadı. `Clear System.py` değiştirilmedi.
+
+## D6 kapalı-mum hareket-bozulması koruması — ön kayıt, 2026-09-27
+
+README ve son gerçek run yeniden kontrol edildi. [Pre-exit run 36329085400](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36329085400) `completed/success`; aggregate `summary.json`, 324 olayın tamlığı ve sıfır post-exit kullanımı doğrulandı. Sonuç/evidence commit'lerinde pahalı workflow tetiklenmedi ve çalışan/queued ikinci bir araştırma yoktur.
+
+Son tanının ardından tek varyantlı `D6_RELATIVE_DECAY_2X` ailesi `research/pressure_confirmation/movement_decay_protection/preregistration.json` altında, sonuç görülmeden kilitlendi. Bu kural belirli bir 30/60 dakika sonunda çıkmaz ve daha önce elenen G30/G60 kapılarını tekrarlamaz. İki ayrık üçer kapanmış 5M mum penceresi oluşunca her yeni kapanışta göreli hareketi izler:
+
+- Fiyat yapısı: son kapanış önceki üç kapanışın altında ve son üç mum getirisi negatif.
+- Momentum: son üç mum getirisi önceki üç mumdan zayıf ve son iki tek-mum getirisi pozitif değil.
+- Hacim: son üç mum quote-volume toplamı önceki üç mumdan düşük.
+- Taker akışı: son pencerenin hacim-ağırlıklı alıcı payı hem önceki pencereden düşük hem %50'nin altında.
+- Koruma çıkışı ancak fiyat-yapısı kaybına momentum/hacim/taker bileşenlerinden en az ikisi eşlik eder ve bu oy **iki ardışık kapalı mumda** sürerse, o ikinci mumun kapanışında oluşur.
+
+Her mumda kaynak ATR stopu ve brüt +%0,50 hedef önce, aynı mumda stop-first biçiminde değerlendirilir. Koruma yalnız ikisi de oluşmamışsa kapanış fiyatından uygulanır; round-trip maliyet **%0,20**. Nihai tepe zamanı veya gelecekteki mum kullanılmaz. Rolling peak yalnız raporlanabilir; çıkış koşuluna giremez. Giriş, setup, evren ve olay sayısı korunur; bu bir giriş filtresi veya stopu yukarı çekme deneyi değildir.
+
+İlk aşama yalnız mevcut 2024 olay yollarında tek donmuş kuralı çalıştıracak. 2025 ancak 2024'te baseline birebir yeniden üretilir, net en az 25 yüzde-puan iyileşir, PF en az 0,75 olur, target-first kazananların en az %90'ı korunur, negatif P&L toplamı en az %35 ve en kötü kayıp büyüklüğü en az %30 azalır, dört çeyreğin en az üçü iyileşirse açılabilir. Bu kapı başarısızsa aile elenir; isim/eşik değiştirilerek yeniden taranmaz.
+
+Dokunulmamış 2025 ileri doğrulamasında ayrıca expectancy en az +%0,05, PF en az 1,15, negatif olay oranı en fazla %10, en az sekiz pozitif ay ve en az üç negatif olmayan çeyrek zorunludur. 2026 final OOS mühürlü kalır. 2024 ve 2025 geçse bile `Clear System.py` değişmez; önce 2026 ve frozen r2 OR-birleşim kalitesi sınanır.
+
+Süre bütçesi aynı 324 yolu inceleyen run 36329085400'nin gerçek **2,15 runner-dk** kullanımına dayanır. Yeni nedensel state hesabıyla beklenen **4–8 runner-dk / 2–5 dk duvar süresi**, kesin job tavanı **64 runner-dk**. Kaynak Q1–Q4 artifact digest'i, compile, deterministik self-test, AST/nedensellik denetimi, gerçek Binance smoke, eksik/çift çeyrek fail-close ve hata artifact'ı doğrulanmadan run açılmayacaktır.
+
+Bu turda yalnız kural, yürütme sırası, dönemler, kabul/ret kapıları ve süre bütçesi önceden kilitlendi; pahalı run başlatılmadı. Yeni metrikler oluşmadığından sinyal sıklığı, active-day, expectancy, PF, target/stop/decay, MFE/MAE ve OOS: **N/A**. Sonraki somut adım yalnız bu JSON'la birebir eşleşen küçük replay motoru/workflow'unu hazırlamak ve en az üç bağımsız kontrol ile gerçek-veri smoke'u tamamlamaktır. `Clear System.py` değiştirilmedi.
