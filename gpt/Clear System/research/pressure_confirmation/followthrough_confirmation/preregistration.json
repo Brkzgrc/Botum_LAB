@@ -1,0 +1,125 @@
+{
+  "status": "PREREGISTERED_NOT_RUN",
+  "name": "PRESSURE early closed-candle follow-through confirmation",
+  "created_utc": "2026-09-27T05:00:00Z",
+  "purpose": "Test whether post-signal movement confirmation can reduce large negative tails without selecting thresholds on the 2023-08 diagnostic month.",
+  "universe": {
+    "venue": "Binance Spot",
+    "quote": "USDT",
+    "side": "long_only",
+    "symbols": 24,
+    "exclude": ["stablecoin_base", "fiat_base", "leveraged_token"],
+    "round_trip_cost_pct": 0.2
+  },
+  "causality": {
+    "candidate_frames": ["15m", "1h", "4h", "1d"],
+    "rule": "candidate scanner uses only close_time < decision_time; follow-through decisions use only bars closed by the gate time",
+    "entry_repricing": "No retroactive entry. A failed gate exits the already-open paper position at the gate close; a passed gate retains the predeclared fixed-gross-0.50 path.",
+    "same_bar_order": "stop_first"
+  },
+  "locked_periods": [
+    {
+      "id": "D1",
+      "history_start": "2023-01-20T00:00:00Z",
+      "replay_start": "2023-05-01T00:00:00Z",
+      "replay_end": "2023-06-01T00:00:00Z",
+      "role": "independent Discovery replication"
+    },
+    {
+      "id": "D2",
+      "history_start": "2023-07-20T00:00:00Z",
+      "replay_start": "2023-11-01T00:00:00Z",
+      "replay_end": "2023-12-01T00:00:00Z",
+      "role": "independent Discovery cross-check"
+    }
+  ],
+  "excluded_from_selection": [
+    "2023-08-01/2023-08-31 diagnostic month",
+    "2025-09 small live-paper cohort",
+    "2024 Calibration",
+    "2025 forward validation",
+    "2026 untouched OOS"
+  ],
+  "baseline": {
+    "name": "fixed_gross_0.50",
+    "gross_target_pct": 0.5,
+    "max_holding_hours": 24,
+    "original_structural_stop": true
+  },
+  "locked_gates": [
+    {
+      "id": "G30_CLOSE",
+      "gate_minutes": 30,
+      "pass": "gross target already hit, or the 30-minute closed-bar return is greater than 0",
+      "fail_action": "exit at the 30-minute closed-bar close",
+      "rationale": "Require immediate positive price continuation; no indicator level is read statically."
+    },
+    {
+      "id": "G60_PRICE_VOLUME",
+      "gate_minutes": 60,
+      "pass": "gross target already hit, or close return > 0 AND post-entry 15m quote-volume sum >= prior-60m 15m quote-volume sum",
+      "fail_action": "exit at the 60-minute closed-bar close",
+      "rationale": "Require price continuation supported by non-declining participation."
+    },
+    {
+      "id": "G60_MOTION_FLOW",
+      "gate_minutes": 60,
+      "pass": "gross target already hit, or first-hour MFE >= 0.25% AND close return >= -0.25% AND taker-buy quote share >= 0.50",
+      "fail_action": "exit at the 60-minute closed-bar close",
+      "rationale": "Require expansion plus price retention plus buyer participation; all are measured as a closed-candle sequence."
+    }
+  ],
+  "cooldowns_reported_not_selected": [0, 24, 48],
+  "metrics_required": [
+    "signals_per_day",
+    "active_day_ratio_pct",
+    "net_total_pct",
+    "expectancy_pct",
+    "profit_factor",
+    "target_first",
+    "stop_first",
+    "mfe_mean_pct",
+    "mae_mean_pct",
+    "positive",
+    "negative",
+    "worst_trade_pct",
+    "preserved_target_ratio_pct"
+  ],
+  "decision_gate": {
+    "minimum_events_each_period": 5,
+    "requirements": [
+      "The same gate must improve net_total_pct and expectancy_pct versus baseline in both D1 and D2.",
+      "Pooled expectancy_pct after 0.20% cost must be greater than 0.",
+      "Pooled profit_factor must be greater than 1.0.",
+      "Worst-trade loss magnitude must improve by at least 40% versus baseline.",
+      "At least 70% of baseline target-first events must be preserved.",
+      "No period, symbol, or setup kind may supply more than 60% of pooled positive P&L."
+    ],
+    "failure": "Reject the gate family; do not retune these horizons or thresholds under a new name.",
+    "success": "Freeze exactly one simplest passing gate, then test it without changes in 2024 Calibration. Do not modify Clear System.py yet."
+  },
+  "action_budget": {
+    "basis": "run 36293311039 used 14.18 runner-minutes for one 30-day month",
+    "expected_runner_minutes": [25, 35],
+    "expected_wall_minutes": [12, 20],
+    "hard_runner_minute_ceiling": 80,
+    "job_limits_minutes": {
+      "preflight": 8,
+      "fetch_each_of_4": 12,
+      "aggregate_two_period_replay": 24
+    },
+    "rule": "Do not start if implementation exceeds this ceiling or cannot reuse a single hash-verified data fetch across both periods."
+  },
+  "workflow_contract": [
+    "compile",
+    "deterministic_self_test",
+    "AST_causality_and_universe_audit",
+    "real_2023_snapshot_parity_smoke",
+    "real_5m_path_smoke",
+    "explicit_timeouts",
+    "missing_and_duplicate_shard_fail_closed",
+    "manifest_hash_and_coverage_verification",
+    "artifact_on_success_or_failure",
+    "summary_schema_and_metric_verification"
+  ]
+}
