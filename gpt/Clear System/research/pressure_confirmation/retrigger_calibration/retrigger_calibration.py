@@ -66,6 +66,7 @@ def configure(start: pd.Timestamp, end: pd.Timestamp) -> None:
     engine.REPLAY_START = start
     engine.REPLAY_END = end
     engine.DATA_FUTURE_HOURS = FUTURE_HOURS
+    engine.ALLOW_TERMINATED_SYMBOLS = True
     engine.SHARDS = dm.SHARDS
     engine.EXPECTED_SYMBOLS = tuple(s for values in dm.SHARDS.values() for s in values)
     dm.FUTURE_HOURS = FUTURE_HOURS
@@ -314,6 +315,7 @@ def self_test() -> None:
     configure_fetch()
     assert len(engine.EXPECTED_SYMBOLS) == len(set(engine.EXPECTED_SYMBOLS)) == 24
     assert all(engine.allowed_symbol(symbol) for symbol in engine.EXPECTED_SYMBOLS)
+    assert engine.ALLOW_TERMINATED_SYMBOLS is True
     assert list(QUARTERS) == ["Q1", "Q2", "Q3", "Q4"]
     assert QUARTERS["Q1"][0] == CALIBRATION_START and QUARTERS["Q4"][1] == CALIBRATION_END
     assert all(QUARTERS[a][1] == QUARTERS[b][0] for a, b in zip(list(QUARTERS)[:-1], list(QUARTERS)[1:]))
