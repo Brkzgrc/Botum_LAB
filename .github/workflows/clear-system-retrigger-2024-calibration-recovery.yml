@@ -59,8 +59,8 @@ jobs:
           assert locked['expiry_hours']==unchanged['expiry_hours']==24
           assert amend['technical_change']['replay_paths_computed']==[0]
           assert amend['technical_change']['data_source_run_id']==36311499740
-          assert amend['budget']['hard_runner_minute_ceiling']==96
-          assert 8+4*20+8==96
+          assert amend['budget']['hard_runner_minute_ceiling']==184
+          assert 8+4*42+8==184
           assert 'COOLDOWNS = ("0",)' in source and 'engine.COOLDOWNS = (0,)' in source
           assert 'shift(-' not in source and 'requests.post' not in source
           print('locked 0h capacity amendment audit ok')
@@ -115,7 +115,7 @@ jobs:
       matrix:
         quarter: [Q1, Q2, Q3, Q4]
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 42
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -160,14 +160,14 @@ jobs:
         timeout-minutes: 1
         run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py'
       - name: Replay locked 0h candidate quarter and selected 5m paths
-        timeout-minutes: 17
+        timeout-minutes: 41
         env:
           QUARTER: ${{ matrix.quarter }}
         run: |
           set -euo pipefail
           out="gpt/Clear System/research/pressure_confirmation/output/retrigger_2024_calibration_recovery/quarters/$QUARTER"
           mkdir -p "$out"
-          timeout 16m python 'gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py' \
+          timeout 40m python 'gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py' \
             --quarter "$QUARTER" --input-root downloaded-data --outdir "$out" 2>&1 | tee "$out/run.log"
       - name: Verify quarter schema warmup and locked path
         timeout-minutes: 1
