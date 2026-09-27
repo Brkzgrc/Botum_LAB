@@ -31,6 +31,7 @@ jobs:
           set -euo pipefail
           python -m py_compile \
             'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_vector_snapshots.py' \
             'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py' \
             'gpt/Clear System/sources/botum_2026-09-26/spot_opportunity_scanner.py'
           python 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' --self-test
@@ -47,7 +48,8 @@ jobs:
                     'INCOMPLETE_SHARDS','DUPLICATE_SHARD','FILE_HASH_MISMATCH',
                     'stable/fiat/leveraged','PRESSURE_FULLMARKET_BENCHMARK_PASSED',
                     'scanner.evaluate','state["watch"].pop','history_cache.clear()',
-                    'snapshot_cache.clear()','checkpoint_scans')
+                    'snapshot_cache.clear()','checkpoint_scans','vector_snap.build_snapshots',
+                    'vector_prefilter','vector_build_seconds')
           assert all(x in s for x in required)
           assert 'shift(-' not in s and 'requests.post' not in s and 'HTTP.post' not in s
           # The helper definition is intentionally earlier; compare the sort
@@ -72,6 +74,7 @@ jobs:
           src=Path('gpt/Clear System/sources/botum_2026-09-26')
           sys.path[:0]=[str(root),str(src)]
           import pressure_replay_preflight as r
+          import pressure_vector_snapshots as vector_snap
           import spot_opportunity_scanner as scanner
           r.verify_sources()
           hs=pd.Timestamp('2024-10-01T00:00:00Z')
@@ -79,6 +82,15 @@ jobs:
           end=start+pd.Timedelta(hours=6,minutes=15)
           raw=r.fetch('BTCUSDT','15m',hs,end)
           frames=r.build_frames(raw); current=start
+          parity_times=[start,start+pd.Timedelta(hours=3),start+pd.Timedelta(hours=6)]
+          parity_cases=0
+          for interval,label in {'15m':'15M','1h':'1H','4h':'4H','1d':'1D'}.items():
+              got=vector_snap.build_snapshots(frames[interval],label,parity_times)
+              for when in parity_times:
+                  source=frames[interval][frames[interval].close_time<when].tail(240).reset_index(drop=True)
+                  end_idx=int(frames[interval].index[frames[interval].close_time<when][-1])
+                  vector_snap.assert_snapshot_equal(scanner.snap(source,label),got[end_idx])
+                  parity_cases+=1
           def ohlcv(symbol,interval,limit=240):
               assert symbol=='BTCUSDT'
               z=frames[interval][frames[interval].close_time<current].tail(limit).reset_index(drop=True)
@@ -97,7 +109,8 @@ jobs:
               scans+=1; current+=pd.Timedelta(minutes=15)
           result={'status':'PRESSURE_FULLMARKET_REAL_SMOKE_PASSED','symbol':'BTCUSDT',
                   'period':[str(start),str(end-pd.Timedelta(minutes=15))],
-                  'rows':len(raw),'scans':scans,'decisions':decisions}
+                  'rows':len(raw),'scans':scans,'decisions':decisions,
+                  'real_vector_parity_cases':parity_cases}
           Path(sys.argv[1]).write_text(json.dumps(result,indent=2)+'\n')
           print(json.dumps(result))
           PY
@@ -129,7 +142,7 @@ jobs:
         run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
       - name: Compile shard code
         timeout-minutes: 1
-        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py'
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' 'gpt/Clear System/research/pressure_confirmation/pressure_vector_snapshots.py' 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py'
       - name: Fetch bounded closed-candle shard
         timeout-minutes: 12
         env:
@@ -190,7 +203,7 @@ jobs:
           path: downloaded
       - name: Compile central replay
         timeout-minutes: 1
-        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py'
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' 'gpt/Clear System/research/pressure_confirmation/pressure_vector_snapshots.py'
       - name: Central global-state replay and missing-shard gate
         timeout-minutes: 5
         run: |
@@ -213,6 +226,7 @@ jobs:
           assert x['symbols']==24 and x['symbol_days']==168 and x['scan_count']==672
           assert x['cooldowns']==[0,24,48] and x['evaluations']>0
           assert x['evaluations_per_second']>0 and x['pnl_metrics'].startswith('N/A')
+          assert x['vector_build_seconds']>0 and x['elapsed_seconds']<240
           assert x['snapshots_computed']>0 and x['snapshot_cache_hits']>0
           for h in ('0','24','48'):
               z=x['comparison'][h]
