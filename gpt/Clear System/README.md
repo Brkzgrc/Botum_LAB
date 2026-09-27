@@ -509,3 +509,28 @@ Başlatma öncesi üç bağımsız kapı geçti: (1) derleme ve Discovery/ortak 
 Bütçe: beklenen **15–25 runner-dk / 7–12 dk duvar süresi**. Açık job üst sınırları preflight 6 + dört fetch × 8 + replay 12 = tam **50 runner-dk**; komut sınırları daha düşüktür. Eksik/çift shard, hash/kapsam, seçilmiş 5M yol eksikliği, sıfır seçilmiş olay, state-handoff hash farkı veya gelecek mum kullanımı aggregate'i fail-closed durdurur. Tüm aşamalar başarı/hata halinde log ve artifact saklar.
 
 Bu aşama Discovery altyapı benchmarkıdır; sonuç gelmeden sinyal sıklığı, active-day, expectancy, PF, target-first/stop-first ve MFE/MAE **N/A**, OOS **N/A**. Clear System.py değiştirilmedi. Sonraki somut adım ikinci pahalı run açmadan bu run'ı izlemek; yeşil olsa bile aggregate summary.json, olay kayıtları, 5M veri kapsamı, state-handoff ve üç çıkış ailesinin metriklerini incelemektir.
+
+
+## PRESSURE 2023 Discovery-month sonucu ve erken takip tanısı — run 36293311039
+
+[Run 36293311039](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36293311039) tamamlandı ve bütün teknik kapılar geçti: preflight, dört veri shard'ı, hash/kapsam, eksik-shard kapısı, 5M seçilmiş-yol kapsamı ve state-handoff doğrulandı. Run 27 Eylül 2026 04:05:44–04:15:51 UTC arasında **10 dk 07 sn duvar süresi**, job süreleri toplamıyla yaklaşık **14,18 runner-dk** kullandı; 15–25 runner-dk tahmininin alt sınırına yakın ve 50 runner-dk kesin üst sınırının altında kaldı.
+
+Veri: 2023-04-20 warmup; 2023-08-01–2023-08-31 Discovery replay; 24 tarihsel Binance Spot USDT long sembolü; 30 gözlem günü; maliyet **%0,20**. 2.880 global tarama, 207.360 değerlendirme, 345.600 snapshot ve 558.720 cache hit tamamlandı. Dört seçilmiş sembol-yol isteğinde 3.906 adet 5M mum %100 kapsamla alındı. State-handoff 1.978 bayt ve SHA-256 `624ec0bd334f9bdc057db6117ec6879e836dcb95403cdca6dbb8ff752dea431a` ile doğrulandı. Makine-okunur sonuç `research/pressure_confirmation/output/pressure_discovery_month/summary.json` altında arşivlendi.
+
+| Cooldown | Sinyal | Sinyal/gün | Aktif gün | Aktif-gün | MFE ort. | MAE ort. |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 saat | 9 | 0,300 | 4/30 | %13,33 | +%1,015 | -%3,803 |
+| 24 saat | 5 | 0,167 | 4/30 | %13,33 | +%0,810 | -%3,892 |
+| 48 saat | 4 | 0,133 | 3/30 | %10,00 | +%0,982 | -%3,036 |
+
+| 0 saat politikası | Pozitif / negatif | Net toplam | Expectancy | PF | Target-first / stop-first |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Kaynak ATR trailing | 1 / 8 | -%16,474 | -%1,830 | 0,072 | 0 / 3 |
+| Sabit brüt +%0,50 | 5 / 4 | -%11,897 | -%1,322 | 0,112 | 5 / 3 |
+| Kademeli %50 @ +%0,50 | 5 / 4 | -%12,647 | -%1,405 | 0,056 | 0 / 3 |
+
+24 saat cooldown'da en iyi net sonuç sabit +%0,50 ile -%8,570, expectancy -%1,714 ve PF 0,065; 48 saatte yine sabit +%0,50 ile -%4,327, expectancy -%1,082 ve PF 0,122 oldu. Hiçbir cooldown/çıkış birleşimi pozitif beklenti üretmedi. Küçük 2025 takip örneğinde 12/12 pozitif görünen kademeli çıkış 2023 Discovery ayında dayanmadı; bu nedenle **ELENDİ / üretime terfi yok**. OOS: **N/A**; bu yalnız Discovery ayıdır, Calibration ve dokunulmamış holdout açılmadı.
+
+Kayıp mekanizması ayrıca aynı olaylarda, yeni kural seçmek için değil sonraki hipotezi ayırmak için incelendi. Brüt +%0,50 ilk 30/60/120/240 dakikada oluşmazsa o ufuk kapanışında çıkış simülasyonu sırasıyla net **-%4,995 / -%7,164 / -%9,720 / -%11,487** verdi; en iyi 30 dakikalık varyantın expectancy'si -%0,555 ve PF'si 0,072 idi. Erken kapatma büyük stop zararını azalttı ama pozitif beklenti yaratmadı. Aynı örnekte ufuk seçmek veri uyumuna yol açacağından hiçbir süre seçilmedi.
+
+Karar: sabit +%0,50 ve kademeli çıkış PRESSURE/RETRIGGER sorununu tek başına çözmüyor. Kayıpların önemli bölümü girişten sonraki ilk 30–60 dakikada hiç takip hareketi üretmeyen olaylar; bazı pozitifler ise +%0,50'ye 55–65 dakikada, biri çok daha geç ulaşıyor. Sonraki somut adım, **erken kapalı-mum takip hareketi** ailesini (fiyat genişlemesi + hacim/OBV/taker katılımı + 15M momentum devamı) giriş sonrası gözlem/onay veya erken iptal olarak, eşikleri bu ayda tekrar optimize etmeden iki bağımsız 2023 Discovery ayında test etmektir. Orada aynı yönde sonuç varsa eşik dondurulup 2024 Calibration'a geçilir. Aynı 6/12/24/48 saat time-exit taraması tekrarlanmayacak. `Clear System.py` değiştirilmedi.
