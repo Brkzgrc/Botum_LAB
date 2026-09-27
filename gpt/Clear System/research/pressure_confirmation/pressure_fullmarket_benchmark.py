@@ -383,7 +383,7 @@ def self_test() -> None:
         assert not allowed_symbol(bad)
     assert len(EXPECTED_SYMBOLS) == len(set(EXPECTED_SYMBOLS)) == 24
 
-    life_t = pd.date_range(HISTORY_START, periods=96, freq="15min", tz="UTC")
+    life_t = pd.date_range(HISTORY_START, periods=96, freq="15min")
     life = pd.DataFrame({"open_time": life_t,
                          "close_time": life_t + pd.Timedelta(minutes=15)})
     life_meta = coverage_metadata(life, 192, HISTORY_START + pd.Timedelta(hours=48), True)
