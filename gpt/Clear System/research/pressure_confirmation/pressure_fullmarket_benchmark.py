@@ -90,7 +90,8 @@ def validate_manifest_root(root: Path, verify_files: bool = True) -> tuple[dict,
 
 
 def coverage_metadata(d: pd.DataFrame, expected_rows: int, data_end: pd.Timestamp,
-                      allow_terminated: bool | None = None) -> dict:
+                      allow_terminated: bool | None = None,
+                      required_start: pd.Timestamp | None = None) -> dict:
     """Validate full coverage or a contiguous exchange-terminated lifespan."""
     if d.empty:
         raise RuntimeError("empty 15m history")
@@ -102,9 +103,10 @@ def coverage_metadata(d: pd.DataFrame, expected_rows: int, data_end: pd.Timestam
     span_rows = max(1, int((span_end - HISTORY_START).total_seconds() // 900))
     span_coverage = len(d) / span_rows * 100
     full = coverage >= 98.0 and last_close >= REPLAY_END
+    must_reach = REPLAY_START if required_start is None else required_start
     terminated = (allow and not full and
                   first_open <= HISTORY_START + pd.Timedelta(minutes=15) and
-                  last_close >= REPLAY_START and span_coverage >= 98.0)
+                  last_close >= must_reach and span_coverage >= 98.0)
     if not (full or terminated):
         raise RuntimeError(f"incomplete 15m coverage {coverage:.3f}% span {span_coverage:.3f}%")
     return {"coverage_pct": round(coverage, 4),
@@ -386,7 +388,8 @@ def self_test() -> None:
     life_t = pd.date_range(HISTORY_START, periods=96, freq="15min")
     life = pd.DataFrame({"open_time": life_t,
                          "close_time": life_t + pd.Timedelta(minutes=15)})
-    life_meta = coverage_metadata(life, 192, HISTORY_START + pd.Timedelta(hours=48), True)
+    life_meta = coverage_metadata(life, 192, HISTORY_START + pd.Timedelta(hours=48),
+                                  True, HISTORY_START + pd.Timedelta(hours=12))
     assert life_meta["limited_history"] and life_meta["span_coverage_pct"] >= 98
     assert symbol_active_at(life, life.close_time.iloc[-1] + pd.Timedelta(minutes=15))
     assert not symbol_active_at(life, life.close_time.iloc[-1] + pd.Timedelta(minutes=45))
