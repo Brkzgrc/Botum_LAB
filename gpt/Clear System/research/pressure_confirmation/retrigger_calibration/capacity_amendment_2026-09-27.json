@@ -26,24 +26,37 @@
     "reason": "24/48h cooldowns are report-only and cannot affect the preregistered 0h candidate decision."
   },
   "budget": {
-    "measured_failed_run_runner_minutes": 99.38,
-    "measured_scans_at_timeout": {
-      "Q1": 6144,
-      "Q2": 5760,
-      "Q3": 5280,
-      "Q4": 5088
-    },
-    "estimated_recovery_runner_minutes": "45-60",
-    "hard_runner_minute_ceiling": 96,
-    "replay_job_timeout_minutes": 20,
-    "replay_command_timeout_minutes": 16
+    "basis_runs": [
+      36311499740,
+      36314542047
+    ],
+    "measured_second_run_runner_minutes": 66.23,
+    "estimated_final_recovery_runner_minutes": "115-140",
+    "hard_runner_minute_ceiling": 184,
+    "replay_job_timeout_minutes": 42,
+    "replay_command_timeout_minutes": 40,
+    "github_hosted_job_limit_note": "42 minutes is far below the platform six-hour job limit; four jobs remain parallel."
   },
   "integrity": [
     "No threshold, target, stop, expiry, fee, setup, period or pass gate changed.",
+    "Only the preregistered selectable 0h path is computed; 24/48h report-only diagnostics remain deferred.",
     "Existing data artifacts must pass four-shard, symbol, SHA256, coverage and lifecycle checks.",
     "Compile, deterministic self-tests, static preregistration/amendment audit and real 2024 smoke run before replay.",
     "Aggregate fails closed unless Q1-Q4 are complete and unique.",
     "Artifacts are preserved on success or failure."
   ],
-  "production_effect": "None; Clear System.py remains unchanged."
+  "production_effect": "None; Clear System.py remains unchanged.",
+  "second_capacity_run": {
+    "run_id": 36314542047,
+    "result": "TECHNICAL_TIMEOUT_NO_STRATEGY_METRICS",
+    "actual_runner_minutes": 66.23,
+    "command_timeout_minutes": 16,
+    "checkpoint_scans": {
+      "Q1": 5760,
+      "Q2": 5088,
+      "Q3": 4128,
+      "Q4": 4416
+    },
+    "finding": "Locked 0h path reduced evaluations, but vector snapshot construction across 24 symbols and four timeframes dominates runtime."
+  }
 }
