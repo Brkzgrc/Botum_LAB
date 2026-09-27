@@ -1,0 +1,103 @@
+{
+  "study": "RETRIGGER causal movement-decay protection",
+  "preregistered_at_utc": "2026-09-27T17:00:00Z",
+  "status": "PREREGISTERED_NOT_RUN",
+  "research_question": "Can one closed-candle relative-motion decay rule reduce RETRIGGER loss tails without materially cutting target-first winners?",
+  "immutable_contract": {
+    "market": "Binance Spot USDT long-only",
+    "excluded_base_classes": ["stablecoin", "fiat", "leveraged_token"],
+    "round_trip_cost_pct": 0.2,
+    "closed_candles_only": true,
+    "entry_rule_unchanged": true,
+    "entry_event_set_unchanged_within_each_period": true,
+    "baseline_target_gross_pct": 0.5,
+    "baseline_stop": "source ATR stop fixed at signal time",
+    "baseline_expiry_hours": 24,
+    "same_bar_collision": "STOP_FIRST",
+    "one_frozen_variant": true,
+    "no_parameter_sweep": true,
+    "no_30_or_60_minute_forced_gate": true,
+    "no_post_exit_or_future_peak_features": true,
+    "clear_system_promotion_forbidden_in_this_study": true
+  },
+  "frozen_rule": {
+    "name": "D6_RELATIVE_DECAY_2X",
+    "timeframe": "5m",
+    "eligibility": "Evaluate continuously only after two disjoint three-bar windows exist; never exit merely because a clock horizon elapsed.",
+    "windows": {
+      "recent": "last 3 fully closed 5m bars including t",
+      "previous": "the 3 fully closed 5m bars immediately preceding recent"
+    },
+    "price_structure_loss": "close[t] < min(close[t-1], close[t-2], close[t-3]) AND recent three-bar close return < 0",
+    "momentum_decay": "recent three-bar close return < previous three-bar close return AND the last two one-bar close returns are <= 0",
+    "volume_fade": "recent three-bar quote-volume sum < previous three-bar quote-volume sum",
+    "taker_fade": "recent volume-weighted taker-buy quote share < previous-window share AND recent share < 0.50",
+    "decay_vote": "price_structure_loss AND at least 2 of momentum_decay, volume_fade, taker_fade",
+    "exit_trigger": "decay_vote must be true on 2 consecutive fully closed 5m bars",
+    "execution": "At each bar evaluate original stop and +0.50 target first with STOP_FIRST collision handling; only if neither fires, execute protection at that bar close.",
+    "net_return": "close-to-entry gross return minus 0.20 percentage-point round-trip cost",
+    "rolling_peak_use": "Rolling highs through t may be reported for diagnostics but do not enter the exit predicate. A final pre-exit peak is forbidden because it is only known later."
+  },
+  "development_stage": {
+    "period": ["2024-01-01T00:00:00Z", "2025-01-01T00:00:00Z"],
+    "role": "frozen-rule development replay; no tuning after result",
+    "source_run_id": 36317562080,
+    "expected_events": 324,
+    "baseline_outcomes": {"target_first": 285, "stop_first": 32, "expired": 7},
+    "minimum_gate_to_open_2025": {
+      "exact_baseline_reproduction": true,
+      "net_pct_point_improvement_min": 25.0,
+      "profit_factor_min": 0.75,
+      "baseline_target_first_preservation_min_ratio": 0.9,
+      "negative_pnl_sum_reduction_min_ratio": 0.35,
+      "worst_loss_magnitude_reduction_min_ratio": 0.3,
+      "quarters_with_net_improvement_min": 3,
+      "post_exit_rows_used": 0
+    },
+    "failure_action": "Reject D6_RELATIVE_DECAY_2X and do not open 2025. Do not rename or threshold-sweep this family."
+  },
+  "forward_validation_stage": {
+    "period": ["2025-01-01T00:00:00Z", "2026-01-01T00:00:00Z"],
+    "role": "untouched forward validation; open only if the frozen 2024 gate passes",
+    "acceptance_gate": {
+      "events_min": 120,
+      "expectancy_pct_min": 0.05,
+      "profit_factor_min": 1.15,
+      "baseline_target_first_preservation_min_ratio": 0.9,
+      "negative_event_ratio_max": 0.1,
+      "negative_pnl_sum_reduction_vs_baseline_min_ratio": 0.35,
+      "worst_trade_pct_min": -5.5,
+      "positive_months_min": 8,
+      "nonnegative_quarters_min": 3,
+      "overlay_net_must_exceed_same_event_baseline": true
+    }
+  },
+  "final_oos": {
+    "period": "2026",
+    "status": "SEALED",
+    "open_condition": "Only after frozen 2024 development and untouched 2025 forward gates pass.",
+    "additional_requirement": "Must improve the frozen r2 OR portfolio without materially degrading its PF, expectancy, tail loss or active-day profile before Clear System.py can change."
+  },
+  "required_outputs": [
+    "event-level original and protected exits",
+    "signal frequency and active-day ratio",
+    "net P&L, expectancy and profit factor",
+    "target-first, stop-first, expired and decay-exit counts",
+    "MFE and MAE only through actual exit",
+    "positive-winner preservation and rescued-loss counts",
+    "monthly, quarterly, symbol and loss-tail distributions",
+    "post-exit row count and baseline reproduction integrity"
+  ],
+  "action_budget_for_2024_path_replay": {
+    "basis": "Run 36329085400 used 2.1523 runner-minutes for the same 324 event paths; the new rule adds only causal per-bar state.",
+    "expected_runner_minutes": "4-8",
+    "expected_wall_minutes": "2-5",
+    "hard_runner_minute_ceiling_from_job_timeouts": 64,
+    "abort_before_launch_if": [
+      "source quarter artifacts are unavailable or digest mismatch",
+      "workflow cannot fail closed on missing/duplicate quarter",
+      "compile, deterministic self-test, static causality audit or real-data smoke fails",
+      "estimated runner ceiling exceeds 64 minutes"
+    ]
+  }
+}
