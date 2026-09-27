@@ -30,6 +30,8 @@ REPLAY_END = pd.Timestamp("2025-02-22T00:00:00Z")
 COOLDOWNS = (0, 24, 48)
 MAX_DAILY = 3
 DATA_FUTURE_HOURS = 0
+ALLOW_TERMINATED_SYMBOLS = False
+MAX_ACTIVE_BAR_AGE = pd.Timedelta(minutes=30)
 
 SHARDS = {
     "s0": ("BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT", "DOGEUSDT"),
@@ -87,6 +89,36 @@ def validate_manifest_root(root: Path, verify_files: bool = True) -> tuple[dict,
     return manifests, files
 
 
+def coverage_metadata(d: pd.DataFrame, expected_rows: int, data_end: pd.Timestamp,
+                      allow_terminated: bool | None = None) -> dict:
+    """Validate full coverage or a contiguous exchange-terminated lifespan."""
+    if d.empty:
+        raise RuntimeError("empty 15m history")
+    allow = ALLOW_TERMINATED_SYMBOLS if allow_terminated is None else allow_terminated
+    coverage = len(d) / expected_rows * 100
+    first_open = pd.Timestamp(d.open_time.min())
+    last_close = pd.Timestamp(d.close_time.max())
+    span_end = min(last_close, data_end)
+    span_rows = max(1, int((span_end - HISTORY_START).total_seconds() // 900))
+    span_coverage = len(d) / span_rows * 100
+    full = coverage >= 98.0 and last_close >= REPLAY_END
+    terminated = (allow and not full and
+                  first_open <= HISTORY_START + pd.Timedelta(minutes=15) and
+                  last_close >= REPLAY_START and span_coverage >= 98.0)
+    if not (full or terminated):
+        raise RuntimeError(f"incomplete 15m coverage {coverage:.3f}% span {span_coverage:.3f}%")
+    return {"coverage_pct": round(coverage, 4),
+            "span_coverage_pct": round(span_coverage, 4),
+            "limited_history": bool(terminated),
+            "available_from": str(first_open), "available_until": str(last_close)}
+
+
+def symbol_active_at(d: pd.DataFrame, current: pd.Timestamp) -> bool:
+    closed = d[d.close_time < current]
+    return (not closed.empty and
+            current - pd.Timestamp(closed.close_time.iloc[-1]) <= MAX_ACTIVE_BAR_AGE)
+
+
 def fetch_shard(shard: str, outdir: Path) -> dict:
     if shard not in SHARDS:
         raise ValueError("unknown shard")
@@ -103,15 +135,16 @@ def fetch_shard(shard: str, outdir: Path) -> dict:
     expected_rows = int((data_end - HISTORY_START).total_seconds() // 900)
     for symbol in SHARDS[shard]:
         d = replay.fetch(symbol, "15m", HISTORY_START, data_end)
-        coverage = len(d) / expected_rows * 100
-        if coverage < 98.0 or d.close_time.max() < REPLAY_END:
-            raise RuntimeError(f"{symbol}: incomplete 15m coverage {coverage:.3f}%")
+        try:
+            availability = coverage_metadata(d, expected_rows, data_end)
+        except RuntimeError as exc:
+            raise RuntimeError(f"{symbol}: {exc}") from exc
         keep = ["open_time", "open", "high", "low", "close", "volume", "close_time",
                 "quote_volume", "taker_quote"]
         fp = outdir / f"{symbol}.csv.gz"
         d[keep].to_csv(fp, index=False, compression="gzip")
         records.append({"symbol": symbol, "file": fp.name, "rows": len(d),
-                        "coverage_pct": round(coverage, 4), "sha256": file_sha256(fp),
+                        **availability, "sha256": file_sha256(fp),
                         "transports": d.attrs.get("transports", [])})
     result = {
         "status": "PRESSURE_DATA_SHARD_PASSED", "shard": shard,
@@ -260,6 +293,8 @@ def replay_central(input_root: Path, outdir: Path) -> dict:
         prefiltered = {}
         for symbol in EXPECTED_SYMBOLS:
             q = raw[symbol]
+            if not symbol_active_at(q, current):
+                continue
             qv = float(q[(q.open_time >= current - pd.Timedelta(hours=24)) &
                          (q.close_time < current)].quote_volume.sum())
             pre = scanner._prefilter(symbol, qv)
@@ -347,6 +382,21 @@ def self_test() -> None:
     for bad in ("USDCUSDT", "EURUSDT", "BTCUPUSDT", "ETHBEARUSDT", "BTCFDUSD"):
         assert not allowed_symbol(bad)
     assert len(EXPECTED_SYMBOLS) == len(set(EXPECTED_SYMBOLS)) == 24
+
+    life_t = pd.date_range(HISTORY_START, periods=96, freq="15min", tz="UTC")
+    life = pd.DataFrame({"open_time": life_t,
+                         "close_time": life_t + pd.Timedelta(minutes=15)})
+    life_meta = coverage_metadata(life, 192, HISTORY_START + pd.Timedelta(hours=48), True)
+    assert life_meta["limited_history"] and life_meta["span_coverage_pct"] >= 98
+    assert symbol_active_at(life, life.close_time.iloc[-1] + pd.Timedelta(minutes=15))
+    assert not symbol_active_at(life, life.close_time.iloc[-1] + pd.Timedelta(minutes=45))
+    try:
+        coverage_metadata(life.iloc[::2].reset_index(drop=True), 192,
+                          HISTORY_START + pd.Timedelta(hours=48), True)
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("gapped lifespan accepted")
 
     class C:
         def __init__(self, symbol): self.symbol = symbol
