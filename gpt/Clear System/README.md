@@ -456,3 +456,20 @@ Sonraki somut adım: ikinci pahalı araştırma başlatmadan run 36287733626'yı
 Aynı run yeniden çalıştırılmadı. Tarih dizisi açıkça `datetime64[ns]` birimine normalize edildi ve farklı karar zamanlarının tek son satıra sessizce çökmesini önlemek için self-test artık tam beş ayrı snapshot anahtarı zorunlu kılıyor. Düzeltme (1) mevcut pandas ortamında beş sentetik exact parity, (2) workflow YAML/timeout ve her job için `if: always()` artifact denetimi, (3) GitHub ile aynı pandas 3.0.6 ortamında beş sentetik ve 72 gerçek snapshot parity ile doğrulandı. Smoke stdout/stderr artık `run.log` artifact'ına yazılır; erken parity hatasında boş artifact kalmaz.
 
 Düzeltilmiş doğrulama [run 36287858354](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36287858354) olarak başladı. Önceki başarısızlık fetch'e ulaşmadığı için bütçe değişmedi: beklenen yaklaşık 8–12 runner-dk / 5–8 dk duvar süresi, kesin üst sınır 90 runner-dk. İkinci pahalı araştırma başlatılmayacak; bu run'ın 4/4 shard ve aggregate summary sonucu beklenecek. `Clear System.py` değiştirilmedi.
+
+
+### PRESSURE full-market vektör benchmarkı tamamlandı — run 36287858354
+
+[Run 36287858354](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36287858354) `completed/success` oldu. Yalnız yeşil durum kullanılmadı: preflight gerçek BTC parity sonucu, 4/4 shard manifest/hash/kapsamı ve aggregate artifact içindeki `summary.json` incelendi; summary `research/pressure_confirmation/output/pressure_fullmarket_benchmark/summary.json` altında arşivlendi. Run 27 Eylül 2026 02:12:48–02:16:16 UTC arasında **3 dk 28 sn duvar süresi**, job süreleri toplamıyla yaklaşık **7,90 runner-dk** kullandı; 8–12 runner-dk tahminine uydu ve 90 runner-dk üst sınırının çok altında kaldı.
+
+Veri: 2024-10-01 warmup; 2025-02-15 00:00–2025-02-22 00:00 UTC replay; 24 stable/fiat/leveraged olmayan Binance Spot USDT sembolü; 168 sembol-gün; yalnız `close_time < decision_time` kapalı mumlar. 672 tarama, 48.384 state değerlendirmesi, 80.640 snapshot ve 130.368 cache hit tamamlandı. GitHub pandas 3 ortamında vektör hazırlığı **8,240 sn**, merkezi replay **38,825 sn**, hız **1.246,22 değerlendirme/sn** oldu; yerel sonuçla olay bazında aynı çıktı ve önceki 1.311 sn tahmine göre yaklaşık **33,8× hızlanma** sağladı.
+
+| Online cooldown | Sinyal | Sinyal/gözlem günü | Aktif gün | Aktif-gün oranı | Final aday | Cooldown / kota engeli |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0s | 9 | 1,286 | 3/7 | %42,86 | 40 | 0 / 31 |
+| 24s | 4 | 0,571 | 3/7 | %42,86 | 43 | 39 / 0 |
+| 48s | 3 | 0,429 | 2/7 | %28,57 | 44 | 41 / 0 |
+
+Bu kapasite/global-state benchmarkıdır; olaylar XRP ve LTC'de oluştu ve çıkış fiyat yolu bu aşamada özellikle çalıştırılmadı. Bu nedenle %0,20 round-trip maliyetli net P&L, expectancy, PF, target-first/stop-first, MFE/MAE ve kazanma oranı **N/A**; OOS **N/A**. 0/24/48 saatten biri champion seçilmedi, PRESSURE/RETRIGGER üretim kuralı değiştirilmedi ve `Clear System.py` değiştirilmedi.
+
+Karar: merkezi full-market sıralama/watch/kota/cooldown hesaplamasındaki süre engeli kalktı. Sonraki somut adım doğrudan üç yıllık pahalı run değildir; önce bu ölçümle 2023 Discovery / 2024 Calibration / 2025 ileri doğrulama için tarih shard sayısı, 5M yol veri boyutu, açık sermaye slotu ve kademeli çıkış maliyeti bütçelenecek. Yeni workflow; compile/self-test, gerçek parity smoke, eksik-shard/hash/evren kapıları, explicit timeout ve failure artifact sözleşmelerini aynen taşıyacak. 2025 ileri dönem seçim amacıyla açılmayacak; yalnız Discovery+Calibration'da dondurulan kuralı doğrulayacak.
