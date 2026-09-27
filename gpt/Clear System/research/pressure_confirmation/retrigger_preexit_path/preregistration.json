@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "title": "RETRIGGER 2024 causal pre-exit path diagnostic",
+  "created_date": "2026-09-27",
+  "purpose": "Determine whether losing RETRIGGER events had actionable favorable movement before their actual target/stop/expiry exit, without re-tuning the rejected entry, target, stop, cooldown, or expiry policy.",
+  "status": "PREREGISTERED_NOT_RUN",
+  "source": {
+    "workflow_run_id": 36317562080,
+    "candidate": "RETRIGGER",
+    "expected_events": 324,
+    "expected_outcomes": {
+      "TARGET_FIRST": 285,
+      "STOP_FIRST": 32,
+      "EXPIRED": 7
+    },
+    "quarter_artifacts": {
+      "Q1": {
+        "id": 10931444044,
+        "digest": "sha256:6ba59bf73e2c05f8857da7e02d6cf9de6e9d8e9c3e0b36a7c485ad5bf3c5a7f2"
+      },
+      "Q2": {
+        "id": 10931536922,
+        "digest": "sha256:5988cd0523ee0c9b46048d243e2828eb1b46cd5508af7810e9a4337d736687f2"
+      },
+      "Q3": {
+        "id": 10932245174,
+        "digest": "sha256:bcbe8d4348d15fb1020fa9986b1284eb4f6c33aa6b01a93d2659b11cb06e3579"
+      },
+      "Q4": {
+        "id": 10931636682,
+        "digest": "sha256:1615815b301ff19624c73bf6ad3ab836b903eb79ffc53216bcbad93665bb3437"
+      }
+    },
+    "artifacts_expire_at": "2026-10-11T12:35:15Z"
+  },
+  "immutable_contract": {
+    "market": "Binance Spot USDT long",
+    "excluded_bases": "stablecoin, fiat, leveraged-token bases",
+    "event_window": [
+      "2024-01-01T00:00:00Z",
+      "2025-01-01T00:00:00Z"
+    ],
+    "fee_round_trip_pct": 0.2,
+    "gross_target_pct": 0.5,
+    "source_atr_stop_frozen_at_signal": true,
+    "expiry_hours": 24,
+    "same_bar_precedence": "STOP_FIRST",
+    "cooldown_hours": 0,
+    "closed_5m_candles_only": true,
+    "no_entry_rescan": true,
+    "no_threshold_optimization": true,
+    "rejected_gates_disabled": [
+      "G30_CLOSE",
+      "G60_PRICE_VOLUME",
+      "G60_MOTION_FLOW"
+    ]
+  },
+  "causal_measurement": {
+    "truncate_each_path_at": "actual fixed-policy exit_time inclusive",
+    "forbidden": "Any candle strictly after exit_time",
+    "per_event": [
+      "pre_exit_mfe_pct",
+      "pre_exit_mae_pct",
+      "minutes_to_first_positive_close",
+      "minutes_to_first_high_ge_0.10_pct",
+      "minutes_to_first_high_ge_0.20_pct",
+      "minutes_to_first_high_ge_0.30_pct",
+      "minutes_to_first_high_ge_0.40_pct",
+      "minutes_to_first_high_ge_0.50_pct",
+      "minutes_to_pre_exit_peak",
+      "peak_to_exit_drawdown_pct",
+      "minutes_peak_to_exit",
+      "max_consecutive_lower_closes_after_peak",
+      "post_peak_5m_return_acceleration",
+      "post_peak_volume_direction",
+      "post_peak_taker_buy_share_direction"
+    ],
+    "aggregate_by": [
+      "outcome",
+      "quarter",
+      "symbol"
+    ],
+    "fixed_descriptive_thresholds_pct": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "note": "Thresholds are descriptive reachability bins only and cannot be selected as an exit rule in this run."
+  },
+  "integrity_gates": {
+    "exact_event_count": 324,
+    "exact_outcome_counts": {
+      "TARGET_FIRST": 285,
+      "STOP_FIRST": 32,
+      "EXPIRED": 7
+    },
+    "required_quarters": [
+      "Q1",
+      "Q2",
+      "Q3",
+      "Q4"
+    ],
+    "duplicate_event_keys_allowed": 0,
+    "incomplete_5m_paths_allowed": 0,
+    "artifact_digest_match_required": true,
+    "exit_reproduction_required": true,
+    "exit_time_tolerance_minutes": 0,
+    "target_stop_expiry_outcome_match_required": true,
+    "post_exit_rows_used_allowed": 0
+  },
+  "decision_scope": {
+    "production_promotion_allowed": false,
+    "Clear_System_py_change_allowed": false,
+    "outcome": "DIAGNOSTIC_ONLY",
+    "follow_on_allowed_only_if": [
+      "A substantial fraction of losses shows favorable excursion before the real exit, not after it.",
+      "A causal movement-decay sequence is temporally observable before large loss expansion.",
+      "The same sequence is not merely a renamed 30/60 minute gate or a static stop lift.",
+      "One rule family can be frozen before opening 2025 forward data."
+    ],
+    "otherwise": "Close RETRIGGER rescue work and move to an independent entry family."
+  },
+  "action_budget": {
+    "method": "Reuse four small event artifacts; fetch at most one 24h/288-row 5m window per event; no full-market scan.",
+    "expected_runner_minutes": [
+      20,
+      30
+    ],
+    "expected_wall_minutes": [
+      8,
+      15
+    ],
+    "hard_runner_minute_ceiling_from_job_timeouts": 64,
+    "jobs": {
+      "preflight_timeout_minutes": 8,
+      "quarter_jobs": 4,
+      "quarter_timeout_minutes_each": 12,
+      "aggregate_timeout_minutes": 8
+    },
+    "abort_conditions": [
+      "Any artifact digest mismatch or expiry",
+      "Any event-count, outcome, duplicate, path coverage, or exit reproduction mismatch",
+      "Estimated or measured runtime risks crossing the hard ceiling",
+      "Binance rate-limit behavior cannot be bounded without broad retries"
+    ]
+  },
+  "required_workflow_controls": [
+    "explicit timeouts",
+    "compile",
+    "deterministic self-test",
+    "AST causality and contract audit",
+    "real Binance 5m smoke",
+    "artifact digest verification",
+    "missing-or-duplicate-quarter fail-close",
+    "always-upload evidence on success or failure"
+  ]
+}
