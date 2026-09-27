@@ -1,0 +1,53 @@
+{
+  "status": "D6_DEVELOPMENT_COMPLETE",
+  "rule": "D6_RELATIVE_DECAY_2X",
+  "run_id": 36339721807,
+  "artifact_id": 10938279392,
+  "artifact_digest": "sha256:9cadf68d42ffbf8a571cf15187dfdb2a14a4f4855a0ebf3289aa47761f997261",
+  "runner_minutes": 2.0568,
+  "wall_seconds": 65.43,
+  "window": ["2024-01-01T00:00:00Z", "2025-01-01T00:00:00Z"],
+  "round_trip_cost_pct": 0.2,
+  "events": 324,
+  "signals_per_day": 0.885246,
+  "active_days": 173,
+  "active_day_ratio_pct": 47.26776,
+  "baseline": {
+    "events": 324, "positive": 285, "zero": 0, "negative": 39,
+    "net_pct_points": -80.270038, "expectancy_pct": -0.247747,
+    "profit_factor": 0.515775, "negative_pnl_sum": -165.770038,
+    "worst_trade_pct": -15.86374,
+    "outcomes": {"TARGET_FIRST": 285, "STOP_FIRST": 32, "EXPIRED": 7}
+  },
+  "protected": {
+    "events": 324, "positive": 217, "zero": 0, "negative": 107,
+    "net_pct_points": -108.501674, "expectancy_pct": -0.334882,
+    "profit_factor": 0.374996, "negative_pnl_sum": -173.601674,
+    "worst_trade_pct": -5.346225,
+    "outcomes": {"DECAY_EXIT": 103, "TARGET_FIRST": 217, "STOP_FIRST": 4}
+  },
+  "target_first_preservation_ratio": 0.761404,
+  "negative_pnl_reduction_ratio": -0.047244,
+  "worst_loss_magnitude_reduction_ratio": 0.662991,
+  "protected_mfe_mean_pct": 0.610725,
+  "protected_mae_mean_pct": -0.88033,
+  "quarters": {
+    "Q1": {"baseline_net": -30.583766, "protected_net": -31.030023, "improved": false},
+    "Q2": {"baseline_net": -10.816136, "protected_net": -12.831135, "improved": false},
+    "Q3": {"baseline_net": -26.917666, "protected_net": -23.948718, "improved": true},
+    "Q4": {"baseline_net": -11.95247, "protected_net": -40.691798, "improved": false}
+  },
+  "gate_checks": {
+    "exact_baseline_reproduction": true, "net_improvement": false,
+    "profit_factor": false, "target_preservation": false,
+    "negative_pnl_reduction": false, "worst_loss_reduction": true,
+    "quarter_improvement": false, "post_exit_rows_zero": true
+  },
+  "decision": "REJECT_D6_NO_2025",
+  "integrity": {
+    "quarters": ["Q1", "Q2", "Q3", "Q4"], "duplicate_events": 0,
+    "post_exit_rows_used": 0, "baseline_reproduction": "exact"
+  },
+  "oos": "N/A: 2025 opens only if all development gates pass; 2026 remains sealed",
+  "production_effect": "None; Clear System.py unchanged."
+}
