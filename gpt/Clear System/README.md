@@ -432,3 +432,18 @@ Bu bir kapasite/state benchmarkıdır; 5M çıkış yolu çalışmadığı için
 Karar: yalnız timeout uzatılarak aynı çalışma yeniden başlatılmayacak. Sonraki somut adım, scanner’ın her karar anında 240 mum üzerinden RSI/MACD/OBV vb. göstergeleri tekrar hesaplamasını kaldırmak; her sembol/timeframe için göstergeleri bir kez vektörleştirip karar zamanında yalnız son kapalı snapshot’ı okumak. Parite self-test’i, mevcut scanner ile sabit zaman noktalarında snapshot ve karar alanlarını eşit doğrulamadan 7 günlük benchmark yeniden açılmayacak. Hedef merkezi replay: en az **5× hızlanma** ve 7 gün için **≤5 dakika**; sağlanmazsa takvim dönemi time-shard + deterministik state handoff tasarlanacak.
 
 Bu turda çıkış eşiği/hipotezi seçilmedi, elenmiş time-exit taraması tekrarlanmadı ve `Clear System.py` değiştirilmedi.
+
+
+## PRESSURE vektör snapshot parity ve tamamlanan yerel benchmark — 2026-09-27
+
+Scanner'ın her karar anında son 240 mumu yeniden işleyen snapshot yolu, bütün geçmiş üzerinde tek kez indikatör hesaplayan yaklaşık bir yöntemle değiştirilmedi; bu yöntem EMA/RSI başlangıç durumunu değiştirirdi. Bunun yerine her bağımsız son-240-mum penceresi bir matris sütunu olarak toplu hesaplandı. İlk self-test ATR'nin ilk satırındaki `NaN` davranışında gerçek bir fark yakaladı; kaynak scanner'ın satır bazında NaN atlama semantiği uygulanarak düzeltildi ve körlemesine run başlatılmadı.
+
+Üç ayrı doğrulama geçti: (1) 100/238/239/275/329 mum uzunluğunda beş sentetik pencerenin bütün snapshot alanları ve prefilter rank/seed sonucu, (2) önceki run'ın gerçek shard verisinde BTC/XRP/LTC/AAVE/VET/SUI × üç karar zamanı × 15M/1H/4H/1D = **72 gerçek snapshot** ve 18 prefilter sonucu, (3) eski run'ın hash-doğrulanmış 4/4 veri shard'ı üzerinde tam merkezi replay. Yalnız kapanmış mumlar kullanıldı; global rank, watch-state, günlük kota ve cooldown tek merkezi state sahibinde kaldı.
+
+Yerel tam benchmark verisi: 2024-10-01 warmup, 2025-02-15–2025-02-22 replay, 24 stable/fiat/leveraged olmayan Binance Spot USDT sembolü, 168 sembol-gün, 672 tarama ve 48.384 state değerlendirmesi. Vektör hazırlığı **11,315 sn**, merkezi replay **42,374 sn**, hız **1.141,836 değerlendirme/sn** oldu. Önceki checkpoint'in 7 gün için doğrusal tahmini 1.311 sn idi; böylece yaklaşık **30,9× hızlanma** sağlandı ve ≤5 dk hedefi geçti.
+
+Kapasite sonucunda 0/24/48 saat online cooldown için sırasıyla 9 / 4 / 3 olay; **1,286 / 0,571 / 0,429 sinyal-gözlem günü** ve **%42,86 / %42,86 / %28,57 aktif-gün** görüldü. Bu, strateji/çıkış sonucu değildir: 5M çıkış yolu bu benchmarkta yoktur; %0,20 maliyetli net P&L, expectancy, PF, target-first/stop-first ve MFE/MAE **N/A**; OOS **N/A**. Cooldown seçilmedi ve `Clear System.py` değiştirilmedi.
+
+Korumalı GitHub doğrulaması [run 36287733626](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36287733626) olarak başlatıldı. Başlatma öncesi tahmini bütçe, önceki gerçek süreler ve 42 sn replay ölçümüne göre yaklaşık **8–12 runner-dk / 5–8 dk duvar süresi**; workflow üst sınırı 90 runner-dk olarak kalır. Preflight; compile, sentetik exact parity, AST/nedensellik/evren denetimi ve gerçek BTC çok-zamanlı parity smoke'u çalıştırır; 4/4 hash/kapsam shard ve eksik-shard fail-closed kapısı korunur; bütün aşamalar hata halinde artifact saklar.
+
+Sonraki somut adım: ikinci pahalı araştırma başlatmadan run 36287733626'yı izlemek, yeşil olsa bile aggregate `summary.json` içindeki tam 672 tarama, olaylar, throughput ve üç cooldown sonucunu incelemek. GitHub sonucu yerel sonuçla eşleşirse kapasite engeli kalkmış sayılacak; bundan sonra kademeli çıkış ailesi için 2023 Discovery / 2024 Calibration / 2025 ileri doğrulama shard bütçesi çıkarılacak. Sonuç eşleşmezse log/artifact kesin nedeni bulunmadan yeniden run yapılmayacak.
