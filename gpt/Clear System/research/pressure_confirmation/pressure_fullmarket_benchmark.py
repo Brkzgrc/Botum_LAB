@@ -365,6 +365,7 @@ def self_test() -> None:
                          "taker_quote": (1000 + (wave % 23) * 31) * close * (.47 + (wave % 7) * .01)})
     decisions = [test.close_time.iloc[i] + pd.Timedelta(milliseconds=1) for i in (100, 238, 239, 275, 329)]
     got = vector_snap.build_snapshots(test, "1H", decisions)
+    assert len(got) == len(decisions) == 5
     for end, actual in got.items():
         expected = scanner.snap(test.iloc[max(0, end - 239):end + 1].reset_index(drop=True), "1H")
         vector_snap.assert_snapshot_equal(expected, actual)
