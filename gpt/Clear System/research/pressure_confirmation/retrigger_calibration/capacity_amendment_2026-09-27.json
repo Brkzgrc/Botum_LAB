@@ -1,0 +1,49 @@
+{
+  "study": "RETRIGGER-only fixed-target 2024 Calibration",
+  "date": "2026-09-27",
+  "cause_run_id": 36311499740,
+  "cause": "All four quarter replays hit the explicit 20-minute command timeout before completing central replay; no strategy metrics or outcomes were produced.",
+  "unchanged_locked_rules": {
+    "setup_kind": "RETRIGGER",
+    "cooldown_hours": 0,
+    "gross_target_pct": 0.5,
+    "round_trip_cost_pct": 0.2,
+    "stop": "archived source ATR stop fixed at signal time",
+    "expiry_hours": 24,
+    "period": "2024-01-01/2025-01-01",
+    "same_bar": "STOP_FIRST"
+  },
+  "technical_change": {
+    "replay_paths_computed": [
+      0
+    ],
+    "deferred_nonselectable_diagnostics_hours": [
+      24,
+      48
+    ],
+    "data_source_run_id": 36311499740,
+    "reuse": "Four completed hash-verified 2024 15m shard artifacts",
+    "reason": "24/48h cooldowns are report-only and cannot affect the preregistered 0h candidate decision."
+  },
+  "budget": {
+    "measured_failed_run_runner_minutes": 99.38,
+    "measured_scans_at_timeout": {
+      "Q1": 6144,
+      "Q2": 5760,
+      "Q3": 5280,
+      "Q4": 5088
+    },
+    "estimated_recovery_runner_minutes": "45-60",
+    "hard_runner_minute_ceiling": 96,
+    "replay_job_timeout_minutes": 20,
+    "replay_command_timeout_minutes": 16
+  },
+  "integrity": [
+    "No threshold, target, stop, expiry, fee, setup, period or pass gate changed.",
+    "Existing data artifacts must pass four-shard, symbol, SHA256, coverage and lifecycle checks.",
+    "Compile, deterministic self-tests, static preregistration/amendment audit and real 2024 smoke run before replay.",
+    "Aggregate fails closed unless Q1-Q4 are complete and unique.",
+    "Artifacts are preserved on success or failure."
+  ],
+  "production_effect": "None; Clear System.py remains unchanged."
+}
