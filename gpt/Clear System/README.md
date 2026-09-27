@@ -1,5 +1,24 @@
 # Clear System
 
+## D6 hareket-bozulması koruması sonucu — run 36339721807
+
+[Run 36339721807](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36339721807) teknik olarak eksiksiz tamamlandı. Compile, self-test, AST/ön-kayıt/nedensellik, gerçek Binance smoke, dört kaynak digest'i, Q1–Q4 replay, eksik/çift çeyrek fail-close ve hata artifact yolları geçti. Aggregate artifact **10938279392**, digest `sha256:9cadf68d42ffbf8a571cf15187dfdb2a14a4f4855a0ebf3289aa47761f997261`. Kullanım **2,06 runner-dk / 65,43 sn**; 64 runner-dk tavanının altındadır. Sonuç JSON'u `research/pressure_confirmation/output/movement_decay_protection/summary.json` altında arşivlendi.
+
+Veri: **2024-01-01–2025-01-01**, 366 gün, 24 tarihsel Binance Spot USDT long sembolü, stable/fiat/leveraged base hariç, yalnız kapanmış mum, **%0,20 round-trip maliyet**. Frekans **0,885 sinyal/gün**, aktif gün **173/366 = %47,27**.
+
+| Metrik | Baseline | D6 |
+| --- | ---: | ---: |
+| Olay; pozitif / negatif | 324; 285 / 39 | 324; 217 / 107 |
+| Net / expectancy / PF | -%80,270 / -%0,2477 / 0,516 | -%108,502 / -%0,3349 / 0,375 |
+| Target / stop / diğer | 285 / 32 / 7 expired | 217 / 4 / 103 decay |
+| Negatif P&L / en kötü | -%165,770 / -%15,864 | -%173,602 / -%5,346 |
+| Ortalama MFE / MAE | Bu run'da yeniden raporlanmadı | +%0,6107 / -%0,8803 |
+
+D6 en kötü kaybı %66,30 azalttı; fakat target-first işlemlerin yalnız %76,14'ünü korudu, negatif olayları 39'dan 107'ye çıkardı ve Q1/Q2/Q4'ü bozdu. Yalnız Q3 iyileşti. Karar **REJECT_D6_NO_2025**: aile elendi, aynı eşikler yeni adla tekrarlanmayacak. 2025 açılmadı; 2026 OOS mühürlü, OOS **N/A**. `Clear System.py` değişmedi.
+
+Sonraki adım: RETRIGGER'ı çıkışta kurtarma hattını kapatıp PRESSURE/TSI-BB/frozen bilgisini kapalı-mum fiyat-momentum-hacim-taker dizileriyle kullanan bağımsız giriş/onay ailesini önceden kilitlemek. Yeni pahalı run bu turda açılmadı.
+
+
 ## Amaç
 
 Binance Spot USDT evreninde yalnız LONG çalışan, az fakat yüksek kaliteli sinyal üreten tek dosyalı sistem geliştirmek.
