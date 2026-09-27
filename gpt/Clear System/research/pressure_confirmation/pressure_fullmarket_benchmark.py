@@ -166,12 +166,19 @@ def replay_central(input_root: Path, outdir: Path) -> dict:
         frames[symbol] = helper.build_frames(d)
 
     current = REPLAY_START
+    history_cache: dict[tuple, pd.DataFrame] = {}
+    snapshot_cache: dict[tuple, dict] = {}
+    snapshot_stats = {"computed": 0, "cache_hits": 0}
 
     def historical_ohlcv(symbol: str, interval: str, limit: int = 240) -> pd.DataFrame:
+        key = (symbol, interval, limit)
+        if key in history_cache:
+            return history_cache[key]
         d = frames[symbol][interval]
         z = d[d.close_time < current].tail(limit).reset_index(drop=True)
         if len(z) < 80 or z.close_time.iloc[-1] >= current:
             raise RuntimeError(f"{symbol} {interval}: incomplete/future history")
+        history_cache[key] = z
         return z
 
     def historical_get(path: str, params: dict | None = None):
@@ -180,7 +187,19 @@ def replay_central(input_root: Path, outdir: Path) -> dict:
         symbol = params["symbol"]
         return {"price": str(historical_ohlcv(symbol, "15m").close.iloc[-1])}
 
-    scanner.ohlcv, scanner._get = historical_ohlcv, historical_get
+    original_snap = scanner.snap
+
+    def cached_snap(frame: pd.DataFrame, label: str) -> dict:
+        key = (id(frame), label)
+        if key in snapshot_cache:
+            snapshot_stats["cache_hits"] += 1
+            return snapshot_cache[key]
+        value = original_snap(frame, label)
+        snapshot_cache[key] = value
+        snapshot_stats["computed"] += 1
+        return value
+
+    scanner.ohlcv, scanner._get, scanner.snap = historical_ohlcv, historical_get, cached_snap
     states = {h: {"watch": {}, "daily_count": {}, "last_signal_at": {}, "signals": [],
                   "final_candidates": 0, "cooldown_blocked": 0, "quota_blocked": 0}
               for h in COOLDOWNS}
@@ -188,21 +207,27 @@ def replay_central(input_root: Path, outdir: Path) -> dict:
     started = time.perf_counter()
     while current < REPLAY_END:
         scan_count += 1
+        history_cache.clear()
+        snapshot_cache.clear()
         regime = scanner.btc_regime()
+        # Prefilter and volume are independent of cooldown/watch state.  Compute
+        # them once per decision time, then reuse across the three state paths.
+        prefiltered = {}
+        for symbol in EXPECTED_SYMBOLS:
+            q = raw[symbol]
+            qv = float(q[(q.open_time >= current - pd.Timedelta(hours=24)) &
+                         (q.close_time < current)].quote_volume.sum())
+            pre = scanner._prefilter(symbol, qv)
+            if pre is not None:
+                prefiltered[symbol] = (qv, pre[2])
         for cooldown_h, state in states.items():
             dead = [s for s, rec in state["watch"].items()
                     if current - pd.Timestamp(rec["first_seen"]) > pd.Timedelta(hours=18)]
             for symbol in dead:
                 state["watch"].pop(symbol, None)
             candidates = []
-            for symbol in EXPECTED_SYMBOLS:
-                q = raw[symbol]
-                qv = float(q[(q.open_time >= current - pd.Timedelta(hours=24)) &
-                             (q.close_time < current)].quote_volume.sum())
-                pre = scanner._prefilter(symbol, qv)
-                if pre is None:
-                    continue
-                candidates.append(scanner.evaluate(symbol, qv, pre[2], regime,
+            for symbol, (qv, pre_rank) in prefiltered.items():
+                candidates.append(scanner.evaluate(symbol, qv, pre_rank, regime,
                                                    state["watch"].get(symbol)))
                 evaluations += 1
             candidates.sort(key=lambda c: c.rank, reverse=True)
@@ -221,6 +246,12 @@ def replay_central(input_root: Path, outdir: Path) -> dict:
                 day = current.strftime("%Y-%m-%d")
                 state["daily_count"][day] = state["daily_count"].get(day, 0) + 1
                 state["watch"].pop(c.symbol, None)
+        if scan_count % 96 == 0:
+            print(json.dumps({"checkpoint_scans": scan_count,
+                              "elapsed_seconds": round(time.perf_counter() - started, 3),
+                              "evaluations": evaluations,
+                              "snapshots_computed": snapshot_stats["computed"],
+                              "snapshot_cache_hits": snapshot_stats["cache_hits"]}), flush=True)
         current += pd.Timedelta(minutes=15)
     elapsed = time.perf_counter() - started
     observed_days = (REPLAY_END - REPLAY_START).total_seconds() / 86400
@@ -243,6 +274,8 @@ def replay_central(input_root: Path, outdir: Path) -> dict:
         "scan_count": scan_count, "evaluations": evaluations,
         "elapsed_seconds": round(elapsed, 3),
         "evaluations_per_second": round(evaluations / elapsed, 3),
+        "snapshots_computed": snapshot_stats["computed"],
+        "snapshot_cache_hits": snapshot_stats["cache_hits"],
         "cooldowns": list(COOLDOWNS), "comparison": comparison,
         "universe_contract": "Binance Spot USDT long; stable/fiat/leveraged bases excluded",
         "causality_contract": "only frames with close_time < decision_time",
