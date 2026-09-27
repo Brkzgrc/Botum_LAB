@@ -46,12 +46,15 @@ jobs:
           required=('close_time < current','COOLDOWNS = (0, 24, 48)','MAX_DAILY = 3',
                     'INCOMPLETE_SHARDS','DUPLICATE_SHARD','FILE_HASH_MISMATCH',
                     'stable/fiat/leveraged','PRESSURE_FULLMARKET_BENCHMARK_PASSED',
-                    'scanner.evaluate','state["watch"].pop')
+                    'scanner.evaluate','state["watch"].pop','history_cache.clear()',
+                    'snapshot_cache.clear()','checkpoint_scans')
           assert all(x in s for x in required)
           assert 'shift(-' not in s and 'requests.post' not in s and 'HTTP.post' not in s
           # The helper definition is intentionally earlier; compare the sort
           # with the actual replay call (the final textual occurrence).
           assert s.index('candidates.sort') < s.rindex('select_finals(finals')
+          assert s.index('history_cache.clear()') < s.index('regime = scanner.btc_regime()')
+          assert s.index('prefiltered = {}') < s.rindex('for cooldown_h, state in states.items()')
           assert len(__import__('re').findall(r'"s[0-3]": \(',s))==4
           print('static full-market benchmark audit ok')
           PY
@@ -210,6 +213,7 @@ jobs:
           assert x['symbols']==24 and x['symbol_days']==168 and x['scan_count']==672
           assert x['cooldowns']==[0,24,48] and x['evaluations']>0
           assert x['evaluations_per_second']>0 and x['pnl_metrics'].startswith('N/A')
+          assert x['snapshots_computed']>0 and x['snapshot_cache_hits']>0
           for h in ('0','24','48'):
               z=x['comparison'][h]
               assert all(k in z for k in ('signals','signals_per_observed_day','active_day_ratio_pct','final_candidates','cooldown_blocked','quota_blocked','events'))
