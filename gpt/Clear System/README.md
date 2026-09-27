@@ -568,3 +568,29 @@ Run, tek hash-doğrulanmış 15M veri fetch'ini hem Mayıs hem Kasım 2023 için
 Beklenen bütçe **25–35 runner-dk / 12–20 dk duvar süresi**; kesin job üst sınırı preflight 8 + dört fetch × 12 + aggregate 24 = **80 runner-dk**. Workflow compile, deterministik self-test, gerçek-veri smoke, eksik/çift shard, manifest hash/kapsam, özet şema ve hata artifact kapılarını içeriyor.
 
 Sonuç gelmeden sinyal/gün, active-day, expectancy, PF, target-first/stop-first, MFE/MAE ve OOS **N/A**. İkinci pahalı araştırma başlatılmayacak; sonraki tur yalnız run durumunu, job/logları ve tamamlanırsa aggregate `summary.json` metriklerini inceleyecek. `Clear System.py` değiştirilmedi.
+
+## PRESSURE erken-takip bağımsız doğrulama sonucu — run 36299204476
+
+[Run 36299204476](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36299204476) teknik olarak başarıyla tamamlandı: preflight, derleme, deterministik self-test, gerçek 2023 veri smoke, 4/4 hash/kapsam doğrulanmış shard, eksik/çift shard fail-close, merkezi replay, özet şeması ve hata halinde artifact koruması geçti. Duvar süresi **13 dk 12 sn**, toplam kullanım **22,35 runner-dk**; önceden kilitlenen 80 runner-dk tavanının altında kaldı. Aggregate artifact kimliği **10925360685** ve digest'i `sha256:7b988d68033bf4165ddd2005512f978f6d3d2a393baf650fc45098f3105f8697`. Makine-okunur sıkıştırılmış sonuç `research/pressure_confirmation/output/pressure_followthrough_confirmation/summary.json` altında arşivlendi.
+
+Veri sözleşmesi: 24 tarihsel Binance Spot USDT long sembolü; stable/fiat/leveraged base dışlama; yalnız kapanmış mum; maliyet **%0,20**. D1 **2023-05-01–06-01**, D2 **2023-11-01–12-01**. 0 saat cooldown ana ön-kayıt karşılaştırmasında:
+
+| Dönem | Sinyal | Sinyal/gün | Aktif gün | MFE ort. | MAE ort. |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Mayıs 2023 | 25 | 0,806 | 9/31 = %29,03 | +%3,377 | -%2,345 |
+| Kasım 2023 | 79 | 2,633 | 27/30 = %90,00 | +%4,861 | -%4,782 |
+| Birleşik | 104 | 1,705 | 36/61 = %59,02 | dönemsel raporlandı | dönemsel raporlandı |
+
+| Birleşik politika | Pozitif / negatif | Net toplam | Expectancy | PF | Target-first / stop-first | En kötü işlem |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Baseline sabit brüt +%0,50 | 89 / 15 | -%30,513 | -%0,293 | 0,467 | 89 / 7 | -%7,563 |
+| G30_CLOSE | 64 / 40 | -%26,815 | -%0,258 | 0,417 | 64 / 1 | -%4,662 |
+| G60_PRICE_VOLUME | 67 / 37 | -%25,820 | -%0,248 | 0,438 | 67 / 0 | -%4,673 |
+| G60_MOTION_FLOW | 67 / 37 | -%25,952 | -%0,250 | 0,435 | 66 / 0 | -%4,673 |
+
+Kapılar Mayıs'ta zararı azalttı; örneğin G60_PRICE_VOLUME baseline **-%15,708** yerine **-%5,138** üretti. Fakat Kasım'da aynı kapı baseline **-%14,806** yerine **-%20,682** üretti. Stopları sıfırlarken geç ulaşan çok sayıda gerçek kazananı erken negatif kapattığı için expectancy ve PF pozitif olmadı. Hiçbir kapı iki dönemde de baseline'ı iyileştirmedi; ön-kayıt kararı **REJECT_PREREGISTERED_FOLLOWTHROUGH_GATES**. 30/60 dakika ve bu eşikler yeni adla tekrar taranmayacak; 2024 Calibration ve OOS açılmadı. OOS: **N/A**.
+
+Setup-kind ayrımı yalnız sonraki hipotezi teşhis etmek için post-hoc incelendi; seçim kanıtı sayılmadı. Baseline'da PRESSURE 61 olayda 49 pozitif/12 negatif, net **-%30,667**, expectancy **-%0,503**, PF **0,324**; RETRIGGER 43 olayda 40 pozitif/3 negatif, net **+%0,154**, expectancy **+%0,0036**, PF **1,013** verdi. Üç erken kapının tamamı RETRIGGER sonucunu kötüleştirdi. Bu bulgu, beş günlük canlı kâğıt örneğindeki “PRESSURE daha iyi” görünümünün dönem dayanıklılığı olmadığını ve kaybın otomatik olarak RETRIGGER'a yüklenemeyeceğini gösteriyor.
+
+Karar: erken takip kapıları **ELENDİ**; `Clear System.py` değiştirilmedi. Sonraki somut adım, setup-kind ayrımını eşik uydurmadan önceden kilitleyip **RETRIGGER-only sabit +%0,50** adayını 2024 Calibration'da sınamaktır. PRESSURE aynı testte kontrol kolu olarak raporlanacak; RETRIGGER 2024'te pozitif expectancy/PF>1 üretmezse bu ayrım da elenecek. Başlatmadan önce 24 sembollük tam-yıl veri ve 5M yol maliyeti, mevcut hızdan yaklaşık **130–160 runner-dk** olarak bütçelenecek; shard/çeyrek yapısı ve duvar süresi güvenli değilse pahalı run açılmayacak. Bu tanı sonucu üretim terfisi değildir.
+
