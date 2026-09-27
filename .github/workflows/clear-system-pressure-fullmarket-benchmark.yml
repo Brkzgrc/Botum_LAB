@@ -1,0 +1,225 @@
+name: Clear System - PRESSURE Full-Market Benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/clear-system-pressure-fullmarket-benchmark.yml'
+
+concurrency:
+  group: clear-system-pressure-fullmarket-benchmark
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 4
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile and deterministic self-test
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py' \
+            'gpt/Clear System/sources/botum_2026-09-26/spot_opportunity_scanner.py'
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' --self-test
+      - name: Static causality universe and architecture audit
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py')
+          s=p.read_text(); ast.parse(s)
+          required=('close_time < current','COOLDOWNS = (0, 24, 48)','MAX_DAILY = 3',
+                    'INCOMPLETE_SHARDS','DUPLICATE_SHARD','FILE_HASH_MISMATCH',
+                    'stable/fiat/leveraged','PRESSURE_FULLMARKET_BENCHMARK_PASSED',
+                    'scanner.evaluate','state["watch"].pop')
+          assert all(x in s for x in required)
+          assert 'shift(-' not in s and 'requests.post' not in s and 'HTTP.post' not in s
+          assert s.index('candidates.sort') < s.index('select_finals(finals')
+          assert len(__import__('re').findall(r'"s[0-3]": \(',s))==4
+          print('static full-market benchmark audit ok')
+          PY
+      - name: One-symbol closed-candle real-data smoke
+        timeout-minutes: 4
+        run: |
+          set -euo pipefail
+          out=/tmp/pressure-fullmarket-smoke
+          mkdir -p "$out"
+          timeout 3m python - "$out/summary.json" <<'PY'
+          import json,sys
+          from pathlib import Path
+          import pandas as pd
+          root=Path('gpt/Clear System/research/pressure_confirmation')
+          src=Path('gpt/Clear System/sources/botum_2026-09-26')
+          sys.path[:0]=[str(root),str(src)]
+          import pressure_replay_preflight as r
+          import spot_opportunity_scanner as scanner
+          r.verify_sources()
+          hs=pd.Timestamp('2024-10-01T00:00:00Z')
+          start=pd.Timestamp('2025-02-15T00:00:00Z')
+          end=start+pd.Timedelta(hours=6,minutes=15)
+          raw=r.fetch('BTCUSDT','15m',hs,end)
+          frames=r.build_frames(raw); current=start
+          def ohlcv(symbol,interval,limit=240):
+              assert symbol=='BTCUSDT'
+              z=frames[interval][frames[interval].close_time<current].tail(limit).reset_index(drop=True)
+              assert len(z)>=80 and z.close_time.iloc[-1]<current
+              return z
+          def get(path,params=None):
+              assert path=='/api/v3/ticker/price' and params=={'symbol':'BTCUSDT'}
+              return {'price':str(ohlcv('BTCUSDT','15m').close.iloc[-1])}
+          scanner.ohlcv,scanner._get=ohlcv,get
+          scans=0; decisions={}
+          while current<end-pd.Timedelta(minutes=15):
+              qv=float(raw[(raw.open_time>=current-pd.Timedelta(hours=24)) & (raw.close_time<current)].quote_volume.sum())
+              pre=scanner._prefilter('BTCUSDT',qv); assert pre is not None
+              c=scanner.evaluate('BTCUSDT',qv,pre[2],scanner.btc_regime(),None)
+              decisions[c.decision['decision']]=decisions.get(c.decision['decision'],0)+1
+              scans+=1; current+=pd.Timedelta(minutes=15)
+          result={'status':'PRESSURE_FULLMARKET_REAL_SMOKE_PASSED','symbol':'BTCUSDT',
+                  'period':[str(start),str(end-pd.Timedelta(minutes=15))],
+                  'rows':len(raw),'scans':scans,'decisions':decisions}
+          Path(sys.argv[1]).write_text(json.dumps(result,indent=2)+'\n')
+          print(json.dumps(result))
+          PY
+      - name: Preserve preflight evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-fullmarket-preflight
+          path: /tmp/pressure-fullmarket-smoke
+          if-no-files-found: warn
+          retention-days: 14
+
+  fetch:
+    needs: preflight
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [s0, s1, s2, s3]
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 4
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile shard code
+        timeout-minutes: 1
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py'
+      - name: Fetch bounded closed-candle shard
+        timeout-minutes: 12
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          set -euo pipefail
+          out="gpt/Clear System/research/pressure_confirmation/output/pressure_fullmarket_benchmark/$SHARD"
+          mkdir -p "$out"
+          timeout 10m python 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' \
+            --fetch-shard "$SHARD" --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Verify shard manifest and hashes
+        timeout-minutes: 1
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          set -euo pipefail
+          python - "$SHARD" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+          shard=sys.argv[1]
+          root=Path('gpt/Clear System/research/pressure_confirmation/output/pressure_fullmarket_benchmark')/shard
+          x=json.loads((root/'manifest.json').read_text())
+          assert x['status']=='PRESSURE_DATA_SHARD_PASSED' and x['shard']==shard
+          assert len(x['symbols'])==len(x['files'])==6
+          for rec in x['files']:
+              p=root/rec['file']; assert p.is_file()
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==rec['sha256']
+              assert rec['coverage_pct']>=98
+          print('data shard complete',shard,sum(r['rows'] for r in x['files']))
+          PY
+      - name: Preserve shard evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-fullmarket-data-${{ matrix.shard }}
+          path: gpt/Clear System/research/pressure_confirmation/output/pressure_fullmarket_benchmark/${{ matrix.shard }}
+          if-no-files-found: warn
+          retention-days: 14
+
+  replay:
+    if: always()
+    needs: [preflight, fetch]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 3
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Download all data shards
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pressure-fullmarket-data-*
+          path: downloaded
+      - name: Compile central replay
+        timeout-minutes: 1
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py'
+      - name: Central global-state replay and missing-shard gate
+        timeout-minutes: 5
+        run: |
+          set -euo pipefail
+          out='gpt/Clear System/research/pressure_confirmation/output/pressure_fullmarket_benchmark/aggregate'
+          mkdir -p "$out"
+          timeout 4m python 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' \
+            --input-root downloaded --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Verify benchmark summary
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/output/pressure_fullmarket_benchmark/aggregate/summary.json')
+          x=json.loads(p.read_text())
+          assert x['status']=='PRESSURE_FULLMARKET_BENCHMARK_PASSED'
+          assert x['expected_shards']==x['completed_shards']==['s0','s1','s2','s3']
+          assert x['symbols']==24 and x['symbol_days']==168 and x['scan_count']==672
+          assert x['cooldowns']==[0,24,48] and x['evaluations']>0
+          assert x['evaluations_per_second']>0 and x['pnl_metrics'].startswith('N/A')
+          for h in ('0','24','48'):
+              z=x['comparison'][h]
+              assert all(k in z for k in ('signals','signals_per_observed_day','active_day_ratio_pct','final_candidates','cooldown_blocked','quota_blocked','events'))
+              ids=[(e['symbol'],e['decision_time']) for e in z['events']]
+              assert len(ids)==len(set(ids))
+          print('central benchmark complete',x['evaluations'],x['evaluations_per_second'])
+          PY
+      - name: Preserve aggregate on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-fullmarket-benchmark-aggregate
+          path: gpt/Clear System/research/pressure_confirmation/output/pressure_fullmarket_benchmark/aggregate
+          if-no-files-found: warn
+          retention-days: 14
