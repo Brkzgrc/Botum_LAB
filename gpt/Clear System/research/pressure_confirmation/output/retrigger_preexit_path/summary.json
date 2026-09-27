@@ -1,0 +1,67 @@
+{
+  "status": "RETRIGGER_PREEXIT_DIAGNOSTIC_COMPLETE",
+  "run_id": 36329085400,
+  "source_run_id": 36317562080,
+  "artifact": {
+    "id": 10934669214,
+    "sha256": "84ec165c0c3a525b4453ff54574c6e9370c38ff639772445a2d5f1929370577d"
+  },
+  "window": ["2024-01-01T00:00:00Z", "2025-01-01T00:00:00Z"],
+  "round_trip_cost_pct": 0.2,
+  "runtime": {
+    "wall_seconds_from_first_to_last_job_log": 96.338,
+    "runner_minutes_from_job_logs": 2.1523,
+    "preregistered_expected_runner_minutes": "20-30",
+    "hard_runner_minute_ceiling": 64
+  },
+  "baseline": {
+    "events": 324,
+    "signals_per_day": 0.885,
+    "active_days": 173,
+    "calendar_days": 366,
+    "active_day_ratio_pct": 47.27,
+    "net_pct_points": -80.270038,
+    "expectancy_pct": -0.247747,
+    "profit_factor": 0.515775,
+    "target_first": 285,
+    "stop_first": 32,
+    "expired": 7
+  },
+  "pre_exit_all": {
+    "mfe_mean_pct": 0.736898,
+    "mfe_median_pct": 0.634605,
+    "mae_mean_pct": -1.379478,
+    "first_positive_close_count": 293
+  },
+  "pre_exit_losses": {
+    "events": 39,
+    "mfe_mean_pct": 0.204521,
+    "mfe_median_pct": 0.208607,
+    "mae_mean_pct": -4.7104,
+    "first_positive_close_count": 19,
+    "reach_counts": {"ge_0.10": 28, "ge_0.20": 20, "ge_0.30": 11, "ge_0.40": 4, "ge_0.50": 0},
+    "median_minutes_to_threshold": {"ge_0.10": 5, "ge_0.20": 10, "ge_0.30": 15, "ge_0.40": 20},
+    "median_minutes_to_pre_exit_peak": 5,
+    "median_minutes_peak_to_exit": 380,
+    "median_peak_to_exit_drawdown_pct": -3.7847,
+    "median_max_consecutive_lower_closes_after_peak": 6,
+    "loss_pct_points": -165.770038
+  },
+  "descriptive_fixed_target_counterfactuals": {
+    "warning": "Same-period descriptive counterfactuals only; not eligible for strategy selection.",
+    "gross_0.10": {"net_pct_points": -81.940722, "positive": 0, "zero": 0, "negative": 324},
+    "gross_0.20": {"net_pct_points": -82.162866, "positive": 0, "zero": 305, "negative": 19},
+    "gross_0.30": {"net_pct_points": -102.137807, "positive": 296, "zero": 0, "negative": 28},
+    "gross_0.40": {"net_pct_points": -97.831508, "positive": 289, "zero": 0, "negative": 35},
+    "gross_0.50_baseline": {"net_pct_points": -80.270038, "positive": 285, "zero": 0, "negative": 39}
+  },
+  "integrity": {
+    "quarters": ["Q1", "Q2", "Q3", "Q4"],
+    "duplicate_events": 0,
+    "post_exit_rows_used": 0,
+    "exit_reproduction": "exact"
+  },
+  "decision": "SUPPORTS_CAUSAL_MOVEMENT_DECAY_RESEARCH_BUT_REJECTS_SMALLER_FIXED_TARGETS",
+  "oos": "N/A: 2025 and 2026 remain unopened",
+  "production_effect": "None; Clear System.py unchanged."
+}
