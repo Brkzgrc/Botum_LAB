@@ -693,3 +693,30 @@ Workflow preflight job'ı 8 dakika sınırında tekrar compile, deterministik se
 
 Bu çalışma yalnız tanıdır; alternatif eşik/P&L seçmez, 2025/2026'yı açmaz ve üretim terfisi yapamaz. Sonuç gelmeden yeni pre-exit MFE/MAE ve hareket bozunumu metrikleri **N/A**; mevcut adayın Calibration expectancy/PF kararı değişmemiştir. `Clear System.py` değiştirilmedi. Sonraki tur yalnız run job/log/artifact durumunu izleyecek ve başarı halinde aggregate `summary.json` içindeki gerçek çıkış-öncesi kayıp profilini okuyacaktır.
 
+## RETRIGGER gerçek çıkış-öncesi yol teşhisi sonucu — run 36329085400
+
+[Run 36329085400](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36329085400) teknik olarak eksiksiz tamamlandı. Preflight compile/self-test/statik nedensellik/gerçek Binance smoke; Q1–Q4 kaynak-artifact digest denetimi ve replay; aggregate eksik/çift çeyrek kapısı geçti. Tam **324 olay**, **285 target-first / 32 stop-first / 7 expired** ve kilitli çıkış zamanları birebir yeniden üretildi; yinelenen olay ve çıkış-sonrası kullanılan mum sayısı sıfırdır. Aggregate artifact ID **10934669214**, digest `sha256:84ec165c0c3a525b4453ff54574c6e9370c38ff639772445a2d5f1929370577d`. İlk job logundan son job loguna duvar süresi **1 dk 36 sn**, altı job log süresi toplamı **2,15 runner-dk**; 20–30 tahmininin ve 64 runner-dk tavanının çok altındadır. Makine-okunur sonuç `research/pressure_confirmation/output/retrigger_preexit_path/summary.json` altında arşivlendi.
+
+Veri sözleşmesi değişmedi: **2024-01-01–2025-01-01**, 366 gün, sabit 24 tarihsel Binance Spot USDT long sembolü, stable/fiat/leveraged base dışlama, yalnız kapanmış mum ve **%0,20 round-trip maliyet**. Baseline sıklık **0,885 sinyal/gün**, aktif gün **173/366 = %47,27**, net **-%80,270**, expectancy **-%0,2477**, PF **0,516**. Bu tanı yeni işlem açmadığı için target/stop sayıları da 285/32/7 olarak değişmedi; OOS **N/A**, 2025 ve 2026 seçim için açılmadı.
+
+Gerçek çıkıştan önceki ölçüm, önceki 24 saatlik tam-pencere MFE yanılgısını düzeltti:
+
+| Kayıp profili | Sonuç |
+| --- | ---: |
+| Kayıp olay | 39 |
+| Pre-exit MFE ortalama / medyan | +%0,2045 / +%0,2086 |
+| Pre-exit MAE ortalama | -%4,7104 |
+| Pozitif kapanış gören | 19/39 = %48,72 |
+| Brüt +%0,10 / +%0,20 gören | 28 / 20 |
+| Brüt +%0,30 / +%0,40 gören | 11 / 4 |
+| Brüt +%0,50 gören | 0 |
+| Tepeye medyan süre | 5 dakika |
+| Tepeden mevcut çıkışa medyan süre | 380 dakika |
+| Tepeden çıkışa medyan geri-verme | -%3,7847 |
+| Tepe sonrası medyan en uzun düşük-kapanış dizisi | 6 mum |
+
+Bu sonuç iki ayrı kayıp mekanizması gösterir. **19 olay** hiç pozitif kapanış üretmemiştir; diğer **20 olay** en az maliyeti karşılayan brüt +%0,20 intrabar harekete ulaşıp daha sonra kaybetmiştir. Kayıpların 37/39'unda tepe ile mevcut çıkış arasında en az 120 dakika vardır; sorun yalnız stop mesafesi değil, erken oluşan zayıf tepe sonrası hareketin saatler boyunca bozulmasına izin verilmesidir. Bununla birlikte “tepe” ancak sonradan bilindiği için bu bilgi doğrudan canlı kural olarak kullanılamaz; canlı kural yalnız o ana kadar kapanmış mumlarla yürüyen rolling-peak ve bozulma dizisi olmalıdır.
+
+Kullanıcının sabit daha küçük çıkış fikri aynı olaylarda yalnız betimleyici karşı-olgu olarak ayrıca hesaplandı; kural seçimi yapılmadı. Brüt +%0,10 / +%0,20 / +%0,30 / +%0,40 hedeflerinin net toplamları sırasıyla **-%81,941 / -%82,163 / -%102,138 / -%97,832** oldu; mevcut brüt +%0,50 baseline **-%80,270** ile bunların tümünden daha az kötüdür. +%0,30 hedef kayıp sayısını 39'dan 28'e indirse de kazanan başına net getiriyi +%0,10'a düşürdüğü için toplam sonucu ağır biçimde bozdu. Dolayısıyla **küçük sabit TP ailesi elendi**; aynı eşikler yeni adla tekrar taranmayacaktır.
+
+Karar: teşhis RETRIGGER'ı veya üretim sistemini kurtarmış değildir; yalnız yeni ve nedensel bir araştırma yönünü gerekçelendirmiştir. Sonraki somut adım, iki mekanizmayı tek statik stopla karıştırmayan bir **kapalı-mum hareket-bozulması korumasını** önceden kilitlemektir: olumlu hareket oluşmuş kol için rolling-peak sonrası fiyat/momentum/hacim/taker katılım kaybı; hiç olumlu kapanış üretmeyen kol için önceki elenmiş 30/60 dakika sabit kapılarını tekrarlamayan sıralı başarısızlık kanıtı. 2024 yalnız geliştirme/tanı dönemi sayılacak; eşik ve kural dondurulduktan sonra karar dokunulmamış 2025'te verilecek, 2026 hâlâ final OOS kalacaktır. Yeni pahalı run bu turda açılmadı. `Clear System.py` değiştirilmedi.
