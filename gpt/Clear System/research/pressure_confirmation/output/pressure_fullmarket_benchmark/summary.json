@@ -1,0 +1,250 @@
+{
+  "status": "PRESSURE_FULLMARKET_BENCHMARK_PASSED",
+  "expected_shards": [
+    "s0",
+    "s1",
+    "s2",
+    "s3"
+  ],
+  "completed_shards": [
+    "s0",
+    "s1",
+    "s2",
+    "s3"
+  ],
+  "symbols": 24,
+  "symbol_days": 168.0,
+  "replay_window": [
+    "2025-02-15 00:00:00+00:00",
+    "2025-02-22 00:00:00+00:00"
+  ],
+  "observed_days": 7.0,
+  "scan_count": 672,
+  "evaluations": 48384,
+  "elapsed_seconds": 38.825,
+  "vector_build_seconds": 8.24,
+  "evaluations_per_second": 1246.22,
+  "snapshots_computed": 80640,
+  "snapshot_cache_hits": 130368,
+  "cooldowns": [
+    0,
+    24,
+    48
+  ],
+  "comparison": {
+    "0": {
+      "signals": 9,
+      "signals_per_observed_day": 1.285714,
+      "active_days": 3,
+      "active_day_ratio_pct": 42.857143,
+      "final_candidates": 40,
+      "cooldown_blocked": 0,
+      "quota_blocked": 31,
+      "events": [
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 02:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 100.0,
+          "btc_regime": "GREEN",
+          "entry": 2.7819,
+          "stop": 2.6244075,
+          "source_tp1": 2.8792664999999995
+        },
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 02:30:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 100.0,
+          "btc_regime": "GREEN",
+          "entry": 2.8154,
+          "stop": 2.6244075,
+          "source_tp1": 2.9139389999999996
+        },
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 08:00:00+00:00",
+          "setup_kind": "RETRIGGER",
+          "score": 95.0,
+          "rank": 97.5,
+          "btc_regime": "YELLOW",
+          "entry": 2.7638,
+          "stop": 2.6244075,
+          "source_tp1": 2.8335
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-16 00:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 108.0,
+          "btc_regime": "YELLOW",
+          "entry": 133.86,
+          "stop": 127.50075000000001,
+          "source_tp1": 138.5451
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-16 00:45:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 108.0,
+          "btc_regime": "YELLOW",
+          "entry": 134.13,
+          "stop": 127.50075000000001,
+          "source_tp1": 138.82455
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-16 01:30:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 108.0,
+          "btc_regime": "YELLOW",
+          "entry": 136.47,
+          "stop": 127.50075000000001,
+          "source_tp1": 141.24644999999998
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-19 07:15:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 98.25,
+          "btc_regime": "GREEN",
+          "entry": 133.58,
+          "stop": 126.81824999999999,
+          "source_tp1": 137.5
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-19 10:15:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 97.0,
+          "rank": 105.0,
+          "btc_regime": "GREEN",
+          "entry": 137.71,
+          "stop": 126.81824999999999,
+          "source_tp1": 142.52985
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-19 16:00:00+00:00",
+          "setup_kind": "RETRIGGER",
+          "score": 95.0,
+          "rank": 101.0,
+          "btc_regime": "GREEN",
+          "entry": 136.53,
+          "stop": 126.81824999999999,
+          "source_tp1": 140.0
+        }
+      ]
+    },
+    "24": {
+      "signals": 4,
+      "signals_per_observed_day": 0.571429,
+      "active_days": 3,
+      "active_day_ratio_pct": 42.857143,
+      "final_candidates": 43,
+      "cooldown_blocked": 39,
+      "quota_blocked": 0,
+      "events": [
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 02:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 100.0,
+          "btc_regime": "GREEN",
+          "entry": 2.7819,
+          "stop": 2.6244075,
+          "source_tp1": 2.8792664999999995
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-15 19:30:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 107.5,
+          "btc_regime": "YELLOW",
+          "entry": 131.98,
+          "stop": 127.50075000000001,
+          "source_tp1": 136.59929999999997
+        },
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-16 04:15:00+00:00",
+          "setup_kind": "RETRIGGER",
+          "score": 100.0,
+          "rank": 107.5,
+          "btc_regime": "YELLOW",
+          "entry": 2.7857,
+          "stop": 2.6887575,
+          "source_tp1": 2.8831994999999995
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-19 07:15:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 98.25,
+          "btc_regime": "GREEN",
+          "entry": 133.58,
+          "stop": 126.81824999999999,
+          "source_tp1": 137.5
+        }
+      ]
+    },
+    "48": {
+      "signals": 3,
+      "signals_per_observed_day": 0.428571,
+      "active_days": 2,
+      "active_day_ratio_pct": 28.571429,
+      "final_candidates": 44,
+      "cooldown_blocked": 41,
+      "quota_blocked": 0,
+      "events": [
+        {
+          "symbol": "XRPUSDT",
+          "decision_time": "2025-02-15 02:00:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 100.0,
+          "btc_regime": "GREEN",
+          "entry": 2.7819,
+          "stop": 2.6244075,
+          "source_tp1": 2.8792664999999995
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-15 19:30:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 100.0,
+          "rank": 107.5,
+          "btc_regime": "YELLOW",
+          "entry": 131.98,
+          "stop": 127.50075000000001,
+          "source_tp1": 136.59929999999997
+        },
+        {
+          "symbol": "LTCUSDT",
+          "decision_time": "2025-02-19 07:15:00+00:00",
+          "setup_kind": "PRESSURE",
+          "score": 92.0,
+          "rank": 98.25,
+          "btc_regime": "GREEN",
+          "entry": 133.58,
+          "stop": 126.81824999999999,
+          "source_tp1": 137.5
+        }
+      ]
+    }
+  },
+  "universe_contract": "Binance Spot USDT long; stable/fiat/leveraged bases excluded",
+  "causality_contract": "only frames with close_time < decision_time",
+  "pnl_metrics": "N/A: capacity/state benchmark; no 5m exit path in this stage",
+  "oos": "N/A: fixed 2025 infrastructure benchmark, not strategy selection",
+  "decision": "Use measured throughput to budget the staged 2023-2025 research; do not promote a rule."
+}
