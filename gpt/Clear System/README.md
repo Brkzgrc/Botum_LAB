@@ -646,3 +646,28 @@ Bu kez yalnız belirsiz bir timeout artışı yapılmadı: iki gerçek kapasite 
 
 [Yeni recovery run 36317562080](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36317562080) başladı. Preflight/compile/self-test/static amendment/gerçek-veri smoke geçmeden replay açılmayacak; Q1–Q4 eksik/çift olduğunda aggregate fail-close ve bütün job'larda hata artifact'i korunuyor. Paralel başka pahalı Clear System işi yok. Sonraki adım yalnız bu run'ı izlemek ve tamamlanırsa aggregate `summary.json` metriklerini okumaktır. `Clear System.py` değiştirilmedi.
 
+## RETRIGGER 2024 Calibration sonucu ve kayıp-yolu teşhisi — run 36317562080
+
+[Son recovery run 36317562080](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36317562080) teknik olarak eksiksiz tamamlandı: preflight/compile, deterministik self-test, kilitli kural ve nedensellik denetimi, gerçek 2024 15M+5M smoke, dört hash/lifecycle doğrulanmış veri shard'ı, Q1–Q4 replay, eksik/çift çeyrek fail-close ve hata artifact yolları geçti. Duvar süresi **35 dk 04 sn**, altı job'ın gerçek toplamı **119,12 runner-dk**; önceden hesaplanan 115–140 runner-dk aralığındadır. Aggregate artifact ID **10931518689**. Sıkıştırılmış makine-okunur sonuç [`research/pressure_confirmation/output/retrigger_2024_calibration/summary.json`](research/pressure_confirmation/output/retrigger_2024_calibration/summary.json) altında arşivlendi.
+
+Veri sözleşmesi: **2024-01-01–2025-01-01**, 366 gün; sabit 24 tarihsel Binance Spot USDT long sembolü; stable/fiat/leveraged base dışlama; yalnız kapanmış mum; **%0,20** round-trip maliyet. Kilitli RETRIGGER politikası: 0 saat cooldown, brüt **+%0,50** hedef, sinyal anında sabit kaynak ATR stopu, 24 saat expiry ve aynı-mumda stop-first.
+
+| Metrik | RETRIGGER aday | PRESSURE kontrol |
+| --- | ---: | ---: |
+| Olay | 324 | 369 |
+| Sinyal/gün | 0,885 | 1,008 |
+| Aktif gün | 173/366 = %47,27 | 193/366 = %52,73 |
+| Pozitif / negatif | 285 / 39 | 323 / 46 |
+| Net yüzde-puan toplamı | **-%80,270** | **-%124,813** |
+| Expectancy | **-%0,2477** | **-%0,3382** |
+| Profit Factor | **0,516** | **0,437** |
+| Target-first / stop-first / expired | 285 / 32 / 7 | 323 / 32 / 14 |
+| Ortalama MFE / MAE | +%4,600 / -%4,517 | +%5,443 / -%4,099 |
+| En kötü işlem | -%15,864 | -%11,464 |
+
+RETRIGGER'ın dört çeyreği de negatiftir: Q1 **-%30,584 / PF 0,446**, Q2 **-%10,816 / PF 0,555**, Q3 **-%26,918 / PF 0,431**, Q4 **-%11,952 / PF 0,693**. Yalnız 3 ay pozitiftir; negatif olay oranı %12,04'tür. Olay sayısı, sıklık, aktif gün ve sembol yoğunluğu kapıları geçti; expectancy, PF, pozitif ay, negatif olmayan çeyrek, kayıp oranı ve en kötü işlem kapıları kaldı. Kilitli karar **REJECT_RETRIGGER_SETUP_KIND_SEPARATION**: aday **ELENDİ**. 2025 forward ve 2026 final OOS seçim için açılmadı; OOS **N/A**. `Clear System.py` değiştirilmedi.
+
+Kullanıcının “önce pozitife gidip sonra kaybedenleri hareketle koruma” fikri için 39 kaybeden ayrı incelendi: 32 stop-first, 7 expired; kayıp toplamı **-%165,770**, ortalama kayıp **-%4,251**, tam-pencere ortalama MFE **+%1,130**, medyan MFE **+%0,275**, ortalama MAE **-%6,923**. Ancak araştırma kodu MFE/MAE'yi çıkıştan bağımsız olarak sinyalden sonraki tam 24 saatin mutlak yüksek/düşüğüyle hesaplıyor. Bu nedenle örneğin stop sonrası yükseliş de MFE'ye giriyor; mevcut MFE, sinyalin stop olmadan önce kâra geçtiğini kanıtlamaz. Target-first kuralı nedeniyle kaybedenlerin hiçbiri gerçek çıkıştan önce +%0,50 hedefe ulaşmış olamaz. Daha küçük +%0,10–0,40 olumlu hareketlerin stop/expiry öncesinde olup olmadığını söylemek için 5M mumların **zaman sıralı pre-exit** yeniden oynatımı gerekir.
+
+Sonraki somut adım: aynı RETRIGGER hedef/cooldown eşiğini yeniden taramamak. Önce mevcut 324 olayın tamamında, yeni full-market taraması yapmadan yalnız seçilmiş 5M yolları tekrar kullanarak/fetch ederek; gerçek çıkıştan önceki MFE, ilk olumlu hareket zamanı, tepe sonrası fiyat-momentum-hacim bozulma dizisi ve karşı-olgusal erken çıkışları ölçen küçük, nedensel bir teşhis tasarlanacak. Bu teşhis yalnız “hareket kaybı koruması” için tek bir bağımsız ve önceden kilitli kuralı gerekçelendirebilirse yeni deney açılacak; salt sabit stop yukarı çekme veya aynı eşikleri yeniden adlandırma yapılmayacak. Yeni pahalı araştırma bu turda başlatılmadı.
+
