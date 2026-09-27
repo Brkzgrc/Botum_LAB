@@ -1,0 +1,225 @@
+name: Clear System - PRESSURE Follow-Through Confirmation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/clear-system-pressure-followthrough-confirmation.yml'
+
+concurrency:
+  group: clear-system-pressure-followthrough-confirmation
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile and deterministic self-tests
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            'gpt/Clear System/research/pressure_confirmation/followthrough_confirmation/pressure_followthrough_confirmation.py' \
+            'gpt/Clear System/research/pressure_confirmation/discovery_month/pressure_discovery_month.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_vector_snapshots.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_path_exit.py'
+          python 'gpt/Clear System/research/pressure_confirmation/followthrough_confirmation/pressure_followthrough_confirmation.py' --self-test
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' --self-test
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_path_exit.py'
+      - name: Static preregistration causality universe and budget audit
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import ast,json,re
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/followthrough_confirmation/pressure_followthrough_confirmation.py')
+          j=Path('gpt/Clear System/research/pressure_confirmation/followthrough_confirmation/preregistration.json')
+          s=p.read_text(); ast.parse(s); x=json.loads(j.read_text())
+          assert x['status']=='PREREGISTERED_NOT_RUN'
+          assert [z['id'] for z in x['locked_periods']]==['D1','D2']
+          assert [z['id'] for z in x['locked_gates']]==['G30_CLOSE','G60_PRICE_VOLUME','G60_MOTION_FLOW']
+          required=('2023-05-01T00:00:00Z','2023-06-01T00:00:00Z','2023-11-01T00:00:00Z','2023-12-01T00:00:00Z',
+                    'G30_CLOSE','G60_PRICE_VOLUME','G60_MOTION_FLOW','FEE_PCT = 0.20','close_time <= end',
+                    'baseline_fixed_gross_0.50','GATE_PATH_INCOMPLETE','GATE_15M_CONTEXT_INCOMPLETE')
+          assert all(v in s for v in required)
+          assert 'shift(-' not in s and 'requests.post' not in s and 'path_exit.time_exit(' not in s
+          assert x['action_budget']['hard_runner_minute_ceiling']==80
+          assert 8+4*12+24==80
+          print('static preregistered follow-through audit ok')
+          PY
+      - name: Real 2023 closed-candle snapshot and gate-path smoke
+        timeout-minutes: 4
+        run: |
+          set -euo pipefail
+          out=/tmp/pressure-followthrough-smoke
+          mkdir -p "$out"
+          timeout 210s python - "$out/summary.json" <<'PY' 2>&1 | tee "$out/run.log"
+          import json,sys
+          from pathlib import Path
+          import pandas as pd
+          root=Path('gpt/Clear System/research/pressure_confirmation')
+          ft=root/'followthrough_confirmation'; dm=root/'discovery_month'; src=Path('gpt/Clear System/sources/botum_2026-09-26')
+          sys.path[:0]=[str(ft),str(dm),str(root),str(src)]
+          import pressure_followthrough_confirmation as m
+          import pressure_vector_snapshots as v
+          import pressure_replay_preflight as h
+          import spot_opportunity_scanner as scanner
+          h.verify_sources(); start=pd.Timestamp('2023-05-01T00:00:00Z')
+          raw=h.fetch('BTCUSDT','15m',pd.Timestamp('2023-01-20T00:00:00Z'),start+pd.Timedelta(hours=2))
+          frames=h.build_frames(raw); cases=0
+          for interval,label in {'15m':'15M','1h':'1H','4h':'4H','1d':'1D'}.items():
+              got=v.build_snapshots(frames[interval],label,[start])
+              source=frames[interval][frames[interval].close_time<start].tail(240).reset_index(drop=True)
+              end_idx=int(frames[interval].index[frames[interval].close_time<start][-1])
+              v.assert_snapshot_equal(scanner.snap(source,label),got[end_idx]); cases+=1
+          bars5=h.fetch('BTCUSDT','5m',start,start+pd.Timedelta(hours=24))
+          entry=float(bars5.open.iloc[0]); event={'decision_time':str(start),'entry':entry,'stop':entry*.95}
+          baseline=m.dm.fixed_target(bars5,start,entry,entry*.95)
+          gates={g:m.gated_result(g,event,bars5,raw,baseline)[0] for g in m.GATES}
+          result={'status':'PRESSURE_FOLLOWTHROUGH_REAL_SMOKE_PASSED','snapshot_parity_cases':cases,
+                  'rows15':len(raw),'rows5':len(bars5),'baseline':baseline,'gates':gates}
+          Path(sys.argv[1]).write_text(json.dumps(result,indent=2)+'\n'); print(json.dumps(result))
+          PY
+      - name: Preserve preflight evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-followthrough-preflight
+          path: /tmp/pressure-followthrough-smoke
+          if-no-files-found: warn
+          retention-days: 14
+
+  fetch:
+    needs: preflight
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [s0, s1, s2, s3]
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile shard code
+        timeout-minutes: 1
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/followthrough_confirmation/pressure_followthrough_confirmation.py' 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py'
+      - name: Fetch one reusable closed-candle 15m shard
+        timeout-minutes: 10
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          set -euo pipefail
+          out="gpt/Clear System/research/pressure_confirmation/output/pressure_followthrough_confirmation/$SHARD"
+          mkdir -p "$out"
+          timeout 9m python 'gpt/Clear System/research/pressure_confirmation/followthrough_confirmation/pressure_followthrough_confirmation.py' \
+            --fetch-shard "$SHARD" --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Verify manifest hashes coverage and reusable date span
+        timeout-minutes: 1
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          set -euo pipefail
+          python - "$SHARD" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+          shard=sys.argv[1]; root=Path('gpt/Clear System/research/pressure_confirmation/output/pressure_followthrough_confirmation')/shard
+          x=json.loads((root/'manifest.json').read_text())
+          assert x['status']=='PRESSURE_DATA_SHARD_PASSED' and x['shard']==shard
+          assert len(x['symbols'])==len(x['files'])==6
+          assert x['history_start'].startswith('2023-01-20') and x['replay_window'][1].startswith('2023-12-01')
+          for rec in x['files']:
+              p=root/rec['file']; assert p.is_file() and rec['coverage_pct']>=98
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==rec['sha256']
+          print('reusable follow-through shard complete',shard,sum(r['rows'] for r in x['files']))
+          PY
+      - name: Preserve shard evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-followthrough-data-${{ matrix.shard }}
+          path: gpt/Clear System/research/pressure_confirmation/output/pressure_followthrough_confirmation/${{ matrix.shard }}
+          if-no-files-found: warn
+          retention-days: 14
+
+  aggregate:
+    if: always()
+    needs: [preflight, fetch]
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Download all data shards
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pressure-followthrough-data-*
+          path: downloaded
+      - name: Compile central replay
+        timeout-minutes: 1
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/followthrough_confirmation/pressure_followthrough_confirmation.py' 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' 'gpt/Clear System/research/pressure_confirmation/pressure_vector_snapshots.py'
+      - name: Two-period replay gate paths and missing-shard fail-closed check
+        timeout-minutes: 21
+        run: |
+          set -euo pipefail
+          out='gpt/Clear System/research/pressure_confirmation/output/pressure_followthrough_confirmation/aggregate'
+          mkdir -p "$out"
+          timeout 20m python 'gpt/Clear System/research/pressure_confirmation/followthrough_confirmation/pressure_followthrough_confirmation.py' \
+            --input-root downloaded --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Verify summary schema metrics and preregistered decision
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/output/pressure_followthrough_confirmation/aggregate/summary.json')
+          x=json.loads(p.read_text())
+          assert x['status']=='PRESSURE_FOLLOWTHROUGH_CONFIRMATION_COMPLETE'
+          assert x['preregistration_status']=='PREREGISTERED_NOT_RUN' and x['round_trip_cost_pct']==.2
+          assert x['expected_shards']==x['completed_shards']==['s0','s1','s2','s3']
+          assert list(x['periods'])==['D1','D2']
+          for pid,z in x['periods'].items():
+              assert z['selected_path_data']['request_count']>0 and z['selected_path_data']['rows']>0
+              for h in ('0','24','48'):
+                  c=z['cooldowns'][h]
+                  assert all(k in c for k in ('signals','signals_per_day','active_day_ratio_pct','mfe_mean_pct','mae_mean_pct','policies','records'))
+                  for policy in ('baseline_fixed_gross_0.50','G30_CLOSE','G60_PRICE_VOLUME','G60_MOTION_FLOW'):
+                      m=c['policies'][policy]
+                      assert all(k in m for k in ('events','net_total_pct','expectancy_pct','profit_factor','target_first','stop_first','worst_trade_pct','preserved_target_ratio_pct'))
+          assert x['decision_gate']['decision'] in {'FREEZE_SIMPLEST_PASSING_GATE_FOR_2024_CALIBRATION','REJECT_PREREGISTERED_FOLLOWTHROUGH_GATES'}
+          assert x['oos'].startswith('N/A')
+          print('preregistered follow-through confirmation complete',x['decision_gate']['decision'])
+          PY
+      - name: Preserve aggregate on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-followthrough-confirmation-aggregate
+          path: gpt/Clear System/research/pressure_confirmation/output/pressure_followthrough_confirmation/aggregate
+          if-no-files-found: warn
+          retention-days: 14
