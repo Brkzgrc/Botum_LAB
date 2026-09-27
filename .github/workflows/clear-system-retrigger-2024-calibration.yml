@@ -1,4 +1,5 @@
 name: Clear System - RETRIGGER 2024 Calibration
+# 2024 lifecycle-aware recovery: preserve MATIC history, skip only stale post-migration bars.
 
 on:
   workflow_dispatch:
