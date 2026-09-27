@@ -1,0 +1,795 @@
+{
+  "status": "PRESSURE_FOLLOWTHROUGH_CONFIRMATION_COMPLETE",
+  "source_run_id": 36299204476,
+  "source_artifact_id": 10925360685,
+  "source_artifact_digest": "sha256:7b988d68033bf4165ddd2005512f978f6d3d2a393baf650fc45098f3105f8697",
+  "action_runtime": {
+    "wall_seconds": 792,
+    "runner_seconds": 1341,
+    "runner_minutes": 22.35,
+    "budget_runner_minutes": 80
+  },
+  "preregistration_status": "PREREGISTERED_NOT_RUN",
+  "periods": {
+    "D1": {
+      "period": "D1",
+      "window": [
+        "2023-05-01 00:00:00+00:00",
+        "2023-06-01 00:00:00+00:00"
+      ],
+      "candidate_replay": {
+        "status": "PRESSURE_FULLMARKET_BENCHMARK_PASSED",
+        "symbols": 24,
+        "observed_days": 31.0,
+        "scan_count": 2976,
+        "evaluations": 214272,
+        "completed_shards": [
+          "s0",
+          "s1",
+          "s2",
+          "s3"
+        ]
+      },
+      "cooldowns": {
+        "0": {
+          "signals": 25,
+          "signals_per_day": 0.806452,
+          "active_days": 9,
+          "active_day_ratio_pct": 29.032258,
+          "mfe_mean_pct": 3.37692,
+          "mae_mean_pct": -2.344713,
+          "policies": {
+            "baseline_fixed_gross_0.50": {
+              "events": 25,
+              "positive": 20,
+              "negative": 5,
+              "flat": 0,
+              "net_total_pct": -15.707631,
+              "expectancy_pct": -0.628305,
+              "profit_factor": 0.2764,
+              "target_first": 20,
+              "stop_first": 3,
+              "worst_trade_pct": -5.630232,
+              "preserved_target_ratio_pct": 100.0,
+              "outcomes": {
+                "EXPIRED": 2,
+                "STOP_FIRST": 3,
+                "TARGET_FIRST": 20
+              }
+            },
+            "G30_CLOSE": {
+              "events": 25,
+              "positive": 16,
+              "negative": 9,
+              "flat": 0,
+              "net_total_pct": -7.078578,
+              "expectancy_pct": -0.283143,
+              "profit_factor": 0.404089,
+              "target_first": 16,
+              "stop_first": 1,
+              "worst_trade_pct": -4.661845,
+              "preserved_target_ratio_pct": 80.0,
+              "outcomes": {
+                "EXPIRED": 1,
+                "GATE_FAIL_EXIT": 7,
+                "STOP_FIRST": 1,
+                "TARGET_FIRST": 16
+              }
+            },
+            "G60_PRICE_VOLUME": {
+              "events": 25,
+              "positive": 16,
+              "negative": 9,
+              "flat": 0,
+              "net_total_pct": -5.137834,
+              "expectancy_pct": -0.205513,
+              "profit_factor": 0.483003,
+              "target_first": 16,
+              "stop_first": 0,
+              "worst_trade_pct": -2.929502,
+              "preserved_target_ratio_pct": 80.0,
+              "outcomes": {
+                "EXPIRED": 1,
+                "GATE_FAIL_EXIT": 8,
+                "TARGET_FIRST": 16
+              }
+            },
+            "G60_MOTION_FLOW": {
+              "events": 25,
+              "positive": 16,
+              "negative": 9,
+              "flat": 0,
+              "net_total_pct": -5.137834,
+              "expectancy_pct": -0.205513,
+              "profit_factor": 0.483003,
+              "target_first": 16,
+              "stop_first": 0,
+              "worst_trade_pct": -2.929502,
+              "preserved_target_ratio_pct": 80.0,
+              "outcomes": {
+                "EXPIRED": 1,
+                "GATE_FAIL_EXIT": 8,
+                "TARGET_FIRST": 16
+              }
+            }
+          }
+        },
+        "24": {
+          "signals": 7,
+          "signals_per_day": 0.225806,
+          "active_days": 7,
+          "active_day_ratio_pct": 22.580645,
+          "mfe_mean_pct": 3.663119,
+          "mae_mean_pct": -2.138787,
+          "policies": {
+            "baseline_fixed_gross_0.50": {
+              "events": 7,
+              "positive": 7,
+              "negative": 0,
+              "flat": 0,
+              "net_total_pct": 2.1,
+              "expectancy_pct": 0.3,
+              "profit_factor": null,
+              "target_first": 7,
+              "stop_first": 0,
+              "worst_trade_pct": 0.3,
+              "preserved_target_ratio_pct": 100.0,
+              "outcomes": {
+                "TARGET_FIRST": 7
+              }
+            },
+            "G30_CLOSE": {
+              "events": 7,
+              "positive": 7,
+              "negative": 0,
+              "flat": 0,
+              "net_total_pct": 2.1,
+              "expectancy_pct": 0.3,
+              "profit_factor": null,
+              "target_first": 7,
+              "stop_first": 0,
+              "worst_trade_pct": 0.3,
+              "preserved_target_ratio_pct": 100.0,
+              "outcomes": {
+                "TARGET_FIRST": 7
+              }
+            },
+            "G60_PRICE_VOLUME": {
+              "events": 7,
+              "positive": 6,
+              "negative": 1,
+              "flat": 0,
+              "net_total_pct": 1.32167,
+              "expectancy_pct": 0.18881,
+              "profit_factor": 3.763092,
+              "target_first": 6,
+              "stop_first": 0,
+              "worst_trade_pct": -0.47833,
+              "preserved_target_ratio_pct": 85.714286,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 1,
+                "TARGET_FIRST": 6
+              }
+            },
+            "G60_MOTION_FLOW": {
+              "events": 7,
+              "positive": 6,
+              "negative": 1,
+              "flat": 0,
+              "net_total_pct": 1.32167,
+              "expectancy_pct": 0.18881,
+              "profit_factor": 3.763092,
+              "target_first": 6,
+              "stop_first": 0,
+              "worst_trade_pct": -0.47833,
+              "preserved_target_ratio_pct": 85.714286,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 1,
+                "TARGET_FIRST": 6
+              }
+            }
+          }
+        },
+        "48": {
+          "signals": 4,
+          "signals_per_day": 0.129032,
+          "active_days": 4,
+          "active_day_ratio_pct": 12.903226,
+          "mfe_mean_pct": 4.890207,
+          "mae_mean_pct": -2.249429,
+          "policies": {
+            "baseline_fixed_gross_0.50": {
+              "events": 4,
+              "positive": 4,
+              "negative": 0,
+              "flat": 0,
+              "net_total_pct": 1.2,
+              "expectancy_pct": 0.3,
+              "profit_factor": null,
+              "target_first": 4,
+              "stop_first": 0,
+              "worst_trade_pct": 0.3,
+              "preserved_target_ratio_pct": 100.0,
+              "outcomes": {
+                "TARGET_FIRST": 4
+              }
+            },
+            "G30_CLOSE": {
+              "events": 4,
+              "positive": 4,
+              "negative": 0,
+              "flat": 0,
+              "net_total_pct": 1.2,
+              "expectancy_pct": 0.3,
+              "profit_factor": null,
+              "target_first": 4,
+              "stop_first": 0,
+              "worst_trade_pct": 0.3,
+              "preserved_target_ratio_pct": 100.0,
+              "outcomes": {
+                "TARGET_FIRST": 4
+              }
+            },
+            "G60_PRICE_VOLUME": {
+              "events": 4,
+              "positive": 3,
+              "negative": 1,
+              "flat": 0,
+              "net_total_pct": 0.42167,
+              "expectancy_pct": 0.105417,
+              "profit_factor": 1.881546,
+              "target_first": 3,
+              "stop_first": 0,
+              "worst_trade_pct": -0.47833,
+              "preserved_target_ratio_pct": 75.0,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 1,
+                "TARGET_FIRST": 3
+              }
+            },
+            "G60_MOTION_FLOW": {
+              "events": 4,
+              "positive": 3,
+              "negative": 1,
+              "flat": 0,
+              "net_total_pct": 0.42167,
+              "expectancy_pct": 0.105417,
+              "profit_factor": 1.881546,
+              "target_first": 3,
+              "stop_first": 0,
+              "worst_trade_pct": -0.47833,
+              "preserved_target_ratio_pct": 75.0,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 1,
+                "TARGET_FIRST": 3
+              }
+            }
+          }
+        }
+      }
+    },
+    "D2": {
+      "period": "D2",
+      "window": [
+        "2023-11-01 00:00:00+00:00",
+        "2023-12-01 00:00:00+00:00"
+      ],
+      "candidate_replay": {
+        "status": "PRESSURE_FULLMARKET_BENCHMARK_PASSED",
+        "symbols": 24,
+        "observed_days": 30.0,
+        "scan_count": 2880,
+        "evaluations": 207360,
+        "completed_shards": [
+          "s0",
+          "s1",
+          "s2",
+          "s3"
+        ]
+      },
+      "cooldowns": {
+        "0": {
+          "signals": 79,
+          "signals_per_day": 2.633333,
+          "active_days": 27,
+          "active_day_ratio_pct": 90.0,
+          "mfe_mean_pct": 4.861128,
+          "mae_mean_pct": -4.781968,
+          "policies": {
+            "baseline_fixed_gross_0.50": {
+              "events": 79,
+              "positive": 69,
+              "negative": 10,
+              "flat": 0,
+              "net_total_pct": -14.805573,
+              "expectancy_pct": -0.187412,
+              "profit_factor": 0.583007,
+              "target_first": 69,
+              "stop_first": 4,
+              "worst_trade_pct": -7.563152,
+              "preserved_target_ratio_pct": 100.0,
+              "outcomes": {
+                "EXPIRED": 6,
+                "STOP_FIRST": 4,
+                "TARGET_FIRST": 69
+              }
+            },
+            "G30_CLOSE": {
+              "events": 79,
+              "positive": 48,
+              "negative": 31,
+              "flat": 0,
+              "net_total_pct": -19.736077,
+              "expectancy_pct": -0.249824,
+              "profit_factor": 0.421841,
+              "target_first": 48,
+              "stop_first": 0,
+              "worst_trade_pct": -2.852182,
+              "preserved_target_ratio_pct": 69.565217,
+              "outcomes": {
+                "EXPIRED": 1,
+                "GATE_FAIL_EXIT": 30,
+                "TARGET_FIRST": 48
+              }
+            },
+            "G60_PRICE_VOLUME": {
+              "events": 79,
+              "positive": 51,
+              "negative": 28,
+              "flat": 0,
+              "net_total_pct": -20.682366,
+              "expectancy_pct": -0.261802,
+              "profit_factor": 0.425208,
+              "target_first": 51,
+              "stop_first": 0,
+              "worst_trade_pct": -4.672902,
+              "preserved_target_ratio_pct": 73.913043,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 28,
+                "TARGET_FIRST": 51
+              }
+            },
+            "G60_MOTION_FLOW": {
+              "events": 79,
+              "positive": 51,
+              "negative": 28,
+              "flat": 0,
+              "net_total_pct": -20.814358,
+              "expectancy_pct": -0.263473,
+              "profit_factor": 0.42154,
+              "target_first": 50,
+              "stop_first": 0,
+              "worst_trade_pct": -4.672902,
+              "preserved_target_ratio_pct": 72.463768,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 29,
+                "TARGET_FIRST": 50
+              }
+            }
+          }
+        },
+        "24": {
+          "signals": 70,
+          "signals_per_day": 2.333333,
+          "active_days": 27,
+          "active_day_ratio_pct": 90.0,
+          "mfe_mean_pct": 4.795614,
+          "mae_mean_pct": -4.570227,
+          "policies": {
+            "baseline_fixed_gross_0.50": {
+              "events": 70,
+              "positive": 61,
+              "negative": 9,
+              "flat": 0,
+              "net_total_pct": -16.749674,
+              "expectancy_pct": -0.239281,
+              "profit_factor": 0.522116,
+              "target_first": 61,
+              "stop_first": 4,
+              "worst_trade_pct": -5.412766,
+              "preserved_target_ratio_pct": 100.0,
+              "outcomes": {
+                "EXPIRED": 5,
+                "STOP_FIRST": 4,
+                "TARGET_FIRST": 61
+              }
+            },
+            "G30_CLOSE": {
+              "events": 70,
+              "positive": 37,
+              "negative": 33,
+              "flat": 0,
+              "net_total_pct": -21.895177,
+              "expectancy_pct": -0.312788,
+              "profit_factor": 0.336413,
+              "target_first": 37,
+              "stop_first": 0,
+              "worst_trade_pct": -2.890781,
+              "preserved_target_ratio_pct": 60.655738,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 33,
+                "TARGET_FIRST": 37
+              }
+            },
+            "G60_PRICE_VOLUME": {
+              "events": 70,
+              "positive": 44,
+              "negative": 26,
+              "flat": 0,
+              "net_total_pct": -19.093509,
+              "expectancy_pct": -0.272764,
+              "profit_factor": 0.405073,
+              "target_first": 43,
+              "stop_first": 0,
+              "worst_trade_pct": -3.508337,
+              "preserved_target_ratio_pct": 70.491803,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 27,
+                "TARGET_FIRST": 43
+              }
+            },
+            "G60_MOTION_FLOW": {
+              "events": 70,
+              "positive": 42,
+              "negative": 28,
+              "flat": 0,
+              "net_total_pct": -19.721585,
+              "expectancy_pct": -0.281737,
+              "profit_factor": 0.38733,
+              "target_first": 41,
+              "stop_first": 0,
+              "worst_trade_pct": -3.508337,
+              "preserved_target_ratio_pct": 67.213115,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 29,
+                "TARGET_FIRST": 41
+              }
+            }
+          }
+        },
+        "48": {
+          "signals": 65,
+          "signals_per_day": 2.166667,
+          "active_days": 25,
+          "active_day_ratio_pct": 83.333333,
+          "mfe_mean_pct": 4.645287,
+          "mae_mean_pct": -4.334381,
+          "policies": {
+            "baseline_fixed_gross_0.50": {
+              "events": 65,
+              "positive": 57,
+              "negative": 8,
+              "flat": 0,
+              "net_total_pct": -13.116378,
+              "expectancy_pct": -0.20179,
+              "profit_factor": 0.565918,
+              "target_first": 57,
+              "stop_first": 4,
+              "worst_trade_pct": -5.999076,
+              "preserved_target_ratio_pct": 100.0,
+              "outcomes": {
+                "EXPIRED": 4,
+                "STOP_FIRST": 4,
+                "TARGET_FIRST": 57
+              }
+            },
+            "G30_CLOSE": {
+              "events": 65,
+              "positive": 36,
+              "negative": 29,
+              "flat": 0,
+              "net_total_pct": -20.32776,
+              "expectancy_pct": -0.312735,
+              "profit_factor": 0.346957,
+              "target_first": 36,
+              "stop_first": 1,
+              "worst_trade_pct": -5.999076,
+              "preserved_target_ratio_pct": 63.157895,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 28,
+                "STOP_FIRST": 1,
+                "TARGET_FIRST": 36
+              }
+            },
+            "G60_PRICE_VOLUME": {
+              "events": 65,
+              "positive": 43,
+              "negative": 22,
+              "flat": 0,
+              "net_total_pct": -13.757364,
+              "expectancy_pct": -0.211652,
+              "profit_factor": 0.480025,
+              "target_first": 42,
+              "stop_first": 0,
+              "worst_trade_pct": -2.940024,
+              "preserved_target_ratio_pct": 73.684211,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 23,
+                "TARGET_FIRST": 42
+              }
+            },
+            "G60_MOTION_FLOW": {
+              "events": 65,
+              "positive": 42,
+              "negative": 23,
+              "flat": 0,
+              "net_total_pct": -14.017978,
+              "expectancy_pct": -0.215661,
+              "profit_factor": 0.47074,
+              "target_first": 41,
+              "stop_first": 0,
+              "worst_trade_pct": -2.940024,
+              "preserved_target_ratio_pct": 71.929825,
+              "outcomes": {
+                "GATE_FAIL_EXIT": 24,
+                "TARGET_FIRST": 41
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "decision_gate": {
+    "tests": {
+      "0h:G30_CLOSE": {
+        "passed": false,
+        "period_improvements": [
+          true,
+          false
+        ],
+        "worst_loss_improvement_pct": 38.361083,
+        "pooled_metrics": {
+          "events": 104,
+          "positive": 64,
+          "negative": 40,
+          "flat": 0,
+          "net_total_pct": -26.814655,
+          "expectancy_pct": -0.257833,
+          "profit_factor": 0.417258,
+          "target_first": 64,
+          "stop_first": 1,
+          "worst_trade_pct": -4.661845,
+          "preserved_target_ratio_pct": 71.910112,
+          "outcomes": {
+            "EXPIRED": 2,
+            "GATE_FAIL_EXIT": 37,
+            "STOP_FIRST": 1,
+            "TARGET_FIRST": 64
+          },
+          "max_positive_concentration_pct": 75.0
+        }
+      },
+      "0h:G60_PRICE_VOLUME": {
+        "passed": false,
+        "period_improvements": [
+          true,
+          false
+        ],
+        "worst_loss_improvement_pct": 38.214887,
+        "pooled_metrics": {
+          "events": 104,
+          "positive": 67,
+          "negative": 37,
+          "flat": 0,
+          "net_total_pct": -25.8202,
+          "expectancy_pct": -0.248271,
+          "profit_factor": 0.437716,
+          "target_first": 67,
+          "stop_first": 0,
+          "worst_trade_pct": -4.672902,
+          "preserved_target_ratio_pct": 75.280899,
+          "outcomes": {
+            "EXPIRED": 1,
+            "GATE_FAIL_EXIT": 36,
+            "TARGET_FIRST": 67
+          },
+          "max_positive_concentration_pct": 76.119403
+        }
+      },
+      "0h:G60_MOTION_FLOW": {
+        "passed": false,
+        "period_improvements": [
+          true,
+          false
+        ],
+        "worst_loss_improvement_pct": 38.214887,
+        "pooled_metrics": {
+          "events": 104,
+          "positive": 67,
+          "negative": 37,
+          "flat": 0,
+          "net_total_pct": -25.952192,
+          "expectancy_pct": -0.24954,
+          "profit_factor": 0.434841,
+          "target_first": 66,
+          "stop_first": 0,
+          "worst_trade_pct": -4.672902,
+          "preserved_target_ratio_pct": 74.157303,
+          "outcomes": {
+            "EXPIRED": 1,
+            "GATE_FAIL_EXIT": 37,
+            "TARGET_FIRST": 66
+          },
+          "max_positive_concentration_pct": 75.961548
+        }
+      },
+      "24h:G30_CLOSE": {
+        "passed": false,
+        "period_improvements": [
+          false,
+          false
+        ],
+        "worst_loss_improvement_pct": 46.593276,
+        "pooled_metrics": {
+          "events": 77,
+          "positive": 44,
+          "negative": 33,
+          "flat": 0,
+          "net_total_pct": -19.795177,
+          "expectancy_pct": -0.25708,
+          "profit_factor": 0.400058,
+          "target_first": 44,
+          "stop_first": 0,
+          "worst_trade_pct": -2.890781,
+          "preserved_target_ratio_pct": 64.705882,
+          "outcomes": {
+            "GATE_FAIL_EXIT": 33,
+            "TARGET_FIRST": 44
+          },
+          "max_positive_concentration_pct": 84.090909
+        }
+      },
+      "24h:G60_PRICE_VOLUME": {
+        "passed": false,
+        "period_improvements": [
+          false,
+          false
+        ],
+        "worst_loss_improvement_pct": 35.184026,
+        "pooled_metrics": {
+          "events": 77,
+          "positive": 50,
+          "negative": 27,
+          "flat": 0,
+          "net_total_pct": -17.771839,
+          "expectancy_pct": -0.230803,
+          "profit_factor": 0.454386,
+          "target_first": 49,
+          "stop_first": 0,
+          "worst_trade_pct": -3.508337,
+          "preserved_target_ratio_pct": 72.058824,
+          "outcomes": {
+            "GATE_FAIL_EXIT": 28,
+            "TARGET_FIRST": 49
+          },
+          "max_positive_concentration_pct": 87.838142
+        }
+      },
+      "24h:G60_MOTION_FLOW": {
+        "passed": false,
+        "period_improvements": [
+          false,
+          false
+        ],
+        "worst_loss_improvement_pct": 35.184026,
+        "pooled_metrics": {
+          "events": 77,
+          "positive": 48,
+          "negative": 29,
+          "flat": 0,
+          "net_total_pct": -18.399915,
+          "expectancy_pct": -0.23896,
+          "profit_factor": 0.436759,
+          "target_first": 47,
+          "stop_first": 0,
+          "worst_trade_pct": -3.508337,
+          "preserved_target_ratio_pct": 69.117647,
+          "outcomes": {
+            "GATE_FAIL_EXIT": 30,
+            "TARGET_FIRST": 47
+          },
+          "max_positive_concentration_pct": 87.384364
+        }
+      },
+      "48h:G30_CLOSE": {
+        "passed": false,
+        "period_improvements": [
+          false,
+          false
+        ],
+        "worst_loss_improvement_pct": 0.0,
+        "pooled_metrics": {
+          "events": 69,
+          "positive": 40,
+          "negative": 29,
+          "flat": 0,
+          "net_total_pct": -19.12776,
+          "expectancy_pct": -0.277214,
+          "profit_factor": 0.385508,
+          "target_first": 40,
+          "stop_first": 1,
+          "worst_trade_pct": -5.999076,
+          "preserved_target_ratio_pct": 65.57377,
+          "outcomes": {
+            "GATE_FAIL_EXIT": 28,
+            "STOP_FIRST": 1,
+            "TARGET_FIRST": 40
+          },
+          "max_positive_concentration_pct": 90.0
+        }
+      },
+      "48h:G60_PRICE_VOLUME": {
+        "passed": false,
+        "period_improvements": [
+          false,
+          false
+        ],
+        "worst_loss_improvement_pct": 50.992053,
+        "pooled_metrics": {
+          "events": 69,
+          "positive": 46,
+          "negative": 23,
+          "flat": 0,
+          "net_total_pct": -13.335694,
+          "expectancy_pct": -0.193271,
+          "profit_factor": 0.504913,
+          "target_first": 45,
+          "stop_first": 0,
+          "worst_trade_pct": -2.940024,
+          "preserved_target_ratio_pct": 73.770492,
+          "outcomes": {
+            "GATE_FAIL_EXIT": 24,
+            "TARGET_FIRST": 45
+          },
+          "max_positive_concentration_pct": 93.382533
+        }
+      },
+      "48h:G60_MOTION_FLOW": {
+        "passed": false,
+        "period_improvements": [
+          false,
+          false
+        ],
+        "worst_loss_improvement_pct": 50.992053,
+        "pooled_metrics": {
+          "events": 69,
+          "positive": 45,
+          "negative": 24,
+          "flat": 0,
+          "net_total_pct": -13.596308,
+          "expectancy_pct": -0.197048,
+          "profit_factor": 0.495767,
+          "target_first": 44,
+          "stop_first": 0,
+          "worst_trade_pct": -2.940024,
+          "preserved_target_ratio_pct": 72.131148,
+          "outcomes": {
+            "GATE_FAIL_EXIT": 25,
+            "TARGET_FIRST": 44
+          },
+          "max_positive_concentration_pct": 93.267509
+        }
+      }
+    },
+    "passing": [],
+    "decision": "REJECT_PREREGISTERED_FOLLOWTHROUGH_GATES"
+  },
+  "round_trip_cost_pct": 0.2,
+  "expected_shards": [
+    "s0",
+    "s1",
+    "s2",
+    "s3"
+  ],
+  "completed_shards": [
+    "s0",
+    "s1",
+    "s2",
+    "s3"
+  ],
+  "universe_contract": "Binance Spot USDT long; stable/fiat/leveraged bases excluded",
+  "causality_contract": "scanner close_time < decision_time; gate uses only bars closed by gate time",
+  "oos": "N/A: two independent 2023 Discovery replications; 2024+ unopened",
+  "aggregate_elapsed_seconds": 539.893
+}
