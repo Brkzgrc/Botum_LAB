@@ -29,6 +29,7 @@ REPLAY_START = pd.Timestamp("2025-02-15T00:00:00Z")
 REPLAY_END = pd.Timestamp("2025-02-22T00:00:00Z")
 COOLDOWNS = (0, 24, 48)
 MAX_DAILY = 3
+DATA_FUTURE_HOURS = 0
 
 SHARDS = {
     "s0": ("BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "XRPUSDT", "DOGEUSDT"),
@@ -98,7 +99,7 @@ def fetch_shard(shard: str, outdir: Path) -> dict:
     outdir.mkdir(parents=True, exist_ok=True)
     records = []
     started = time.perf_counter()
-    data_end = REPLAY_END + pd.Timedelta(minutes=15)
+    data_end = REPLAY_END + pd.Timedelta(hours=DATA_FUTURE_HOURS, minutes=15)
     expected_rows = int((data_end - HISTORY_START).total_seconds() // 900)
     for symbol in SHARDS[shard]:
         d = replay.fetch(symbol, "15m", HISTORY_START, data_end)
@@ -300,6 +301,7 @@ def replay_central(input_root: Path, outdir: Path) -> dict:
     elapsed = time.perf_counter() - started
     observed_days = (REPLAY_END - REPLAY_START).total_seconds() / 86400
     comparison = {}
+    state_end = {}
     for h, state in states.items():
         active = sorted({x["decision_time"][:10] for x in state["signals"]})
         comparison[str(h)] = {"signals": len(state["signals"]),
@@ -310,6 +312,11 @@ def replay_central(input_root: Path, outdir: Path) -> dict:
                               "cooldown_blocked": state["cooldown_blocked"],
                               "quota_blocked": state["quota_blocked"],
                               "events": state["signals"]}
+        state_end[str(h)] = {
+            "watch": state["watch"],
+            "daily_count": state["daily_count"],
+            "last_signal_at": {k: str(v) for k, v in state["last_signal_at"].items()},
+        }
     result = {
         "status": "PRESSURE_FULLMARKET_BENCHMARK_PASSED",
         "expected_shards": sorted(SHARDS), "completed_shards": sorted(manifests),
@@ -322,6 +329,7 @@ def replay_central(input_root: Path, outdir: Path) -> dict:
         "snapshots_computed": snapshot_stats["computed"],
         "snapshot_cache_hits": snapshot_stats["cache_hits"],
         "cooldowns": list(COOLDOWNS), "comparison": comparison,
+        "state_end": state_end,
         "universe_contract": "Binance Spot USDT long; stable/fiat/leveraged bases excluded",
         "causality_contract": "only frames with close_time < decision_time",
         "pnl_metrics": "N/A: capacity/state benchmark; no 5m exit path in this stage",
