@@ -394,3 +394,23 @@ Frekans: 12 sinyal, **2,00 sinyal/gözlem günü**; aktif tarih oranı **%50**. 
 Düzeltilmiş sonuç, önceki geçersiz aynı-mum iyimserliğine bağlı değildir. Özellikle kademeli politika: her işlemde önce pozisyonun yarısını brüt +%0,50'de alıyor; kalan yarı ya +%1,50'ye ulaşıyor ya da sonraki mumlarda brüt +%0,20 tabanında kapanıyor. Maliyet sonrası dokuz işlem +%0,15, üç işlem +%0,80; toplam +%3,75. Basit +%0,50 koruma ise büyük kayıpları tamamen kaldırsa da maliyet sonrası yalnız başa baştır. 6/12/24/48 saat sabit çıkışlar ve mevcut hareket-sönmesi bu örnekte elendi; aynı eşik taraması yeni adla tekrarlanmayacak.
 
 Bu güçlü bir **mekanizma kanıtı**, fakat champion/üretim kanıtı değildir: yalnız 12 olay, üç coin, kısa sabit 2025 pencereleri; full-market yeniden sıralama, gerçek sermaye slotları, cooldown ikamesi ve dokunulmamış OOS yoktur. OOS: **N/A**. Karar: kademeli aile geniş 2023–2025 Discovery/Calibration araştırmasına terfi eder; +%0,50 düz-koruma yalnız zarar tavanı referansı olarak tutulur. Sonraki pahalı deney 0/24/48 saat cooldown, full-market yeniden sıralama ve sermaye slotları içinde kademeli aileyi sabit çıkış ile kaynak ATR trailing'e karşı test edecek; önce süre bütçesi çıkarılacak. Doğrulanmış OOS gelmeden `Clear System.py` değişmeyecek; bu turda değiştirilmedi.
+
+
+
+## Full-market kademeli çıkış araştırması — süre bütçesi ve mimari kararı, 2026-09-27
+
+Yeni pahalı run başlatılmadan önce README ve Actions kontrol edildi; aktif/queued Clear System araştırması yoktu. En son düzeltilmiş path-exit run’ı 72 sembol-günlük işi (12 sembol × dört adet 1,5 günlük pencere) yaklaşık **33,02 runner-dakikada** tamamladı. Mevcut replay kodunu doğrusal biçimde 466 sembol × 1.095 gün (2023–2025) ölçeğine taşımak yaklaşık **510.270 sembol-gün** ve **233.968 runner-dakika** (yaklaşık 162,5 kesintisiz runner-günü) gerektirir. 0/24/48 saat cooldown varyantlarını ayrı tarama olarak çalıştırmak bunu daha da büyütür. Bu tahmin iyimserdir; API sayfalama, 100 günlük warmup, 5M çıkış yolu ve retry maliyetlerini tam eklemez.
+
+Karar: mevcut 12-sembollü canlı-API replay koduyla pahalı full-market run **BAŞLATILMADI**. Bu, Action zaman/kaynak sınırı riski nedeniyle bilinçli fail-closed kararıdır; araştırmanın reddi değildir.
+
+Güvenli mimari:
+
+1. **Aday/özellik katmanı:** sembol-zaman shard’ları yalnız kapanmış 15M/1H/4H/1D mumlarla PRESSURE/RETRIGGER/TSI-BB adaylarını ve sonraki 72 saatlik 5M fiyat yolunu üretir. Sabit/stable/fiat/leveraged base varlıkları manifestte reddedilir.
+2. **Global sıralama katmanı:** bütün sembol shard’ları aynı karar zamanında birleştirilir; ancak bundan sonra rank, günlük üç aday kotası, 0/24/48 saat aynı-coin cooldown ve boşalan kotaya gerçek ikame uygulanır. Böylece sembol shard’ları ayrı ayrı sıralanarak sahte sinyal yaratmaz.
+3. **Sermaye-slot replay:** seçilen kronolojik olaylar gerçek açık pozisyon slotlarıyla yürütülür. Kaynak ATR trailing, sabit brüt %0,50 ve düzeltilmiş kademeli (%50 @ +%0,50; kalan +%1,50/+%0,20 taban) aynı olaylarda karşılaştırılır.
+4. **Dönem ayrımı:** 2023 Discovery, 2024 Calibration, 2025 ileri doğrulama; eşik/parametre seçimi 2025 sonuçlarına bakılarak yapılmaz. Daha sonra mümkünse 2026 dokunulmamış OOS ayrıca açılır.
+5. **Artifact kapıları:** her shard manifest/hash, kapsam, sembol-gün, aday sayısı ve hata kaydı üretir; eksik/çift shard, eksik tarih, gelecek mum kullanımı veya evren sızıntısı aggregate’i fail-closed durdurur.
+
+Bir sonraki somut adım tam üç yıllık run değildir. Önce arşivlenmiş Binance kline verisiyle **24 sembol × 7 gün** aday-katmanı benchmark’ı kurulacak. Üst bütçe: preflight 10 dk; dört shardın her biri en fazla 18 dk/komut 15 dk; aggregate 8 dk; toplam üst sınır **90 runner-dk**, beklenen **35–55 runner-dk / 12–20 dk duvar süresi**. Benchmark; compile, self-test, AST nedensellik/evren denetimi, gerçek-veri smoke, eksik-shard ve artifact-on-failure kapıları geçmeden açılmayacak. Ölçülen sembol-gün/saniye ve veri boyutu üç yıllık planın gerçek shard sayısını belirleyecek.
+
+Bu turda yeni hipotez/eşik denenmedi, önceki elenmiş 6/12/24/48 saat time-exit taraması tekrarlanmadı ve `Clear System.py` değiştirilmedi.
