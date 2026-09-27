@@ -494,3 +494,18 @@ Doğrusal ve ihtiyatlı üst tahmin:
 Bu tur bir planlama/kapasite sonucudur: sinyal sıklığı, active-day, %0,20 maliyetli expectancy, PF, target-first/stop-first, MFE/MAE ve OOS **N/A**; yeni eşik veya champion seçilmedi. Hesaplar `research/pressure_confirmation/output/pressure_longitudinal_budget/summary.json` altında makine-okunur biçimde arşivlendi ve formüller JSON parse + bağımsız yeniden hesaplama + sözleşme denetimiyle doğrulandı. `Clear System.py` değiştirilmedi.
 
 Karar ve sonraki somut adım: doğrudan üç yıl yerine 2023 Discovery döneminde **2023-08-01–2023-08-31, 24 sembol × 30 gün** aday + seçilmiş-olay 5M yol benchmarkı kurulacak. Amaç kademeli çıkış eşiği seçmek değil; 5M bant genişliği, path artifact boyutu, 0/24/48 state akışı ve aylık state handoff'u ölçmek. Tahmin **15–25 runner-dk / 7–12 dk duvar süresi**, kesin üst sınır **50 runner-dk**. Workflow; explicit timeout, compile, self-test, kaynak-parity, gerçek veri smoke, stable/fiat/leveraged evren reddi, eksik/çift shard kapısı ve hata artifact'ı olmadan başlatılmayacak.
+
+
+## PRESSURE 2023 Discovery-month aday + seçilmiş-olay çıkış benchmarkı başladı — run 36293311039
+
+README ve Actions kontrolünde aktif/queued pahalı Clear System araştırması yoktu; en son ölçüm ve genel preflight başarılıydı. Üç yıllık run açılmadı. Önceden bütçelenen sınırlı çalışma [run 36293311039](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36293311039) olarak başlatıldı.
+
+Kapsam: 2023-04-20 warmup, 2023-08-01–2023-08-31 Discovery replay, 24 tarihsel Binance Spot USDT long sembolü. 2023 noktasal evreninde 100 günlük warmup'ı olmayan SUI yerine o tarihte işlem gören MATIC kullanıldı; stable/fiat/leveraged base varlıkları yasak. 15M adaylar bütün sembollerde global rank/watch/günlük kota ve 0/24/48 saat online cooldown ile seçilecek. Bundan sonra 5M veri bütün piyasa için değil, yalnız seçilen olayların 72 saatlik yolları için indirilecek ve çakışan sembol-zaman aralıkları birleştirilecek.
+
+Bu tur daha önce elenen 6/12/24/48 saat zorunlu çıkışları veya hareket-sönmesi eşiğini yeni adla tekrar taramaz. Aynı olaylarda yalnız üç önceden tanımlı aile karşılaştırılır: kaynak ATR trailing; sabit brüt +%0,50; %50'si +%0,50, kalanı +%1,50 veya sonraki mumlarda +%0,20 taban kademeli çıkış. Round-trip maliyet **%0,20**, aynı 5M mumda stop/hedef çakışması ihtiyatlı stop-first.
+
+Başlatma öncesi üç bağımsız kapı geçti: (1) derleme ve Discovery/ortak snapshot/path self-test'leri, (2) AST + YAML + bütün bash blokları + evren/nedensellik + her job için hata artifact'ı, (3) gerçek 2023 BTC verisinde 100+ günlük warmup ile 12 çok-zamanlı exact snapshot parity ve 24 saatlik 5M yol smoke'u. GitHub ile aynı pandas 3.0.6 ortamında da yeni ve ortak self-test'ler tekrar geçti.
+
+Bütçe: beklenen **15–25 runner-dk / 7–12 dk duvar süresi**. Açık job üst sınırları preflight 6 + dört fetch × 8 + replay 12 = tam **50 runner-dk**; komut sınırları daha düşüktür. Eksik/çift shard, hash/kapsam, seçilmiş 5M yol eksikliği, sıfır seçilmiş olay, state-handoff hash farkı veya gelecek mum kullanımı aggregate'i fail-closed durdurur. Tüm aşamalar başarı/hata halinde log ve artifact saklar.
+
+Bu aşama Discovery altyapı benchmarkıdır; sonuç gelmeden sinyal sıklığı, active-day, expectancy, PF, target-first/stop-first ve MFE/MAE **N/A**, OOS **N/A**. Clear System.py değiştirilmedi. Sonraki somut adım ikinci pahalı run açmadan bu run'ı izlemek; yeşil olsa bile aggregate summary.json, olay kayıtları, 5M veri kapsamı, state-handoff ve üç çıkış ailesinin metriklerini incelemektir.
