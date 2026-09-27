@@ -1,0 +1,84 @@
+{
+  "status": "PRESSURE_DISCOVERY_MONTH_BENCHMARK_PASSED",
+  "run_id": 36293311039,
+  "research_role": "2023 Discovery infrastructure and exit-family falsification; no threshold selection",
+  "history_start": "2023-04-20T00:00:00Z",
+  "replay_window": ["2023-08-01T00:00:00Z", "2023-08-31T00:00:00Z"],
+  "observed_days": 30,
+  "symbols": 24,
+  "round_trip_cost_pct": 0.2,
+  "wall_seconds": 607,
+  "runner_minutes": 14.18,
+  "candidate_replay": {
+    "scan_count": 2880,
+    "evaluations": 207360,
+    "vector_build_seconds": 72.709,
+    "replay_seconds": 365.728,
+    "evaluations_per_second": 566.979,
+    "snapshots_computed": 345600,
+    "snapshot_cache_hits": 558720
+  },
+  "selected_path_data": {
+    "request_count": 4,
+    "rows_5m": 3906,
+    "symbols": 4,
+    "coverage_pct": 100.0
+  },
+  "state_handoff": {
+    "bytes": 1978,
+    "sha256": "624ec0bd334f9bdc057db6117ec6879e836dcb95403cdca6dbb8ff752dea431a"
+  },
+  "cooldowns": {
+    "0h": {
+      "signals": 9,
+      "signals_per_day": 0.3,
+      "active_days": 4,
+      "active_day_ratio_pct": 13.333333,
+      "mfe_mean_pct": 1.014728,
+      "mae_mean_pct": -3.803285,
+      "policies": {
+        "source_atr_trail": {"positive": 1, "negative": 8, "net_total_pct": -16.4744, "expectancy_pct": -1.830489, "profit_factor": 0.072025, "target_first": 0, "stop_first": 3},
+        "fixed_gross_0.50": {"positive": 5, "negative": 4, "net_total_pct": -11.897303, "expectancy_pct": -1.321923, "profit_factor": 0.111963, "target_first": 5, "stop_first": 3},
+        "staged50_0.50_then_1.50_floor0.20": {"positive": 5, "negative": 4, "net_total_pct": -12.647303, "expectancy_pct": -1.405256, "profit_factor": 0.055981, "target_first": 0, "stop_first": 3}
+      }
+    },
+    "24h": {
+      "signals": 5,
+      "signals_per_day": 0.166667,
+      "active_days": 4,
+      "active_day_ratio_pct": 13.333333,
+      "mfe_mean_pct": 0.810311,
+      "mae_mean_pct": -3.891748,
+      "policies": {
+        "source_atr_trail": {"positive": 1, "negative": 4, "net_total_pct": -8.898107, "expectancy_pct": -1.779621, "profit_factor": 0.125645, "target_first": 0, "stop_first": 2},
+        "fixed_gross_0.50": {"positive": 2, "negative": 3, "net_total_pct": -8.569694, "expectancy_pct": -1.713939, "profit_factor": 0.065433, "target_first": 2, "stop_first": 2},
+        "staged50_0.50_then_1.50_floor0.20": {"positive": 2, "negative": 3, "net_total_pct": -8.869694, "expectancy_pct": -1.773939, "profit_factor": 0.032716, "target_first": 0, "stop_first": 2}
+      }
+    },
+    "48h": {
+      "signals": 4,
+      "signals_per_day": 0.133333,
+      "active_days": 3,
+      "active_day_ratio_pct": 10.0,
+      "mfe_mean_pct": 0.982471,
+      "mae_mean_pct": -3.035788,
+      "policies": {
+        "source_atr_trail": {"positive": 1, "negative": 3, "net_total_pct": -4.393924, "expectancy_pct": -1.098481, "profit_factor": 0.22541, "target_first": 0, "stop_first": 1},
+        "fixed_gross_0.50": {"positive": 2, "negative": 2, "net_total_pct": -4.327489, "expectancy_pct": -1.081872, "profit_factor": 0.121766, "target_first": 2, "stop_first": 1},
+        "staged50_0.50_then_1.50_floor0.20": {"positive": 2, "negative": 2, "net_total_pct": -4.627489, "expectancy_pct": -1.156872, "profit_factor": 0.060883, "target_first": 0, "stop_first": 1}
+      }
+    }
+  },
+  "post_run_diagnostic": {
+    "role": "same-sample mechanism diagnostic only; not validation",
+    "rule": "If gross +0.50 is not reached by the horizon, exit at horizon close; otherwise retain fixed +0.50 outcome",
+    "results": {
+      "30m": {"net_total_pct": -4.9947, "expectancy_pct": -0.555, "positive": 2, "negative": 7, "profit_factor": 0.0716},
+      "60m": {"net_total_pct": -7.1636, "expectancy_pct": -0.796, "positive": 3, "negative": 6, "profit_factor": 0.1116},
+      "120m": {"net_total_pct": -9.7195, "expectancy_pct": -1.0799, "positive": 4, "negative": 5, "profit_factor": 0.1099},
+      "240m": {"net_total_pct": -11.4874, "expectancy_pct": -1.2764, "positive": 4, "negative": 5, "profit_factor": 0.0946}
+    }
+  },
+  "oos": "N/A: Discovery-only month; no Calibration or untouched holdout opened",
+  "decision": "Reject promotion of staged and fixed exits. The small 2025 paper result did not generalize. Preserve early follow-through failure only as a new hypothesis for independent Discovery months; do not modify Clear System.py."
+}
