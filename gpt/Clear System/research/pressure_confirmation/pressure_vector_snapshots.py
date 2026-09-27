@@ -145,7 +145,11 @@ def _batch_same_width(frame: pd.DataFrame, label: str, ends: list[int], width: i
 
 def build_snapshots(frame: pd.DataFrame, label: str, decision_times: Iterable[pd.Timestamp]) -> dict[int, dict]:
     """Return snapshots keyed by the source-frame end-row index."""
-    close_ns = pd.to_datetime(frame.close_time, utc=True).astype("int64").to_numpy()
+    # pandas 3 may preserve a microsecond datetime dtype; ``Timestamp.value``
+    # is always nanoseconds.  Normalize explicitly so searchsorted cannot
+    # silently collapse every requested time onto the final row.
+    close_ns = (pd.to_datetime(frame.close_time, utc=True)
+                .to_numpy(dtype="datetime64[ns]").astype("int64"))
     ends = sorted({int(np.searchsorted(close_ns, pd.Timestamp(t).value, side="left") - 1)
                    for t in decision_times})
     if not ends or ends[0] < 79:
