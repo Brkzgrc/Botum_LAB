@@ -414,3 +414,21 @@ Güvenli mimari:
 Bir sonraki somut adım tam üç yıllık run değildir. Önce arşivlenmiş Binance kline verisiyle **24 sembol × 7 gün** aday-katmanı benchmark’ı kurulacak. Üst bütçe: preflight 10 dk; dört shardın her biri en fazla 18 dk/komut 15 dk; aggregate 8 dk; toplam üst sınır **90 runner-dk**, beklenen **35–55 runner-dk / 12–20 dk duvar süresi**. Benchmark; compile, self-test, AST nedensellik/evren denetimi, gerçek-veri smoke, eksik-shard ve artifact-on-failure kapıları geçmeden açılmayacak. Ölçülen sembol-gün/saniye ve veri boyutu üç yıllık planın gerçek shard sayısını belirleyecek.
 
 Bu turda yeni hipotez/eşik denenmedi, önceki elenmiş 6/12/24/48 saat time-exit taraması tekrarlanmadı ve `Clear System.py` değiştirilmedi.
+
+
+
+## PRESSURE full-market kapasite benchmarkı — fail-closed ölçüm, 2026-09-27
+
+Tam tarama öncesi tasarlanan 24 sembol × 7 gün aday/state benchmarkında üç kontrollü run incelendi:
+
+- [Run 36284473349](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36284473349): derleme ve self-test geçti; pahalı fetch başlamadan statik denetim durdu. Neden, gerçek çağrı yerine daha önceki `select_finals` fonksiyon tanımını karşılaştıran metinsel call-order guard idi. Kod/model/veri hatası değildi; fetch skipped, aggregate eksik-shard kapısında beklendiği gibi durdu.
+- [Run 36284562540](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36284562540): düzeltilmiş preflight ve 4/4 veri shard’ı geçti; 24 sembolün hash/kapsam kontrolleri başarılı oldu. Merkezi 7 günlük replay, ilerleme ölçümü yazmadan 4 dakikalık dış komut sınırına ulaştı (`exit 124`).
+- [Run 36285004068](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36285004068): OHLCV ve indikatör snapshot’ları üç cooldown state’i arasında nedenselliği bozmadan ortak önbelleğe alındı; preflight/gerçek BTC smoke ve 4/4 veri shard tekrar geçti. Merkezi replay yine 4 dakikalık sınırda fail-closed durdu, fakat artifact checkpoint’i gerçek kapasiteyi ölçtü.
+
+Son run maliyeti yaklaşık **10,90 runner-dk**: preflight 0,48; dört fetch toplam 6,16; merkezi replay 4,27 dakika. Veri dönemi 2024-10-01 warmup ve planlanan 2025-02-15–2025-02-22 replay; 24 stable/fiat/leveraged olmayan Binance Spot USDT sembolü. Checkpoint: 96/672 tarama (bir tam gün), **6.912 değerlendirme**, 9.216 gerçek snapshot hesaplaması, 18.624 cache hit ve **187,262 saniye**. Bu hızla 7 günlük merkezi replay doğrusal tahmini yaklaşık **1.311 saniye / 21,8 dakika**; veri fetch hariç. Böylece önceki 35–55 runner-dk tahmini yeniden değerlendirildi: toplam runner maliyeti hâlâ yönetilebilir görünse de tek merkezi job için 4–5 dakika varsayımı yanlıştı.
+
+Bu bir kapasite/state benchmarkıdır; 5M çıkış yolu çalışmadığı için maliyetli P&L, expectancy, PF, target-first/stop-first ve MFE/MAE metrikleri **N/A**; sinyal sıklığı ve active-day sonucu da tamamlanmamış 7 günlük replay’den raporlanmadı. OOS: **N/A**. Kısmi checkpoint strateji başarısı/başarısızlığı olarak yorumlanmadı.
+
+Karar: yalnız timeout uzatılarak aynı çalışma yeniden başlatılmayacak. Sonraki somut adım, scanner’ın her karar anında 240 mum üzerinden RSI/MACD/OBV vb. göstergeleri tekrar hesaplamasını kaldırmak; her sembol/timeframe için göstergeleri bir kez vektörleştirip karar zamanında yalnız son kapalı snapshot’ı okumak. Parite self-test’i, mevcut scanner ile sabit zaman noktalarında snapshot ve karar alanlarını eşit doğrulamadan 7 günlük benchmark yeniden açılmayacak. Hedef merkezi replay: en az **5× hızlanma** ve 7 gün için **≤5 dakika**; sağlanmazsa takvim dönemi time-shard + deterministik state handoff tasarlanacak.
+
+Bu turda çıkış eşiği/hipotezi seçilmedi, elenmiş time-exit taraması tekrarlanmadı ve `Clear System.py` değiştirilmedi.
