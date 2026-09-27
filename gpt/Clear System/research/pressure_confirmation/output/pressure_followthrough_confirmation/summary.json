@@ -20,7 +20,7 @@
       "candidate_replay": {
         "status": "PRESSURE_FULLMARKET_BENCHMARK_PASSED",
         "symbols": 24,
-        "observed_days": 31.0,
+        "observed_days": 31,
         "scan_count": 2976,
         "evaluations": 214272,
         "completed_shards": [
@@ -50,7 +50,7 @@
               "target_first": 20,
               "stop_first": 3,
               "worst_trade_pct": -5.630232,
-              "preserved_target_ratio_pct": 100.0,
+              "preserved_target_ratio_pct": 100,
               "outcomes": {
                 "EXPIRED": 2,
                 "STOP_FIRST": 3,
@@ -68,7 +68,7 @@
               "target_first": 16,
               "stop_first": 1,
               "worst_trade_pct": -4.661845,
-              "preserved_target_ratio_pct": 80.0,
+              "preserved_target_ratio_pct": 80,
               "outcomes": {
                 "EXPIRED": 1,
                 "GATE_FAIL_EXIT": 7,
@@ -87,7 +87,7 @@
               "target_first": 16,
               "stop_first": 0,
               "worst_trade_pct": -2.929502,
-              "preserved_target_ratio_pct": 80.0,
+              "preserved_target_ratio_pct": 80,
               "outcomes": {
                 "EXPIRED": 1,
                 "GATE_FAIL_EXIT": 8,
@@ -105,7 +105,7 @@
               "target_first": 16,
               "stop_first": 0,
               "worst_trade_pct": -2.929502,
-              "preserved_target_ratio_pct": 80.0,
+              "preserved_target_ratio_pct": 80,
               "outcomes": {
                 "EXPIRED": 1,
                 "GATE_FAIL_EXIT": 8,
@@ -133,7 +133,7 @@
               "target_first": 7,
               "stop_first": 0,
               "worst_trade_pct": 0.3,
-              "preserved_target_ratio_pct": 100.0,
+              "preserved_target_ratio_pct": 100,
               "outcomes": {
                 "TARGET_FIRST": 7
               }
@@ -149,7 +149,7 @@
               "target_first": 7,
               "stop_first": 0,
               "worst_trade_pct": 0.3,
-              "preserved_target_ratio_pct": 100.0,
+              "preserved_target_ratio_pct": 100,
               "outcomes": {
                 "TARGET_FIRST": 7
               }
@@ -209,7 +209,7 @@
               "target_first": 4,
               "stop_first": 0,
               "worst_trade_pct": 0.3,
-              "preserved_target_ratio_pct": 100.0,
+              "preserved_target_ratio_pct": 100,
               "outcomes": {
                 "TARGET_FIRST": 4
               }
@@ -225,7 +225,7 @@
               "target_first": 4,
               "stop_first": 0,
               "worst_trade_pct": 0.3,
-              "preserved_target_ratio_pct": 100.0,
+              "preserved_target_ratio_pct": 100,
               "outcomes": {
                 "TARGET_FIRST": 4
               }
@@ -241,7 +241,7 @@
               "target_first": 3,
               "stop_first": 0,
               "worst_trade_pct": -0.47833,
-              "preserved_target_ratio_pct": 75.0,
+              "preserved_target_ratio_pct": 75,
               "outcomes": {
                 "GATE_FAIL_EXIT": 1,
                 "TARGET_FIRST": 3
@@ -258,7 +258,7 @@
               "target_first": 3,
               "stop_first": 0,
               "worst_trade_pct": -0.47833,
-              "preserved_target_ratio_pct": 75.0,
+              "preserved_target_ratio_pct": 75,
               "outcomes": {
                 "GATE_FAIL_EXIT": 1,
                 "TARGET_FIRST": 3
@@ -277,7 +277,7 @@
       "candidate_replay": {
         "status": "PRESSURE_FULLMARKET_BENCHMARK_PASSED",
         "symbols": 24,
-        "observed_days": 30.0,
+        "observed_days": 30,
         "scan_count": 2880,
         "evaluations": 207360,
         "completed_shards": [
@@ -292,7 +292,7 @@
           "signals": 79,
           "signals_per_day": 2.633333,
           "active_days": 27,
-          "active_day_ratio_pct": 90.0,
+          "active_day_ratio_pct": 90,
           "mfe_mean_pct": 4.861128,
           "mae_mean_pct": -4.781968,
           "policies": {
@@ -307,7 +307,7 @@
               "target_first": 69,
               "stop_first": 4,
               "worst_trade_pct": -7.563152,
-              "preserved_target_ratio_pct": 100.0,
+              "preserved_target_ratio_pct": 100,
               "outcomes": {
                 "EXPIRED": 6,
                 "STOP_FIRST": 4,
@@ -372,7 +372,7 @@
           "signals": 70,
           "signals_per_day": 2.333333,
           "active_days": 27,
-          "active_day_ratio_pct": 90.0,
+          "active_day_ratio_pct": 90,
           "mfe_mean_pct": 4.795614,
           "mae_mean_pct": -4.570227,
           "policies": {
@@ -387,7 +387,7 @@
               "target_first": 61,
               "stop_first": 4,
               "worst_trade_pct": -5.412766,
-              "preserved_target_ratio_pct": 100.0,
+              "preserved_target_ratio_pct": 100,
               "outcomes": {
                 "EXPIRED": 5,
                 "STOP_FIRST": 4,
@@ -466,7 +466,7 @@
               "target_first": 57,
               "stop_first": 4,
               "worst_trade_pct": -5.999076,
-              "preserved_target_ratio_pct": 100.0,
+              "preserved_target_ratio_pct": 100,
               "outcomes": {
                 "EXPIRED": 4,
                 "STOP_FIRST": 4,
@@ -557,7 +557,7 @@
             "STOP_FIRST": 1,
             "TARGET_FIRST": 64
           },
-          "max_positive_concentration_pct": 75.0
+          "max_positive_concentration_pct": 75
         }
       },
       "0h:G60_PRICE_VOLUME": {
@@ -698,7 +698,7 @@
           false,
           false
         ],
-        "worst_loss_improvement_pct": 0.0,
+        "worst_loss_improvement_pct": 0,
         "pooled_metrics": {
           "events": 69,
           "positive": 40,
@@ -716,7 +716,7 @@
             "STOP_FIRST": 1,
             "TARGET_FIRST": 40
           },
-          "max_positive_concentration_pct": 90.0
+          "max_positive_concentration_pct": 90
         }
       },
       "48h:G60_PRICE_VOLUME": {
@@ -791,5 +791,136 @@
   "universe_contract": "Binance Spot USDT long; stable/fiat/leveraged bases excluded",
   "causality_contract": "scanner close_time < decision_time; gate uses only bars closed by gate time",
   "oos": "N/A: two independent 2023 Discovery replications; 2024+ unopened",
-  "aggregate_elapsed_seconds": 539.893
+  "aggregate_elapsed_seconds": 539.893,
+  "setup_kind_diagnostic": {
+    "scope": "post-hoc diagnostic only; not a preregistered selection gate",
+    "cooldown_h": 0,
+    "periods": [
+      "D1",
+      "D2"
+    ],
+    "metrics": [
+      {
+        "setup_kind": "PRESSURE",
+        "policy": "baseline_fixed_gross_0.50",
+        "events": 61,
+        "positive": 49,
+        "negative": 12,
+        "net_total_pct": -30.66736699999997,
+        "expectancy_pct": -0.5027437213114749,
+        "profit_factor": 0.32402144916190556,
+        "worst_trade_pct": -7.563152,
+        "target_first": 49,
+        "stop_first": 5,
+        "gate_fail": 0,
+        "expired": 7
+      },
+      {
+        "setup_kind": "PRESSURE",
+        "policy": "G30_CLOSE",
+        "events": 61,
+        "positive": 33,
+        "negative": 28,
+        "net_total_pct": -24.89331299999998,
+        "expectancy_pct": -0.40808709836065543,
+        "profit_factor": 0.2845374339603705,
+        "worst_trade_pct": -4.661845,
+        "target_first": 33,
+        "stop_first": 1,
+        "gate_fail": 26,
+        "expired": 1
+      },
+      {
+        "setup_kind": "PRESSURE",
+        "policy": "G60_PRICE_VOLUME",
+        "events": 61,
+        "positive": 37,
+        "negative": 24,
+        "net_total_pct": -19.437524000000003,
+        "expectancy_pct": -0.3186479344262296,
+        "profit_factor": 0.363487229678477,
+        "worst_trade_pct": -4.672902,
+        "target_first": 37,
+        "stop_first": 0,
+        "gate_fail": 24,
+        "expired": 0
+      },
+      {
+        "setup_kind": "PRESSURE",
+        "policy": "G60_MOTION_FLOW",
+        "events": 61,
+        "positive": 37,
+        "negative": 24,
+        "net_total_pct": -19.569516,
+        "expectancy_pct": -0.32081173770491805,
+        "profit_factor": 0.3591649408118354,
+        "worst_trade_pct": -4.672902,
+        "target_first": 36,
+        "stop_first": 0,
+        "gate_fail": 25,
+        "expired": 0
+      },
+      {
+        "setup_kind": "RETRIGGER",
+        "policy": "baseline_fixed_gross_0.50",
+        "events": 43,
+        "positive": 40,
+        "negative": 3,
+        "net_total_pct": 0.15416299999999677,
+        "expectancy_pct": 0.003585186046511553,
+        "profit_factor": 1.0130141078253911,
+        "worst_trade_pct": -4.576427,
+        "target_first": 40,
+        "stop_first": 2,
+        "gate_fail": 0,
+        "expired": 1
+      },
+      {
+        "setup_kind": "RETRIGGER",
+        "policy": "G30_CLOSE",
+        "events": 43,
+        "positive": 31,
+        "negative": 12,
+        "net_total_pct": -1.9213420000000034,
+        "expectancy_pct": -0.04468237209302334,
+        "profit_factor": 0.8287778770132845,
+        "worst_trade_pct": -2.929502,
+        "target_first": 31,
+        "stop_first": 0,
+        "gate_fail": 11,
+        "expired": 1
+      },
+      {
+        "setup_kind": "RETRIGGER",
+        "policy": "G60_PRICE_VOLUME",
+        "events": 43,
+        "positive": 30,
+        "negative": 13,
+        "net_total_pct": -6.382675999999999,
+        "expectancy_pct": -0.14843432558139533,
+        "profit_factor": 0.5850737543974793,
+        "worst_trade_pct": -2.940024,
+        "target_first": 30,
+        "stop_first": 0,
+        "gate_fail": 12,
+        "expired": 1
+      },
+      {
+        "setup_kind": "RETRIGGER",
+        "policy": "G60_MOTION_FLOW",
+        "events": 43,
+        "positive": 30,
+        "negative": 13,
+        "net_total_pct": -6.382675999999999,
+        "expectancy_pct": -0.14843432558139533,
+        "profit_factor": 0.5850737543974793,
+        "worst_trade_pct": -2.940024,
+        "target_first": 30,
+        "stop_first": 0,
+        "gate_fail": 12,
+        "expired": 1
+      }
+    ],
+    "interpretation": "PRESSURE supplied the pooled loss; RETRIGGER baseline was approximately breakeven. All early follow-through gates worsened RETRIGGER, so these gates are rejected for both families."
+  }
 }
