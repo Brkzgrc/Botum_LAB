@@ -1,0 +1,255 @@
+name: Clear System - RETRIGGER 2024 Calibration Recovery
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/clear-system-retrigger-2024-calibration-recovery.yml'
+
+concurrency:
+  group: clear-system-retrigger-2024-calibration
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile and deterministic self-tests
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            'gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' \
+            'gpt/Clear System/research/pressure_confirmation/discovery_month/pressure_discovery_month.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_vector_snapshots.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_path_exit.py'
+          python 'gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py' --self-test
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' --self-test
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_path_exit.py'
+      - name: Static locked-rule amendment causality and budget audit
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import ast,json
+          from pathlib import Path
+          base=Path('gpt/Clear System/research/pressure_confirmation/retrigger_calibration')
+          source=(base/'retrigger_calibration.py').read_text()
+          pre=json.loads((base/'preregistration.json').read_text())
+          amend=json.loads((base/'capacity_amendment_2026-09-27.json').read_text())
+          ast.parse(source)
+          locked=pre['locked_candidate']; unchanged=amend['unchanged_locked_rules']
+          assert locked['setup_kind']==unchanged['setup_kind']=='RETRIGGER'
+          assert locked['cooldown_hours']==unchanged['cooldown_hours']==0
+          assert locked['gross_target_pct']==unchanged['gross_target_pct']==.5
+          assert locked['round_trip_cost_pct']==unchanged['round_trip_cost_pct']==.2
+          assert locked['expiry_hours']==unchanged['expiry_hours']==24
+          assert amend['technical_change']['replay_paths_computed']==[0]
+          assert amend['technical_change']['data_source_run_id']==36311499740
+          assert amend['budget']['hard_runner_minute_ceiling']==96
+          assert 8+4*20+8==96
+          assert 'COOLDOWNS = ("0",)' in source and 'engine.COOLDOWNS = (0,)' in source
+          assert 'shift(-' not in source and 'requests.post' not in source
+          print('locked 0h capacity amendment audit ok')
+          PY
+      - name: Real 2024 closed-candle snapshot and fixed-path smoke
+        timeout-minutes: 4
+        run: |
+          set -euo pipefail
+          out=/tmp/retrigger-recovery-smoke
+          mkdir -p "$out"
+          timeout 210s python - "$out/summary.json" <<'PY' 2>&1 | tee "$out/run.log"
+          import json,sys
+          from pathlib import Path
+          import pandas as pd
+          root=Path('gpt/Clear System/research/pressure_confirmation')
+          sys.path[:0]=[str(root/'retrigger_calibration'),str(root/'discovery_month'),str(root),
+                        'gpt/Clear System/sources/botum_2026-09-26']
+          import retrigger_calibration as m
+          import pressure_vector_snapshots as v
+          import pressure_replay_preflight as h
+          import spot_opportunity_scanner as scanner
+          h.verify_sources(); start=pd.Timestamp('2024-01-15T00:00:00Z')
+          raw=h.fetch('BTCUSDT','15m',pd.Timestamp('2023-09-01T00:00:00Z'),start+pd.Timedelta(hours=26))
+          frames=h.build_frames(raw); got=v.build_snapshots(frames['15m'],'15M',[start])
+          source=frames['15m'][frames['15m'].close_time<start].tail(240).reset_index(drop=True)
+          end_idx=int(frames['15m'].index[frames['15m'].close_time<start][-1])
+          v.assert_snapshot_equal(scanner.snap(source,'15M'),got[end_idx])
+          bars5=h.fetch('BTCUSDT','5m',start,start+pd.Timedelta(hours=25))
+          entry=float(bars5.open.iloc[0])
+          event={'symbol':'BTCUSDT','decision_time':str(start),'entry':entry,
+                 'stop':entry*.95,'source_tp1':entry*1.035,'setup_kind':'RETRIGGER'}
+          evaluated=m.evaluate_event(event,bars5)
+          result={'status':'RECOVERY_REAL_SMOKE_PASSED','rows15':len(raw),'rows5':len(bars5),
+                  'fixed':evaluated['fixed_gross_0.50'],'mfe_pct':evaluated['mfe_pct'],
+                  'mae_pct':evaluated['mae_pct']}
+          Path(sys.argv[1]).write_text(json.dumps(result,indent=2)+'\n'); print(json.dumps(result))
+          PY
+      - name: Preserve preflight evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: retrigger-2024-recovery-preflight
+          path: /tmp/retrigger-recovery-smoke
+          if-no-files-found: warn
+          retention-days: 14
+
+  replay:
+    needs: preflight
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        quarter: [Q1, Q2, Q3, Q4]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Download hash-verified data artifacts from failed capacity run
+        uses: actions/download-artifact@v4
+        with:
+          pattern: retrigger-2024-data-*
+          path: downloaded-data
+          run-id: 36311499740
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify four shards lifecycle coverage and hashes
+        timeout-minutes: 2
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('downloaded-data'); manifests=list(root.rglob('manifest.json'))
+          assert len(manifests)==4
+          shards={}; symbols=set()
+          for p in manifests:
+              x=json.loads(p.read_text()); shard=x['shard']
+              assert shard not in shards and x['status']=='PRESSURE_DATA_SHARD_PASSED'
+              shards[shard]=x
+              for rec in x['files']:
+                  assert rec['symbol'] not in symbols; symbols.add(rec['symbol'])
+                  fp=p.parent/rec['file']; assert fp.is_file()
+                  assert hashlib.sha256(fp.read_bytes()).hexdigest()==rec['sha256']
+                  assert rec['coverage_pct']>=98 or (
+                      rec['limited_history'] is True and rec['span_coverage_pct']>=98
+                      and rec['available_from'].startswith('2023-09-01')
+                      and rec['available_until']<'2025-01-01')
+          assert set(shards)=={'s0','s1','s2','s3'} and len(symbols)==24
+          print('reused data verified',sorted(shards),len(symbols))
+          PY
+      - name: Compile quarter replay
+        timeout-minutes: 1
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py'
+      - name: Replay locked 0h candidate quarter and selected 5m paths
+        timeout-minutes: 17
+        env:
+          QUARTER: ${{ matrix.quarter }}
+        run: |
+          set -euo pipefail
+          out="gpt/Clear System/research/pressure_confirmation/output/retrigger_2024_calibration_recovery/quarters/$QUARTER"
+          mkdir -p "$out"
+          timeout 16m python 'gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py' \
+            --quarter "$QUARTER" --input-root downloaded-data --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Verify quarter schema warmup and locked path
+        timeout-minutes: 1
+        env:
+          QUARTER: ${{ matrix.quarter }}
+        run: |
+          set -euo pipefail
+          python - "$QUARTER" <<'PY'
+          import json,sys
+          from pathlib import Path
+          q=sys.argv[1]
+          p=Path('gpt/Clear System/research/pressure_confirmation/output/retrigger_2024_calibration_recovery/quarters')/q/'summary.json'
+          x=json.loads(p.read_text())
+          assert x['status']=='RETRIGGER_CALIBRATION_QUARTER_COMPLETE' and x['quarter']==q
+          assert x['expected_shards']==x['completed_shards']==['s0','s1','s2','s3']
+          assert x['round_trip_cost_pct']==.2 and set(x['cooldowns'])=={'0'}
+          assert x['selected_path_data']['request_count']>0 and x['oos'].startswith('N/A')
+          assert all(r['event']['decision_time']>=x['window'][0] for r in x['cooldowns']['0']['records'])
+          print('quarter complete',q,x['cooldowns']['0']['setups']['RETRIGGER']['events'])
+          PY
+      - name: Preserve quarter evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: retrigger-2024-recovery-quarter-${{ matrix.quarter }}
+          path: gpt/Clear System/research/pressure_confirmation/output/retrigger_2024_calibration_recovery/quarters/${{ matrix.quarter }}
+          if-no-files-found: warn
+          retention-days: 14
+
+  aggregate:
+    if: always()
+    needs: [preflight, replay]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Download every recovery quarter artifact
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: retrigger-2024-recovery-quarter-*
+          path: downloaded-quarters
+      - name: Compile aggregate
+        timeout-minutes: 1
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py'
+      - name: Fail closed on missing or duplicate quarter and aggregate
+        timeout-minutes: 3
+        run: |
+          set -euo pipefail
+          out='gpt/Clear System/research/pressure_confirmation/output/retrigger_2024_calibration_recovery/aggregate'
+          mkdir -p "$out"
+          timeout 2m python 'gpt/Clear System/research/pressure_confirmation/retrigger_calibration/retrigger_calibration.py' \
+            --aggregate-root downloaded-quarters --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Verify annual summary metrics and locked decision
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/output/retrigger_2024_calibration_recovery/aggregate/summary.json')
+          x=json.loads(p.read_text())
+          assert x['status']=='RETRIGGER_2024_CALIBRATION_COMPLETE' and x['round_trip_cost_pct']==.2
+          assert x['candidate']['setup_kind']=='RETRIGGER' and x['control']['setup_kind']=='PRESSURE'
+          required=('events','signals_per_day','active_day_ratio_pct','expectancy_pct','profit_factor',
+                    'target_first','stop_first','expired','mfe_mean_pct','mae_mean_pct','worst_trade_pct')
+          assert all(k in x['candidate']['metrics'] for k in required)
+          assert list(x['quarters'])==['Q1','Q2','Q3','Q4'] and len(x['candidate']['monthly'])==12
+          assert len(x['decision_gate']['tests'])==10 and x['oos'].startswith('N/A')
+          print('2024 calibration complete',x['decision_gate']['decision'])
+          PY
+      - name: Preserve aggregate on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: retrigger-2024-calibration-recovery-aggregate
+          path: gpt/Clear System/research/pressure_confirmation/output/retrigger_2024_calibration_recovery/aggregate
+          if-no-files-found: warn
+          retention-days: 14
