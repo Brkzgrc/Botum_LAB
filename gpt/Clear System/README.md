@@ -555,3 +555,16 @@ Bir kapı ancak her iki ayda baseline'a göre net ve expectancy iyileştirir, bi
 Süre bütçesi, run 36293311039'un gerçek **14,18 runner-dk/ay** ölçümüne dayanıyor. Tek hash-doğrulanmış veri fetch'inin iki dönemde yeniden kullanılmasıyla beklenen **25–35 runner-dk / 12–20 dk duvar süresi**; kesin üst sınır preflight 8 + dört fetch × 12 + aggregate 24 = **80 runner-dk**. Uygulama bu sınırı veya veri tekrar-kullanım şartını sağlayamazsa pahalı run başlamayacak.
 
 Bu turda yalnız hipotez, dönem, metrik, kabul kapısı ve bütçe önceden kilitlendi; pahalı run başlatılmadı. Sonraki somut adım preregistration ile birebir eşleşen araştırma kodu/workflow'unu yazmak; derleme, deterministik self-test, AST nedensellik/evren denetimi ve iki gerçek-veri smoke kontrolü geçmeden çalıştırmamak. Sinyal sıklığı, active-day, expectancy, PF, target/stop, MFE/MAE ve OOS yeni run olmadığı için **N/A**. `Clear System.py` değiştirilmedi.
+
+
+## PRESSURE bağımsız erken-takip doğrulaması başladı — run 36299204476
+
+Aktif/queued pahalı Clear System işi olmadığı gerçek Actions sayfasından doğrulandı. Ön kayıtla birebir eşleşen iki-dönem araştırması [run 36299204476](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36299204476) olarak başladı. Kod commit'i öncesindeki genel [preflight 36299148207](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36299148207) 26 saniyede başarıyla tamamlandı.
+
+Başlatma öncesi dört kontrol katmanı geçti: (1) yeni motor derlemesi ve sentetik kapı testi, (2) ortak full-market exact-window parity ve path-exit self-test'leri, (3) AST + ön kayıt dönem/eşik eşleşmesi + YAML + bütün bash blokları + 80 runner-dk tavanı + her job'da `if: always()` artifact denetimi, (4) gerçek 2023 BTC verisinde 9.699 adet 15M mumla dört zaman diliminde exact snapshot parity ve 288 adet 5M mumla üç hareket kapısı smoke'u. Gerçek smoke'ta G60 hareket/akış kapısı yalnız ilk 60 dakikada kapanmış veriyi kullanarak daha sonra oluşan -%5,20 stop yolunu +%0,0818 net kapatabildi; bu yalnız nedensellik/işlev smoke'udur, strateji kanıtı değildir.
+
+Run, tek hash-doğrulanmış 15M veri fetch'ini hem Mayıs hem Kasım 2023 için yeniden kullanacak. D1: 2023-05-01–06-01; D2: 2023-11-01–12-01. 0/24/48 saat cooldown raporlanacak fakat sonuçtan cooldown seçilmeyecek. Yalnız önceden kilitlenen G30_CLOSE, G60_PRICE_VOLUME ve G60_MOTION_FLOW kapıları baseline brüt +%0,50 ile karşılaştırılacak. Maliyet %0,20; Spot USDT long; stable/fiat/leveraged base dışlama ve kapalı-mum nedenselliği korunuyor.
+
+Beklenen bütçe **25–35 runner-dk / 12–20 dk duvar süresi**; kesin job üst sınırı preflight 8 + dört fetch × 12 + aggregate 24 = **80 runner-dk**. Workflow compile, deterministik self-test, gerçek-veri smoke, eksik/çift shard, manifest hash/kapsam, özet şema ve hata artifact kapılarını içeriyor.
+
+Sonuç gelmeden sinyal/gün, active-day, expectancy, PF, target-first/stop-first, MFE/MAE ve OOS **N/A**. İkinci pahalı araştırma başlatılmayacak; sonraki tur yalnız run durumunu, job/logları ve tamamlanırsa aggregate `summary.json` metriklerini inceleyecek. `Clear System.py` değiştirilmedi.
