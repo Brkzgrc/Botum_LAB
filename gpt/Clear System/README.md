@@ -534,3 +534,24 @@ Veri: 2023-04-20 warmup; 2023-08-01–2023-08-31 Discovery replay; 24 tarihsel B
 Kayıp mekanizması ayrıca aynı olaylarda, yeni kural seçmek için değil sonraki hipotezi ayırmak için incelendi. Brüt +%0,50 ilk 30/60/120/240 dakikada oluşmazsa o ufuk kapanışında çıkış simülasyonu sırasıyla net **-%4,995 / -%7,164 / -%9,720 / -%11,487** verdi; en iyi 30 dakikalık varyantın expectancy'si -%0,555 ve PF'si 0,072 idi. Erken kapatma büyük stop zararını azalttı ama pozitif beklenti yaratmadı. Aynı örnekte ufuk seçmek veri uyumuna yol açacağından hiçbir süre seçilmedi.
 
 Karar: sabit +%0,50 ve kademeli çıkış PRESSURE/RETRIGGER sorununu tek başına çözmüyor. Kayıpların önemli bölümü girişten sonraki ilk 30–60 dakikada hiç takip hareketi üretmeyen olaylar; bazı pozitifler ise +%0,50'ye 55–65 dakikada, biri çok daha geç ulaşıyor. Sonraki somut adım, **erken kapalı-mum takip hareketi** ailesini (fiyat genişlemesi + hacim/OBV/taker katılımı + 15M momentum devamı) giriş sonrası gözlem/onay veya erken iptal olarak, eşikleri bu ayda tekrar optimize etmeden iki bağımsız 2023 Discovery ayında test etmektir. Orada aynı yönde sonuç varsa eşik dondurulup 2024 Calibration'a geçilir. Aynı 6/12/24/48 saat time-exit taraması tekrarlanmayacak. `Clear System.py` değiştirilmedi.
+
+
+## PRESSURE erken takip hareketi — bağımsız test ön kaydı, 2026-09-27
+
+README ve gerçek Actions sayfası yeniden kontrol edildi. Son pahalı ilgili çalışma [run 36293311039](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36293311039) `completed/success`; onu izleyen genel preflight [run 36294013865](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36294013865) 28 saniyede başarılıydı. Kontrol anında çalışan veya queued pahalı Clear System araştırması yoktu.
+
+Ağustos 2023 tanı örneğinde en iyi süre/eşik seçilerek veri uyumu yapılmaması için bir sonraki deney çalıştırılmadan önce `research/pressure_confirmation/followthrough_confirmation/preregistration.json` ile kilitlendi. Yeni test iki bağımsız Discovery dönemini kullanacak: **2023-05-01–2023-06-01 (D1)** ve **2023-11-01–2023-12-01 (D2)**. Ağustos 2023 yalnız önceki tanıdır; 2025 küçük takip örneği, 2024 Calibration, 2025 ileri doğrulama ve 2026 OOS seçim amacıyla açılmayacak.
+
+Yalnız üç önceden tanımlı, kapalı-mum hareket kapısı raporlanacak:
+
+1. **G30_CLOSE:** İlk 30 dakika sonunda brüt +%0,50 oluşmadıysa, 30 dakikalık kapalı-mum getirisi pozitif değilse çık.
+2. **G60_PRICE_VOLUME:** İlk 60 dakikada hedef yoksa, kapanış getirisi pozitif ve giriş sonrası 15M quote-volume toplamı önceki 60 dakikadan düşük değilse devam et; aksi halde çık.
+3. **G60_MOTION_FLOW:** İlk saatte hedef yoksa MFE en az +%0,25, kapanış getirisi en az -%0,25 ve taker-buy quote payı en az %50 ise devam et; aksi halde çık.
+
+Bu kurallar statik bir RSI/ADX seviyesi okumaz; sinyalden sonra kapanan mumlarda fiyat devamı, genişleme, hacim ve alıcı akışı dizisini gözler. Geriye dönük hayali giriş yoktur: kapı geçilmezse mevcut kâğıt pozisyon kapı kapanışında kapanır, geçilirse önceden tanımlı brüt +%0,50 yolunu sürdürür. Aynı mum hedef/stop çakışması stop-first kalır; maliyet **%0,20**.
+
+Bir kapı ancak her iki ayda baseline'a göre net ve expectancy iyileştirir, birleşik expectancy pozitif, PF > 1, en kötü kaybı en az %40 küçültür ve baseline target-first olaylarının en az %70'ini korursa 2024 Calibration'a taşınabilir. Her ay en az beş olay yoksa sonuç yetersiz sayılacak. Hiçbiri geçmezse bu 30/60 dakika ve eşikler yeni adla yeniden taranmayacak.
+
+Süre bütçesi, run 36293311039'un gerçek **14,18 runner-dk/ay** ölçümüne dayanıyor. Tek hash-doğrulanmış veri fetch'inin iki dönemde yeniden kullanılmasıyla beklenen **25–35 runner-dk / 12–20 dk duvar süresi**; kesin üst sınır preflight 8 + dört fetch × 12 + aggregate 24 = **80 runner-dk**. Uygulama bu sınırı veya veri tekrar-kullanım şartını sağlayamazsa pahalı run başlamayacak.
+
+Bu turda yalnız hipotez, dönem, metrik, kabul kapısı ve bütçe önceden kilitlendi; pahalı run başlatılmadı. Sonraki somut adım preregistration ile birebir eşleşen araştırma kodu/workflow'unu yazmak; derleme, deterministik self-test, AST nedensellik/evren denetimi ve iki gerçek-veri smoke kontrolü geçmeden çalıştırmamak. Sinyal sıklığı, active-day, expectancy, PF, target/stop, MFE/MAE ve OOS yeni run olmadığı için **N/A**. `Clear System.py` değiştirilmedi.
