@@ -1,0 +1,66 @@
+{
+  "status": "PRESSURE_LONGITUDINAL_BUDGET_COMPLETE",
+  "source_run_id": 36287858354,
+  "source_period": [
+    "2025-02-15T00:00:00Z",
+    "2025-02-22T00:00:00Z"
+  ],
+  "source_measurements": {
+    "symbols": 24,
+    "observed_days": 7,
+    "evaluations": 48384,
+    "vector_build_seconds": 8.24,
+    "central_replay_seconds": 38.825,
+    "fetch_runner_minutes": 6.316667,
+    "compressed_csv_artifact_mb": 11.6
+  },
+  "production_shape": {
+    "universe_symbols_budgeted": 466,
+    "full_evaluation_top_n": 96,
+    "scans_per_day": 96,
+    "online_state_paths": [0, 24, 48],
+    "max_signals_per_day": 3,
+    "research_years": [2023, 2024, 2025]
+  },
+  "linear_compute_projection": {
+    "top96_evaluations_per_year": 10091520,
+    "vector_minutes_per_year_conservative_all_466_four_timeframes": 139.041825,
+    "central_replay_minutes_per_year_top96": 134.963095,
+    "compute_hours_per_year_top96": 4.566749,
+    "compute_hours_three_years_top96": 13.700246,
+    "unsafe_all466_compute_hours_per_year": 13.236253,
+    "unsafe_all466_compute_hours_three_years": 39.708759
+  },
+  "data_projection": {
+    "raw_15m_rows_three_years_approx": 48985920,
+    "compressed_csv_gib_three_years_linear_estimate": 1.661035,
+    "selected_exit_5m_rows_worst_case_at_three_signals_per_day_and_72h": 2838240,
+    "policy": "Do not fetch 5m for the full universe; fetch/deduplicate only globally selected events after the candidate pass."
+  },
+  "next_benchmark": {
+    "period": [
+      "2023-08-01T00:00:00Z",
+      "2023-08-31T00:00:00Z"
+    ],
+    "warmup_days": 100,
+    "symbols": 24,
+    "purpose": "Discovery-period capacity plus selected-event 5m path and staged-exit plumbing; not threshold selection.",
+    "estimated_vector_seconds": 35.314286,
+    "estimated_central_replay_seconds": 166.392857,
+    "estimated_total_runner_minutes": [15, 25],
+    "estimated_wall_minutes": [7, 12],
+    "hard_runner_minute_ceiling": 50,
+    "hard_decision": "Do not start the three-year run until this benchmark measures selected-event 5m bandwidth, state handoff, and artifact size."
+  },
+  "metrics": {
+    "round_trip_cost_pct": 0.2,
+    "signal_frequency": "N/A: planning projection",
+    "active_day_ratio_pct": "N/A: planning projection",
+    "expectancy_pct": "N/A: planning projection",
+    "profit_factor": "N/A: planning projection",
+    "target_first_stop_first": "N/A: planning projection",
+    "mfe_mae": "N/A: planning projection",
+    "oos": "N/A: no strategy result"
+  },
+  "decision": "Capacity is feasible only with top-96 evaluation, reusable 15m artifacts, globally selected-event-only 5m paths, and bounded time shards. Full 466-symbol evaluation and full-universe 5m downloads are rejected as wasteful. Clear System.py remains unchanged."
+}
