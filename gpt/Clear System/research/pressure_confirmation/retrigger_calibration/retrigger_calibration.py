@@ -41,7 +41,9 @@ QUARTERS = {
     "Q4": (pd.Timestamp("2024-10-01T00:00:00Z"), pd.Timestamp("2025-01-01T00:00:00Z")),
 }
 SETUPS = ("RETRIGGER", "PRESSURE")
-COOLDOWNS = ("0", "24", "48")
+# Capacity amendment after run 36311499740: only the locked/selectable 0h path
+# is computed.  Non-selectable 24/48h diagnostics are deferred.
+COOLDOWNS = ("0",)
 
 
 def preregistration() -> dict:
@@ -67,6 +69,7 @@ def configure(start: pd.Timestamp, end: pd.Timestamp) -> None:
     engine.REPLAY_END = end
     engine.DATA_FUTURE_HOURS = FUTURE_HOURS
     engine.ALLOW_TERMINATED_SYMBOLS = True
+    engine.COOLDOWNS = (0,)
     engine.SHARDS = dm.SHARDS
     engine.EXPECTED_SYMBOLS = tuple(s for values in dm.SHARDS.values() for s in values)
     dm.FUTURE_HOURS = FUTURE_HOURS
@@ -316,6 +319,7 @@ def self_test() -> None:
     assert len(engine.EXPECTED_SYMBOLS) == len(set(engine.EXPECTED_SYMBOLS)) == 24
     assert all(engine.allowed_symbol(symbol) for symbol in engine.EXPECTED_SYMBOLS)
     assert engine.ALLOW_TERMINATED_SYMBOLS is True
+    assert engine.COOLDOWNS == (0,) and COOLDOWNS == ("0",)
     assert list(QUARTERS) == ["Q1", "Q2", "Q3", "Q4"]
     assert QUARTERS["Q1"][0] == CALIBRATION_START and QUARTERS["Q4"][1] == CALIBRATION_END
     assert all(QUARTERS[a][1] == QUARTERS[b][0] for a, b in zip(list(QUARTERS)[:-1], list(QUARTERS)[1:]))
