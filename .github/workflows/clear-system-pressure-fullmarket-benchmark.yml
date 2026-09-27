@@ -49,7 +49,9 @@ jobs:
                     'scanner.evaluate','state["watch"].pop')
           assert all(x in s for x in required)
           assert 'shift(-' not in s and 'requests.post' not in s and 'HTTP.post' not in s
-          assert s.index('candidates.sort') < s.index('select_finals(finals')
+          # The helper definition is intentionally earlier; compare the sort
+          # with the actual replay call (the final textual occurrence).
+          assert s.index('candidates.sort') < s.rindex('select_finals(finals')
           assert len(__import__('re').findall(r'"s[0-3]": \(',s))==4
           print('static full-market benchmark audit ok')
           PY
