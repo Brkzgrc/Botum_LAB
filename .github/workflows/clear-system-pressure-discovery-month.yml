@@ -1,0 +1,228 @@
+name: Clear System - PRESSURE Discovery Month
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/clear-system-pressure-discovery-month.yml'
+
+concurrency:
+  group: clear-system-pressure-discovery-month
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile and deterministic self-tests
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            'gpt/Clear System/research/pressure_confirmation/discovery_month/pressure_discovery_month.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_vector_snapshots.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_path_exit.py' \
+            'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py'
+          python 'gpt/Clear System/research/pressure_confirmation/discovery_month/pressure_discovery_month.py' --self-test
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' --self-test
+          python 'gpt/Clear System/research/pressure_confirmation/pressure_path_exit.py'
+      - name: Static causality universe policy and budget audit
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import ast,re
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/discovery_month/pressure_discovery_month.py')
+          b=Path('gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py')
+          s=p.read_text(); base=b.read_text(); ast.parse(s); ast.parse(base)
+          required=('2023-04-20T00:00:00Z','2023-08-01T00:00:00Z','2023-08-31T00:00:00Z',
+                    'FUTURE_HOURS = 72','FEE_PCT = 0.20','MATICUSDT','SELECTED_PATH_INCOMPLETE',
+                    'NO_SELECTED_EVENTS_FOR_5M_PATH_SMOKE','state_handoff','source_atr_trail',
+                    'fixed_gross_0.50','staged50_0.50_then_1.50_floor0.20')
+          assert all(x in s for x in required)
+          assert 'close_time < current' in base and 'DATA_FUTURE_HOURS' in base
+          assert 'path_exit.time_exit(' not in s and 'path_exit.motion_fade(' not in s
+          assert 'shift(-' not in s+base and 'requests.post' not in s+base and 'HTTP.post' not in s+base
+          assert len(re.findall(r'"s[0-3]": \(',s))==4
+          assert s.index('engine.replay_central') < s.index('fetch_selected_paths(events)')
+          print('static Discovery-month audit ok')
+          PY
+      - name: Real 2023 closed-candle snapshot and 5m path smoke
+        timeout-minutes: 3
+        run: |
+          set -euo pipefail
+          out=/tmp/pressure-discovery-smoke
+          mkdir -p "$out"
+          timeout 150s python - "$out/summary.json" <<'PY' 2>&1 | tee "$out/run.log"
+          import json,sys
+          from pathlib import Path
+          import pandas as pd
+          root=Path('gpt/Clear System/research/pressure_confirmation')
+          dm=root/'discovery_month'; src=Path('gpt/Clear System/sources/botum_2026-09-26')
+          sys.path[:0]=[str(dm),str(root),str(src)]
+          import pressure_discovery_month as m
+          import pressure_vector_snapshots as v
+          import pressure_replay_preflight as h
+          import spot_opportunity_scanner as scanner
+          h.verify_sources(); start=pd.Timestamp('2023-08-01T00:00:00Z')
+          raw=h.fetch('BTCUSDT','15m',m.HISTORY_START,start+pd.Timedelta(hours=6,minutes=15))
+          frames=h.build_frames(raw); times=[start,start+pd.Timedelta(hours=3),start+pd.Timedelta(hours=6)]
+          cases=0
+          for interval,label in {'15m':'15M','1h':'1H','4h':'4H','1d':'1D'}.items():
+              got=v.build_snapshots(frames[interval],label,times)
+              for when in times:
+                  source=frames[interval][frames[interval].close_time<when].tail(240).reset_index(drop=True)
+                  end_idx=int(frames[interval].index[frames[interval].close_time<when][-1])
+                  v.assert_snapshot_equal(scanner.snap(source,label),got[end_idx]); cases+=1
+          bars5=h.fetch('BTCUSDT','5m',start,start+pd.Timedelta(hours=24))
+          fixed=m.fixed_target(bars5,start,float(bars5.open.iloc[0]),float(bars5.open.iloc[0])*.95)
+          assert fixed['outcome'] in {'TARGET_FIRST','STOP_FIRST','STOP_AMBIGUOUS','EXPIRED'}
+          result={'status':'PRESSURE_DISCOVERY_REAL_SMOKE_PASSED','snapshot_parity_cases':cases,
+                  'rows15':len(raw),'rows5':len(bars5),'fixed_path':fixed}
+          Path(sys.argv[1]).write_text(json.dumps(result,indent=2)+'\n'); print(json.dumps(result))
+          PY
+      - name: Preserve preflight evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-discovery-preflight
+          path: /tmp/pressure-discovery-smoke
+          if-no-files-found: warn
+          retention-days: 14
+
+  fetch:
+    needs: preflight
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [s0, s1, s2, s3]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Compile shard code
+        timeout-minutes: 1
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/discovery_month/pressure_discovery_month.py' 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' 'gpt/Clear System/research/pressure_confirmation/pressure_replay_preflight.py'
+      - name: Fetch bounded closed-candle 15m shard
+        timeout-minutes: 6
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          set -euo pipefail
+          out="gpt/Clear System/research/pressure_confirmation/output/pressure_discovery_month/$SHARD"
+          mkdir -p "$out"
+          timeout 5m python 'gpt/Clear System/research/pressure_confirmation/discovery_month/pressure_discovery_month.py' \
+            --fetch-shard "$SHARD" --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Verify shard manifest hashes coverage and future path room
+        timeout-minutes: 1
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          set -euo pipefail
+          python - "$SHARD" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+          shard=sys.argv[1]; root=Path('gpt/Clear System/research/pressure_confirmation/output/pressure_discovery_month')/shard
+          x=json.loads((root/'manifest.json').read_text())
+          assert x['status']=='PRESSURE_DATA_SHARD_PASSED' and x['shard']==shard
+          assert len(x['symbols'])==len(x['files'])==6
+          assert x['history_start'].startswith('2023-04-20') and x['replay_window'][1].startswith('2023-08-31')
+          for rec in x['files']:
+              p=root/rec['file']; assert p.is_file() and rec['coverage_pct']>=98
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==rec['sha256']
+          print('Discovery data shard complete',shard,sum(r['rows'] for r in x['files']))
+          PY
+      - name: Preserve shard evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-discovery-data-${{ matrix.shard }}
+          path: gpt/Clear System/research/pressure_confirmation/output/pressure_discovery_month/${{ matrix.shard }}
+          if-no-files-found: warn
+          retention-days: 14
+
+  replay:
+    if: always()
+    needs: [preflight, fetch]
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install bounded runtime
+        timeout-minutes: 2
+        run: python -m pip install --disable-pip-version-check 'numpy<3' 'pandas<4' 'requests<3' 'flask<4'
+      - name: Download all data shards
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pressure-discovery-data-*
+          path: downloaded
+      - name: Compile central replay and exit code
+        timeout-minutes: 1
+        run: python -m py_compile 'gpt/Clear System/research/pressure_confirmation/discovery_month/pressure_discovery_month.py' 'gpt/Clear System/research/pressure_confirmation/pressure_fullmarket_benchmark.py' 'gpt/Clear System/research/pressure_confirmation/pressure_vector_snapshots.py' 'gpt/Clear System/research/pressure_confirmation/pressure_path_exit.py'
+      - name: Central state replay selected-event 5m paths and missing-shard gate
+        timeout-minutes: 10
+        run: |
+          set -euo pipefail
+          out='gpt/Clear System/research/pressure_confirmation/output/pressure_discovery_month/aggregate'
+          mkdir -p "$out"
+          timeout 9m python 'gpt/Clear System/research/pressure_confirmation/discovery_month/pressure_discovery_month.py' \
+            --input-root downloaded --outdir "$out" 2>&1 | tee "$out/run.log"
+      - name: Verify aggregate summary metrics and state handoff
+        timeout-minutes: 1
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          p=Path('gpt/Clear System/research/pressure_confirmation/output/pressure_discovery_month/aggregate/summary.json')
+          x=json.loads(p.read_text())
+          assert x['status']=='PRESSURE_DISCOVERY_MONTH_BENCHMARK_PASSED'
+          assert x['symbols']==24 and x['observed_days']==30 and x['round_trip_cost_pct']==.2
+          assert x['policies']==['source_atr_trail','fixed_gross_0.50','staged50_0.50_then_1.50_floor0.20']
+          assert x['candidate_replay']['expected_shards']==x['candidate_replay']['completed_shards']==['s0','s1','s2','s3']
+          assert x['selected_path_data']['request_count']>0 and x['selected_path_data']['rows']>0
+          payload=json.dumps(x['state_handoff']['payload'],sort_keys=True,separators=(',',':')).encode()
+          assert len(payload)==x['state_handoff']['bytes']
+          assert hashlib.sha256(payload).hexdigest()==x['state_handoff']['sha256']
+          for h in ('0','24','48'):
+              z=x['comparison'][h]
+              assert all(k in z for k in ('signals','signals_per_observed_day','active_day_ratio_pct','mfe_mean_pct','mae_mean_pct','policies','records'))
+              for policy in x['policies']:
+                  m=z['policies'][policy]
+                  assert all(k in m for k in ('events','positive','negative','flat','net_total_pct','expectancy_pct','profit_factor','target_first','stop_first','same_bar_collisions','outcomes'))
+                  assert m['events']==z['signals']
+          assert x['oos'].startswith('N/A')
+          print('Discovery month complete',x['selected_path_data']['rows'],x['elapsed_seconds'])
+          PY
+      - name: Preserve aggregate on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pressure-discovery-month-aggregate
+          path: gpt/Clear System/research/pressure_confirmation/output/pressure_discovery_month/aggregate
+          if-no-files-found: warn
+          retention-days: 14
