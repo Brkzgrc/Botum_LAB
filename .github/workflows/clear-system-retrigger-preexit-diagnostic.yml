@@ -1,0 +1,189 @@
+name: Clear System - RETRIGGER Pre-Exit Diagnostic
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: clear-system-retrigger-preexit-diagnostic
+  cancel-in-progress: false
+
+env:
+  PYTHONUNBUFFERED: "1"
+  ENGINE: gpt/Clear System/research/pressure_confirmation/retrigger_preexit_path/retrigger_preexit_path.py
+  PREREG: gpt/Clear System/research/pressure_confirmation/retrigger_preexit_path/preregistration.json
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install bounded runtime
+        run: pip install --disable-pip-version-check pandas numpy requests
+      - name: Compile and deterministic self-test
+        run: |
+          set -euo pipefail
+          python -m py_compile "$ENGINE"
+          timeout 60s python "$ENGINE" --self-test | tee preflight-selftest.log
+      - name: Static causality contract and budget audit
+        run: |
+          set -euo pipefail
+          python - <<'PY' | tee preflight-static.log
+          import ast, json, pathlib
+          engine = pathlib.Path("gpt/Clear System/research/pressure_confirmation/retrigger_preexit_path/retrigger_preexit_path.py")
+          prereg = pathlib.Path("gpt/Clear System/research/pressure_confirmation/retrigger_preexit_path/preregistration.json")
+          source, p = engine.read_text(), json.loads(prereg.read_text())
+          tree = ast.parse(source)
+          assert "future.close_time <= exit_time" in source
+          assert "post_exit_rows_used" in source
+          assert "no_threshold_optimization" in source
+          assert "pressure_fullmarket_benchmark" not in source
+          assert p["immutable_contract"]["no_entry_rescan"] is True
+          assert p["immutable_contract"]["no_threshold_optimization"] is True
+          assert p["integrity_gates"]["exact_event_count"] == 324
+          assert p["action_budget"]["hard_runner_minute_ceiling_from_job_timeouts"] == 64
+          assert not any(isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
+                         and n.func.id in {"eval", "exec"} for n in ast.walk(tree))
+          print("STATIC_CAUSALITY_CONTRACT_OK")
+          PY
+      - name: Real Binance closed-5m smoke
+        run: |
+          set -euo pipefail
+          timeout 180s python "$ENGINE" --smoke | tee preflight-real-smoke.log
+      - name: Preserve preflight evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: retrigger-preexit-preflight
+          path: preflight-*.log
+          if-no-files-found: warn
+          retention-days: 14
+
+  quarter:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - quarter: Q1
+            artifact_id: "10931444044"
+            digest: "6ba59bf73e2c05f8857da7e02d6cf9de6e9d8e9c3e0b36a7c485ad5bf3c5a7f2"
+          - quarter: Q2
+            artifact_id: "10931536922"
+            digest: "5988cd0523ee0c9b46048d243e2828eb1b46cd5508af7810e9a4337d736687f2"
+          - quarter: Q3
+            artifact_id: "10932245174"
+            digest: "bcbe8d4348d15fb1020fa9986b1284eb4f6c33aa6b01a93d2659b11cb06e3579"
+          - quarter: Q4
+            artifact_id: "10931636682"
+            digest: "1615815b301ff19624c73bf6ad3ab836b903eb79ffc53216bcbad93665bb3437"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install bounded runtime
+        run: pip install --disable-pip-version-check pandas numpy requests
+      - name: Download and digest-check archived quarter
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ID: ${{ matrix.artifact_id }}
+          EXPECTED_DIGEST: ${{ matrix.digest }}
+        run: |
+          set -euo pipefail
+          mkdir -p source
+          gh api -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/actions/artifacts/${ARTIFACT_ID}/zip" > source.zip
+          test "$(sha256sum source.zip | cut -d' ' -f1)" = "$EXPECTED_DIGEST"
+          unzip -q source.zip -d source
+          test -s source/summary.json
+      - name: Compile quarter engine
+        run: python -m py_compile "$ENGINE"
+      - name: Replay causal pre-exit paths
+        run: |
+          set -euo pipefail
+          mkdir -p "output-${{ matrix.quarter }}"
+          timeout 8m python "$ENGINE" --quarter "${{ matrix.quarter }}" \
+            --input source/summary.json --output "output-${{ matrix.quarter }}" \
+            2>&1 | tee "quarter-${{ matrix.quarter }}.log"
+      - name: Verify quarter schema and no post-exit use
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, pathlib
+          q = "${{ matrix.quarter }}"
+          p = json.loads(pathlib.Path(f"output-{q}/summary.json").read_text())
+          assert p["status"] == "RETRIGGER_PREEXIT_QUARTER_COMPLETE"
+          assert p["quarter"] == q and p["events"] > 0
+          assert all(r["diagnostic"]["post_exit_rows_used"] == 0 for r in p["records"])
+          assert sum(p["outcomes"].values()) == p["events"]
+          print(q, p["events"], p["outcomes"])
+          PY
+      - name: Preserve quarter evidence on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: retrigger-preexit-${{ matrix.quarter }}
+          path: |
+            output-${{ matrix.quarter }}/
+            quarter-${{ matrix.quarter }}.log
+          if-no-files-found: warn
+          retention-days: 14
+
+  aggregate:
+    needs: quarter
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install bounded runtime
+        run: pip install --disable-pip-version-check pandas numpy requests
+      - name: Download every quarter artifact
+        uses: actions/download-artifact@v4
+        with:
+          pattern: retrigger-preexit-Q*
+          path: quarters
+      - name: Compile aggregate
+        run: python -m py_compile "$ENGINE"
+      - name: Fail closed on missing or duplicate quarter and aggregate
+        run: |
+          set -euo pipefail
+          timeout 120s python "$ENGINE" --aggregate --input-root quarters \
+            --output aggregate 2>&1 | tee aggregate.log
+      - name: Verify final diagnostic contract
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, pathlib
+          p = json.loads(pathlib.Path("aggregate/summary.json").read_text())
+          assert p["status"] == "RETRIGGER_PREEXIT_DIAGNOSTIC_COMPLETE"
+          assert p["events"] == 324
+          assert p["outcomes"] == {"TARGET_FIRST": 285, "STOP_FIRST": 32, "EXPIRED": 7}
+          assert p["integrity"]["quarters"] == ["Q1", "Q2", "Q3", "Q4"]
+          assert p["integrity"]["post_exit_rows_used"] == 0
+          assert p["decision_scope"] == "DIAGNOSTIC_ONLY_NO_PRODUCTION_PROMOTION"
+          print(json.dumps(p["losses"], indent=2))
+          PY
+      - name: Preserve aggregate on success or failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: retrigger-preexit-aggregate
+          path: |
+            aggregate/
+            aggregate.log
+          if-no-files-found: warn
+          retention-days: 14
