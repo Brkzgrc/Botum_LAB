@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "research": "RETRIGGER-only 2024 Calibration",
+  "source_run": {
+    "id": 36317562080,
+    "url": "https://github.com/Brkzgrc/Botum_LAB/actions/runs/36317562080",
+    "conclusion": "success",
+    "wall_time_seconds": 2104,
+    "runner_seconds": 7147,
+    "runner_minutes": 119.116667,
+    "aggregate_artifact_id": 10931518689
+  },
+  "data_contract": {
+    "window": [
+      "2024-01-01T00:00:00Z",
+      "2025-01-01T00:00:00Z"
+    ],
+    "observed_days": 366,
+    "universe": "24 historical Binance Spot USDT long symbols; stable/fiat/leveraged bases excluded",
+    "closed_candles_only": true,
+    "round_trip_cost_pct": 0.2,
+    "policy": {
+      "setup_kind": "RETRIGGER",
+      "cooldown_hours": 0,
+      "gross_target_pct": 0.5,
+      "stop": "source ATR stop frozen at signal time",
+      "expiry_hours": 24,
+      "same_bar_precedence": "STOP_FIRST"
+    }
+  },
+  "candidate": {
+    "events": 324,
+    "positive": 285,
+    "negative": 39,
+    "flat": 0,
+    "net_total_pct_points": -80.270038,
+    "expectancy_pct": -0.247747,
+    "profit_factor": 0.515775,
+    "target_first": 285,
+    "stop_first": 32,
+    "expired": 7,
+    "worst_trade_pct": -15.86374,
+    "maximum_consecutive_losses": 3,
+    "active_days": 173,
+    "signals_per_day": 0.885246,
+    "active_day_ratio_pct": 47.26776,
+    "mfe_mean_pct_full_24h_window": 4.600116,
+    "mae_mean_pct_full_24h_window": -4.517058,
+    "negative_event_ratio_pct": 12.037037,
+    "positive_pnl_symbol_concentration_pct": 15.438596,
+    "positive_months": 3,
+    "nonnegative_quarters": 0
+  },
+  "quarters": {
+    "Q1": {
+      "events": 93,
+      "net_total_pct_points": -30.583766,
+      "expectancy_pct": -0.328858,
+      "profit_factor": 0.445783
+    },
+    "Q2": {
+      "events": 51,
+      "net_total_pct_points": -10.816136,
+      "expectancy_pct": -0.212081,
+      "profit_factor": 0.555187
+    },
+    "Q3": {
+      "events": 80,
+      "net_total_pct_points": -26.917666,
+      "expectancy_pct": -0.336471,
+      "profit_factor": 0.431129
+    },
+    "Q4": {
+      "events": 100,
+      "net_total_pct_points": -11.95247,
+      "expectancy_pct": -0.119525,
+      "profit_factor": 0.693152
+    }
+  },
+  "control_pressure": {
+    "events": 369,
+    "net_total_pct_points": -124.813471,
+    "expectancy_pct": -0.338248,
+    "profit_factor": 0.437051,
+    "target_first": 323,
+    "stop_first": 32,
+    "expired": 14,
+    "signals_per_day": 1.008197,
+    "active_day_ratio_pct": 52.73224
+  },
+  "loss_diagnostic": {
+    "losing_events": 39,
+    "loss_sum_pct_points": -165.770038,
+    "loss_mean_pct": -4.250514,
+    "outcomes": {
+      "STOP_FIRST": 32,
+      "EXPIRED": 7
+    },
+    "same_bar_collisions": 0,
+    "full_window_mfe_mean_pct": 1.129623,
+    "full_window_mfe_median_pct": 0.275297,
+    "full_window_mfe_ge_pct": {
+      "1": 6,
+      "2": 4,
+      "3": 3,
+      "0.1": 33,
+      "0.2": 27,
+      "0.3": 19,
+      "0.4": 13,
+      "0.5": 7
+    },
+    "full_window_mae_mean_pct": -6.923256,
+    "warning": "MFE/MAE are unconditional extrema over the full 24h future window, including bars after a stop. They do not prove favorable excursion occurred before exit. Exact causal 5m ordering is required before testing profit-lock or movement-loss exits."
+  },
+  "decision_gate": {
+    "passed": false,
+    "decision": "REJECT_RETRIGGER_SETUP_KIND_SEPARATION",
+    "passed_tests": [
+      "minimum_events",
+      "minimum_signals_per_day",
+      "minimum_active_day_ratio_pct",
+      "maximum_positive_pnl_symbol_concentration_pct"
+    ],
+    "failed_tests": [
+      "minimum_expectancy_pct",
+      "minimum_profit_factor",
+      "minimum_positive_months",
+      "minimum_nonnegative_quarters",
+      "maximum_negative_event_ratio_pct",
+      "minimum_worst_trade_pct"
+    ]
+  },
+  "oos": "2025 forward validation and 2026 final OOS unopened because Calibration failed",
+  "production_effect": "None; Clear System.py unchanged.",
+  "next_step": "Do not retune RETRIGGER target/cooldown. If pursued, first perform a bounded causal 5m pre-exit path diagnostic on all 324 events to measure favorable excursion before the actual exit and preregister one distinct movement-decay protection family; otherwise move to an independent entry family."
+}
