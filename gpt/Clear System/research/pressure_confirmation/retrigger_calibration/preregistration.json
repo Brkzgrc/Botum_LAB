@@ -1,0 +1,137 @@
+{
+  "study": "RETRIGGER-only fixed-target 2024 Calibration",
+  "created_at": "2026-09-27",
+  "status": "PREREGISTERED_NOT_RUN",
+  "origin": {
+    "discovery_run_id": 36299204476,
+    "discovery_periods": [
+      "2023-05-01/2023-06-01",
+      "2023-11-01/2023-12-01"
+    ],
+    "diagnostic_only_finding": "At 0h cooldown RETRIGGER baseline had 43 events, 40 positive, 3 negative, +0.154163 net percentage points, +0.003585 expectancy and PF 1.013014; this was selected post-hoc and is not validation evidence."
+  },
+  "purpose": "Test whether the movement-state RETRIGGER family, without the rejected 30/60 minute gates, has a stable cost-adjusted edge in an unopened calendar year.",
+  "calibration_period": {
+    "start": "2024-01-01T00:00:00Z",
+    "end_exclusive": "2025-01-01T00:00:00Z",
+    "quarter_shards": [
+      "2024-01-01/2024-04-01",
+      "2024-04-01/2024-07-01",
+      "2024-07-01/2024-10-01",
+      "2024-10-01/2025-01-01"
+    ]
+  },
+  "unopened_periods": {
+    "forward_validation": "2025-01-01/2026-01-01",
+    "final_oos": "2026-01-01 onward"
+  },
+  "universe": {
+    "venue": "Binance Spot",
+    "quote": "USDT",
+    "side": "LONG",
+    "historical_symbol_set": "same fixed 24-symbol set used by discovery run 36299204476",
+    "exclude_stable_fiat_leveraged_bases": true,
+    "survivorship_note": "This stage validates the mechanism on the fixed historical set; it is not full-universe production proof."
+  },
+  "causality": {
+    "closed_candles_only": true,
+    "scanner_rule": "frame close_time must be earlier than decision_time",
+    "same_bar_target_stop": "STOP_FIRST",
+    "open_candle_use": false,
+    "future_feature_use": false
+  },
+  "locked_candidate": {
+    "setup_kind": "RETRIGGER",
+    "signal_definition": "existing causal movement-state RETRIGGER transition from the archived Botum scanner; no static-value replacement and no parameter refit",
+    "cooldown_hours": 0,
+    "gross_target_pct": 0.5,
+    "round_trip_cost_pct": 0.2,
+    "net_target_pct": 0.3,
+    "stop": "archived source ATR stop fixed at signal time",
+    "expiry_hours": 24,
+    "rejected_gates_disabled": [
+      "G30_CLOSE",
+      "G60_PRICE_VOLUME",
+      "G60_MOTION_FLOW"
+    ]
+  },
+  "locked_control": {
+    "setup_kind": "PRESSURE",
+    "policy": "identical target, cost, source stop and expiry",
+    "role": "report-only control; cannot replace the candidate based on 2024 results"
+  },
+  "secondary_reports_not_selectable": {
+    "cooldowns_hours": [
+      24,
+      48
+    ],
+    "monthly_breakdown": true,
+    "quarterly_breakdown": true,
+    "symbol_breakdown": true
+  },
+  "required_metrics": [
+    "signals",
+    "signals_per_day",
+    "active_days",
+    "active_day_ratio_pct",
+    "positive_negative_flat",
+    "net_total_pct",
+    "expectancy_pct",
+    "profit_factor",
+    "target_first",
+    "stop_first",
+    "expired",
+    "mfe_mean_pct",
+    "mae_mean_pct",
+    "worst_trade_pct",
+    "maximum_consecutive_losses",
+    "monthly_and_quarterly_stability",
+    "positive_pnl_symbol_concentration_pct"
+  ],
+  "pass_gate_all_required": {
+    "minimum_events": 120,
+    "minimum_signals_per_day": 0.4,
+    "minimum_active_day_ratio_pct": 25.0,
+    "minimum_expectancy_pct": 0.05,
+    "minimum_profit_factor": 1.15,
+    "minimum_positive_months": 8,
+    "minimum_nonnegative_quarters": 3,
+    "maximum_negative_event_ratio_pct": 10.0,
+    "minimum_worst_trade_pct": -5.5,
+    "maximum_positive_pnl_symbol_concentration_pct": 35.0
+  },
+  "decision_rules": {
+    "pass": "Only RETRIGGER may advance, and only if every locked gate passes. Passing opens 2025 forward validation; it does not modify Clear System.py.",
+    "fail": "Reject setup-kind separation as a production candidate; do not retune the target, cooldown, expiry or gates on 2024 and do not reopen the same threshold family under a new name.",
+    "insufficient": "Fewer than 120 events is insufficient evidence and does not count as a pass."
+  },
+  "workflow_contract": {
+    "preflight": true,
+    "compile": true,
+    "deterministic_self_test": true,
+    "ast_causality_universe_preregistration_audit": true,
+    "real_2024_data_smoke": true,
+    "data_manifest_hash_and_coverage": true,
+    "missing_or_duplicate_shard_fail_closed": true,
+    "artifact_if_always": true,
+    "quarter_replays": 4,
+    "single_reusable_data_fetch_per_symbol": true
+  },
+  "action_budget": {
+    "basis_run_id": 36299204476,
+    "basis_runner_minutes": 22.35,
+    "basis_observed_days": 61,
+    "basis_aggregate_replay_seconds": 539.893,
+    "expected_runner_minutes": "70-90",
+    "expected_wall_minutes": "20-30",
+    "job_timeout_minutes": {
+      "preflight": 8,
+      "each_of_4_fetch_jobs": 12,
+      "each_of_4_quarter_replay_jobs": 25,
+      "aggregate": 8
+    },
+    "hard_runner_minute_ceiling_from_job_timeouts": 164,
+    "launch_rule": "Do not launch if implementation repeats year data per quarter, omits quarter parallelism, or fails any compile/self-test/static/real-data smoke check."
+  },
+  "production_effect": "None. Clear System.py remains unchanged until later forward validation, final OOS and r2 OR-union quality tests pass."
+}
