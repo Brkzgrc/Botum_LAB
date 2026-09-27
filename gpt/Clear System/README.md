@@ -473,3 +473,24 @@ Veri: 2024-10-01 warmup; 2025-02-15 00:00–2025-02-22 00:00 UTC replay; 24 stab
 Bu kapasite/global-state benchmarkıdır; olaylar XRP ve LTC'de oluştu ve çıkış fiyat yolu bu aşamada özellikle çalıştırılmadı. Bu nedenle %0,20 round-trip maliyetli net P&L, expectancy, PF, target-first/stop-first, MFE/MAE ve kazanma oranı **N/A**; OOS **N/A**. 0/24/48 saatten biri champion seçilmedi, PRESSURE/RETRIGGER üretim kuralı değiştirilmedi ve `Clear System.py` değiştirilmedi.
 
 Karar: merkezi full-market sıralama/watch/kota/cooldown hesaplamasındaki süre engeli kalktı. Sonraki somut adım doğrudan üç yıllık pahalı run değildir; önce bu ölçümle 2023 Discovery / 2024 Calibration / 2025 ileri doğrulama için tarih shard sayısı, 5M yol veri boyutu, açık sermaye slotu ve kademeli çıkış maliyeti bütçelenecek. Yeni workflow; compile/self-test, gerçek parity smoke, eksik-shard/hash/evren kapıları, explicit timeout ve failure artifact sözleşmelerini aynen taşıyacak. 2025 ileri dönem seçim amacıyla açılmayacak; yalnız Discovery+Calibration'da dondurulan kuralı doğrulayacak.
+
+
+## 2023–2025 PRESSURE/kademeli çıkış araştırması — ölçülmüş süre ve veri bütçesi, 2026-09-27
+
+README ve Actions yeniden kontrol edildi; en son full-market benchmark [run 36287858354](https://github.com/Brkzgrc/Botum_LAB/actions/runs/36287858354) tamamlanmış/başarılı, onu izleyen genel preflight 36288085394 başarılı ve aktif/queued pahalı Clear System araştırması yoktu. Yeni üç yıllık run, bütçe çıkarılmadan başlatılmadı.
+
+Bütçe, yeşil durumdan değil run 36287858354'ün gerçek ölçümünden üretildi: 24 sembol × 7 gün için vektör hazırlığı 8,240 sn, merkezi state replay 38,825 sn, 48.384 değerlendirme ve dört veri shard'ı toplam 6,317 runner-dk. Üretim biçimi olarak 466 sembolün tümü 1H ön-elemeden geçecek; pahalı 1D/4H/1H/15M değerlendirmesi tarayıcıdaki gibi en yüksek 96 adayda, 0/24/48 saat state yollarıyla çalışacak.
+
+Doğrusal ve ihtiyatlı üst tahmin:
+
+- Yıllık 10.091.520 tam aday/state değerlendirmesi.
+- 466 sembolün dört zaman dilimi vektör hazırlığı: yaklaşık **139,0 dk/yıl**.
+- Top-96 merkezi state replay: yaklaşık **135,0 dk/yıl**.
+- Toplam hesap: **4,57 runner-saat/yıl**, 2023–2025 için yaklaşık **13,70 runner-saat**.
+- 466 sembolün tamamını her taramada tam değerlendirmek: yaklaşık **39,71 runner-saat/üç yıl**; bu yol gereksiz ve **ELENDİ**.
+- Üç yıllık ham 15M veri yaklaşık 48,99 milyon satır ve mevcut CSV.GZ oranıyla yaklaşık **1,66 GiB**. Veri bir kez tarih/sembol shard'larında saklanıp yeniden kullanılacak.
+- 5M yolu bütün piyasaya indirilmeyecek. Günlük en fazla üç global sinyal ve 72 saat izleme için en kötü yaklaşık **2,84 milyon 5M satır**; yalnız seçilmiş olaylarda, çakışan sembol-zaman aralıkları birleştirilerek indirilecek.
+
+Bu tur bir planlama/kapasite sonucudur: sinyal sıklığı, active-day, %0,20 maliyetli expectancy, PF, target-first/stop-first, MFE/MAE ve OOS **N/A**; yeni eşik veya champion seçilmedi. Hesaplar `research/pressure_confirmation/output/pressure_longitudinal_budget/summary.json` altında makine-okunur biçimde arşivlendi ve formüller JSON parse + bağımsız yeniden hesaplama + sözleşme denetimiyle doğrulandı. `Clear System.py` değiştirilmedi.
+
+Karar ve sonraki somut adım: doğrudan üç yıl yerine 2023 Discovery döneminde **2023-08-01–2023-08-31, 24 sembol × 30 gün** aday + seçilmiş-olay 5M yol benchmarkı kurulacak. Amaç kademeli çıkış eşiği seçmek değil; 5M bant genişliği, path artifact boyutu, 0/24/48 state akışı ve aylık state handoff'u ölçmek. Tahmin **15–25 runner-dk / 7–12 dk duvar süresi**, kesin üst sınır **50 runner-dk**. Workflow; explicit timeout, compile, self-test, kaynak-parity, gerçek veri smoke, stable/fiat/leveraged evren reddi, eksik/çift shard kapısı ve hata artifact'ı olmadan başlatılmayacak.
