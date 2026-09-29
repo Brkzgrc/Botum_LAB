@@ -133,3 +133,9 @@ kriter disarida birakma karari ("aralik tepesinde olmak tek basina bekleme sebeb
 kullanici karariyla geri alindi — video metni aynen kullaniliyor.
 Sonuc etiketi ve AUC olcumu ayni kalir (buy_now olasiligi ile +%3/-%2/24s etiketi).
 Kontrol kurali ve kova esikleri degismedi.
+
+## REVIZYON 3 — 2026-09-29 (ilk canli Jev cagrisindan ONCE, veri yok)
+
+Evren degisti (kullanici karari). Sektor kurali birakildi: sektor secimi Payments'i (XRP)
+disarida birakmis, ayni sektordeki buyuk coinleri (SOL, BNB) elemisti.
+Yeni evren: ETH, SOL, BNB, XRP, ZEC, LINK. Cikan: AVAX, TAO, DOGE.
