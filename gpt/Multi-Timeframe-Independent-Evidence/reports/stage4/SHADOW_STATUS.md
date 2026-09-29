@@ -2,17 +2,17 @@
 
 - Forward lock başlangıcı: **2026-09-16T18:08:42.494404+00:00**
 - Frozen rule hash: `bb4d83dee5a547d8…`
-- Toplam değerlendirilen saat: **69**
+- Toplam değerlendirilen saat: **70**
 - Toplam shadow sinyal: **208**
 
-- 24H sonucu tamamlanan: **185**
+- 24H sonucu tamamlanan: **202**
 
 ## Aday özeti
 
 | aday | sinyal | 24H tamamlanan | +3 önce -2 başarı |
 |---|---:|---:|---:|
 | C02 | 0 | 0 | — |
-| C12 | 208 | 185 | 43.37% |
+| C12 | 208 | 202 | 42.31% |
 | C09 | 0 | 0 | — |
 
 ## Bilimsel not
