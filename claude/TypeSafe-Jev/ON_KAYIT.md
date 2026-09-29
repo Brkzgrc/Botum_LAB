@@ -139,3 +139,10 @@ Kontrol kurali ve kova esikleri degismedi.
 Evren degisti (kullanici karari). Sektor kurali birakildi: sektor secimi Payments'i (XRP)
 disarida birakmis, ayni sektordeki buyuk coinleri (SOL, BNB) elemisti.
 Yeni evren: ETH, SOL, BNB, XRP, ZEC, LINK. Cikan: AVAX, TAO, DOGE.
+
+## REVIZYON 4 — 2026-09-29 (ilk canli Jev cagrisindan ONCE, veri yok)
+
+Evren: ZEC, NEAR, SUI, XRP, LINK, SOL (kullanici karari, coin_uyum olcumune dayanarak —
+BNB ve ETH 6 saatte neredeyse hic +-%6,5 oynamiyor). Stop -%3,5 (videoyla ayni),
+en uzun tutus 6 saat. Bu listeyle olcum sayaci ilk canli turla baslar; 30 gun boyunca
+liste degistirilmez.
