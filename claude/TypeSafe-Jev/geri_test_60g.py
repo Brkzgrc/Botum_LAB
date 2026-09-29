@@ -194,7 +194,11 @@ class Dur(RuntimeError):
 
 def send(body):
     for dn in range(3):
-        r = HTTP.post(API_JEV, json=body, timeout=30)
+        try:
+            r = HTTP.post(API_JEV, json=body, timeout=30)
+        except requests.RequestException:          # baglanti kopmasi: 5xx gibi, en fazla 3 deneme
+            time.sleep(2 * (dn + 1))
+            continue
         if r.status_code == 200:
             return r.json()
         txt = r.text[:300]
@@ -204,7 +208,7 @@ def send(body):
             time.sleep(2 * (dn + 1))
             continue
         raise Dur(f"HTTP {r.status_code} {txt}")
-    raise Dur("3 denemede basarisiz (429/5xx)")
+    raise Dur("3 denemede basarisiz (429/5xx/baglanti)")
 
 
 def est_usd(body):
