@@ -123,3 +123,13 @@ yapilmadigi icin revizyon olcumu bozmaz; olcum sayaci ilk canli turla baslar.
 - Hukum yine bu dosyadaki AUC olcumuyle verilir; kasa sonucu tek basina hukum degildir.
 - Kaynak kod artik Botum (private) `jev_golge.py` + `jev_haber.py`; bu klasordeki
   `jev_golge.py` ilk surumdur.
+
+## REVIZYON 2 — 2026-09-29 (ilk canli Jev cagrisindan ONCE, veri yok)
+
+Kullanici karari: video transkriptindeki sistem birebir. Soru ve kriter metinleri,
+gozlemci cumleleri (15 dk mum) ve kural defteri videodakiyle degistirildi. Ana soru artik
+`buy_now` ("Should X be bought now?", videodaki evet/hayir kriterleriyle). Revizyon 1'deki
+kriter disarida birakma karari ("aralik tepesinde olmak tek basina bekleme sebebi degil")
+kullanici karariyla geri alindi — video metni aynen kullaniliyor.
+Sonuc etiketi ve AUC olcumu ayni kalir (buy_now olasiligi ile +%3/-%2/24s etiketi).
+Kontrol kurali ve kova esikleri degismedi.
