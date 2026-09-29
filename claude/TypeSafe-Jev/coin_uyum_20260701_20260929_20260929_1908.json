@@ -1,0 +1,753 @@
+{
+ "kurallar": "Coin uyum olcumu — hangi coin Jev'in cikis kurallarina UYUYOR? (getiri testi DEGIL)\n\nSoru: Jev sisteminin sabit kurallari (15 dk karar, -%3,5 stop, +%6,5 kar al, kar %2'yi\ngecince zirveden -%1,3, en fazla 6 saat) hangi coinlerin hareket karakterine uyuyor?\nJev'e HIC sorulmaz. Sinyal YOK: her 15 dk kapanisinda rastgele giris.\n\nKURALLAR (sonuc gorulmeden sabitlendi, 2026-09-29):\n  Evren  : Binance USDT spot, TRADING; BTC, stablecoin, sarili token ve hisse tokeni haric;\n           24s hacim >= 100M$ olan ilk 20 + mevcut 6 (ETH SOL BNB XRP ZEC LINK). Referans BTC.\n  Veri   : son 90 gun, 1 DAKIKALIK mum (CLAUDE.md kural 7: stop/hedef 1dk low/high ile).\n  Giris  : her 15 dk mum kapanisi (sonraki 1dk mumdan itibaren izlenir), giris = o kapanis.\n  Cikis  : canli guvenlik kurallariyla BIREBIR (jev_golge.portfoy_kontrol):\n           ayni mumda sira stop -> kar koruma (onceki zirveye gore) -> kar al -> sure; zirve en son.\n           Komisyon %0,20.\n  Olculer:\n    hareket     : 6 saatte fiyatin +%6,5 VEYA -%6,5'e degdigi girislerin orani (yonsuz hareket kapasitesi)\n    gurultu     : medyan 15dk ATR(14) % / %3,5  (stop'un gurultuye oranla ne kadar genis oldugu)\n    cikis dagilimi (uzun, rastgele giris): kar al / stop / kar koruma / sure yuzdeleri\n    ort_net     : rastgele uzun girisin ortalama net getirisi — DONEMIN TRENDINE BAGLI,\n                  SECIM OLCUTU DEGIL (sadece bilgi)\n    btc_korelasyon, ikili korelasyon: 1 saatlik log getiriler\n    cift_temas  : ayni 1dk mumda hem stop hem hedef — sayi raporlanir (kural 7)\n  Dilimler: 90 gun + 3 x 30 gun ayri (tek donem hukum vermez, kural 6).\n\nCikti: script klasorune tek JSON (CLAUDE.md cikti kurali). Ham veri scratch onbellekte, repoya girmez.\n",
+ "baslangic": "2026-07-01T19:04:00+00:00",
+ "bitis": "2026-09-29T19:04:00+00:00",
+ "coinler": {
+  "ETH": {
+   "mevcut_listede": true,
+   "atr15_%": 0.292,
+   "gurultu_stop_orani": 0.083,
+   "btc_korelasyon": 0.851,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 0.8,
+    "tp_%": 0.8,
+    "stop_%": 1.3,
+    "koru_%": 4.9,
+    "sure_%": 93.0,
+    "ort_net_%": -0.053,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.1,
+     "tp_%": 0.1,
+     "stop_%": 0.5,
+     "koru_%": 4.7,
+     "sure_%": 94.7,
+     "ort_net_%": -0.066,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 1.6,
+     "tp_%": 1.5,
+     "stop_%": 1.7,
+     "koru_%": 6.1,
+     "sure_%": 90.7,
+     "ort_net_%": 0.012,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 0.8,
+     "tp_%": 0.7,
+     "stop_%": 1.8,
+     "koru_%": 3.8,
+     "sure_%": 93.7,
+     "ort_net_%": -0.105,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "ZEC": {
+   "mevcut_listede": true,
+   "atr15_%": 0.671,
+   "gurultu_stop_orani": 0.192,
+   "btc_korelasyon": 0.48,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 7.4,
+    "tp_%": 1.9,
+    "stop_%": 10.9,
+    "koru_%": 30.9,
+    "sure_%": 56.3,
+    "ort_net_%": -0.007,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 3.0,
+     "tp_%": 1.5,
+     "stop_%": 7.2,
+     "koru_%": 25.4,
+     "sure_%": 65.9,
+     "ort_net_%": -0.168,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 6.4,
+     "tp_%": 1.5,
+     "stop_%": 7.6,
+     "koru_%": 26.2,
+     "sure_%": 64.7,
+     "ort_net_%": 0.103,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 13.0,
+     "tp_%": 2.6,
+     "stop_%": 18.0,
+     "koru_%": 41.3,
+     "sure_%": 38.1,
+     "ort_net_%": 0.044,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "SOL": {
+   "mevcut_listede": true,
+   "atr15_%": 0.346,
+   "gurultu_stop_orani": 0.099,
+   "btc_korelasyon": 0.767,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 0.8,
+    "tp_%": 0.2,
+    "stop_%": 1.4,
+    "koru_%": 8.5,
+    "sure_%": 89.9,
+    "ort_net_%": -0.096,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.0,
+     "tp_%": 0.0,
+     "stop_%": 0.6,
+     "koru_%": 4.9,
+     "sure_%": 94.5,
+     "ort_net_%": -0.245,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 1.9,
+     "tp_%": 0.4,
+     "stop_%": 1.4,
+     "koru_%": 12.3,
+     "sure_%": 85.9,
+     "ort_net_%": 0.075,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 0.6,
+     "tp_%": 0.2,
+     "stop_%": 2.4,
+     "koru_%": 8.3,
+     "sure_%": 89.1,
+     "ort_net_%": -0.117,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "XRP": {
+   "mevcut_listede": true,
+   "atr15_%": 0.339,
+   "gurultu_stop_orani": 0.097,
+   "btc_korelasyon": 0.696,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 2.5,
+    "tp_%": 0.8,
+    "stop_%": 3.1,
+    "koru_%": 11.0,
+    "sure_%": 85.2,
+    "ort_net_%": -0.094,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.0,
+     "tp_%": 0.0,
+     "stop_%": 0.0,
+     "koru_%": 3.3,
+     "sure_%": 96.7,
+     "ort_net_%": -0.194,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 5.3,
+     "tp_%": 1.5,
+     "stop_%": 4.7,
+     "koru_%": 14.0,
+     "sure_%": 79.8,
+     "ort_net_%": -0.063,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 2.3,
+     "tp_%": 0.9,
+     "stop_%": 4.5,
+     "koru_%": 15.6,
+     "sure_%": 79.0,
+     "ort_net_%": -0.022,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "NEAR": {
+   "mevcut_listede": false,
+   "atr15_%": 0.633,
+   "gurultu_stop_orani": 0.181,
+   "btc_korelasyon": 0.447,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 7.7,
+    "tp_%": 1.0,
+    "stop_%": 10.8,
+    "koru_%": 28.8,
+    "sure_%": 59.4,
+    "ort_net_%": -0.036,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.5,
+     "tp_%": 0.3,
+     "stop_%": 7.2,
+     "koru_%": 17.1,
+     "sure_%": 75.4,
+     "ort_net_%": -0.288,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 2.6,
+     "tp_%": 0.3,
+     "stop_%": 5.9,
+     "koru_%": 16.2,
+     "sure_%": 77.5,
+     "ort_net_%": -0.094,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 20.1,
+     "tp_%": 2.5,
+     "stop_%": 19.3,
+     "koru_%": 53.2,
+     "sure_%": 25.1,
+     "ort_net_%": 0.277,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "QNT": {
+   "mevcut_listede": false,
+   "atr15_%": 0.353,
+   "gurultu_stop_orani": 0.101,
+   "btc_korelasyon": 0.172,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 5.2,
+    "tp_%": 0.2,
+    "stop_%": 2.2,
+    "koru_%": 13.8,
+    "sure_%": 83.8,
+    "ort_net_%": -0.106,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.0,
+     "tp_%": 0.0,
+     "stop_%": 0.1,
+     "koru_%": 5.0,
+     "sure_%": 94.8,
+     "ort_net_%": -0.28,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 0.5,
+     "tp_%": 0.0,
+     "stop_%": 0.7,
+     "koru_%": 9.5,
+     "sure_%": 89.7,
+     "ort_net_%": -0.175,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 15.2,
+     "tp_%": 0.7,
+     "stop_%": 5.7,
+     "koru_%": 27.0,
+     "sure_%": 66.6,
+     "ort_net_%": 0.14,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "SUI": {
+   "mevcut_listede": false,
+   "atr15_%": 0.469,
+   "gurultu_stop_orani": 0.134,
+   "btc_korelasyon": 0.627,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 3.7,
+    "tp_%": 1.1,
+    "stop_%": 6.8,
+    "koru_%": 17.4,
+    "sure_%": 74.7,
+    "ort_net_%": -0.099,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.0,
+     "tp_%": 0.0,
+     "stop_%": 2.6,
+     "koru_%": 7.3,
+     "sure_%": 90.1,
+     "ort_net_%": -0.241,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 3.2,
+     "tp_%": 1.2,
+     "stop_%": 6.0,
+     "koru_%": 14.7,
+     "sure_%": 78.2,
+     "ort_net_%": -0.043,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 7.8,
+     "tp_%": 2.2,
+     "stop_%": 11.8,
+     "koru_%": 30.4,
+     "sure_%": 55.7,
+     "ort_net_%": -0.012,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "AVAX": {
+   "mevcut_listede": false,
+   "atr15_%": 0.391,
+   "gurultu_stop_orani": 0.112,
+   "btc_korelasyon": 0.576,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 2.6,
+    "tp_%": 1.1,
+    "stop_%": 4.9,
+    "koru_%": 13.8,
+    "sure_%": 80.2,
+    "ort_net_%": -0.046,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.4,
+     "tp_%": 0.0,
+     "stop_%": 3.6,
+     "koru_%": 6.5,
+     "sure_%": 89.9,
+     "ort_net_%": -0.264,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 1.9,
+     "tp_%": 0.9,
+     "stop_%": 4.3,
+     "koru_%": 11.9,
+     "sure_%": 82.9,
+     "ort_net_%": -0.048,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 5.5,
+     "tp_%": 2.5,
+     "stop_%": 6.6,
+     "koru_%": 23.1,
+     "sure_%": 67.7,
+     "ort_net_%": 0.175,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "BABY": {
+   "mevcut_listede": false,
+   "atr15_%": 0.548,
+   "gurultu_stop_orani": 0.157,
+   "btc_korelasyon": 0.347,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 4.3,
+    "tp_%": 1.7,
+    "stop_%": 8.9,
+    "koru_%": 24.7,
+    "sure_%": 64.7,
+    "ort_net_%": -0.118,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.1,
+     "tp_%": 0.0,
+     "stop_%": 4.6,
+     "koru_%": 16.4,
+     "sure_%": 79.0,
+     "ort_net_%": -0.23,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 7.9,
+     "tp_%": 3.0,
+     "stop_%": 11.5,
+     "koru_%": 32.3,
+     "sure_%": 53.2,
+     "ort_net_%": -0.053,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 5.0,
+     "tp_%": 2.0,
+     "stop_%": 10.4,
+     "koru_%": 25.5,
+     "sure_%": 62.0,
+     "ort_net_%": -0.071,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "HBAR": {
+   "mevcut_listede": false,
+   "atr15_%": 0.37,
+   "gurultu_stop_orani": 0.106,
+   "btc_korelasyon": 0.494,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 1.9,
+    "tp_%": 0.3,
+    "stop_%": 2.9,
+    "koru_%": 12.9,
+    "sure_%": 83.8,
+    "ort_net_%": -0.098,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.0,
+     "tp_%": 0.0,
+     "stop_%": 1.7,
+     "koru_%": 8.1,
+     "sure_%": 90.2,
+     "ort_net_%": -0.235,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 1.1,
+     "tp_%": 0.5,
+     "stop_%": 1.9,
+     "koru_%": 8.6,
+     "sure_%": 88.9,
+     "ort_net_%": -0.088,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 4.6,
+     "tp_%": 0.5,
+     "stop_%": 5.2,
+     "koru_%": 22.0,
+     "sure_%": 72.3,
+     "ort_net_%": 0.029,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "BNB": {
+   "mevcut_listede": true,
+   "atr15_%": 0.227,
+   "gurultu_stop_orani": 0.065,
+   "btc_korelasyon": 0.738,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 0.0,
+    "tp_%": 0.0,
+    "stop_%": 0.2,
+    "koru_%": 2.2,
+    "sure_%": 97.6,
+    "ort_net_%": -0.108,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.0,
+     "tp_%": 0.0,
+     "stop_%": 0.0,
+     "koru_%": 0.3,
+     "sure_%": 99.7,
+     "ort_net_%": -0.144,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 0.0,
+     "tp_%": 0.0,
+     "stop_%": 0.3,
+     "koru_%": 3.8,
+     "sure_%": 95.9,
+     "ort_net_%": -0.052,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 0.0,
+     "tp_%": 0.0,
+     "stop_%": 0.2,
+     "koru_%": 2.7,
+     "sure_%": 97.1,
+     "ort_net_%": -0.127,
+     "cift_temas": 0
+    }
+   ]
+  },
+  "LINK": {
+   "mevcut_listede": true,
+   "atr15_%": 0.416,
+   "gurultu_stop_orani": 0.119,
+   "btc_korelasyon": 0.67,
+   "90gun": {
+    "n": 8616,
+    "hareket_%": 2.3,
+    "tp_%": 1.6,
+    "stop_%": 3.3,
+    "koru_%": 10.9,
+    "sure_%": 84.2,
+    "ort_net_%": 0.01,
+    "cift_temas": 0
+   },
+   "30gun_dilimler": [
+    {
+     "n": 2880,
+     "hareket_%": 0.0,
+     "tp_%": 0.0,
+     "stop_%": 0.6,
+     "koru_%": 4.8,
+     "sure_%": 94.7,
+     "ort_net_%": -0.1,
+     "cift_temas": 0
+    },
+    {
+     "n": 2880,
+     "hareket_%": 3.6,
+     "tp_%": 2.6,
+     "stop_%": 3.0,
+     "koru_%": 10.1,
+     "sure_%": 84.3,
+     "ort_net_%": 0.116,
+     "cift_temas": 0
+    },
+    {
+     "n": 2856,
+     "hareket_%": 3.3,
+     "tp_%": 2.2,
+     "stop_%": 6.3,
+     "koru_%": 17.9,
+     "sure_%": 73.6,
+     "ort_net_%": 0.015,
+     "cift_temas": 0
+    }
+   ]
+  }
+ },
+ "korelasyon_1s": {
+  "ETH": {
+   "ETH": 1.0,
+   "ZEC": 0.505,
+   "SOL": 0.772,
+   "XRP": 0.694,
+   "NEAR": 0.471,
+   "QNT": 0.176,
+   "SUI": 0.646,
+   "AVAX": 0.609,
+   "BABY": 0.369,
+   "HBAR": 0.5,
+   "BNB": 0.732,
+   "LINK": 0.734
+  },
+  "ZEC": {
+   "ETH": 0.505,
+   "ZEC": 1.0,
+   "SOL": 0.53,
+   "XRP": 0.465,
+   "NEAR": 0.456,
+   "QNT": 0.115,
+   "SUI": 0.458,
+   "AVAX": 0.396,
+   "BABY": 0.267,
+   "HBAR": 0.318,
+   "BNB": 0.471,
+   "LINK": 0.471
+  },
+  "SOL": {
+   "ETH": 0.772,
+   "ZEC": 0.53,
+   "SOL": 1.0,
+   "XRP": 0.753,
+   "NEAR": 0.533,
+   "QNT": 0.164,
+   "SUI": 0.739,
+   "AVAX": 0.632,
+   "BABY": 0.388,
+   "HBAR": 0.543,
+   "BNB": 0.746,
+   "LINK": 0.71
+  },
+  "XRP": {
+   "ETH": 0.694,
+   "ZEC": 0.465,
+   "SOL": 0.753,
+   "XRP": 1.0,
+   "NEAR": 0.48,
+   "QNT": 0.16,
+   "SUI": 0.718,
+   "AVAX": 0.592,
+   "BABY": 0.368,
+   "HBAR": 0.597,
+   "BNB": 0.702,
+   "LINK": 0.661
+  },
+  "NEAR": {
+   "ETH": 0.471,
+   "ZEC": 0.456,
+   "SOL": 0.533,
+   "XRP": 0.48,
+   "NEAR": 1.0,
+   "QNT": 0.134,
+   "SUI": 0.586,
+   "AVAX": 0.488,
+   "BABY": 0.323,
+   "HBAR": 0.384,
+   "BNB": 0.466,
+   "LINK": 0.494
+  },
+  "QNT": {
+   "ETH": 0.176,
+   "ZEC": 0.115,
+   "SOL": 0.164,
+   "XRP": 0.16,
+   "NEAR": 0.134,
+   "QNT": 1.0,
+   "SUI": 0.188,
+   "AVAX": 0.15,
+   "BABY": 0.11,
+   "HBAR": 0.049,
+   "BNB": 0.157,
+   "LINK": 0.188
+  },
+  "SUI": {
+   "ETH": 0.646,
+   "ZEC": 0.458,
+   "SOL": 0.739,
+   "XRP": 0.718,
+   "NEAR": 0.586,
+   "QNT": 0.188,
+   "SUI": 1.0,
+   "AVAX": 0.645,
+   "BABY": 0.394,
+   "HBAR": 0.576,
+   "BNB": 0.681,
+   "LINK": 0.669
+  },
+  "AVAX": {
+   "ETH": 0.609,
+   "ZEC": 0.396,
+   "SOL": 0.632,
+   "XRP": 0.592,
+   "NEAR": 0.488,
+   "QNT": 0.15,
+   "SUI": 0.645,
+   "AVAX": 1.0,
+   "BABY": 0.33,
+   "HBAR": 0.498,
+   "BNB": 0.593,
+   "LINK": 0.652
+  },
+  "BABY": {
+   "ETH": 0.369,
+   "ZEC": 0.267,
+   "SOL": 0.388,
+   "XRP": 0.368,
+   "NEAR": 0.323,
+   "QNT": 0.11,
+   "SUI": 0.394,
+   "AVAX": 0.33,
+   "BABY": 1.0,
+   "HBAR": 0.322,
+   "BNB": 0.376,
+   "LINK": 0.355
+  },
+  "HBAR": {
+   "ETH": 0.5,
+   "ZEC": 0.318,
+   "SOL": 0.543,
+   "XRP": 0.597,
+   "NEAR": 0.384,
+   "QNT": 0.049,
+   "SUI": 0.576,
+   "AVAX": 0.498,
+   "BABY": 0.322,
+   "HBAR": 1.0,
+   "BNB": 0.518,
+   "LINK": 0.525
+  },
+  "BNB": {
+   "ETH": 0.732,
+   "ZEC": 0.471,
+   "SOL": 0.746,
+   "XRP": 0.702,
+   "NEAR": 0.466,
+   "QNT": 0.157,
+   "SUI": 0.681,
+   "AVAX": 0.593,
+   "BABY": 0.376,
+   "HBAR": 0.518,
+   "BNB": 1.0,
+   "LINK": 0.674
+  },
+  "LINK": {
+   "ETH": 0.734,
+   "ZEC": 0.471,
+   "SOL": 0.71,
+   "XRP": 0.661,
+   "NEAR": 0.494,
+   "QNT": 0.188,
+   "SUI": 0.669,
+   "AVAX": 0.652,
+   "BABY": 0.355,
+   "HBAR": 0.525,
+   "BNB": 0.674,
+   "LINK": 1.0
+  }
+ }
+}
