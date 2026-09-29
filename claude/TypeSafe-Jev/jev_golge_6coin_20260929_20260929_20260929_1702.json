@@ -1,115 +1,201 @@
 {
- "ts_utc": "2026-09-29T16:53:52.734098+00:00",
+ "ts_utc": "2026-09-29T17:02:06.299641+00:00",
+ "kontrol": {
+  "ETHUSDT": {
+   "score": 0.75,
+   "buy": true,
+   "parts": {
+    "trend": 0.75,
+    "not_stretched": 1.0,
+    "not_overheated": 1.0,
+    "support_close": 1.0,
+    "momentum_turning": 0.0
+   }
+  },
+  "ZECUSDT": {
+   "score": 0.6,
+   "buy": false,
+   "parts": {
+    "trend": 0.5,
+    "not_stretched": 1.0,
+    "not_overheated": 1.0,
+    "support_close": 0.5,
+    "momentum_turning": 0.0
+   }
+  },
+  "TAOUSDT": {
+   "score": 0.55,
+   "buy": false,
+   "parts": {
+    "trend": 0.75,
+    "not_stretched": 1.0,
+    "not_overheated": 1.0,
+    "support_close": 0.0,
+    "momentum_turning": 0.0
+   }
+  },
+  "DOGEUSDT": {
+   "score": 0.7,
+   "buy": true,
+   "parts": {
+    "trend": 0.5,
+    "not_stretched": 1.0,
+    "not_overheated": 1.0,
+    "support_close": 1.0,
+    "momentum_turning": 0.0
+   }
+  },
+  "LINKUSDT": {
+   "score": 0.6,
+   "buy": false,
+   "parts": {
+    "trend": 1.0,
+    "not_stretched": 1.0,
+    "not_overheated": 1.0,
+    "support_close": 0.0,
+    "momentum_turning": 0.0
+   }
+  },
+  "AVAXUSDT": {
+   "score": 0.5,
+   "buy": false,
+   "parts": {
+    "trend": 1.0,
+    "not_stretched": 1.0,
+    "not_overheated": 0.5,
+    "support_close": 0.0,
+    "momentum_turning": 0.0
+   }
+  }
+ },
  "mode": "kuru",
  "model": "jev-1.13.0",
  "estimate": {
-  "chars": 28481,
-  "est_tokens": 9494,
-  "est_usd": 0.00039874800000000004,
+  "chars": 28511,
+  "est_tokens": 9504,
+  "est_usd": 0.00039916800000000004,
   "questions": 87
  },
  "events": {},
  "raw": {
   "market": {
-   "btc_price": 83068.0,
-   "btc_ret24": -0.3622406141297829
+   "btc_price": 83061.27,
+   "btc_ret24": -0.7904986795758906
   },
   "coins": {
    "ETHUSDT": {
-    "price": 2672.86,
-    "ret24": -0.19007076308369397,
-    "ret3": -2.337375723007995,
-    "stretch_atr": -0.3714543776020325,
+    "price": 2675.99,
+    "ret24": -0.42272126816380595,
+    "ret3": -1.8644359934429366,
+    "stretch_atr": -0.29219295639267384,
     "stoch4": 78.33368923772349,
-    "pos60": 0.329200247985122,
-    "from_hi24": -2.7555846612820956,
-    "rsi1": 43.13875534031091,
-    "vol_ratio": 2.2424454553235953,
-    "atr1_pct": 0.8158914526847515,
-    "support_dist": 1.410256896676021,
-    "green6": 2,
-    "bar15_close_ms": 1790700299999.0
+    "pos60": 0.3569214418563438,
+    "from_hi24": -2.641708506148588,
+    "rsi1": 43.80666157502123,
+    "vol_ratio": 2.3458228283070306,
+    "atr1_pct": 0.7993283386133417,
+    "support_dist": 1.529011378424605,
+    "green6": 3,
+    "bar15_close_ms": 1790701199999.0,
+    "rsi1_prev3": 62.74579153438988,
+    "trend_d": "up",
+    "trend_4h": "flat"
    },
    "ZECUSDT": {
-    "price": 1391.99,
-    "ret24": -9.077310968281338,
-    "ret3": -3.4553790027812226,
-    "stretch_atr": -1.9245224662621383,
+    "price": 1392.71,
+    "ret24": -8.901157124261672,
+    "ret3": -4.330413876008931,
+    "stretch_atr": -1.9124315217891048,
     "stoch4": 19.38515951528539,
-    "pos60": 0.11108024691358027,
-    "from_hi24": -10.013640271771107,
-    "rsi1": 36.97454664912421,
-    "vol_ratio": 1.24877650855204,
-    "atr1_pct": 2.1835341474987393,
-    "support_dist": 2.654129793510318,
-    "green6": 2,
-    "bar15_close_ms": 1790700299999.0
+    "pos60": 0.11330246913580258,
+    "from_hi24": -9.967095268571136,
+    "rsi1": 37.520563095464304,
+    "vol_ratio": 1.3572816349714854,
+    "atr1_pct": 2.107040492471525,
+    "support_dist": 2.7072271386430646,
+    "green6": 3,
+    "bar15_close_ms": 1790701199999.0,
+    "rsi1_prev3": 49.04181803767112,
+    "trend_d": "up",
+    "trend_4h": "down"
    },
    "TAOUSDT": {
-    "price": 308.4,
-    "ret24": 2.7657447517493994,
-    "ret3": -1.752150366358718,
-    "stretch_atr": -0.19576685103781102,
+    "price": 310.0,
+    "ret24": 2.3440079234070765,
+    "ret3": -1.5560495395363527,
+    "stretch_atr": -0.06650805460296291,
     "stoch4": 36.35322591954685,
-    "pos60": 0.3247058823529401,
-    "from_hi24": -3.353180821059243,
-    "rsi1": 46.05752695974207,
-    "vol_ratio": 1.0873975841163535,
-    "atr1_pct": 2.0093423848032788,
-    "support_dist": 4.684317718940911,
+    "pos60": 0.36235294117647004,
+    "from_hi24": -2.851770604826076,
+    "rsi1": 50.32907938126554,
+    "vol_ratio": 1.1393363070243028,
+    "atr1_pct": 1.9760035485489478,
+    "support_dist": 5.227427019687703,
     "green6": 3,
-    "bar15_close_ms": 1790700299999.0
+    "bar15_close_ms": 1790701199999.0,
+    "rsi1_prev3": 57.71280716827823,
+    "trend_d": "up",
+    "trend_4h": "flat"
    },
    "DOGEUSDT": {
-    "price": 0.09349,
-    "ret24": 0.14997321906802252,
-    "ret3": -2.523198832238549,
-    "stretch_atr": -0.6658791345122337,
+    "price": 0.09333,
+    "ret24": -1.1230003178302805,
+    "ret3": -2.6189482470784675,
+    "stretch_atr": -0.7334016314995515,
     "stoch4": 60.466347571256264,
-    "pos60": 0.2648648648648652,
-    "from_hi24": -2.998547416476438,
-    "rsi1": 44.566915676014794,
-    "vol_ratio": 0.8857924430101184,
-    "atr1_pct": 1.2703748463254814,
-    "support_dist": 2.1413744127608547,
+    "pos60": 0.2432432432432426,
+    "from_hi24": -3.164556962025311,
+    "rsi1": 42.40257125012409,
+    "vol_ratio": 0.9726981658001126,
+    "atr1_pct": 1.294925392193216,
+    "support_dist": 1.9665683382497523,
     "green6": 2,
-    "bar15_close_ms": 1790700299999.0
+    "bar15_close_ms": 1790701199999.0,
+    "rsi1_prev3": 59.22353739519906,
+    "trend_d": "up",
+    "trend_4h": "down"
    },
    "LINKUSDT": {
-    "price": 14.706,
-    "ret24": 1.898558758314839,
-    "ret3": -3.6493480967044523,
-    "stretch_atr": 0.46815545280764287,
+    "price": 14.712,
+    "ret24": -3.635291805855767,
+    "ret3": -2.7562958556414774,
+    "stretch_atr": 0.4797539853956119,
     "stoch4": 56.544777762291446,
-    "pos60": 0.5345501955671446,
-    "from_hi24": -6.78836280661722,
-    "rsi1": 45.531810831481195,
-    "vol_ratio": 1.0011348332789571,
-    "atr1_pct": 1.9712342079195286,
-    "support_dist": 9.127337488869092,
+    "pos60": 0.5371577574967404,
+    "from_hi24": -6.750332762882671,
+    "rsi1": 43.64369080879719,
+    "vol_ratio": 0.9878330978209541,
+    "atr1_pct": 1.9782519721406373,
+    "support_dist": 9.171861086375777,
     "green6": 1,
-    "bar15_close_ms": 1790700299999.0
+    "bar15_close_ms": 1790701199999.0,
+    "rsi1_prev3": 53.799820505815596,
+    "trend_d": "up",
+    "trend_4h": "up"
    },
    "AVAXUSDT": {
-    "price": 11.168,
-    "ret24": 8.059990324141243,
-    "ret3": -4.807364473235598,
-    "stretch_atr": 0.6577252515787338,
+    "price": 11.149,
+    "ret24": 6.709418070444095,
+    "ret3": -4.135855546001732,
+    "stretch_atr": 0.6187533083001113,
     "stoch4": 84.73632734530023,
-    "pos60": 0.5491143317230274,
-    "from_hi24": -6.995336442371746,
-    "rsi1": 54.4817154610663,
-    "vol_ratio": 2.939026165561344,
-    "atr1_pct": 2.3658014258634505,
-    "support_dist": 10.083785115820598,
-    "green6": 2,
-    "bar15_close_ms": 1790700299999.0
+    "pos60": 0.5389157273215243,
+    "from_hi24": -7.153564290473014,
+    "rsi1": 52.65239626045814,
+    "vol_ratio": 2.878333712182326,
+    "atr1_pct": 2.3594461212658904,
+    "support_dist": 9.896500739280434,
+    "green6": 1,
+    "bar15_close_ms": 1790701199999.0,
+    "rsi1_prev3": 67.68900863311123,
+    "trend_d": "up",
+    "trend_4h": "up"
    }
   }
  },
  "request": {
   "model": "jev-1.13.0",
-  "state": "Market: Bitcoin: 4h trend flat or mixed, price near its averages. Last 24 hours: flat. Bitcoin is normally volatile.\n\nETH (layer 1). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: flat or mixed, price near its averages. 1h trend: flat or mixed, price near its averages. Last 24 hours: flat. Last 3 hours: small drop. Price is close to its 4h 20-bar average. 4h StochRSI is in the middle of its recent range. Price is in the lower part of its last 60 hourly bars, with a small pullback from the recent high. 1h RSI is moderately low and falling. 2 of the last 6 hourly candles are green. Volume in the last 6 hours is above normal. The coin is more volatile than usual. The nearest support is very close below (under 2%).\n\nZEC (privacy). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: falling, price below its 20 and 50 bar averages. 1h trend: falling, price below its 20 and 50 bar averages. Last 24 hours: strong drop. Last 3 hours: moderate drop. Price is clearly below its 4h 20-bar average. 4h StochRSI is near the bottom of its recent range. Price is at the bottom of its last 60 hourly bars, with a deep pullback from the recent high. 1h RSI is moderately low and falling. 2 of the last 6 hourly candles are green. Volume in the last 6 hours is normal. The coin is more volatile than usual. The nearest support is close below (2-5%).\n\nTAO (AI). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: flat or mixed, price near its averages. 1h trend: flat or mixed, price near its averages. Last 24 hours: small rise. Last 3 hours: small drop. Price is close to its 4h 20-bar average. 4h StochRSI is in the middle of its recent range. Price is in the lower part of its last 60 hourly bars, with a small pullback from the recent high. 1h RSI is neutral and falling. 3 of the last 6 hourly candles are green. Volume in the last 6 hours is normal. The coin is normally volatile. The nearest support is close below (2-5%).\n\nDOGE (meme). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: falling, price below its 20 and 50 bar averages. 1h trend: flat or mixed, price near its averages. Last 24 hours: flat. Last 3 hours: small drop. Price is close to its 4h 20-bar average. 4h StochRSI is in the middle of its recent range. Price is in the lower part of its last 60 hourly bars, with a small pullback from the recent high. 1h RSI is moderately low and falling. 2 of the last 6 hourly candles are green. Volume in the last 6 hours is normal. The coin is normally volatile. The nearest support is close below (2-5%).\n\nLINK (DeFi / oracle). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: rising, price above its 20 and 50 bar averages. 1h trend: flat or mixed, price near its averages. Last 24 hours: small rise. Last 3 hours: moderate drop. Price is close to its 4h 20-bar average. 4h StochRSI is in the middle of its recent range. Price is in the middle of its last 60 hourly bars, with a deep pullback from the recent high. 1h RSI is neutral and falling. 1 of the last 6 hourly candles are green. Volume in the last 6 hours is normal. The coin is more volatile than usual. The nearest support is far below (more than 5%).\n\nAVAX (real world assets). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: rising, price above its 20 and 50 bar averages. 1h trend: rising, price above its 20 and 50 bar averages. Last 24 hours: strong rise. Last 3 hours: moderate drop. Price is close to its 4h 20-bar average. 4h StochRSI is near the top of its recent range. Price is in the middle of its last 60 hourly bars, with a deep pullback from the recent high. 1h RSI is neutral and falling. 2 of the last 6 hourly candles are green. Volume in the last 6 hours is far above normal. The coin is more volatile than usual. The nearest support is far below (more than 5%).",
+  "state": "Market: Bitcoin: 4h trend flat or mixed, price near its averages. Last 24 hours: flat. Bitcoin is normally volatile.\n\nETH (layer 1). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: flat or mixed, price near its averages. 1h trend: flat or mixed, price near its averages. Last 24 hours: flat. Last 3 hours: small drop. Price is close to its 4h 20-bar average. 4h StochRSI is in the middle of its recent range. Price is in the lower part of its last 60 hourly bars, with a small pullback from the recent high. 1h RSI is moderately low and falling. 3 of the last 6 hourly candles are green. Volume in the last 6 hours is above normal. The coin is more volatile than usual. The nearest support is very close below (under 2%).\n\nZEC (privacy). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: falling, price below its 20 and 50 bar averages. 1h trend: falling, price below its 20 and 50 bar averages. Last 24 hours: strong drop. Last 3 hours: moderate drop. Price is clearly below its 4h 20-bar average. 4h StochRSI is near the bottom of its recent range. Price is at the bottom of its last 60 hourly bars, with a deep pullback from the recent high. 1h RSI is moderately low and falling. 3 of the last 6 hourly candles are green. Volume in the last 6 hours is normal. The coin is more volatile than usual. The nearest support is close below (2-5%).\n\nTAO (AI). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: flat or mixed, price near its averages. 1h trend: flat or mixed, price near its averages. Last 24 hours: small rise. Last 3 hours: small drop. Price is close to its 4h 20-bar average. 4h StochRSI is in the middle of its recent range. Price is in the lower part of its last 60 hourly bars, with a small pullback from the recent high. 1h RSI is neutral and falling. 3 of the last 6 hourly candles are green. Volume in the last 6 hours is normal. The coin is normally volatile. The nearest support is far below (more than 5%).\n\nDOGE (meme). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: falling, price below its 20 and 50 bar averages. 1h trend: flat or mixed, price near its averages. Last 24 hours: small drop. Last 3 hours: small drop. Price is close to its 4h 20-bar average. 4h StochRSI is in the middle of its recent range. Price is in the lower part of its last 60 hourly bars, with a small pullback from the recent high. 1h RSI is moderately low and falling. 2 of the last 6 hourly candles are green. Volume in the last 6 hours is normal. The coin is normally volatile. The nearest support is very close below (under 2%).\n\nLINK (DeFi / oracle). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: rising, price above its 20 and 50 bar averages. 1h trend: flat or mixed, price near its averages. Last 24 hours: moderate drop. Last 3 hours: small drop. Price is close to its 4h 20-bar average. 4h StochRSI is in the middle of its recent range. Price is in the middle of its last 60 hourly bars, with a deep pullback from the recent high. 1h RSI is moderately low and falling. 1 of the last 6 hourly candles are green. Volume in the last 6 hours is normal. The coin is more volatile than usual. The nearest support is far below (more than 5%).\n\nAVAX (real world assets). Daily trend: rising, price above its 20 and 50 bar averages. 4h trend: rising, price above its 20 and 50 bar averages. 1h trend: rising, price above its 20 and 50 bar averages. Last 24 hours: moderate rise. Last 3 hours: moderate drop. Price is close to its 4h 20-bar average. 4h StochRSI is near the top of its recent range. Price is in the middle of its last 60 hourly bars, with a deep pullback from the recent high. 1h RSI is neutral and falling. 1 of the last 6 hourly candles are green. Volume in the last 6 hours is far above normal. The coin is more volatile than usual. The nearest support is far below (more than 5%).",
   "questions": {
    "ETH__entry_quality": {
     "type": "noul",

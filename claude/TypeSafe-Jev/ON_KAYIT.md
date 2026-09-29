@@ -70,6 +70,37 @@ ayni 1 dakikalik mumda ikisine de degen durumlar "once stop" sayilir ve sayisi r
 - Iki ana sorudan biri iki pencerede de gecerse: "Jev bu evrende bilgi tasiyor".
   Gecmezse golge modu kapatilir, canliya BAGLANMAZ.
 
+## KONTROL GRUBU — bedava kod kurali (2026-09-29, Jev'den ONCE donduruldu)
+
+Soru "Jev bilgi tasiyor mu" degil, **"Jev, AYNI bilgiyle basit bir kod kuralindan
+daha iyi mi"**. Jev gozlemcinin cumlelerinden fazlasini bilemez; kural ayni olculeri
+(ayni kova esiklerini) gorur. Kod: `jev_golge.py -> kontrol_skoru()`.
+
+Kural VERIYE BAKILMADAN kuruldu. Bes bilesen, her biri 0 / 0.5 / 1, esit agirlik:
+
+| bilesen | 1 | 0.5 | 0 | dayanak |
+|---|---|---|---|---|
+| trend | gunluk ve 4s yukari (ortalama) | | asagi | trend uyumu |
+| not_stretched | 4s EMA20'ye uzaklik <= 1.5 ATR | <= 3 ATR | > 3 ATR | 2026-09-11: gerilmis girisler zararli |
+| not_overheated | RSI1s < 70 ve StochRSI4s < 80 | biri | ikisi de | 2026-09-11: StochRSI 73-85'ten giris |
+| support_close | destek < %2 | < %5 | >= %5 | dip_tarama: yakin destek kaybi kucultur |
+| momentum_turning | RSI1s son 3 saatte > +2 | arada | < -2 | |
+
+`skor` = bes bilesenin ortalamasi (0-1). `buy` = skor >= 0.70.
+
+### Karsilastirma testi (ana hukum)
+
+Ayni coin-gun orneklerinde, ayni sonuc etiketiyle:
+- **Jev katki saglar** = AUC(Jev `entry_quality`) - AUC(kontrol `skor`) > 0 ve bu farkin
+  gun-blok bootstrap %95 guven araligi 0'i DISLAR — **iki pencerede de**.
+- Aynisi `target_before_stop` icin ayrica raporlanir.
+- Uc sonuc mumkun: (a) Jev kurali gecer -> Jev degerli; (b) ikisi de ayni -> bedava
+  kural yeter, Jev'e para odenmez; (c) ikisi de AUC 0.5 civari -> bu olculer bu evrende
+  bilgi tasimiyor.
+
+Kontrol kurali Jev acilmadan da calisir ve kaydedilir; kredi gelene kadar biriken
+kontrol verisi SADECE kontrol icin kullanilir, Jev'li donemle havuzlanmaz.
+
 ## Yasaklar
 
 - Jev ile gecmis veri uzerinde backtest yok (egitim verisi sizintisi).

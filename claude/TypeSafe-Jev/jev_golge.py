@@ -128,6 +128,18 @@ def atr(a: np.ndarray, n: int = 14) -> float:
 
 
 # ---------------------------------------------------------------- gozlemci (kova + cumle)
+def _trend_kod(c: np.ndarray) -> str:
+    """'up' / 'down' / 'flat' — _trend() ile AYNI esikler (cumle ile kural ayni seyi gorur)."""
+    e20, e50 = ema(c, 20), ema(c, 50)
+    above20, above50 = c[-1] > e20[-1], c[-1] > e50[-1]
+    slope = (e20[-1] / e20[-6] - 1) * 100
+    if above20 and above50 and slope > 0.3:
+        return "up"
+    if not above20 and not above50 and slope < -0.3:
+        return "down"
+    return "flat"
+
+
 def _trend(c: np.ndarray) -> str:
     e20, e50 = ema(c, 20), ema(c, 50)
     above20, above50 = c[-1] > e20[-1], c[-1] > e50[-1]
@@ -262,7 +274,8 @@ def describe(symbol: str, sector: str) -> tuple[str, dict]:
     raw = {"price": p, "ret24": ret24, "ret3": ret3, "stretch_atr": stretch,
            "stoch4": sto4, "pos60": pos60, "from_hi24": from_hi, "rsi1": rsi1,
            "vol_ratio": vol_ratio, "atr1_pct": atr_pct, "support_dist": sup_dist,
-           "green6": green, "bar15_close_ms": m15[-1, 6]}
+           "green6": green, "bar15_close_ms": m15[-1, 6],
+           "rsi1_prev3": rsi1_prev, "trend_d": _trend_kod(cd), "trend_4h": _trend_kod(c4)}
     return text, raw
 
 
@@ -284,6 +297,28 @@ def event_moves() -> dict:
         if abs(mv) >= EVENT_MOVE_PCT:
             out[s] = round(mv, 2)
     return out
+
+
+# ---------------------------------------------------------------- KONTROL KURALI (ON_KAYIT ile birebir, DONDURULDU)
+def kontrol_skoru(r: dict) -> dict:
+    """Jev'in karsilastirilacagi bedava kod kurali. Jev ile AYNI olculeri gorur.
+
+    Veriye bakilarak AYARLANMADI. Bes bilesen, her biri 0 / 0.5 / 1, esit agirlik.
+    Ilkeler Botum'un daha once olctuklerinden: gerilmis/asiri isinmis giris zararli
+    (2026-09-11), yakin destek kaybi kucultur (dip_tarama), trend uyumu.
+    """
+    t = {"up": 1.0, "flat": 0.5, "down": 0.0}
+    trend = (t[r["trend_d"]] + t[r["trend_4h"]]) / 2
+    stretch = 1.0 if r["stretch_atr"] <= 1.5 else 0.5 if r["stretch_atr"] <= 3 else 0.0
+    sicak = (r["rsi1"] >= 70) + (r["stoch4"] >= 80)
+    overheat = 1.0 if sicak == 0 else 0.5 if sicak == 1 else 0.0
+    support = 1.0 if r["support_dist"] < 2 else 0.5 if r["support_dist"] < 5 else 0.0
+    d = r["rsi1"] - r["rsi1_prev3"]
+    momentum = 1.0 if d > 2 else 0.0 if d < -2 else 0.5
+    parca = {"trend": trend, "not_stretched": stretch, "not_overheated": overheat,
+             "support_close": support, "momentum_turning": momentum}
+    skor = sum(parca.values()) / len(parca)
+    return {"score": round(skor, 3), "buy": skor >= 0.7, "parts": parca}
 
 
 # ---------------------------------------------------------------- sorular (ON_KAYIT ile birebir)
@@ -443,7 +478,9 @@ def main() -> int:
     if events:
         print(f"[OLAY] son 5 dakikada >= %{EVENT_MOVE_PCT}: {events}")
 
-    rec = {"ts_utc": t0.isoformat(), "mode": "canli" if a.canli else "kuru",
+    kontrol = {sym: kontrol_skoru(r) for sym, r in raw["coins"].items()}
+    print("[KONTROL] " + "  ".join(f"{k[:-4]}={v['score']:.2f}{'*' if v['buy'] else ''}" for k, v in kontrol.items()))
+    rec = {"ts_utc": t0.isoformat(), "kontrol": kontrol, "mode": "canli" if a.canli else "kuru",
            "model": MODEL, "estimate": est, "events": events, "raw": raw,
            "request": body, "response": None, "error": None}
 
