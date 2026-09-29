@@ -106,3 +106,20 @@ kontrol verisi SADECE kontrol icin kullanilir, Jev'li donemle havuzlanmaz.
 - Jev ile gecmis veri uzerinde backtest yok (egitim verisi sizintisi).
 - Sonuca bakip soru, kriter cumlesi, kova esigi veya evren degistirmek yok.
 - Canli sisteme (scanner / portfolio_tracker kararlari) baglanti yok — sadece kayit.
+
+## REVIZYON 1 — 2026-09-29 (ilk canli Jev cagrisindan ONCE, veri yok)
+
+Kullanici karari: sistem videodaki kurulumla calisacak. Ilk canli cagri henuz
+yapilmadigi icin revizyon olcumu bozmaz; olcum sayaci ilk canli turla baslar.
+
+- Jev'e giden metne haber basliklari (son 6 saat, en fazla 8, yalniz baslik) ve acik
+  pozisyon durumu eklendi. Ana sorularin metni DEGISMEDI; ama Jev'in gordugu metin
+  degistigi icin bu revizyon oncesi ile sonrasi havuzlanmaz.
+- Yeni sorular: her coin icin `exit_now`, her baslik icin `news__k__bad` (kesif).
+- Sanal kasa (yalniz panel): Jev alir ve satar — kenar = giris − 0,50, alis kenar > 0,02,
+  boyut kasanin kenar kadari (en fazla %30), satis cikis >= 0,58 (en az 15 dk), stop −%2
+  ve en fazla 6 saat kodda. Kural kasasi yanda: puan >= 0,70, %30, +%3/−%2/24s.
+  Her kasada en fazla 3 pozisyon, 6.000$ baslangic.
+- Hukum yine bu dosyadaki AUC olcumuyle verilir; kasa sonucu tek basina hukum degildir.
+- Kaynak kod artik Botum (private) `jev_golge.py` + `jev_haber.py`; bu klasordeki
+  `jev_golge.py` ilk surumdur.
