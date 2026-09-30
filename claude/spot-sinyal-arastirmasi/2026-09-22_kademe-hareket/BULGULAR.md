@@ -326,3 +326,40 @@ Elde kalan tek GERÇEKTEN kanıtlı kayıp-kontrolü, bu oturumun ürünü deği
 hız kapısı. Kayıp azaltma sorusu AÇIK; yeni bir hipotezle, YENİ bir veri
 kaynağından (emir defteri, farklı zaman dilimi etkileşimi, ya da doğrudan
 donus_tarayici'nin kendi büyüyen forward-set'i) başlanmalı.
+
+## 11. donus_tarayici forward-set — İLK SONUÇLAR (2026-09-30, REJİM AYRIMIYLA)
+
+`donus_tarayici_izleme.json` güncel hali (30.09.2026 16:38) — 29 kayıt, iki
+AYRI rejimde ateşlenmiş, ASLA HAVUZLANMAYACAK (kullanıcı teyidi):
+
+- **21.09.2026 grubu (25 sinyal) — YATAY piyasa.**
+- **29.09.2026 grubu (4 sinyal: AVAX/QNT/CRV/RUNE) — DÜŞÜŞ sırasında.**
+
+### 21.09 grubu (yatay piyasa) — 9 günlük sonuç
+
+Hedef/stop sabit ATR tabanlı (hedef = stop×2, yani R:R hep 1:2). 25
+sinyalin 11'i sonuçlanmış (hedef veya stop görmüş), 14'ü hâlâ açık:
+
+| sonuç | adet | coin |
+|---|---|---|
+| HEDEF (+2R) | 8 | HBAR, WLD, ONDO, PENGU, AAVE, GRAM, ICP, PUMP |
+| STOP (−1R) | 3 | ZAMA, BNB, TRX |
+
+**Sonuçlanan 11 işlemde %72.7 kazanma, ortalama +1.18R/işlem** —
+sistemin kendi referans ölçümünden (78 coin/489 gün, %57.7 kazanan) daha
+iyi. **YATAY piyasada elde edildi** — sistemin en zor sayılan rejiminde.
+Örneklem küçük (11 sonuçlanan işlem), kanıt değil ama olumlu ilk işaret.
+
+### 29.09 grubu (düşüş) — çok taze, henüz değerlendirilemez
+
+4 sinyal, 1 günlük. CRV dikkat çekici: sınıfı "D — 4S UYGUN DEĞİL" (huni
+tarafından REDDEDİLMİŞ) olduğu halde izleme listesinde duruyor — sistem
+reddedilen adayları da mı izliyor, yoksa kayıt hatası mı, KULLANICIYA
+SORULDU, cevap bekleniyor.
+
+### Disiplin notu
+
+Bundan sonra bu forward-set büyüdükçe HER REJİM AYRI raporlanacak
+(CLAUDE.md kural 6 ile aynı disiplin — "tek dönem/tek rejim hüküm vermez").
+Yatay ve düşüş gruplarının sonuçları asla tek bir "kazanma oranı" altında
+toplanmayacak.
