@@ -1,0 +1,55 @@
+                                           n    +2.5/3g    +2.5/5g      +5/5g     +5/10g    +10/10g   RET5med  RET10med
+
+--- kesif_2017_2022  [TUM] ---
+  TABAN (tum barlar)                  267658      78.6%      83.5%      69.1%      77.9%      60.5%    -0.63%    -1.33%
+  A1 kullanici TAM kural                3989      77.3%      82.2%      66.1%      75.6%      56.5%    -1.55%    -3.74%
+  A2 degerler (kesisim/RSI yok)        31281      81.1%      85.6%      72.4%      80.7%      62.3%    +0.27%    -1.12%
+  A3 A2 + RSI<=40                      18710      84.1%      88.1%      76.3%      84.2%      66.7%    +1.50%    +0.82%
+      aynigun kontrol (+5%/5g) A1: ort fark  -0.08 puan, t=-0.07, gun=742
+      aynigun kontrol (+5%/5g) A2: ort fark  +0.57 puan, t=+0.96, gun=1305
+      aynigun kontrol (+5%/5g) A3: ort fark  -1.06 puan, t=-1.19, gun=935
+
+--- kesif_2017_2022  [LIKIT] ---
+  TABAN (tum barlar)                  216358      79.0%      83.7%      69.3%      77.7%      60.2%    -0.75%    -1.66%
+  A1 kullanici TAM kural                3556      77.1%      82.0%      66.0%      75.2%      56.5%    -1.67%    -3.85%
+  A2 degerler (kesisim/RSI yok)        27063      81.6%      85.7%      72.6%      80.5%      62.1%    +0.13%    -1.45%
+  A3 A2 + RSI<=40                      15671      85.0%      88.5%      76.9%      84.3%      66.7%    +1.44%    +0.60%
+      aynigun kontrol (+5%/5g) A1: ort fark  +0.29 puan, t=+0.24, gun=681
+      aynigun kontrol (+5%/5g) A2: ort fark  +0.95 puan, t=+1.44, gun=1236
+      aynigun kontrol (+5%/5g) A3: ort fark  +0.01 puan, t=+0.02, gun=825
+
+--- dogrulama_2023_2024  [TUM] ---
+  TABAN (tum barlar)                  258014      72.4%      79.1%      61.1%      72.5%      51.9%    +0.12%    -0.10%
+  A1 kullanici TAM kural                4736      72.7%      78.5%      61.6%      72.8%      48.4%    -0.28%    -0.04%
+  A2 degerler (kesisim/RSI yok)        31652      72.5%      79.2%      61.2%      72.2%      49.8%    +0.56%    +0.68%
+  A3 A2 + RSI<=40                      17092      74.7%      81.2%      63.6%      74.4%      52.0%    +1.33%    +1.71%
+      aynigun kontrol (+5%/5g) A1: ort fark  -2.85 puan, t=-1.98, gun=487
+      aynigun kontrol (+5%/5g) A2: ort fark  -2.79 puan, t=-3.75, gun=697
+      aynigun kontrol (+5%/5g) A3: ort fark  -1.89 puan, t=-1.58, gun=516
+
+--- dogrulama_2023_2024  [LIKIT] ---
+  TABAN (tum barlar)                  211633      72.9%      79.3%      61.7%      72.5%      52.0%    +0.00%    -0.50%
+  A1 kullanici TAM kural                4199      73.3%      78.7%      62.2%      72.8%      48.3%    -0.37%    -0.39%
+  A2 degerler (kesisim/RSI yok)        27145      73.0%      79.3%      61.8%      72.1%      49.7%    +0.47%    +0.43%
+  A3 A2 + RSI<=40                      13982      75.2%      81.3%      64.4%      74.2%      51.7%    +1.33%    +1.49%
+      aynigun kontrol (+5%/5g) A1: ort fark  -2.36 puan, t=-1.61, gun=478
+      aynigun kontrol (+5%/5g) A2: ort fark  -2.97 puan, t=-3.94, gun=696
+      aynigun kontrol (+5%/5g) A3: ort fark  -2.27 puan, t=-1.80, gun=495
+
+--- dogrulama_2025_2026  [TUM] ---
+  TABAN (tum barlar)                  245549      70.2%      76.5%      56.9%      68.1%      45.2%    -1.76%    -3.20%
+  A1 kullanici TAM kural                3644      69.6%      76.3%      55.6%      67.1%      46.7%    -1.25%    -2.92%
+  A2 degerler (kesisim/RSI yok)        33668      72.1%      78.9%      58.9%      71.2%      48.4%    -0.77%    -1.55%
+  A3 A2 + RSI<=40                      22228      74.2%      80.7%      61.4%      73.3%      49.8%    -0.33%    -0.98%
+      aynigun kontrol (+5%/5g) A1: ort fark  +0.10 puan, t=+0.07, gun=467
+      aynigun kontrol (+5%/5g) A2: ort fark  +1.14 puan, t=+1.64, gun=608
+      aynigun kontrol (+5%/5g) A3: ort fark  -0.82 puan, t=-0.84, gun=574
+
+--- dogrulama_2025_2026  [LIKIT] ---
+  TABAN (tum barlar)                  167665      71.3%      77.3%      58.1%      68.6%      45.7%    -2.15%    -3.97%
+  A1 kullanici TAM kural                2893      71.4%      77.7%      57.3%      68.6%      48.0%    -1.67%    -3.13%
+  A2 degerler (kesisim/RSI yok)        24297      73.0%      79.6%      60.7%      72.5%      50.3%    -0.99%    -1.82%
+  A3 A2 + RSI<=40                      14890      75.1%      81.3%      63.5%      74.5%      52.1%    -0.37%    -1.33%
+      aynigun kontrol (+5%/5g) A1: ort fark  -0.49 puan, t=-0.30, gun=459
+      aynigun kontrol (+5%/5g) A2: ort fark  +0.91 puan, t=+1.28, gun=608
+      aynigun kontrol (+5%/5g) A3: ort fark  -1.15 puan, t=-1.12, gun=570

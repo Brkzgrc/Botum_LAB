@@ -1,0 +1,159 @@
+yerel dip barlari hazir
+
+==============================================================================
+DONEM kesif_2017_2022  (2017-08-01 -> 2023-01-01)
+  tum barlar                      : 267,658
+  'yukselis baslangici' (temiz+20 & yerel dip): 16,022  (tum barlarin %6.0'i)
+
+  --- GERIYE DONUK: P(sart | yukselis basladi) ---
+  sart                                          baslangiclarda   TUM barlarda    oran
+  StochRSI(max K,D) < 15                                 40.3%          15.1%   2.67x
+  StochRSI yukari kesisim                                 2.1%          11.6%   0.18x
+  kesisim +-1 icinde StochRSI<15                          1.7%           4.3%   0.38x
+  RSI > 40                                               32.3%          71.5%   0.45x
+  W%R -100..-75                                          83.8%          33.7%   2.49x
+  MACD hist < 0                                          75.1%          42.5%   1.77x
+  DORT SART birlikte (pencere yok)                        9.6%           4.7%   2.05x
+  KULLANICININ TAM KURALI                                 0.4%           1.5%   0.29x
+
+  --- ILERIYE DONUK: P(yukselis basladi | sart) ---
+  sart                                                n  baslangic orani
+  StochRSI(max K,D) < 15                          40337            16.0%
+  StochRSI yukari kesisim                         31058             1.1%
+  kesisim +-1 icinde StochRSI<15                  11521             2.3%
+  RSI > 40                                       191361             2.7%
+  W%R -100..-75                                   90249            14.9%
+  MACD hist < 0                                  113841            10.6%
+  DORT SART birlikte (pencere yok)                12571            12.3%
+  KULLANICININ TAM KURALI                          3989             1.7%
+  TABAN (rastgele bar)                           267658             6.0%
+
+  --- YUKSELIS BASLANGICLARININ GERCEK IMZASI (yuzdelikler) ---
+  olcu                              --- baslangic ---                      --- tum bar ---
+                        %10      %25      %50      %75        %10      %25      %50      %75
+  srsi_k               0.00     3.21    12.40    31.92       6.25    19.27    47.69    77.63
+  srsi_min             0.00     3.03    11.89    31.18       5.05    16.11    42.28    71.98
+  rsi                 26.44    31.58    36.56    41.92      33.67    39.35    46.48    55.21
+  wr                 -97.80   -94.97   -89.86   -81.18     -91.15   -81.05   -63.40   -39.63
+  macd_hist_n         -4.95    -2.77    -1.19    -0.13      -2.73    -1.11     0.25     1.49
+  kdj_j               -4.30     0.66     6.95    15.34       3.90    16.02    38.18    66.30
+  cci               -212.54  -163.50  -119.66   -83.19    -142.30   -90.54   -26.00    70.81
+  mfi                 23.57    33.52    45.69    57.35      31.52    43.01    56.54    68.67
+  roc10              -35.81   -25.31   -15.29    -7.56     -23.14   -12.20    -1.41     9.90
+  roc20              -42.38   -30.13   -17.94    -5.41     -31.65   -18.82    -3.76    14.26
+  ema20_uz           -28.31   -19.63   -12.45    -7.55     -17.13    -9.47    -2.47     5.06
+  ema200_uz          -65.05   -52.16   -36.85   -14.53     -57.07   -42.35   -23.36     6.12
+  zirve100_uz        -77.58   -68.96   -55.54   -43.32     -72.59   -61.76   -47.04   -32.12
+  dip100_uz            2.76     7.39    19.48    60.24       8.80    19.21    43.63   100.86
+  adx                 14.11    18.31    24.58    32.95      14.47    18.80    25.40    34.57
+  atr_y                6.92     9.11    12.22    16.85       6.53     8.29    10.73    14.20
+  bb_b               -11.62    -0.90     9.83    21.63       6.72    21.64    42.38    72.31
+  hacim_oran           0.35     0.51     0.75     1.11       0.36     0.53     0.79     1.18
+  taker_oran           0.02     0.11     0.94     6.35       0.01     0.09     0.78     6.01
+  ardisik_dusen        1.00     1.00     2.00     3.00       0.00     0.00     1.00     1.00
+
+==============================================================================
+DONEM dogrulama_2023_2024  (2023-01-01 -> 2025-01-01)
+  tum barlar                      : 258,014
+  'yukselis baslangici' (temiz+20 & yerel dip): 14,487  (tum barlarin %5.6'i)
+
+  --- GERIYE DONUK: P(sart | yukselis basladi) ---
+  sart                                          baslangiclarda   TUM barlarda    oran
+  StochRSI(max K,D) < 15                                 45.1%          16.0%   2.82x
+  StochRSI yukari kesisim                                 3.0%          12.0%   0.25x
+  kesisim +-1 icinde StochRSI<15                          2.2%           4.5%   0.50x
+  RSI > 40                                               41.7%          78.8%   0.53x
+  W%R -100..-75                                          82.0%          27.4%   3.00x
+  MACD hist < 0                                          82.9%          44.9%   1.85x
+  DORT SART birlikte (pencere yok)                       13.6%           5.6%   2.41x
+  KULLANICININ TAM KURALI                                 1.1%           1.8%   0.61x
+
+  --- ILERIYE DONUK: P(yukselis basladi | sart) ---
+  sart                                                n  baslangic orani
+  StochRSI(max K,D) < 15                          41236            15.9%
+  StochRSI yukari kesisim                         30879             1.4%
+  kesisim +-1 icinde StochRSI<15                  11672             2.8%
+  RSI > 40                                       203211             3.0%
+  W%R -100..-75                                   70628            16.8%
+  MACD hist < 0                                  115880            10.4%
+  DORT SART birlikte (pencere yok)                14560            13.5%
+  KULLANICININ TAM KURALI                          4736             3.4%
+  TABAN (rastgele bar)                           258014             5.6%
+
+  --- YUKSELIS BASLANGICLARININ GERCEK IMZASI (yuzdelikler) ---
+  olcu                              --- baslangic ---                      --- tum bar ---
+                        %10      %25      %50      %75        %10      %25      %50      %75
+  srsi_k               0.00     1.95     9.66    26.50       5.83    18.66    48.11    78.60
+  srsi_min             0.00     1.85     9.27    26.11       4.72    15.51    42.43    72.80
+  rsi                 27.09    33.22    38.57    43.18      35.16    41.39    48.72    57.30
+  wr                 -96.19   -92.63   -87.28   -78.89     -88.51   -76.82   -57.69   -33.56
+  macd_hist_n         -3.81    -2.16    -1.05    -0.29      -2.08    -0.86     0.14     1.02
+  kdj_j               -5.66     0.66     7.89    16.43       5.29    19.14    43.96    73.20
+  cci               -213.40  -163.21  -121.04   -78.74    -135.40   -80.79   -10.69    85.55
+  mfi                 23.62    33.06    45.45    57.66      32.03    43.59    57.27    69.86
+  roc10              -26.76   -18.75   -11.28    -5.77     -16.49    -8.19    -0.09     8.94
+  roc20              -31.42   -22.29   -11.74    -2.85     -22.04   -11.64    -0.46    13.27
+  ema20_uz           -20.03   -13.98    -8.68    -5.33     -11.03    -5.75    -0.73     5.22
+  ema200_uz          -41.99   -31.37   -19.61    -4.51     -34.54   -23.01    -8.85    11.03
+  zirve100_uz        -61.56   -52.47   -41.56   -31.34     -56.32   -46.32   -33.92   -21.21
+  dip100_uz            3.83    10.43    22.26    45.21       8.81    18.66    36.34    66.89
+  adx                 14.54    18.56    24.55    32.96      14.77    19.08    25.94    36.02
+  atr_y                5.15     6.65     8.71    11.13       4.82     6.00     7.66     9.83
+  bb_b               -11.32    -0.87    10.26    22.84       8.78    24.61    46.91    76.94
+  hacim_oran           0.36     0.53     0.78     1.13       0.37     0.54     0.79     1.19
+  taker_oran           0.04     0.25     1.41     6.87       0.03     0.21     1.18     5.86
+  ardisik_dusen        1.00     1.00     2.00     3.00       0.00     0.00     0.00     1.00
+
+==============================================================================
+DONEM dogrulama_2025_2026  (2025-01-01 -> 2026-10-01)
+  tum barlar                      : 245,549
+  'yukselis baslangici' (temiz+20 & yerel dip): 15,364  (tum barlarin %6.3'i)
+
+  --- GERIYE DONUK: P(sart | yukselis basladi) ---
+  sart                                          baslangiclarda   TUM barlarda    oran
+  StochRSI(max K,D) < 15                                 41.7%          16.0%   2.60x
+  StochRSI yukari kesisim                                 2.0%          12.0%   0.16x
+  kesisim +-1 icinde StochRSI<15                          1.6%           4.7%   0.34x
+  RSI > 40                                               28.5%          64.1%   0.44x
+  W%R -100..-75                                          86.3%          38.5%   2.24x
+  MACD hist < 0                                          72.9%          43.8%   1.66x
+  DORT SART birlikte (pencere yok)                        8.8%           4.7%   1.89x
+  KULLANICININ TAM KURALI                                 0.5%           1.5%   0.32x
+
+  --- ILERIYE DONUK: P(yukselis basladi | sart) ---
+  sart                                                n  baslangic orani
+  StochRSI(max K,D) < 15                          39371            16.3%
+  StochRSI yukari kesisim                         29478             1.0%
+  kesisim +-1 icinde StochRSI<15                  11596             2.1%
+  RSI > 40                                       157462             2.8%
+  W%R -100..-75                                   94655            14.0%
+  MACD hist < 0                                  107543            10.4%
+  DORT SART birlikte (pencere yok)                11440            11.8%
+  KULLANICININ TAM KURALI                          3644             2.0%
+  TABAN (rastgele bar)                           245549             6.3%
+
+  --- YUKSELIS BASLANGICLARININ GERCEK IMZASI (yuzdelikler) ---
+  olcu                              --- baslangic ---                      --- tum bar ---
+                        %10      %25      %50      %75        %10      %25      %50      %75
+  srsi_k               0.00     1.41    11.20    31.61       5.19    18.37    46.61    77.09
+  srsi_min             0.00     1.37    10.83    31.37       4.17    15.08    40.90    71.29
+  rsi                 25.35    29.70    35.14    40.96      31.84    37.24    43.75    51.35
+  wr                 -97.56   -95.23   -91.04   -83.48     -92.25   -83.45   -66.82   -43.56
+  macd_hist_n         -3.06    -1.79    -0.75     0.03      -1.92    -0.81     0.18     1.10
+  kdj_j               -6.30    -1.02     5.79    14.87       2.36    13.77    34.81    64.27
+  cci               -209.36  -169.64  -132.51   -91.40    -149.09  -104.73   -50.02    38.73
+  mfi                 22.09    31.42    43.27    55.57      28.80    39.09    51.89    64.96
+  roc10              -27.97   -20.59   -13.49    -7.28     -19.58   -11.56    -3.22     4.86
+  roc20              -36.18   -25.55   -15.05    -5.34     -27.65   -17.91    -7.22     4.36
+  ema20_uz           -23.38   -16.55   -10.71    -6.53     -15.04    -9.29    -3.81     1.45
+  ema200_uz          -64.20   -53.57   -42.12   -29.26     -57.39   -45.57   -32.10   -16.67
+  zirve100_uz        -73.26   -64.13   -53.32   -42.65     -69.04   -58.70   -46.28   -32.86
+  dip100_uz            1.68     4.09    14.29    37.64       5.98    13.19    27.32    57.04
+  adx                 14.00    18.02    24.52    34.08      14.22    18.45    25.25    34.64
+  atr_y                5.57     7.00     9.11    12.09       5.20     6.51     8.39    10.86
+  bb_b               -11.49    -2.48     7.09    19.31       5.06    17.37    34.70    61.94
+  hacim_oran           0.35     0.53     0.79     1.19       0.36     0.52     0.78     1.16
+  taker_oran           0.13     0.91     5.19    23.41       0.08     0.61     3.65    17.91
+  ardisik_dusen        1.00     2.00     2.00     4.00       0.00     0.00     1.00     2.00
+
+kaydedildi: sonuclar/geriye.json

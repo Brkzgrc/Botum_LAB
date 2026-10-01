@@ -1,0 +1,14 @@
+BTC 1g bar: 1000  ornek satir uzunlugu: 5
+kapanis araligi: 38555.00 - 123084.00
+
+  RSI14          ortak=  960  maxfark=0.000e+00  AYNI   (isinma farki: yeni-sadece 0, ref-sadece 1)
+  StochRSI K     ortak=  960  maxfark=1.563e-13  AYNI   (isinma farki: yeni-sadece 0, ref-sadece 29)
+  StochRSI D     ortak=  960  maxfark=2.430e-12  AYNI   (isinma farki: yeni-sadece 0, ref-sadece 29)
+  MACD dif       ortak=  960  maxfark=0.000e+00  AYNI   (isinma farki: yeni-sadece 0, ref-sadece 26)
+  MACD dea       ortak=  960  maxfark=0.000e+00  AYNI   (isinma farki: yeni-sadece 0, ref-sadece 35)
+  MACD hist      ortak=  960  maxfark=0.000e+00  AYNI   (isinma farki: yeni-sadece 0, ref-sadece 35)
+  W%R 14         ortak=  960  maxfark=0.000e+00  AYNI   (isinma farki: yeni-sadece 0, ref-sadece 0)
+  KDJ J          ortak=  960  maxfark=0.000e+00  AYNI   (isinma farki: yeni-sadece 0, ref-sadece 0)
+
+SONUC: 8/8 gosterge isinma SONRASI BIREBIR AYNI
+(ilk 40 bar haric tutuldu: referans gosterge.py o bolgede StochRSI icin NaN yerine 0.0 uretiyor -> sahte 'StochRSI<15'. gosterge1g.py bunu duzeltti, ilk gecerli StochRSI barı 31.)

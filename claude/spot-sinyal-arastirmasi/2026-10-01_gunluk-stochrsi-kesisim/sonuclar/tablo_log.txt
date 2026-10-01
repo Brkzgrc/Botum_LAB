@@ -1,0 +1,10 @@
+sembol: 593
+  100/593
+  200/593
+  300/593
+  400/593
+  500/593
+islenen 593 · atlanan (bar<60) 0
+
+toplam bar: 789,011
+kaydedildi /home/user/Botum_LAB/claude/spot-sinyal-arastirmasi/2026-10-01_gunluk-stochrsi-kesisim/veri/tablo_1g.npz  140.1 MB

@@ -1,0 +1,119 @@
+tablo: 789,011 gunluk bar · 593 sembol
+aralik: 2017-08-17 -> 2026-09-30
+30 gun ileri verisi TAM olan bar: 771,221
+
+==============================================================================
+KESIF DONEMI 2017-08-01 -> 2023-01-01 : 267,658 bar
+  likit (20g ort quote hacim >= 1.000.000 USDT): 216,358 bar
+
+==============================================================================
+1) TABANLAR (kesif donemi)
+  T1 TUM BARLAR (ham taban)              n= 267658 gun= 1963 sembol= 355
+     temiz +5/-5= 45.9%  +10/-5= 33.8%  +20/-10= 36.2%
+     ulasti +10= 76.0%  +20= 58.0%  +50= 27.4%   gordu -10= 76.6%  -20= 52.7%
+     medyan MFE30=  25.6%  MAE30= -21.3%  RET10med= -1.33%  RET20med= -3.41%  RET30ort= 55.47%
+  T1-likit TUM BARLAR likit              n= 216358 gun= 1944 sembol= 351
+     temiz +5/-5= 45.2%  +10/-5= 33.0%  +20/-10= 35.0%
+     ulasti +10= 75.0%  +20= 56.7%  +50= 26.4%   gordu -10= 78.3%  -20= 55.3%
+     medyan MFE30=  24.6%  MAE30= -22.6%  RET10med= -1.66%  RET20med= -4.37%  RET30ort= 38.40%
+  T3 sadece StochRSI yukari kesisimi     n=  31058 gun= 1517 sembol= 353
+     temiz +5/-5= 44.4%  +10/-5= 32.6%  +20/-10= 35.5%
+     ulasti +10= 75.6%  +20= 57.1%  +50= 27.0%   gordu -10= 77.1%  -20= 51.8%
+     medyan MFE30=  24.9%  MAE30= -20.8%  RET10med= -1.51%  RET20med= -3.35%  RET30ort= 28.76%
+
+==============================================================================
+2) KULLANICININ KURALI — belirsizlik varyantlari (kesif donemi)
+   (pencere 1 = kesisim oncesi veya kesisim bari)
+  srsi=max macd=yok                      n=   4053 gun=  771 sembol= 342
+     temiz +5/-5= 43.6%  +10/-5= 29.5%  +20/-10= 29.9%
+     ulasti +10= 70.6%  +20= 50.5%  +50= 22.5%   gordu -10= 82.4%  -20= 60.6%
+     medyan MFE30=  20.3%  MAE30= -26.1%  RET10med= -3.69%  RET20med= -7.96%  RET30ort=  5.57%
+  srsi=max macd=hist_neg                 n=   3989 gun=  753 sembol= 342
+     temiz +5/-5= 43.6%  +10/-5= 29.6%  +20/-10= 30.0%
+     ulasti +10= 70.6%  +20= 50.4%  +50= 22.6%   gordu -10= 82.5%  -20= 60.9%
+     medyan MFE30=  20.3%  MAE30= -26.3%  RET10med= -3.74%  RET20med= -8.13%  RET30ort=  5.63%
+  srsi=max macd=dif_neg                  n=   2052 gun=  523 sembol= 335
+     temiz +5/-5= 44.5%  +10/-5= 29.4%  +20/-10= 28.6%
+     ulasti +10= 68.4%  +20= 47.3%  +50= 18.9%   gordu -10= 81.6%  -20= 57.2%
+     medyan MFE30=  18.1%  MAE30= -24.0%  RET10med= -3.85%  RET20med= -7.84%  RET30ort= -6.24%
+  srsi=max macd=difn_0.05                n=   2080 gun=  530 sembol= 335
+     temiz +5/-5= 44.6%  +10/-5= 29.4%  +20/-10= 28.6%
+     ulasti +10= 68.4%  +20= 47.2%  +50= 18.9%   gordu -10= 81.4%  -20= 57.0%
+     medyan MFE30=  18.1%  MAE30= -24.0%  RET10med= -3.83%  RET20med= -7.90%  RET30ort= -6.12%
+  srsi=max macd=difn_1.0                 n=   2436 gun=  578 sembol= 337
+     temiz +5/-5= 44.8%  +10/-5= 29.5%  +20/-10= 28.7%
+     ulasti +10= 68.8%  +20= 47.5%  +50= 19.3%   gordu -10= 81.2%  -20= 57.0%
+     medyan MFE30=  18.3%  MAE30= -24.2%  RET10med= -3.76%  RET20med= -7.52%  RET30ort= -6.05%
+  srsi=max macd=mutlak_0.05              n=   3256 gun=  704 sembol= 340
+     temiz +5/-5= 43.7%  +10/-5= 29.3%  +20/-10= 29.6%
+     ulasti +10= 70.3%  +20= 49.9%  +50= 22.2%   gordu -10= 81.9%  -20= 59.2%
+     medyan MFE30=  19.9%  MAE30= -25.3%  RET10med= -3.80%  RET20med= -8.02%  RET30ort=  8.29%
+  srsi=min macd=yok                      n=   4648 gun=  809 sembol= 346
+     temiz +5/-5= 43.7%  +10/-5= 29.9%  +20/-10= 30.1%
+     ulasti +10= 70.6%  +20= 50.6%  +50= 22.7%   gordu -10= 81.8%  -20= 59.6%
+     medyan MFE30=  20.4%  MAE30= -25.5%  RET10med= -3.67%  RET20med= -7.87%  RET30ort=  4.75%
+  srsi=min macd=hist_neg                 n=   4502 gun=  791 sembol= 345
+     temiz +5/-5= 43.6%  +10/-5= 29.9%  +20/-10= 30.2%
+     ulasti +10= 70.6%  +20= 50.4%  +50= 22.6%   gordu -10= 82.0%  -20= 60.0%
+     medyan MFE30=  20.2%  MAE30= -25.8%  RET10med= -3.68%  RET20med= -8.12%  RET30ort=  4.74%
+  srsi=min macd=dif_neg                  n=   2477 gun=  566 sembol= 340
+     temiz +5/-5= 44.8%  +10/-5= 30.3%  +20/-10= 29.1%
+     ulasti +10= 68.8%  +20= 47.8%  +50= 19.5%   gordu -10= 80.7%  -20= 56.1%
+     medyan MFE30=  18.5%  MAE30= -23.6%  RET10med= -3.79%  RET20med= -7.80%  RET30ort= -5.57%
+  srsi=min macd=difn_0.05                n=   2507 gun=  571 sembol= 340
+     temiz +5/-5= 44.8%  +10/-5= 30.3%  +20/-10= 29.1%
+     ulasti +10= 68.7%  +20= 47.7%  +50= 19.5%   gordu -10= 80.6%  -20= 56.0%
+     medyan MFE30=  18.4%  MAE30= -23.5%  RET10med= -3.78%  RET20med= -7.88%  RET30ort= -5.47%
+  srsi=min macd=difn_1.0                 n=   2905 gun=  618 sembol= 342
+     temiz +5/-5= 44.8%  +10/-5= 30.1%  +20/-10= 29.3%
+     ulasti +10= 69.0%  +20= 48.0%  +50= 19.9%   gordu -10= 80.3%  -20= 56.0%
+     medyan MFE30=  18.6%  MAE30= -23.7%  RET10med= -3.70%  RET20med= -7.51%  RET30ort= -5.25%
+  srsi=min macd=mutlak_0.05              n=   3796 gun=  744 sembol= 345
+     temiz +5/-5= 43.9%  +10/-5= 29.8%  +20/-10= 29.8%
+     ulasti +10= 70.5%  +20= 50.0%  +50= 22.3%   gordu -10= 81.3%  -20= 58.3%
+     medyan MFE30=  20.0%  MAE30= -24.5%  RET10med= -3.75%  RET20med= -7.93%  RET30ort=  7.01%
+  srsi=k   macd=yok                      n=   4513 gun=  802 sembol= 346
+     temiz +5/-5= 43.6%  +10/-5= 29.8%  +20/-10= 30.0%
+     ulasti +10= 70.6%  +20= 50.7%  +50= 22.7%   gordu -10= 81.9%  -20= 60.0%
+     medyan MFE30=  20.4%  MAE30= -25.8%  RET10med= -3.70%  RET20med= -7.80%  RET30ort=  5.08%
+  srsi=k   macd=hist_neg                 n=   4376 gun=  785 sembol= 345
+     temiz +5/-5= 43.5%  +10/-5= 29.8%  +20/-10= 30.1%
+     ulasti +10= 70.6%  +20= 50.4%  +50= 22.6%   gordu -10= 82.2%  -20= 60.4%
+     medyan MFE30=  20.3%  MAE30= -25.9%  RET10med= -3.74%  RET20med= -8.12%  RET30ort=  5.04%
+  srsi=k   macd=dif_neg                  n=   2343 gun=  556 sembol= 340
+     temiz +5/-5= 44.6%  +10/-5= 30.0%  +20/-10= 28.9%
+     ulasti +10= 68.5%  +20= 47.8%  +50= 19.3%   gordu -10= 81.1%  -20= 56.6%
+     medyan MFE30=  18.4%  MAE30= -23.7%  RET10med= -3.89%  RET20med= -7.75%  RET30ort= -5.58%
+  srsi=k   macd=difn_0.05                n=   2374 gun=  562 sembol= 340
+     temiz +5/-5= 44.7%  +10/-5= 30.1%  +20/-10= 28.9%
+     ulasti +10= 68.5%  +20= 47.7%  +50= 19.3%   gordu -10= 80.9%  -20= 56.4%
+     medyan MFE30=  18.4%  MAE30= -23.7%  RET10med= -3.88%  RET20med= -7.77%  RET30ort= -5.44%
+  srsi=k   macd=difn_1.0                 n=   2774 gun=  610 sembol= 342
+     temiz +5/-5= 44.7%  +10/-5= 29.8%  +20/-10= 29.1%
+     ulasti +10= 68.9%  +20= 48.0%  +50= 19.8%   gordu -10= 80.6%  -20= 56.4%
+     medyan MFE30=  18.6%  MAE30= -23.8%  RET10med= -3.79%  RET20med= -7.45%  RET30ort= -5.14%
+  srsi=k   macd=mutlak_0.05              n=   3661 gun=  736 sembol= 345
+     temiz +5/-5= 43.7%  +10/-5= 29.7%  +20/-10= 29.7%
+     ulasti +10= 70.4%  +20= 50.2%  +50= 22.3%   gordu -10= 81.5%  -20= 58.7%
+     medyan MFE30=  20.1%  MAE30= -24.8%  RET10med= -3.81%  RET20med= -7.80%  RET30ort=  7.51%
+
+==============================================================================
+3) PENCERE VARYANTI (srsi=max, macd=hist_neg)
+  pencere=0                              n=   2586 gun=  610 sembol= 337
+     temiz +5/-5= 43.7%  +10/-5= 28.0%  +20/-10= 26.3%
+     ulasti +10= 67.6%  +20= 46.2%  +50= 18.5%   gordu -10= 85.3%  -20= 62.4%
+     medyan MFE30=  17.7%  MAE30= -27.1%  RET10med= -4.25%  RET20med= -9.76%  RET30ort= -8.83%
+  pencere=1                              n=   3989 gun=  753 sembol= 342
+     temiz +5/-5= 43.6%  +10/-5= 29.6%  +20/-10= 30.0%
+     ulasti +10= 70.6%  +20= 50.4%  +50= 22.6%   gordu -10= 82.5%  -20= 60.9%
+     medyan MFE30=  20.3%  MAE30= -26.3%  RET10med= -3.74%  RET20med= -8.13%  RET30ort=  5.63%
+  pencere=2                              n=   5841 gun=  916 sembol= 343
+     temiz +5/-5= 43.4%  +10/-5= 29.1%  +20/-10= 29.1%
+     ulasti +10= 70.2%  +20= 49.3%  +50= 21.8%   gordu -10= 83.2%  -20= 62.2%
+     medyan MFE30=  19.5%  MAE30= -27.1%  RET10med= -3.79%  RET20med= -8.67%  RET30ort=  1.62%
+  KESISIM SARTI YOK (sadece degerler)    n=  12571 gun= 1192 sembol= 345
+     temiz +5/-5= 43.8%  +10/-5= 29.7%  +20/-10= 28.2%
+     ulasti +10= 69.2%  +20= 48.7%  +50= 20.7%   gordu -10= 84.2%  -20= 63.5%
+     medyan MFE30=  19.1%  MAE30= -27.2%  RET10med= -4.05%  RET20med= -9.17%  RET30ort= -1.89%
+
+kaydedildi: sonuclar/kesif_varyantlar.json

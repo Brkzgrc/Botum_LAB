@@ -1,0 +1,4 @@
+# Buyuk turetilmis veri depoya GIRMEZ (public depo + GitHub 100 MB sinir).
+# Ikisi de araclar/indir.py -> araclar/tablo.py ile yeniden uretilir.
+gunluk_1d.pkl
+tablo_1g.npz
