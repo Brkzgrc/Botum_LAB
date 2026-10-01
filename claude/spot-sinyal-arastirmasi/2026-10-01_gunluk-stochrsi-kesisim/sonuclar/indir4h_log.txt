@@ -9,3 +9,11 @@ evren 600 parite  (canli 404)
   400/600
   450/600
   500/600
+  550/600
+  600/600
+
+basarili 593 / 600 · yetersiz/hatali 7
+  BKRWUSDT, HYPEUSDT, MARSCOINUSDT, USDSOLDUSDT, VENUSDT, 币安人生USDT, 牛来USDT
+kaydedildi /home/user/Botum_LAB/claude/spot-sinyal-arastirmasi/2026-10-01_gunluk-stochrsi-kesisim/veri/dort_saat_4h.pkl  352.1 MB
+toplam gunluk bar: 4,731,467
+aralik: 2017-08-17 -> 2026-09-30
