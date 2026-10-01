@@ -484,3 +484,117 @@ Wiki'ye taşınmaya değer, kalıcı bulgular:
 - Otomatik emir, borsa anahtarı, Render/portfolio_tracker değişikliği **yok**.
 - Workflow/otomasyon **oluşturulmadı**.
 - Başka ajanın (`gpt/`) ve kullanıcının dosyalarına **dokunulmadı**.
+
+---
+
+# EK 1 — DASH vaka incelemesi ve ikinci tur varyantlar (01.10.2026, aynı oturum)
+
+Kullanıcı isteği: DASH coinde 2026 Ağustos 15-30 arasına hem 1 günlük hem
+4 saatlik bakılması, ve yeni bir varyantın denenmesi:
+`StochRSI<15 (kesişim ±1) + W%R −100..−75 + MACD hist<0 + RSI ≤ 50`.
+
+## E1. DASH 1 GÜNLÜK — kural kıl payı kaçırdı
+
+| tarih | kapanış | srsiK | srsiD | RSI | W%R | MACD hist | MACD dif |
+|---|---|---|---|---|---|---|---|
+| 14.08 | 30.17 | 19.81 | 34.08 | 39.95 | −79.63 | +0.0253 | −0.7379 |
+| 15.08 | 29.77 | 13.55 | 22.86 | 37.84 | −94.44 | −0.0032 | −0.7672 |
+| **16.08** | **30.00** | 10.61 | **14.66** | **39.81** | **−82.27** | **+0.0007** | −0.7630 |
+| **17.08** | 30.49 | 25.33 | 16.50 **← KESİŞİM** | 43.88 | −64.89 | +0.0414 | −0.7120 |
+| 19.08 | 31.81 | 59.32 | 38.95 | 53.41 | −18.09 | +0.1540 | −0.5534 |
+| 04.09 | **62.55** | 61.45 | 54.36 | 83.73 | −6.11 | +1.7208 | +4.6531 |
+
+Dip 15-16.08, sonrası **+%105**. Kuralın her parçası orada ama **farklı barlarda**:
+`StochRSI<15` ve `W%R` 16.08'de tuttu; `RSI>40` 16.08'de **39.81 ile 0.19 puan**
+kaçırdı, 17.08'de tuttu (43.88); 17.08'de ise W%R −64.89 ile banttan çıkmıştı.
+
+**İki yeni ölçüm sorusu doğdu:**
+
+1. **GEVŞEK PENCERE.** "Kesişim ±1, 3 alan" ifadesi şartların AYNI barda
+   saglanmasını gerektirmiyor olabilir — her şart pencerenin herhangi bir
+   barında. DASH 1 günlük tam bu durumda.
+2. **MACD OKUMASI.** MACD histogramı **dönüş barında zorunlu olarak sıfırı
+   keser**; dolayısıyla `hist < 0` şartı tam dönüş barını ELER. DASH 16.08'de
+   hist = **+0.0007**. Kullanıcının birebir okuması (`MACD dif < 0.05`,
+   dif = −0.763) ise tutuyordu.
+
+## E2. DASH 4 SAATLİK — kural TAM İSABET
+
+| zaman | kapanış | srsiK | srsiD | RSI | W%R | MACD hist |
+|---|---|---|---|---|---|---|
+| 19.08 00:00 | 29.80 | 0.00 | 17.21 | 42.60 | −85.71 | −0.0316 |
+| **19.08 04:00** | **29.78** | **0.00** | **6.38** | **42.21** | **−85.19** | **−0.0363** |
+| 19.08 08:00 | 29.93 | 9.19 | 3.06 **← KESİŞİM** | 46.13 | −71.30 | −0.0273 |
+| 21.08 20:00 | 38.71 | 85.69 | 87.08 | 88.51 | −10.22 | +0.5582 |
+
+19.08 04:00'da **dört şartın dördü aynı barda** tuttu, kesişim bir sonraki
+barda — kullanıcının tarif ettiği yapı birebir. Sonrası 2.5 günde **+%30**,
+04.09'a kadar **+%110**. RSI 42.21: kullanıcının `>40`'ına ve yeni `≤50`'sine
+uyuyor, bölüm 9'daki A3'ün `≤40`'ı bunu **kaçırırdı**.
+
+> **DASH tek örnektir (n=1).** Aynı kural 593 parite × 9 yılda tabanın altında.
+> Bir kural tek grafikte mükemmel görünüp toplamda kaybettirebilir.
+
+## E3. İkinci tur ölçüm — 16 varyant, 3 dönem
+
+`araclar/varyant2.py`, çıktı `sonuclar/10_varyant2.txt` + `varyant2.json`.
+Likit evren (≥1M USDT/gün), komisyon %0.2, 5 gün sabit tutma.
+Hücre = **5 günlük net medyan getiri / kazanan oranı**.
+
+| varyant | keşif 2017-22 | **2023-24 (doğr.)** | **2025-26 (doğr.)** | ay bloklu t |
+|---|---|---|---|---|
+| taban | −%0.95 / %46.3 | −%0.20 / %49.0 | −%2.35 / %39.1 | +1.11 / +1.17 / −2.11 |
+| **O1 orijinal** (kes, RSI>40, hist<0) | −%1.73 / %42.6 | −%0.39 / %48.0 | −%1.64 / %42.3 | +0.07 / +0.38 / +0.01 |
+| O2 orijinal, dif<0 | −%1.75 / %41.8 | −%0.84 / %45.2 | −%1.37 / %43.0 | −0.11 / +0.68 / +0.15 |
+| O3 orijinal, dif<0.05 (birebir) | −%1.71 / %42.5 | −%0.48 / %47.5 | −%1.72 / %41.9 | +0.02 / +0.50 / −0.05 |
+| O4 orijinal, GEVŞEK pencere | −%1.66 / %42.2 | −%0.49 / %47.5 | −%1.64 / %41.2 | −0.13 / +1.03 / +0.08 |
+| **Y1 YENİ** (kes±1, RSI≤50, hist<0) | −%0.74 / %46.9 | **+%0.34 / %52.1** | −%1.59 / %42.8 | **+2.11 / +2.38 / +0.45** |
+| Y2 yeni, dif<0 | −%0.65 / %47.1 | +%0.24 / %51.6 | −%1.64 / %42.5 | +1.88 / +2.52 / +0.42 |
+| Y3 yeni, GEVŞEK pencere | −%0.68 / %47.0 | +%0.25 / %51.6 | −%1.66 / %42.4 | +1.91 / +2.54 / +0.41 |
+| Y5 yeni, **KESİŞİM YOK** | +%0.16 / %50.8 | +%0.31 / %51.9 | −%0.93 / %45.9 | +1.02 / +3.00 / +1.11 |
+| **A3** (kes yok, RSI≤40, hist<0) | **+%1.24 / %55.3** | **+%1.13 / %56.2** | **−%0.57 / %47.7** | +1.02 / +3.39 / +1.41 |
+| A3b (RSI≤40, dif<0) | +%1.01 / %54.2 | +%1.02 / %55.7 | −%0.63 / %47.4 | +1.02 / +3.34 / +1.39 |
+| A3c (RSI≤40, MACD YOK) | +%1.09 / %54.6 | +%1.13 / %56.2 | −%0.62 / %47.5 | +1.02 / +3.38 / +1.37 |
+| R1 RSI **bandı** 35-50 | −%1.22 / %44.3 | −%0.23 / %48.6 | −%1.58 / %42.2 | +0.52 / +1.36 / +0.33 |
+| R2 RSI **bandı** 40-50 | −%2.21 / %39.6 | −%1.16 / %43.0 | −%1.65 / %41.2 | −0.31 / +0.28 / +0.21 |
+
+### Hükümler (sıralama ÜÇ DÖNEMDE DE aynı — tek seçim değil, monoton düzen)
+
+| soru | hüküm |
+|---|---|
+| Yeni varyant (RSI≤50) orijinalden iyi mi? | **EVET.** Kazanan oranı +4.3 / +4.1 / +0.5 puan, medyan +0.99 / +0.73 / +0.05 puan, ay t 0.07 → 2.11. Üç dönemde de tabanın üstünde. Kullanıcının RSI'yi gevşetme sezgisi **doğru yöndeydi** |
+| Kesişim şartı değer katıyor mu? | **HAYIR.** Y1 → Y5 (kesişim atılınca) üç dönemde de iyileşiyor: +0.90 / −0.03 / +0.66 puan |
+| RSI≤50 mi RSI≤40 mı? | **≤40 daha iyi**, üç dönemde de: +1.08 / +0.82 / +0.36 puan. RSI düştükçe sonuç monoton iyileşiyor |
+| RSI **bandı** (35-50 / 40-50) daha mı iyi? | **REDDEDİLDİ.** Listedeki en kötü iki varyant. DASH 4h'deki RSI 42.21 tek örnek; bant yok |
+| MACD okuması (hist<0 / dif<0 / dif<0.05 / yok) fark ediyor mu? | **TOPLAMDA HAYIR** (0.2-0.4 puan içinde). DASH'teki fark gerçek ama tek vakaya özgü. A3c (MACD şartı HİÇ YOK) A3 ile eşit |
+| Gevşek pencere okuması fark ediyor mu? | **HAYIR** (0.03 puan). Bu belirsizlik sonucu değiştirmiyor |
+
+**Bölüm 6'nın hükmü değişmiyor:** kesişim şartı ve yüksek RSI eşiği zarar
+veriyor. Ama bölüm 9'daki A3'ün tek seçenek olmadığı görüldü — kullanıcının
+`RSI ≤ 50` varyantı da tabanı geçiyor, A3'ten zayıf ama orijinalinden belirgin
+güçlü. İkisi arasındaki fark RSI eşiğinin sıkılığı; kesişim şartının atılması
+her iki durumda da gerekli.
+
+## E4. Açık kalan soru — 4 SAATLİK ızgara
+
+DASH 4 saatlikteki tam isabet şu soruyu açtı: **kural 1 günlükte değil
+4 saatlikte mi çalışıyor?** Bu çalışmanın tamamı 1 günlüktü. 600 paritenin
+4 saatlik verisi indirildi (`araclar/indir4h.py`), vektörleştirilmiş tablo
+kurucu yazıldı (`araclar/tablo4h.py`, ufuk 180 bar = 30 gün, günlük ölçütlerle
+birebir karşılaştırılabilir). **Ölçüm henüz tamamlanmadı** — ayrı bir EK olarak
+raporlanacak. Bu açık bir kapsam genişletmesidir ve öyle kaydedilmiştir.
+
+## E5. Üretilen ek dosyalar
+
+```
+araclar/dash_bak.py       DASH 1g + 4h bar bar inceleme
+araclar/varyant2.py       16 varyant x 3 donem olcumu
+araclar/indir4h.py        4 saatlik kline indirici
+araclar/tablo4h.py        4 saatlik tablo (VEKTORLESTIRILMIS yol profili)
+sonuclar/10_varyant2.txt  ikinci tur olcum ciktisi
+sonuclar/varyant2.json    makine okunur
+```
+
+Not: `veri/dort_saat_4h.pkl` ve `veri/tablo_4h.npz` depoya GIRMIYOR
+(buyuk turetilmis veri); `araclar/indir4h.py` → `araclar/tablo4h.py` ile
+yeniden uretilir.

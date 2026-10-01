@@ -1,0 +1,67 @@
+
+======================================================================================================================
+kesif_2017_2022  [KESIF]  LIKIT (>=1M USDT/gun)   havuz n=216,358
+  TABAN: 5g net medyan -0.95%  kazanan 46.3%  ay t +1.11  ·  temiz+20/-10 35.0%
+  varyant                                         n  5g net med  kazanan   ay t  temiz20  aynigun t
+  O1 orijinal (kes, RSI>40, hist<0)            6380      -1.73%    42.6%  +0.07    27.9%      -3.09
+  O2 orijinal ama MACD dif<0                   3408      -1.75%    41.8%  -0.11    26.5%      -3.41
+  O3 orijinal ama MACD dif<0.05 (birebir)      5177      -1.71%    42.5%  +0.02    27.4%      -3.13
+  O4 orijinal, GEVSEK pencere, dif<0           4804      -1.66%    42.2%  -0.13    28.6%      -3.84
+  O5 orijinal, GEVSEK pencere 2, dif<0         9269      -1.31%    44.1%  -0.30    29.0%      -5.83
+  Y1 YENI (kes±1, RSI≤50, hist<0)             13162      -0.74%    46.9%  +2.11    30.2%      -4.41 <<
+  Y2 YENI ama MACD dif<0                      11156      -0.65%    47.1%  +1.88    30.5%      -4.89 <<
+  Y3 YENI, GEVSEK pencere, dif<0              11454      -0.68%    47.0%  +1.91    30.4%      -4.91 <<
+  Y4 YENI, GEVSEK pencere 2, dif<0            18714      -0.35%    48.6%  +2.07    31.7%      -6.76 <<
+  Y5 YENI, KESISIM YOK, dif<0                 20728      +0.16%    50.8%  +1.02    31.6%      -5.49 <<
+  A3 (kes yok, RSI≤40, hist<0)                15671      +1.24%    55.3%  +1.02    33.8%      -5.25 <<
+  A3b (kes yok, RSI≤40, dif<0)                15879      +1.01%    54.2%  +1.02    33.4%      -5.27 <<
+  A3c (kes yok, RSI≤40, MACD yok)             16337      +1.09%    54.6%  +1.02    33.4%      -5.37 <<
+  R1 kes yok, RSI 35-50, dif<0                11082      -1.22%    44.3%  +0.52    26.8%      -4.40
+  R2 kes yok, RSI 40-50, dif<0                 4849      -2.21%    39.6%  -0.31    25.6%      -3.24
+  R3 kes yok, RSI≤50, dif<0                   20728      +0.16%    50.8%  +1.02    31.6%      -5.49 <<
+
+======================================================================================================================
+dogrulama_2023_2024  [DOGRULAMA]  LIKIT (>=1M USDT/gun)   havuz n=211,633
+  TABAN: 5g net medyan -0.20%  kazanan 49.0%  ay t +1.17  ·  temiz+20/-10 34.4%
+  varyant                                         n  5g net med  kazanan   ay t  temiz20  aynigun t
+  O1 orijinal (kes, RSI>40, hist<0)            7549      -0.39%    48.0%  +0.38    32.9%      -5.28
+  O2 orijinal ama MACD dif<0                   3997      -0.84%    45.2%  +0.68    32.1%      -4.14
+  O3 orijinal ama MACD dif<0.05 (birebir)      6612      -0.48%    47.5%  +0.50    33.5%      -4.73
+  O4 orijinal, GEVSEK pencere, dif<0           5421      -0.49%    47.5%  +1.03    34.1%      -5.02
+  O5 orijinal, GEVSEK pencere 2, dif<0        10067      -0.43%    47.7%  +1.21    34.2%      -5.35
+  Y1 YENI (kes±1, RSI≤50, hist<0)             13009      +0.34%    52.1%  +2.38    35.5%      -7.08 <<
+  Y2 YENI ama MACD dif<0                      10230      +0.24%    51.6%  +2.52    35.7%      -5.58 <<
+  Y3 YENI, GEVSEK pencere, dif<0              10519      +0.25%    51.6%  +2.54    35.7%      -5.48 <<
+  Y4 YENI, GEVSEK pencere 2, dif<0            17276      +0.26%    51.6%  +2.50    35.3%      -6.28 <<
+  Y5 YENI, KESISIM YOK, dif<0                 19419      +0.31%    51.9%  +3.00    33.5%      -5.00 <<
+  A3 (kes yok, RSI≤40, hist<0)                13982      +1.13%    56.2%  +3.39    35.3%      -2.31 <<
+  A3b (kes yok, RSI≤40, dif<0)                13627      +1.02%    55.7%  +3.34    35.4%      -1.67 <<
+  A3c (kes yok, RSI≤40, MACD yok)             14086      +1.13%    56.2%  +3.38    35.3%      -2.30 <<
+  R1 kes yok, RSI 35-50, dif<0                11834      -0.23%    48.6%  +1.36    32.1%      -4.85
+  R2 kes yok, RSI 40-50, dif<0                 5792      -1.16%    43.0%  +0.28    28.9%      -5.08
+  R3 kes yok, RSI≤50, dif<0                   19419      +0.31%    51.9%  +3.00    33.5%      -5.00 <<
+
+======================================================================================================================
+dogrulama_2025_2026  [DOGRULAMA]  LIKIT (>=1M USDT/gun)   havuz n=167,665
+  TABAN: 5g net medyan -2.35%  kazanan 39.1%  ay t -2.11  ·  temiz+20/-10 25.3%
+  varyant                                         n  5g net med  kazanan   ay t  temiz20  aynigun t
+  O1 orijinal (kes, RSI>40, hist<0)            5290      -1.64%    42.3%  +0.01    25.9%      +0.26 <<
+  O2 orijinal ama MACD dif<0                   3406      -1.37%    43.0%  +0.15    25.1%      +1.64 <<
+  O3 orijinal ama MACD dif<0.05 (birebir)      4948      -1.72%    41.9%  -0.05    25.7%      +0.46 <<
+  O4 orijinal, GEVSEK pencere, dif<0           4672      -1.64%    41.2%  +0.08    26.6%      +0.78 <<
+  O5 orijinal, GEVSEK pencere 2, dif<0         8699      -1.72%    41.8%  -0.02    26.6%      +1.53 <<
+  Y1 YENI (kes±1, RSI≤50, hist<0)             11741      -1.59%    42.8%  +0.45    26.6%      +0.87 <<
+  Y2 YENI ama MACD dif<0                      10569      -1.64%    42.5%  +0.42    26.4%      +0.45 <<
+  Y3 YENI, GEVSEK pencere, dif<0              10769      -1.66%    42.4%  +0.41    26.3%      +0.39 <<
+  Y4 YENI, GEVSEK pencere 2, dif<0            17519      -1.55%    43.2%  +0.37    26.6%      +0.95 <<
+  Y5 YENI, KESISIM YOK, dif<0                 20081      -0.93%    45.9%  +1.11    27.1%      -1.31 <<
+  A3 (kes yok, RSI≤40, hist<0)                14890      -0.57%    47.7%  +1.41    28.2%      -2.77 <<
+  A3b (kes yok, RSI≤40, dif<0)                15236      -0.63%    47.4%  +1.39    28.1%      -2.45 <<
+  A3c (kes yok, RSI≤40, MACD yok)             15465      -0.62%    47.5%  +1.37    28.2%      -2.40 <<
+  R1 kes yok, RSI 35-50, dif<0                11007      -1.58%    42.2%  +0.33    23.5%      +0.64 <<
+  R2 kes yok, RSI 40-50, dif<0                 4845      -1.65%    41.2%  +0.21    24.2%      +1.43 <<
+  R3 kes yok, RSI≤50, dif<0                   20081      -0.93%    45.9%  +1.11    27.1%      -1.31 <<
+
+kaydedildi: sonuclar/varyant2.json
+
+'<<' = hem 5g net medyan hem kazanan orani tabanin ustunde

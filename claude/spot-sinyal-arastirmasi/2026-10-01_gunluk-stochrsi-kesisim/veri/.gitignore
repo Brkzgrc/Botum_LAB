@@ -2,3 +2,5 @@
 # Ikisi de araclar/indir.py -> araclar/tablo.py ile yeniden uretilir.
 gunluk_1d.pkl
 tablo_1g.npz
+dort_saat_4h.pkl
+tablo_4h.npz
