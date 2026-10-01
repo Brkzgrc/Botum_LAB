@@ -96,8 +96,12 @@ def profil(h, l, c, ufuk=UFUK):
     return ia, id_, mfe, mae, ret, ileri, zirve_gun
 
 
-def sembol_isle(ham):
-    """ham: [[t,o,h,l,c,vol,quote,trades,taker_quote], ...] -> (ozellikler, profil)"""
+def sembol_isle(ham, profil_hesapla=True):
+    """ham: [[t,o,h,l,c,vol,quote,trades,taker_quote], ...] -> (ozellikler, profil)
+
+    profil_hesapla=False: sadece ozellikler hesaplanir, 30 GUNLUK yol profili
+    atlanir. 4 saatlik tablo kendi (vektorlestirilmis) profilini kullanir.
+    """
     a = np.asarray(ham, dtype=float)
     t = a[:, 0].astype(np.int64)
     o, h, l, c = a[:, 1], a[:, 2], a[:, 3], a[:, 4]
@@ -165,6 +169,9 @@ def sembol_isle(ham):
         "ema20_kesisim": g.kesisim_yukari(c, e20).astype(float),
         "bar_no": np.arange(n, dtype=float),
     }
+    if not profil_hesapla:
+        bos = np.zeros((n, 1), dtype=np.int16)
+        return t, c, oz, bos, bos, bos, bos, bos, bos, bos
     ia, id_, mfe, mae, ret, ileri, zg = profil(h, l, c)
     return t, c, oz, ia, id_, mfe, mae, ret, ileri, zg
 

@@ -86,7 +86,7 @@ def sembol_isle(ham):
     o, h, l, c = a[:, 1], a[:, 2], a[:, 3], a[:, 4]
     v, q, tr, tq = a[:, 5], a[:, 6], a[:, 7], a[:, 8]
     # ozellikler: gunluk tabloyla AYNI fonksiyon (tablo.sembol_isle'nin ozellik kismi)
-    r = T1.sembol_isle(ham)       # kendi profilini de hesaplar, onu atacagiz
+    r = T1.sembol_isle(ham, profil_hesapla=False)   # profili BURADA hesaplamiyoruz
     if r is None:
         return None
     _t, _c, oz, *_ = r

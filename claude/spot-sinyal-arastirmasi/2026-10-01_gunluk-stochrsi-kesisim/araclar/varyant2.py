@@ -93,7 +93,15 @@ def net(T, m, D, j=0):
 
 
 def main():
-    T = Tablo(); H = Hizli(T); OL = olcutler(T)
+    # argv[1] verilirse o tablo kullanilir (orn. veri/tablo_4h.npz)
+    tablo_yolu = sys.argv[1] if len(sys.argv) > 1 else None
+    etiket_izgara = sys.argv[2] if len(sys.argv) > 2 else "1 GUNLUK"
+    T = Tablo(tablo_yolu); H = Hizli(T); OL = olcutler(T)
+    print(f"IZGARA: {etiket_izgara}   tablo: {tablo_yolu or 'veri/tablo_1g.npz'}")
+    print(f"bar: {len(T.zaman):,}  sembol: {len(T.semboller)}")
+    from datetime import datetime, timezone
+    print(f"aralik: {datetime.fromtimestamp(T.zaman.min()/1000,timezone.utc):%Y-%m-%d}"
+          f" -> {datetime.fromtimestamp(T.zaman.max()/1000,timezone.utc):%Y-%m-%d}")
     likit = T.f("quote20") >= 1_000_000
 
     VAR = {
@@ -162,8 +170,9 @@ def main():
                 cikti[f"{don}|{ad}"] = {**d, "temiz20": v20, "aynigun_t": (r or {}).get("t"),
                                         "taban_medyan": tb["medyan"], "taban_kazanan": tb["kazanan"],
                                         "taban_temiz20": tb20}
-    json.dump(cikti, open(os.path.join(SON, "varyant2.json"), "w"), indent=1, default=float)
-    print(f"\nkaydedildi: sonuclar/varyant2.json")
+    ek = "_4h" if (tablo_yolu and "4h" in tablo_yolu) else ""
+    json.dump(cikti, open(os.path.join(SON, f"varyant2{ek}.json"), "w"), indent=1, default=float)
+    print(f"\nkaydedildi: sonuclar/varyant2{ek}.json")
     print("\n'<<' = hem 5g net medyan hem kazanan orani tabanin ustunde")
 
 
