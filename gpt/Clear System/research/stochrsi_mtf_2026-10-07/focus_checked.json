@@ -1,0 +1,38 @@
+{
+  "status": "INCOMPLETE_DO_NOT_PROMOTE",
+  "tests_passed": 4,
+  "budget_seconds": 180,
+  "expected_paths": 3,
+  "errors": [
+    {
+      "symbol": "MIRAUSDT",
+      "start": 1791158400000.0,
+      "end": 1791388800000,
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='data-api.binance.vision', port=443): Read timed out. (read timeout=5)"
+    },
+    {
+      "symbol": "TSTUSDT",
+      "start": 1791158400000.0,
+      "end": 1791388800000,
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='data-api.binance.vision', port=443): Read timed out. (read timeout=5)"
+    },
+    {
+      "symbol": "LUMIAUSDT",
+      "start": 1791244800000.0,
+      "end": 1791388800000,
+      "reason": "ReadTimeout: HTTPSConnectionPool(host='data-api.binance.vision', port=443): Read timed out. (read timeout=5)"
+    }
+  ],
+  "results": [],
+  "not_oos": true,
+  "activation": "closed 1H; stops only subsequent 5M bars",
+  "source_sha256": "699ac5747783fbe5128802c35dd970a53cd8f79ecd3e992efbb04e848ffb663d",
+  "cost": "each leg 0.10%; net=exit*0.999/(entry*1.001)-1; spread/slippage not modeled",
+  "limitations": [
+    "fixed original entries; no reentry modeling",
+    "5M stop-first; intrabar/tick order still ambiguous",
+    "MFE before exit bar is lower bound, exit-bar-inclusive high is upper bound"
+  ],
+  "missing_paths": 3,
+  "elapsed_seconds": 5.012
+}

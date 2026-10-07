@@ -1,0 +1,5549 @@
+{
+  "status": "EXPLORATORY_HOURLY_FIXED_COHORT_NOT_OOS",
+  "policy_selection": {
+    "initial_six": "chosen before first six-coin result",
+    "additional_four": "added after exploratory results; not preregistered"
+  },
+  "untouched_oos": false,
+  "window": [
+    "2026-01-01T00:00:00Z",
+    "2026-10-07T16:00:00Z"
+  ],
+  "dip_events": 60,
+  "original": {
+    "closed": 59,
+    "net_pp": 296.7182376249075,
+    "losses": 31
+  },
+  "comparisons": {
+    "original_stop_first": {
+      "closed": 59,
+      "open": 1,
+      "wins": 28,
+      "losses": 31,
+      "net_pp": 296.71823762490766,
+      "expectancy_pct": 5.029122671608601,
+      "PF": 3.9049299106254165,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 9
+    },
+    "fixed_tp5": {
+      "closed": 59,
+      "open": 1,
+      "wins": 37,
+      "losses": 22,
+      "net_pp": 49.5057023598776,
+      "expectancy_pct": 0.8390797010148747,
+      "PF": 1.4933559720497969,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 0
+    },
+    "cost_floor_net0.1": {
+      "closed": 59,
+      "open": 1,
+      "wins": 37,
+      "losses": 22,
+      "net_pp": 292.02976460724153,
+      "expectancy_pct": 4.949657027241383,
+      "PF": 3.910263293265495,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 0
+    },
+    "lock_net2": {
+      "closed": 59,
+      "open": 1,
+      "wins": 37,
+      "losses": 22,
+      "net_pp": 218.49762681417153,
+      "expectancy_pct": 3.703349607019856,
+      "PF": 3.1774685324906016,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 0
+    },
+    "stair_5_7_10": {
+      "closed": 59,
+      "open": 1,
+      "wins": 37,
+      "losses": 22,
+      "net_pp": 232.5548019241437,
+      "expectancy_pct": 3.9416068122736223,
+      "PF": 3.317557268940389,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 0
+    },
+    "trail3_net2": {
+      "closed": 59,
+      "open": 1,
+      "wins": 37,
+      "losses": 22,
+      "net_pp": 83.12410463438565,
+      "expectancy_pct": 1.4088831293963668,
+      "PF": 1.828384842306633,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 0
+    },
+    "atr2_cost_floor": {
+      "closed": 59,
+      "open": 1,
+      "wins": 37,
+      "losses": 22,
+      "net_pp": 67.87040679966866,
+      "expectancy_pct": 1.1503458779604858,
+      "PF": 1.6763719919910338,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 0
+    },
+    "atr3_cost_floor": {
+      "closed": 59,
+      "open": 1,
+      "wins": 37,
+      "losses": 22,
+      "net_pp": 73.06288068367795,
+      "expectancy_pct": 1.2383539098928464,
+      "PF": 1.7281183136928495,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 0
+    },
+    "momentum_2h_after5": {
+      "closed": 59,
+      "open": 1,
+      "wins": 37,
+      "losses": 22,
+      "net_pp": 64.28017271076263,
+      "expectancy_pct": 1.0894944527247898,
+      "PF": 1.6405930141281906,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 0
+    },
+    "partial50_at5": {
+      "closed": 59,
+      "open": 1,
+      "wins": 37,
+      "losses": 22,
+      "net_pp": 170.76773348355968,
+      "expectancy_pct": 2.8943683641281313,
+      "PF": 2.7018096326576484,
+      "worst_pct": -5.189810189810206,
+      "protected_losses": 0
+    }
+  },
+  "original_same_hour_stop_indicator_collisions": [],
+  "trades": {
+    "original_stop_first": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1788508800000.0,
+        "px": 2504.39,
+        "net_pct": 34.33949066252211,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775880000000.0,
+        "px": 84.4,
+        "net_pct": 4.208052247146665,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786579200000.0,
+        "px": 75.63,
+        "net_pct": 2.5110567824135677,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "px": 112.18,
+        "net_pct": 10.530026790269664,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1778371200000.0,
+        "px": 594.59,
+        "net_pct": 87.47693921142678,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786024800000.0,
+        "px": 489.82,
+        "net_pct": -0.19980019980019303,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1788998400000.0,
+        "px": 1244.28,
+        "net_pct": 141.5565526910065,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1776096000000.0,
+        "px": 0.913,
+        "net_pct": 4.6366357574442185,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1778328000000.0,
+        "px": 1.0536,
+        "net_pct": 14.429742637382216,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787256000000.0,
+        "px": 0.7247,
+        "net_pct": 2.443632854397748,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "px": 0.7827,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778328000000.0,
+        "px": 9.93,
+        "net_pct": 8.783313283862126,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "px": 7.826,
+        "net_pct": 5.745513625286169,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 7.944,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "px": 0.01142,
+        "net_pct": -0.19980019980018193,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1787342400000.0,
+        "px": 0.01545,
+        "net_pct": 37.42540881578316,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791252000000.0,
+        "px": 0.01842,
+        "net_pct": -0.19980019980020414,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.0706,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783281600000.0,
+        "px": 0.1279,
+        "net_pct": 2.773313642878894,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789902000000.0,
+        "px": 0.0753,
+        "net_pct": -0.19980019980018193,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791342000000.0,
+        "px": 0.089,
+        "net_pct": -0.19980019980019303,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773720000000.0,
+        "px": 0.0856,
+        "net_pct": 4.308877935251565,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775520000000.0,
+        "px": 0.08,
+        "net_pct": 3.688519272934876,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "px": 0.0871,
+        "net_pct": 3.1150344317603995,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778083200000.0,
+        "px": 0.0838,
+        "net_pct": 3.505652763078526,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779807600000.0,
+        "px": 0.0867,
+        "net_pct": 7.486674815867378,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1785045600000.0,
+        "px": 0.0418,
+        "net_pct": -0.19980019980019303,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "px": 0.0436,
+        "net_pct": -0.19980019980019303,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785996000000.0,
+        "px": 0.0424,
+        "net_pct": -0.19980019980019303,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791342000000.0,
+        "px": 0.05212,
+        "net_pct": -0.19980019980019303,
+        "reason": "protect",
+        "protected": true
+      }
+    ],
+    "fixed_tp5": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1787151600000.0,
+        "px": 1953.525,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775602800000.0,
+        "px": 84.8715,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786291200000.0,
+        "px": 77.3115,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789722000000.0,
+        "px": 106.35450000000002,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1776952800000.0,
+        "px": 332.346,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785898800000.0,
+        "px": 514.311,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1787151600000.0,
+        "px": 539.7840000000001,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1775599200000.0,
+        "px": 0.91434,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777986000000.0,
+        "px": 0.9648450000000001,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787241600000.0,
+        "px": 0.7413,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789700400000.0,
+        "px": 0.7702800000000001,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778040000000.0,
+        "px": 9.5655,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788728400000.0,
+        "px": 7.7553,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 7.9842,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777770000000.0,
+        "px": 0.011991,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1786093200000.0,
+        "px": 0.011781000000000002,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791187200000.0,
+        "px": 0.019341,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.07182000000000001,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783231200000.0,
+        "px": 0.13041,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789819200000.0,
+        "px": 0.07906500000000001,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791284400000.0,
+        "px": 0.09345,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773662400000.0,
+        "px": 0.085995,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775473200000.0,
+        "px": 0.08085,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777100400000.0,
+        "px": 0.08851500000000001,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778054400000.0,
+        "px": 0.08484,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779735600000.0,
+        "px": 0.084525,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1784682000000.0,
+        "px": 0.04389,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785459600000.0,
+        "px": 0.04578,
+        "net_pct": 4.790209790209787,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785988800000.0,
+        "px": 0.044520000000000004,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791295200000.0,
+        "px": 0.054726000000000004,
+        "net_pct": 4.7902097902098095,
+        "reason": "tp5",
+        "protected": true
+      }
+    ],
+    "cost_floor_net0.1": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1788508800000.0,
+        "px": 2504.39,
+        "net_pct": 34.33949066252211,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775880000000.0,
+        "px": 84.4,
+        "net_pct": 4.208052247146665,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786579200000.0,
+        "px": 75.63,
+        "net_pct": 2.5110567824135677,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "px": 112.18,
+        "net_pct": 10.530026790269664,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1778371200000.0,
+        "px": 594.59,
+        "net_pct": 87.47693921142678,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786021200000.0,
+        "px": 491.29142124124115,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1788998400000.0,
+        "px": 1244.28,
+        "net_pct": 141.5565526910065,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1776096000000.0,
+        "px": 0.913,
+        "net_pct": 4.6366357574442185,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1778328000000.0,
+        "px": 1.0536,
+        "net_pct": 14.429742637382216,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787256000000.0,
+        "px": 0.7247,
+        "net_pct": 2.443632854397748,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "px": 0.7827,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778328000000.0,
+        "px": 9.93,
+        "net_pct": 8.783313283862126,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "px": 7.826,
+        "net_pct": 5.745513625286169,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 7.944,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "px": 0.011454305725725722,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1787342400000.0,
+        "px": 0.01545,
+        "net_pct": 37.42540881578316,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791252000000.0,
+        "px": 0.018475333753753747,
+        "net_pct": 0.09999999999996678,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.0706,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783281600000.0,
+        "px": 0.1279,
+        "net_pct": 2.773313642878894,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789894800000.0,
+        "px": 0.07552620150150148,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791342000000.0,
+        "px": 0.08926735635635633,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773720000000.0,
+        "px": 0.0856,
+        "net_pct": 4.308877935251565,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775520000000.0,
+        "px": 0.08,
+        "net_pct": 3.688519272934876,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "px": 0.0871,
+        "net_pct": 3.1150344317603995,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778083200000.0,
+        "px": 0.0838,
+        "net_pct": 3.505652763078526,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779764400000.0,
+        "px": 0.08074182232232231,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1785045600000.0,
+        "px": 0.041925567367367356,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "px": 0.04373097457457457,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785996000000.0,
+        "px": 0.042527369769769764,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791342000000.0,
+        "px": 0.05227656868868868,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      }
+    ],
+    "lock_net2": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1788508800000.0,
+        "px": 2504.39,
+        "net_pct": 34.33949066252211,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775660400000.0,
+        "px": 82.61165825825826,
+        "net_pct": 2.000000000000024,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786460400000.0,
+        "px": 75.25295555555554,
+        "net_pct": 2.0000000000000018,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "px": 112.18,
+        "net_pct": 10.530026790269664,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1776960000000.0,
+        "px": 323.49674714714706,
+        "net_pct": 1.9999999999999796,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786014000000.0,
+        "px": 500.616633033033,
+        "net_pct": 2.0000000000000018,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1788998400000.0,
+        "px": 1244.28,
+        "net_pct": 141.5565526910065,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1776096000000.0,
+        "px": 0.913,
+        "net_pct": 4.6366357574442185,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1778328000000.0,
+        "px": 1.0536,
+        "net_pct": 14.429742637382216,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787256000000.0,
+        "px": 0.7247,
+        "net_pct": 2.443632854397748,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "px": 0.7827,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778328000000.0,
+        "px": 9.93,
+        "net_pct": 8.783313283862126,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "px": 7.826,
+        "net_pct": 5.745513625286169,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 7.944,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "px": 0.011671720120120119,
+        "net_pct": 2.000000000000024,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1787342400000.0,
+        "px": 0.01545,
+        "net_pct": 37.42540881578316,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791205200000.0,
+        "px": 0.01882601441441441,
+        "net_pct": 2.0000000000000018,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.0706,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783274400000.0,
+        "px": 0.12693762162162162,
+        "net_pct": 2.0000000000000018,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789873200000.0,
+        "px": 0.07695976576576576,
+        "net_pct": 1.9999999999999796,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791342000000.0,
+        "px": 0.09096174174174172,
+        "net_pct": 2.0000000000000018,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773720000000.0,
+        "px": 0.0856,
+        "net_pct": 4.308877935251565,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775516400000.0,
+        "px": 0.07869723723723723,
+        "net_pct": 2.0000000000000018,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "px": 0.0871,
+        "net_pct": 3.1150344317603995,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778079600000.0,
+        "px": 0.08258099699699697,
+        "net_pct": 1.9999999999999796,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779757200000.0,
+        "px": 0.08227438438438439,
+        "net_pct": 2.000000000000024,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1784930400000.0,
+        "px": 0.042721357357357354,
+        "net_pct": 2.000000000000024,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "px": 0.0444,
+        "net_pct": 1.6313961268089816,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785996000000.0,
+        "px": 0.04333458258258258,
+        "net_pct": 2.0000000000000018,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791338400000.0,
+        "px": 0.053268831231231224,
+        "net_pct": 2.0000000000000018,
+        "reason": "protect",
+        "protected": true
+      }
+    ],
+    "stair_5_7_10": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1788508800000.0,
+        "px": 2504.39,
+        "net_pct": 34.33949066252211,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775628000000.0,
+        "px": 84.23149469469469,
+        "net_pct": 4.0000000000000036,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786460400000.0,
+        "px": 75.25295555555554,
+        "net_pct": 2.0000000000000018,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "px": 112.18,
+        "net_pct": 10.530026790269664,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1776960000000.0,
+        "px": 323.49674714714706,
+        "net_pct": 1.9999999999999796,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785978000000.0,
+        "px": 510.4326454454454,
+        "net_pct": 4.0000000000000036,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1788998400000.0,
+        "px": 1244.28,
+        "net_pct": 141.5565526910065,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1775660400000.0,
+        "px": 0.9248959439439439,
+        "net_pct": 6.000000000000005,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1778119200000.0,
+        "px": 0.9759840180180182,
+        "net_pct": 6.000000000000005,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787256000000.0,
+        "px": 0.7247,
+        "net_pct": 2.443632854397748,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "px": 0.7827,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778079600000.0,
+        "px": 9.493367767767767,
+        "net_pct": 4.0000000000000036,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "px": 7.826,
+        "net_pct": 5.745513625286169,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 7.944,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "px": 0.01171,
+        "net_pct": 2.3345306182434244,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1787342400000.0,
+        "px": 0.01545,
+        "net_pct": 37.42540881578316,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791194400000.0,
+        "px": 0.019564289489489486,
+        "net_pct": 5.999999999999983,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.0706,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783256400000.0,
+        "px": 0.1294265945945946,
+        "net_pct": 4.000000000000026,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789873200000.0,
+        "px": 0.07695976576576576,
+        "net_pct": 1.9999999999999796,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791342000000.0,
+        "px": 0.0927453053053053,
+        "net_pct": 4.0000000000000036,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773716400000.0,
+        "px": 0.08534652252252252,
+        "net_pct": 4.0000000000000036,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775491200000.0,
+        "px": 0.0813,
+        "net_pct": 5.373457711120055,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "px": 0.0871,
+        "net_pct": 3.1150344317603995,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778079600000.0,
+        "px": 0.08258099699699697,
+        "net_pct": 1.9999999999999796,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779757200000.0,
+        "px": 0.08227438438438439,
+        "net_pct": 2.000000000000024,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1784703600000.0,
+        "px": 0.0443967047047047,
+        "net_pct": 6.000000000000005,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "px": 0.0444,
+        "net_pct": 1.6313961268089816,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785992400000.0,
+        "px": 0.0444,
+        "net_pct": 4.507756394548856,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791302400000.0,
+        "px": 0.055357805005005,
+        "net_pct": 6.000000000000005,
+        "reason": "protect",
+        "protected": true
+      }
+    ],
+    "trail3_net2": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1787180400000.0,
+        "px": 2263.6405,
+        "net_pct": 21.42530189509497,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775610000000.0,
+        "px": 84.40939999999999,
+        "net_pct": 4.2196583572310375,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786435200000.0,
+        "px": 75.5048,
+        "net_pct": 2.3413571353269935,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "px": 112.18,
+        "net_pct": 10.530026790269664,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1776960000000.0,
+        "px": 324.95,
+        "net_pct": 2.4582172534908686,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785978000000.0,
+        "px": 510.123,
+        "net_pct": 3.9369101357178637,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1787180400000.0,
+        "px": 562.6,
+        "net_pct": 9.219561950654409,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1775631600000.0,
+        "px": 0.952152,
+        "net_pct": 9.123748093890494,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1778076000000.0,
+        "px": 1.003077,
+        "net_pct": 8.94252368591253,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787252400000.0,
+        "px": 0.7306039999999999,
+        "net_pct": 3.278222627231142,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "px": 0.7827,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778079600000.0,
+        "px": 9.4866,
+        "net_pct": 3.925858992818365,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "px": 7.826,
+        "net_pct": 5.745513625286169,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 7.944,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "px": 0.01171,
+        "net_pct": 2.3345306182434244,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1786096800000.0,
+        "px": 0.01285,
+        "net_pct": 14.298802801476596,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791190800000.0,
+        "px": 0.0195843,
+        "net_pct": 6.1084176409909485,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.0706,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783245600000.0,
+        "px": 0.131435,
+        "net_pct": 5.613842679060066,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789855200000.0,
+        "px": 0.077503,
+        "net_pct": 2.719985194088781,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791298800000.0,
+        "px": 0.091568,
+        "net_pct": 2.6798280371314265,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773720000000.0,
+        "px": 0.085166,
+        "net_pct": 3.780022175626585,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775491200000.0,
+        "px": 0.0813,
+        "net_pct": 5.373457711120055,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "px": 0.0871,
+        "net_pct": 3.1150344317603995,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778079600000.0,
+        "px": 0.082644,
+        "net_pct": 2.077818221382577,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779750000000.0,
+        "px": 0.08245000000000001,
+        "net_pct": 2.2177201680307457,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1784685600000.0,
+        "px": 0.0491,
+        "net_pct": 17.229421296406944,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "px": 0.0444,
+        "net_pct": 1.6313961268089816,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785992400000.0,
+        "px": 0.0444,
+        "net_pct": 4.507756394548856,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791298800000.0,
+        "px": 0.0546983,
+        "net_pct": 4.73716939238813,
+        "reason": "protect",
+        "protected": true
+      }
+    ],
+    "atr2_cost_floor": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1787162400000.0,
+        "px": 2072.811695821434,
+        "net_pct": 11.188939205143832,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775610000000.0,
+        "px": 84.97617560225125,
+        "net_pct": 4.919451977750078,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786316400000.0,
+        "px": 76.90787545986211,
+        "net_pct": 4.243125588796981,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "px": 112.18,
+        "net_pct": 10.530026790269664,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1776960000000.0,
+        "px": 324.04599221585613,
+        "net_pct": 2.173179475535303,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785938400000.0,
+        "px": 514.8238252842215,
+        "net_pct": 4.894697287306493,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1787162400000.0,
+        "px": 545.2355117083499,
+        "net_pct": 5.848531369937571,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1775610000000.0,
+        "px": 0.953853567892179,
+        "net_pct": 9.31876051420868,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777993200000.0,
+        "px": 0.9653345223971739,
+        "net_pct": 4.843376003121547,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787252400000.0,
+        "px": 0.7302644451926663,
+        "net_pct": 3.2302231405243242,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "px": 0.7827,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778076000000.0,
+        "px": 9.616870901783923,
+        "net_pct": 5.352978863969615,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788735600000.0,
+        "px": 7.737774787853974,
+        "net_pct": 4.553407776438578,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 7.944,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "px": 0.01171,
+        "net_pct": 2.3345306182434244,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1786096800000.0,
+        "px": 0.01245773596122124,
+        "net_pct": 10.80967361747005,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791194400000.0,
+        "px": 0.01930667678421797,
+        "net_pct": 4.604245414920327,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.0706,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783245600000.0,
+        "px": 0.13108120986867663,
+        "net_pct": 5.329556642076083,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789833600000.0,
+        "px": 0.07826324473099812,
+        "net_pct": 3.727589125704478,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791298800000.0,
+        "px": 0.0918538794939557,
+        "net_pct": 3.0003991676433195,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773666000000.0,
+        "px": 0.08505712104950151,
+        "net_pct": 3.6473464611725515,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775491200000.0,
+        "px": 0.0813,
+        "net_pct": 5.373457711120055,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777107600000.0,
+        "px": 0.0870320131844636,
+        "net_pct": 3.0345469136784153,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778076000000.0,
+        "px": 0.08381958752603641,
+        "net_pct": 3.529846315207541,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779750000000.0,
+        "px": 0.0832153704003617,
+        "net_pct": 3.1665912099842153,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1784685600000.0,
+        "px": 0.0491,
+        "net_pct": 17.229421296406944,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "px": 0.0444,
+        "net_pct": 1.6313961268089816,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785992400000.0,
+        "px": 0.0444,
+        "net_pct": 4.507756394548856,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791298800000.0,
+        "px": 0.05498980647033235,
+        "net_pct": 5.29535058928412,
+        "reason": "protect",
+        "protected": true
+      }
+    ],
+    "atr3_cost_floor": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1787198400000.0,
+        "px": 2236.257911596387,
+        "net_pct": 19.95645599682718,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775628000000.0,
+        "px": 84.26861144506383,
+        "net_pct": 4.045827775612687,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786320000000.0,
+        "px": 76.65913994426045,
+        "net_pct": 3.905982384200346,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "px": 112.18,
+        "net_pct": 10.530026790269664,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777140000000.0,
+        "px": 352.99501422611365,
+        "net_pct": 11.300938165804752,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785978000000.0,
+        "px": 509.38427887134463,
+        "net_pct": 3.7863966486482603,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1787198400000.0,
+        "px": 552.3009101446037,
+        "net_pct": 7.220162586102652,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1775646000000.0,
+        "px": 0.94639314504846,
+        "net_pct": 8.463740199099433,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777993200000.0,
+        "px": 0.9568517835957608,
+        "net_pct": 3.9220798585640093,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787256000000.0,
+        "px": 0.7247,
+        "net_pct": 2.443632854397748,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "px": 0.7827,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778079600000.0,
+        "px": 9.535306352675885,
+        "net_pct": 4.459437887285156,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "px": 7.826,
+        "net_pct": 5.745513625286169,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 7.944,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "px": 0.01171,
+        "net_pct": 2.3345306182434244,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1786096800000.0,
+        "px": 0.012051603941831862,
+        "net_pct": 7.1971908473881685,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791205200000.0,
+        "px": 0.018862530372591224,
+        "net_pct": 2.1978447297471115,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.0706,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783274400000.0,
+        "px": 0.12887181480301496,
+        "net_pct": 3.5542098708151393,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789855200000.0,
+        "px": 0.07766853363462135,
+        "net_pct": 2.9393781530378416,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791342000000.0,
+        "px": 0.0918004048791271,
+        "net_pct": 2.940435378383399,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773712800000.0,
+        "px": 0.08565640795510131,
+        "net_pct": 4.377614506551097,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775491200000.0,
+        "px": 0.0813,
+        "net_pct": 5.373457711120055,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "px": 0.0871,
+        "net_pct": 3.1150344317603995,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778079600000.0,
+        "px": 0.08312938128905462,
+        "net_pct": 2.677337399933699,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779757200000.0,
+        "px": 0.08232305560054255,
+        "net_pct": 2.060340336609978,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1784685600000.0,
+        "px": 0.0491,
+        "net_pct": 17.229421296406944,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "px": 0.0444,
+        "net_pct": 1.6313961268089816,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785992400000.0,
+        "px": 0.0444,
+        "net_pct": 4.507756394548856,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791320400000.0,
+        "px": 0.05514615901224863,
+        "net_pct": 5.594736907828146,
+        "reason": "protect",
+        "protected": true
+      }
+    ],
+    "momentum_2h_after5": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1787198400000.0,
+        "px": 2251.21,
+        "net_pct": 20.75850996624984,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775613600000.0,
+        "px": 84.69,
+        "net_pct": 4.566113090175961,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786320000000.0,
+        "px": 76.27,
+        "net_pct": 3.378531016721986,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 105.74,
+        "net_pct": 4.184748019282525,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1776999600000.0,
+        "px": 341.17,
+        "net_pct": 7.572457240724684,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785927600000.0,
+        "px": 515.83,
+        "net_pct": 5.0997041013781885,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1787198400000.0,
+        "px": 553.97,
+        "net_pct": 7.54418900427305,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1775620800000.0,
+        "px": 0.9589,
+        "net_pct": 9.897119417101052,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1778004000000.0,
+        "px": 0.9588,
+        "net_pct": 4.13367240007787,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787252400000.0,
+        "px": 0.7247,
+        "net_pct": 2.443632854397748,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "px": 0.7827,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778079600000.0,
+        "px": 9.55,
+        "net_pct": 4.620407035335683,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "px": 7.826,
+        "net_pct": 5.745513625286169,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 7.944,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "px": 0.011454305725725722,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1786140000000.0,
+        "px": 0.01314,
+        "net_pct": 16.87830885691848,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791198000000.0,
+        "px": 0.01906,
+        "net_pct": 3.2677420299570326,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.0706,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783249200000.0,
+        "px": 0.1311,
+        "net_pct": 5.344655344655358,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789830000000.0,
+        "px": 0.0783,
+        "net_pct": 3.7763033778970057,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791298800000.0,
+        "px": 0.0917,
+        "net_pct": 2.827846310992399,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773669600000.0,
+        "px": 0.0848,
+        "net_pct": 3.3340286087538917,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775505600000.0,
+        "px": 0.0813,
+        "net_pct": 5.373457711120055,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "px": 0.0871,
+        "net_pct": 3.1150344317603995,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778068800000.0,
+        "px": 0.0843,
+        "net_pct": 4.123228256891642,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779750000000.0,
+        "px": 0.0825,
+        "net_pct": 2.279707869769987,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1784696400000.0,
+        "px": 0.0449,
+        "net_pct": 7.201650024616568,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "px": 0.04373097457457457,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785996000000.0,
+        "px": 0.042527369769769764,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791316800000.0,
+        "px": 0.05586,
+        "net_pct": 6.961610914028427,
+        "reason": "indicator",
+        "protected": true
+      }
+    ],
+    "partial50_at5": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "px": 2330.98,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1788508800000.0,
+        "px": 2504.39,
+        "net_pct": 19.56485022636596,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775880000000.0,
+        "px": 84.4,
+        "net_pct": 4.499131018678238,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779940800000.0,
+        "px": 80.807,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "px": 73.511,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "px": 76.4,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786579200000.0,
+        "px": 75.63,
+        "net_pct": 3.6506332863116886,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "px": 112.18,
+        "net_pct": 7.660118290239737,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 67028.903,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "px": 64822.89,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "px": 78285.34,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790049600000.0,
+        "px": 85692.83,
+        "net_pct": 2.103170432719148,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1778371200000.0,
+        "px": 594.59,
+        "net_pct": 46.1335745008183,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "px": 482.8945,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1786021200000.0,
+        "px": 491.29142124124115,
+        "net_pct": 2.4451048951048993,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1788998400000.0,
+        "px": 1244.28,
+        "net_pct": 73.17338124060815,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "px": 1105.4199999999998,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "px": 1284.7514999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 0.9557,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1776096000000.0,
+        "px": 0.913,
+        "net_pct": 4.7134227738270145,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1778328000000.0,
+        "px": 1.0536,
+        "net_pct": 9.609976213796013,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1786219200000.0,
+        "px": 0.696,
+        "net_pct": 0.3480772333704918,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787256000000.0,
+        "px": 0.7247,
+        "net_pct": 3.616921322303779,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "px": 0.7827,
+        "net_pct": 5.635028820688593,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "px": 9.67,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777489200000.0,
+        "px": 8.968,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778328000000.0,
+        "px": 9.93,
+        "net_pct": 6.786761537035968,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779523200000.0,
+        "px": 8.913849999999998,
+        "net_pct": -5.189810189810206,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "px": 8.8445,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784296800000.0,
+        "px": 6.376399999999999,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "px": 6.4087000000000005,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "px": 6.577,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "px": 7.826,
+        "net_pct": 5.26786170774799,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "px": 7.944,
+        "net_pct": 4.526403370432841,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "px": 0.0081795,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "px": 0.011454305725725722,
+        "net_pct": 2.4451048951048993,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1787342400000.0,
+        "px": 0.01545,
+        "net_pct": 21.107809302996483,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787601600000.0,
+        "px": 0.0153425,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.0164825,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "px": 0.01613,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791252000000.0,
+        "px": 0.018475333753753747,
+        "net_pct": 2.445104895104888,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "px": 0.0706,
+        "net_pct": 3.900178768599827,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783281600000.0,
+        "px": 0.1279,
+        "net_pct": 3.781761716544352,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "px": 0.082745,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789894800000.0,
+        "px": 0.07552620150150148,
+        "net_pct": 2.4451048951048993,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791342000000.0,
+        "px": 0.08926735635635633,
+        "net_pct": 2.4451048951048993,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768510800000.0,
+        "px": 0.1349,
+        "net_pct": -5.189810189810162,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773720000000.0,
+        "px": 0.0856,
+        "net_pct": 4.549543862730687,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774609200000.0,
+        "px": 0.07685499999999999,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775520000000.0,
+        "px": 0.08,
+        "net_pct": 4.239364531572343,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "px": 0.0871,
+        "net_pct": 3.9526221109851045,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1778083200000.0,
+        "px": 0.0838,
+        "net_pct": 4.147931276644168,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779764400000.0,
+        "px": 0.08074182232232231,
+        "net_pct": 2.4451048951048993,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "px": 0.051585,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1785045600000.0,
+        "px": 0.041925567367367356,
+        "net_pct": 2.4451048951048993,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "px": 0.04373097457457457,
+        "net_pct": 2.4451048951048993,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785996000000.0,
+        "px": 0.042527369769769764,
+        "net_pct": 2.4451048951048993,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787025600000.0,
+        "px": 0.037145,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791342000000.0,
+        "px": 0.05227656868868868,
+        "net_pct": 2.4451048951048993,
+        "reason": "protect",
+        "protected": true
+      }
+    ]
+  },
+  "limitations": [
+    "same original entries; changed exits do not generate new entries; hypothetical paths may overlap",
+    "hourly high/low cannot establish intrabar ordering; stop-first and next-bar activation used",
+    "closed-candle high/low still idealized barrier fills; gap opens accounted, spread/slippage not",
+    "not full universe; not untouched OOS; do not choose/deploy solely from this sample"
+  ]
+}

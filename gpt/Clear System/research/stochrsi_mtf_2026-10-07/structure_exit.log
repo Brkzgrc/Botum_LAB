@@ -1,0 +1,58 @@
+{
+  "status": "EXPLORATORY_FIXED_COHORT_NOT_OOS",
+  "family": "confirmed_support_loss_after_recovery",
+  "pre_registration_sha256": "8c1b9fbceb8f004aceec6f0009aedf05b1be3d881e72b73695f6924ceb0f9080",
+  "self_tests": 4,
+  "comparisons": {
+    "structure_only": {
+      "closed": 59,
+      "open": 1,
+      "wins": 26,
+      "losses": 33,
+      "net_pp": 71.49351218370784,
+      "expectancy_pct": 1.211754443791659,
+      "PF": 1.9868128512202776,
+      "worst_pct": -5.189810189810196,
+      "protected_losses": 5,
+      "negative_pp": -72.44890669522603,
+      "structure_closes": 28
+    },
+    "structure_plus_cost_floor": {
+      "closed": 59,
+      "open": 1,
+      "wins": 31,
+      "losses": 28,
+      "net_pp": 72.99251318270875,
+      "expectancy_pct": 1.2371612403848944,
+      "PF": 2.021590056298216,
+      "worst_pct": -5.189810189810196,
+      "protected_losses": 0,
+      "negative_pp": -71.44990569622506,
+      "structure_closes": 28
+    }
+  },
+  "gates": {
+    "structure_only": {
+      "reference": "original_stop_first",
+      "net_not_lower": false,
+      "loss_count_20pct_lower": false,
+      "negative_pp_20pct_lower": true,
+      "pass": false
+    },
+    "structure_plus_cost_floor": {
+      "reference": "cost_floor_net0.1",
+      "net_not_lower": false,
+      "loss_count_20pct_lower": false,
+      "negative_pp_20pct_lower": true,
+      "pass": false
+    }
+  },
+  "decision": "REJECT_FIXED_COHORT_SCREEN_NO_RESCAN",
+  "elapsed_seconds": 0.932,
+  "limitations": [
+    "chosen after inspecting exploratory losses; no untouched OOS",
+    "same original entries; reentry and overlaps not modeled",
+    "hourly stop-first; no slippage",
+    "trend branch unchanged; only dip exits investigated"
+  ]
+}

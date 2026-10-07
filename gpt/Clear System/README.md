@@ -1,3 +1,46 @@
+# Clear System — güncel StochRSI MTF çıkış araştırması
+
+## 7 Ekim 2026 — StochRSI MTF çıkış araştırması (local-20261007-state-structure)
+
+**Güncel amaç önceki r2/OR giriş araştırmasının yerini alır:** Kullanıcının yüklediği StochRSI MTF v3 girişlerini koruyarak kayıpları azaltan ve toplam maliyet-sonrası kazancı koruyan yeni çıkış stratejisi geliştirmek. Ayrıntılar ve birebir kaynak kopyası `research/stochrsi_mtf_2026-10-07/` altındadır. Önceki r2 ve RETRIGGER sonuçları tarihçe olarak korunur; bunların dönem/terfi kuralları bu yeni dosyanın sonuçlarına uygulanmış sayılmaz. `Clear System.py` ve canlı sistem değiştirilmedi.
+
+Gerçek kaynak kontrolü: Son Clear System run **36340098433** preflight `completed/success`; son pahalı araştırma **36339721807** D6 `completed/success`, bilimsel olarak elenmiş. GitHub Actions in_progress ve queued listeleri bu turda boştu. Yeni workflow başlatılmadı, yeni runner maliyeti **0 dakika**. Yeni araştırma yalnız yerel/önbellekli çalıştı.
+
+Veri: **2026-01-01–2026-10-07 16:00 UTC**, dokuz sabit Spot USDT örneği (BTC, ETH, SOL, AVAX, SUI, ZEC, MIRA, LUMIA, TST); stable/fiat/leveraged base yok. Tam tarihsel evren değildir; üretim evren_kurallari.py bağımlılığı elde değil. Piyasa genişliği 74 sembolün önceki önbelleğinden birebir korunuyor. Bu görülen 2026 örnekleri artık **exploratory**; OOS olarak sunulamaz. Yeni adayların geleceğe dönük dokunulmamış doğrulaması en erken **8 Ekim 2026** başlangıçlı, sonuç görülmeden dondurulmuş protokolle yapılmalıdır.
+
+Referans dip: 60 giriş / 59 kapanış / 1 açık; **0,2145 sinyal/gün**, aktif gün **38/279,667 = %13,59**. Net toplam **+296,72 yüzde puan**, expectancy **+%5,029**, PF **3,905**; 28 pozitif / 31 negatif, negatif toplam **-102,143 yüzde puan**, en kötü **-%5,190**. Bu aritmetik toplam portföy getirisi değildir. Trend ayrı: 28 giriş, 24 kapanış / 4 açık, 19 negatif; net **-29,510 yüzde puan**, expectancy **-%1,230**, PF **0,773**. Trend exit araştırması henüz yapılmadı.
+
+Maliyet her bacak %0,10; net formül `exit*0.999/(entry*1.001)-1`, yaklaşık %0,20 round-trip. Gap açılışında daha kötü dolum kullanıldı; spread/slippage yok. 1H stop-first muhafazakâr varsayımdır; intrabar gerçek sıra kanıtlanmadı.
+
+Yeni tanı, çıkış saatinin ekstremumlarını 'kesin çıkış-öncesi' saymadan hesaplandı:
+
+| Kayıp kolu | Adet | Negatif toplam (yüzde puan) | Çıkış mumundan önce ortalama MFE alt sınırı |
+|---|---:|---:|---:|
+| +%5 sonrası alış fiyatına geri veren | 9 | -1,798 | +%16,070 |
+| +%5 koruması oluşmayan | 22 | -100,345 | +%1,197 |
+
+**Kayıp büyüklüğünün %98,24'ü ikinci kolda.** Bu 22 kaybın 16'sında çıkıştan önce pozitif saatlik kapanış, 13'ünde her iki komisyonu karşılayan saatlik kapanış var. Yalnız +%5 korumasını değiştirmek kayıp sayısını düzeltebilir, esas zarar büyüklüğünü çözmez. Üç büyük kazanan pozitif toplamın **%66,80**'ini oluşturuyor; agresif çıkışları değerlendirirken bu yoğunlaşma gözetilmeli. MAE/MFE işlem bazında `state_and_loss_audit.json` içindedir; stop mumunun gerçek intrabar MAE'si 1H veriden kesinlenemez.
+
+Gerçek kaynak üzerinde, ağ/portföy/Telegram ve disk durum yazımı stub'lanmış test **dakika-saatlik state ayrışmasını reproduksiyonla doğruladı**: `dakika_kontrol()` bir pozisyonu kapatıp kalıcı `satis=True` yapıyor, `tur()` aynı anahtarı tekrar ACIK'e alıyor. Bu kontrollü testtir; canlıda oluşmuş bir olay diye sunulmaz. Aynı-mum stop/gösterge önceliği ve çıkıştan sonra kalan t5 sentetik kaynak testleri de duruyor; 59 dip kayıtta 10 geçersiz gelecekte t5 var. Bunlar P&L'i güvenilir ölçmek için araştırma motoru/kalıcı kapanış günlüğü düzeyinde giderilmelidir.
+
+Bağımsız yapısal çıkış ailesi bir kez kilitlendi: maliyeti karşılayan toparlanıştan sonra yalnız üç kapanmış 1H mumla doğrulanan dip desteği; bu desteğin altında iki ardışık kapanış oluşursa ikinci kapanışta çıkış. Stop önce uygulanır, +%5 koruma sonraki mumda aktif olur. Eşik taraması yok; yalnız 'yapı' ve 'yapı + maliyet tabanı' ablation'ı var. İlk üç kontrol: Python derleme, sentetik/numpy-JSON self-test, AST/ağ-yasağı/kapalı-mum sıra denetimi; ardından gerçek önbellekli dokuz coin replay'i. Ön kayıt JSON'u sonuç hesaplanmadan yazıldı fakat aile önceki tanıdan sonra seçildiği için bu **OOS değildir**.
+
+| Varyant | Net toplam (yüzde puan) | Expectancy | PF | Kayıp | Negatif toplam |
+|---|---:|---:|---:|---:|---:|
+| Yalnız yapısal çıkış | +71,494 | +%1,212 | 1,987 | 33 | -72,449 |
+| Yapı + maliyet tabanı | +72,993 | +%1,237 | 2,022 | 28 | -71,450 |
+
+Her iki varyantta 59 kapanış / 1 açık, 28 yapı çıkışı; en kötü yaklaşık -%5,190. Negatif tutar azalırken toplam kazanç ağır bozuldu; kayıp sayısı kabul kapısını geçmedi. Karar **REJECT_FIXED_COHORT_SCREEN_NO_RESCAN**. Aynı yapı/eşik ailesi yeniden adlandırılıp taranmayacak; bağımsız doğrulamaya veya final dosyaya aktarılmadı. Target-first/stop-first kesin intrabar oranı **N/A**; mevcut dip hedefi sabit hedef değildir. Yeni OOS **N/A**.
+
+5M odak kontrolü: üç kaynak yolundan üçü de `data-api.binance.vision` bağlantısında **ReadTimeout** verdi. Compile + dört self-test + statik bütçe/nedensellik kontrolü geçti, fakat gerçek-veri smoke geçmedi: **INCOMPLETE_DO_NOT_PROMOTE**, eksik yol **3/3**, kapsama doğrulanamadı. 180 sn genel / 195 sn komut tavanı, path başına en çok üç istek; bu turda yalnız üç istek ve 5,012 sn çalışma oldu. Aynı koşuyu kör yeniden çalıştırma yok. Hata artifact'ları `focus_checked.json/.log` altında korunuyor. Yapı replay'inde çıkan numpy.int64 JSON hatası özel serializer + dört self-test ile düzeltildi, ilk hata logu da korundu; yeni piyasa isteği gerektirmeyen önbellek replay'i yaklaşık 0,932 sn hesapla tamamlandı.
+
+**Sonraki somut adım:** kapanmış pozisyonların fiyat/zaman/nedenini taşıyan kalıcı günlük ile dakika/saatlik/state replay eşitliğini araştırma kopyasında kur; aynı-mum stop-first ve t5 sırasını düzeltip mevcut dokuz coin referansını yeniden üret. Tek başına ACIK filtresi yeniden giriş eşitliğini kanıtlamaz. Ardından +%5 görmeyen kol için farklı bir hareket/katılım çıkışı gerekçelendir; elenen iki saatlik momentum veya destek-kırılması eşiklerini yeni adla tekrarlama. Veri bağlantısı gerçek küçük smoke ile çalışmadan tam 5M/evren taraması başlatma. Başarılı aday dondurulduğunda bağımsız coin/dönem ve gerçek yeniden giriş/eşzamanlı portföy replay'i zorunludur.
+
+
+---
+
+# Önceki araştırma tarihçesi
+
 # Clear System
 
 ## D6 hareket-bozulması koruması sonucu — run 36339721807

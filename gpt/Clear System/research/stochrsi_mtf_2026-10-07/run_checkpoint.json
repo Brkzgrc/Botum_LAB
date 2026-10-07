@@ -1,0 +1,158 @@
+{
+  "run_id": "local-20261007-state-structure",
+  "source_sha256": "699ac5747783fbe5128802c35dd970a53cd8f79ecd3e992efbb04e848ffb663d",
+  "latest_clear_run": 36340098433,
+  "latest_expensive_run": 36339721807,
+  "actions_started": false,
+  "runner_minutes": 0,
+  "state_test": {
+    "status": "REPRODUCED_SOURCE_STATE_DIVERGENCE",
+    "minute_removed_open": true,
+    "persistent_closed_flag": true,
+    "hourly_reintroduced_same_key": true,
+    "external_calls": 0,
+    "state_file_writes": 0,
+    "scope": "actual minute/hour loops with stub market/replay inputs; not observed live incident"
+  },
+  "loss_groups": {
+    "all_losses": {
+      "n": 31,
+      "net_pp": -102.1429937223599,
+      "worst_pct": -5.189810189810206,
+      "mfe_lower_mean_pct": 5.5149967095484635,
+      "positive_closed_bar": 25,
+      "cost_covered_closed_bar": 22
+    },
+    "proven_5pct_before_exit": {
+      "n": 9,
+      "net_pp": -1.7982017982017262,
+      "worst_pct": -0.19980019980020414,
+      "mfe_lower_mean_pct": 16.07033844942157,
+      "positive_closed_bar": 9,
+      "cost_covered_closed_bar": 9
+    },
+    "no_proven_5pct": {
+      "n": 22,
+      "net_pp": -100.34479192415819,
+      "worst_pct": -5.189810189810206,
+      "mfe_lower_mean_pct": 1.1969023614185565,
+      "positive_closed_bar": 16,
+      "cost_covered_closed_bar": 13
+    },
+    "protected_losses": {
+      "n": 9,
+      "net_pp": -1.7982017982017262,
+      "worst_pct": -0.19980019980020414,
+      "mfe_lower_mean_pct": 16.07033844942157,
+      "positive_closed_bar": 9,
+      "cost_covered_closed_bar": 9
+    },
+    "unprotected_losses": {
+      "n": 22,
+      "net_pp": -100.34479192415819,
+      "worst_pct": -5.189810189810206,
+      "mfe_lower_mean_pct": 1.1969023614185565,
+      "positive_closed_bar": 16,
+      "cost_covered_closed_bar": 13
+    }
+  },
+  "structure_result": {
+    "status": "EXPLORATORY_FIXED_COHORT_NOT_OOS",
+    "family": "confirmed_support_loss_after_recovery",
+    "pre_registration_sha256": "8c1b9fbceb8f004aceec6f0009aedf05b1be3d881e72b73695f6924ceb0f9080",
+    "self_tests": 4,
+    "comparisons": {
+      "structure_only": {
+        "closed": 59,
+        "open": 1,
+        "wins": 26,
+        "losses": 33,
+        "net_pp": 71.49351218370784,
+        "expectancy_pct": 1.211754443791659,
+        "PF": 1.9868128512202776,
+        "worst_pct": -5.189810189810196,
+        "protected_losses": 5,
+        "negative_pp": -72.44890669522603,
+        "structure_closes": 28
+      },
+      "structure_plus_cost_floor": {
+        "closed": 59,
+        "open": 1,
+        "wins": 31,
+        "losses": 28,
+        "net_pp": 72.99251318270875,
+        "expectancy_pct": 1.2371612403848944,
+        "PF": 2.021590056298216,
+        "worst_pct": -5.189810189810196,
+        "protected_losses": 0,
+        "negative_pp": -71.44990569622506,
+        "structure_closes": 28
+      }
+    },
+    "gates": {
+      "structure_only": {
+        "reference": "original_stop_first",
+        "net_not_lower": false,
+        "loss_count_20pct_lower": false,
+        "negative_pp_20pct_lower": true,
+        "pass": false
+      },
+      "structure_plus_cost_floor": {
+        "reference": "cost_floor_net0.1",
+        "net_not_lower": false,
+        "loss_count_20pct_lower": false,
+        "negative_pp_20pct_lower": true,
+        "pass": false
+      }
+    },
+    "decision": "REJECT_FIXED_COHORT_SCREEN_NO_RESCAN",
+    "elapsed_seconds": 0.932,
+    "limitations": [
+      "chosen after inspecting exploratory losses; no untouched OOS",
+      "same original entries; reentry and overlaps not modeled",
+      "hourly stop-first; no slippage",
+      "trend branch unchanged; only dip exits investigated"
+    ]
+  },
+  "network_failure": {
+    "status": "INCOMPLETE_DO_NOT_PROMOTE",
+    "tests_passed": 4,
+    "budget_seconds": 180,
+    "expected_paths": 3,
+    "errors": [
+      {
+        "symbol": "MIRAUSDT",
+        "start": 1791158400000.0,
+        "end": 1791388800000,
+        "reason": "ReadTimeout: HTTPSConnectionPool(host='data-api.binance.vision', port=443): Read timed out. (read timeout=5)"
+      },
+      {
+        "symbol": "TSTUSDT",
+        "start": 1791158400000.0,
+        "end": 1791388800000,
+        "reason": "ReadTimeout: HTTPSConnectionPool(host='data-api.binance.vision', port=443): Read timed out. (read timeout=5)"
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "start": 1791244800000.0,
+        "end": 1791388800000,
+        "reason": "ReadTimeout: HTTPSConnectionPool(host='data-api.binance.vision', port=443): Read timed out. (read timeout=5)"
+      }
+    ],
+    "results": [],
+    "not_oos": true,
+    "activation": "closed 1H; stops only subsequent 5M bars",
+    "source_sha256": "699ac5747783fbe5128802c35dd970a53cd8f79ecd3e992efbb04e848ffb663d",
+    "cost": "each leg 0.10%; net=exit*0.999/(entry*1.001)-1; spread/slippage not modeled",
+    "limitations": [
+      "fixed original entries; no reentry modeling",
+      "5M stop-first; intrabar/tick order still ambiguous",
+      "MFE before exit bar is lower bound, exit-bar-inclusive high is upper bound"
+    ],
+    "missing_paths": 3,
+    "elapsed_seconds": 5.012
+  },
+  "decision": "STRUCTURE_FAMILY_REJECTED; FIX_STATE_AND_EXECUTION_PARITY_NEXT",
+  "oos": null,
+  "storage": "Numpy cache and all evidence in stochrsi_mtf_exit_research.zip; code and JSON in Botum_LAB/gpt/Clear System/research/stochrsi_mtf_2026-10-07"
+}

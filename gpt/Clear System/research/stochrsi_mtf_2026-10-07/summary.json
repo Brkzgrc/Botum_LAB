@@ -1,0 +1,3802 @@
+{
+  "source_sha256": "699ac5747783fbe5128802c35dd970a53cd8f79ecd3e992efbb04e848ffb663d",
+  "tests": {
+    "compile": "PASS",
+    "same_bar_stop_and_indicator_exit": {
+      "t5": null,
+      "cikis_t": 1767222000000.0,
+      "cikis_fiyat": 101.0,
+      "neden": "satis_cifti_95 (1h + 4h)",
+      "net": 0.00798201798201803,
+      "net_%": 0.8
+    },
+    "t5_after_stop": {
+      "t5": 1767225600000.0,
+      "cikis_t": 1767222000000.0,
+      "cikis_fiyat": 95.0,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101845,
+      "net_%": -5.19
+    },
+    "missing_universe_dependency": "evren_kurallari.py not supplied; original production universe not verified",
+    "delivery_blocked": true
+  },
+  "window": [
+    "2026-01-01T00:00:00Z",
+    "2026-10-07T16:00:00Z"
+  ],
+  "selection": "nine fixed examples including screenshot coins; NOT full historical universe/OOS; same exact strategy, breadth and BTC filters enabled",
+  "errors": [],
+  "breadth_symbols": 74,
+  "coins_completed": 9,
+  "summary": {
+    "signals": 88,
+    "closed": 83,
+    "open": 5,
+    "wins": 33,
+    "losses": 50,
+    "net_percentage_points": 267.207937179958,
+    "expectancy_pct": 3.2193727371079235,
+    "PF": 2.1504519742181816,
+    "worst_pct": -10.179820179820176,
+    "signals_per_day": 0.3146603098927294,
+    "active_days": 56,
+    "reasons": {
+      "satis_cifti_80 (1d + 1h)": 1,
+      "satis_cifti_95 (4h + 1h)": 4,
+      "satis_cifti_95 (1h + 4h)": 7,
+      "basa_bas": 9,
+      "ema20_alti": 16,
+      "satis_cifti_80 (4h + 1d)": 1,
+      "zarar_siniri_-10": 8,
+      "zarar_siniri_-5": 19,
+      "satis_cifti_80 (1h + 1d)": 1,
+      "satis_cifti_80 (4h + 1h)": 4,
+      "satis_cifti_80 (1h + 4h)": 13
+    },
+    "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+    "t5_after_exit_count": 10
+  },
+  "by_type": {
+    "dip": {
+      "signals": 60,
+      "closed": 59,
+      "open": 1,
+      "wins": 28,
+      "losses": 31,
+      "net_percentage_points": 296.71823762490766,
+      "expectancy_pct": 5.029122671608601,
+      "PF": 3.9049299106254165,
+      "worst_pct": -5.189810189810206,
+      "signals_per_day": 0.2145411203814064,
+      "active_days": 38,
+      "reasons": {
+        "satis_cifti_80 (1d + 1h)": 1,
+        "satis_cifti_95 (4h + 1h)": 4,
+        "satis_cifti_95 (1h + 4h)": 7,
+        "basa_bas": 9,
+        "satis_cifti_80 (4h + 1d)": 1,
+        "zarar_siniri_-5": 19,
+        "satis_cifti_80 (1h + 1d)": 1,
+        "satis_cifti_80 (4h + 1h)": 4,
+        "satis_cifti_80 (1h + 4h)": 13
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 10
+    },
+    "trend": {
+      "signals": 28,
+      "closed": 24,
+      "open": 4,
+      "wins": 5,
+      "losses": 19,
+      "net_percentage_points": -29.510300444949834,
+      "expectancy_pct": -1.22959585187291,
+      "PF": 0.7732078202754714,
+      "worst_pct": -10.179820179820176,
+      "signals_per_day": 0.100119189511323,
+      "active_days": 23,
+      "reasons": {
+        "ema20_alti": 16,
+        "zarar_siniri_-10": 8
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 0
+    }
+  },
+  "by_coin": {
+    "ETHUSDT": {
+      "signals": 6,
+      "closed": 5,
+      "open": 1,
+      "wins": 2,
+      "losses": 3,
+      "net_percentage_points": 21.347606509074794,
+      "expectancy_pct": 4.269521301814959,
+      "PF": 2.4898297885511345,
+      "worst_pct": -5.545856375951452,
+      "signals_per_day": 0.02145411203814064,
+      "active_days": 6,
+      "reasons": {
+        "satis_cifti_95 (4h + 1h)": 1,
+        "ema20_alti": 3,
+        "satis_cifti_80 (1h + 4h)": 1
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 0
+    },
+    "SOLUSDT": {
+      "signals": 9,
+      "closed": 8,
+      "open": 1,
+      "wins": 4,
+      "losses": 4,
+      "net_percentage_points": 13.85707981464085,
+      "expectancy_pct": 1.732134976830106,
+      "PF": 1.7399573938985418,
+      "worst_pct": -7.679383951800234,
+      "signals_per_day": 0.03218116805721096,
+      "active_days": 9,
+      "reasons": {
+        "satis_cifti_95 (1h + 4h)": 1,
+        "ema20_alti": 2,
+        "zarar_siniri_-5": 2,
+        "satis_cifti_80 (1h + 1d)": 1,
+        "satis_cifti_80 (4h + 1h)": 1,
+        "satis_cifti_80 (1h + 4h)": 1
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 0
+    },
+    "BTCUSDT": {
+      "signals": 7,
+      "closed": 6,
+      "open": 1,
+      "wins": 4,
+      "losses": 2,
+      "net_percentage_points": 8.720408290596493,
+      "expectancy_pct": 1.4534013817660822,
+      "PF": 2.6380768558168275,
+      "worst_pct": -5.189810189810162,
+      "signals_per_day": 0.02502979737783075,
+      "active_days": 7,
+      "reasons": {
+        "satis_cifti_95 (1h + 4h)": 1,
+        "zarar_siniri_-5": 1,
+        "satis_cifti_95 (4h + 1h)": 2,
+        "ema20_alti": 2
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 0
+    },
+    "ZECUSDT": {
+      "signals": 10,
+      "closed": 10,
+      "open": 0,
+      "wins": 2,
+      "losses": 8,
+      "net_percentage_points": 191.58176539158976,
+      "expectancy_pct": 19.15817653915898,
+      "PF": 6.115432137317372,
+      "worst_pct": -10.179820179820176,
+      "signals_per_day": 0.03575685339690107,
+      "active_days": 10,
+      "reasons": {
+        "basa_bas": 1,
+        "satis_cifti_80 (4h + 1d)": 1,
+        "ema20_alti": 2,
+        "zarar_siniri_-10": 2,
+        "zarar_siniri_-5": 3,
+        "satis_cifti_80 (1h + 4h)": 1
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 2
+    },
+    "SUIUSDT": {
+      "signals": 8,
+      "closed": 7,
+      "open": 1,
+      "wins": 6,
+      "losses": 1,
+      "net_percentage_points": 27.38542212165581,
+      "expectancy_pct": 3.9122031602365444,
+      "PF": 26.666309093545973,
+      "worst_pct": -1.0669793627842705,
+      "signals_per_day": 0.028605482717520857,
+      "active_days": 8,
+      "reasons": {
+        "satis_cifti_95 (1h + 4h)": 2,
+        "satis_cifti_80 (1d + 1h)": 1,
+        "ema20_alti": 1,
+        "satis_cifti_80 (1h + 4h)": 3
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 0
+    },
+    "AVAXUSDT": {
+      "signals": 13,
+      "closed": 12,
+      "open": 1,
+      "wins": 5,
+      "losses": 7,
+      "net_percentage_points": -19.444457539621794,
+      "expectancy_pct": -1.62037146163515,
+      "PF": 0.4978253213910725,
+      "worst_pct": -8.267333063074567,
+      "signals_per_day": 0.04648390941597139,
+      "active_days": 13,
+      "reasons": {
+        "satis_cifti_95 (4h + 1h)": 1,
+        "satis_cifti_95 (1h + 4h)": 1,
+        "ema20_alti": 2,
+        "zarar_siniri_-5": 5,
+        "satis_cifti_80 (4h + 1h)": 1,
+        "satis_cifti_80 (1h + 4h)": 2
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 1
+    },
+    "TSTUSDT": {
+      "signals": 12,
+      "closed": 12,
+      "open": 0,
+      "wins": 2,
+      "losses": 10,
+      "net_percentage_points": -1.7727330151831242,
+      "expectancy_pct": -0.14772775126526094,
+      "PF": 0.9692367895698698,
+      "worst_pct": -10.179820179820176,
+      "signals_per_day": 0.04290822407628128,
+      "active_days": 12,
+      "reasons": {
+        "basa_bas": 2,
+        "satis_cifti_95 (1h + 4h)": 1,
+        "ema20_alti": 1,
+        "zarar_siniri_-10": 4,
+        "zarar_siniri_-5": 3,
+        "satis_cifti_80 (1h + 4h)": 1
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 3
+    },
+    "LUMIAUSDT": {
+      "signals": 8,
+      "closed": 8,
+      "open": 0,
+      "wins": 3,
+      "losses": 5,
+      "net_percentage_points": 36.498853264430224,
+      "expectancy_pct": 4.562356658053778,
+      "PF": 2.4065583105945993,
+      "worst_pct": -10.179820179820176,
+      "signals_per_day": 0.028605482717520857,
+      "active_days": 8,
+      "reasons": {
+        "basa_bas": 2,
+        "ema20_alti": 1,
+        "zarar_siniri_-10": 2,
+        "zarar_siniri_-5": 1,
+        "satis_cifti_80 (4h + 1h)": 1,
+        "satis_cifti_80 (1h + 4h)": 1
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 0
+    },
+    "MIRAUSDT": {
+      "signals": 15,
+      "closed": 15,
+      "open": 0,
+      "wins": 5,
+      "losses": 10,
+      "net_percentage_points": -10.966007657225397,
+      "expectancy_pct": -0.7310671771483598,
+      "PF": 0.6684078207710256,
+      "worst_pct": -5.9687182600370985,
+      "signals_per_day": 0.0536352800953516,
+      "active_days": 15,
+      "reasons": {
+        "satis_cifti_95 (1h + 4h)": 1,
+        "basa_bas": 4,
+        "ema20_alti": 2,
+        "zarar_siniri_-5": 4,
+        "satis_cifti_80 (4h + 1h)": 1,
+        "satis_cifti_80 (1h + 4h)": 3
+      },
+      "mfe_mae_note": "hourly exit candle extrema may occur after exit inside that candle; not exact execution-path evidence",
+      "t5_after_exit_count": 4
+    }
+  },
+  "trades": [
+    {
+      "t5": null,
+      "cikis_t": 1777420800000.0,
+      "cikis_fiyat": 2289.42,
+      "neden": "ema20_alti",
+      "net": -0.05545856375951452,
+      "net_%": -5.55,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 2419.0,
+        "onceki_20_en_yuksek": 2369.46,
+        "ema20": 2233.862764781466,
+        "ema50": 2198.8443464325487
+      },
+      "alim_t": 1776470400000.0,
+      "alim_fiyat": 2419.0,
+      "symbol": "ETHUSDT",
+      "mfe_pct": 0.3571723852831665,
+      "mae_pct": -6.873914840843332,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1777834800000.0,
+      "cikis_fiyat": 2330.98,
+      "neden": "satis_cifti_95 (4h + 1h)",
+      "net": 0.013370054103970297,
+      "net_%": 1.34,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.66,
+        "f1": true,
+        "4h_macd": -3.2213515048479167,
+        "4h_sinyal": -9.13611234863926,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.031,
+        "btc_4h_rsi": 62.26
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 42,
+        "yuzde": 62.7
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1777482000000.0,
+          1777485600000.0,
+          1777489200000.0,
+          1777492800000.0
+        ],
+        "H4_ALIM": [
+          1777536000000.0
+        ],
+        "G_ALIM40": [
+          1777680000000.0
+        ],
+        "G_ALIM20": [
+          1777680000000.0
+        ]
+      },
+      "alim_t": 1777680000000.0,
+      "alim_fiyat": 2295.63,
+      "symbol": "ETHUSDT",
+      "mfe_pct": 2.089622456580531,
+      "mae_pct": -0.11848599295183337,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1785542400000.0,
+      "cikis_fiyat": 1862.6,
+      "neden": "ema20_alti",
+      "net": -0.0389667718865081,
+      "net_%": -3.9,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 1934.25,
+        "onceki_20_en_yuksek": 1930.09,
+        "ema20": 1832.9261247142483,
+        "ema50": 1827.7631937315525
+      },
+      "alim_t": 1784764800000.0,
+      "alim_fiyat": 1934.25,
+      "symbol": "ETHUSDT",
+      "mfe_pct": 2.4293653871009457,
+      "mae_pct": -4.454439705312141,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1787151600000.0,
+      "cikis_t": 1788508800000.0,
+      "cikis_fiyat": 2504.39,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.3433949066252211,
+      "net_%": 34.34,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.541,
+        "f1": true,
+        "4h_macd": -8.232593187115981,
+        "4h_sinyal": -9.463497932075258,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.2752,
+        "btc_4h_rsi": 51.13
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 55,
+        "yuzde": 78.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1785618000000.0,
+          1785736800000.0,
+          1785740400000.0,
+          1785744000000.0
+        ],
+        "H4_ALIM": [
+          1785643200000.0
+        ],
+        "G_ALIM40": [
+          1785801600000.0
+        ],
+        "G_ALIM20": [
+          1785801600000.0
+        ]
+      },
+      "alim_t": 1785801600000.0,
+      "alim_fiyat": 1860.5,
+      "symbol": "ETHUSDT",
+      "mfe_pct": 37.94840096748187,
+      "mae_pct": -0.6514377855415199,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1789516800000.0,
+      "cikis_fiyat": 2398.26,
+      "neden": "ema20_alti",
+      "net": -0.04886355999242087,
+      "net_%": -4.89,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 2516.43,
+        "onceki_20_en_yuksek": 2514.48,
+        "ema20": 2415.523066003093,
+        "ema50": 2234.314042147122
+      },
+      "alim_t": 1789171200000.0,
+      "alim_fiyat": 2516.43,
+      "symbol": "ETHUSDT",
+      "mfe_pct": 3.9170571007339783,
+      "mae_pct": -6.260853669682831,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": null,
+      "cikis_fiyat": null,
+      "neden": null,
+      "net": null,
+      "net_%": null,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 2612.14,
+        "onceki_20_en_yuksek": 2525.93,
+        "ema20": 2451.7002978700734,
+        "ema50": 2295.7109998372534
+      },
+      "alim_t": 1789776000000.0,
+      "alim_fiyat": 2612.14,
+      "symbol": "ETHUSDT",
+      "mfe_pct": 7.472800079628206,
+      "mae_pct": -2.292373303115436,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1775602800000.0,
+      "cikis_t": 1775880000000.0,
+      "cikis_fiyat": 84.4,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.04208052247146665,
+      "net_%": 4.21,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.873,
+        "f1": true,
+        "4h_macd": -0.4266398444750479,
+        "4h_sinyal": -0.6955239941662736,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.4094,
+        "btc_4h_rsi": 51.19
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 56,
+        "yuzde": 83.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1775091600000.0,
+          1775095200000.0,
+          1775098800000.0,
+          1775102400000.0,
+          1775106000000.0,
+          1775109600000.0
+        ],
+        "H4_ALIM": [
+          1775145600000.0
+        ],
+        "G_ALIM40": [
+          1775347200000.0
+        ],
+        "G_ALIM20": [
+          1775347200000.0
+        ]
+      },
+      "alim_t": 1775347200000.0,
+      "alim_fiyat": 80.83,
+      "symbol": "SOLUSDT",
+      "mfe_pct": 7.658047754546571,
+      "mae_pct": -3.0310528269206993,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1778889600000.0,
+      "cikis_fiyat": 89.24,
+      "neden": "ema20_alti",
+      "net": -0.07679383951800234,
+      "net_%": -7.68,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 96.47,
+        "onceki_20_en_yuksek": 93.13,
+        "ema20": 87.73017972877801,
+        "ema50": 87.21646817794766
+      },
+      "alim_t": 1778457600000.0,
+      "alim_fiyat": 96.47,
+      "symbol": "SOLUSDT",
+      "mfe_pct": 2.0109878718772567,
+      "mae_pct": -8.209806157354615,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1779940800000.0,
+      "cikis_fiyat": 80.807,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101845,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.72,
+        "f1": true,
+        "4h_macd": -0.04293566439916674,
+        "4h_sinyal": -0.10604123014890347,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.0951,
+        "btc_4h_rsi": 54.17
+      },
+      "genislik": {
+        "n": 69,
+        "alt": 43,
+        "yuzde": 62.3
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1779501600000.0,
+          1779505200000.0,
+          1779534000000.0,
+          1779750000000.0,
+          1779753600000.0
+        ],
+        "H4_ALIM": [
+          1779537600000.0
+        ],
+        "G_ALIM40": [
+          1779753600000.0
+        ],
+        "G_ALIM20": [
+          1779753600000.0
+        ]
+      },
+      "alim_t": 1779753600000.0,
+      "alim_fiyat": 85.06,
+      "symbol": "SOLUSDT",
+      "mfe_pct": 1.2579355748883136,
+      "mae_pct": -5.36092170232777,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1784296800000.0,
+      "cikis_fiyat": 73.511,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101734,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "B",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.388,
+        "f1": true,
+        "4h_macd": 0.02403342485295923,
+        "4h_sinyal": -0.20282919327517496,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.0418,
+        "btc_4h_rsi": 60.69
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 53,
+        "yuzde": 75.7
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1784149200000.0
+        ],
+        "H4_ALIM": [
+          1783972800000.0,
+          1784016000000.0
+        ],
+        "G_ALIM40": [
+          1784073600000.0
+        ],
+        "G_ALIM20": [
+          1784073600000.0
+        ]
+      },
+      "alim_t": 1784149200000.0,
+      "alim_fiyat": 77.38,
+      "symbol": "SOLUSDT",
+      "mfe_pct": 0.4652364952184129,
+      "mae_pct": -5.1563711553372915,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1785124800000.0,
+      "cikis_fiyat": 76.4,
+      "neden": "satis_cifti_95 (1h + 4h)",
+      "net": -0.0066785741616381955,
+      "net_%": -0.67,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.381,
+        "f1": true,
+        "4h_macd": -0.22845673582469317,
+        "4h_sinyal": -0.5046950941161887,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.1128,
+        "btc_4h_rsi": 59.91
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 55,
+        "yuzde": 78.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1784908800000.0,
+          1784912400000.0,
+          1784926800000.0
+        ],
+        "H4_ALIM": [
+          1784880000000.0,
+          1784952000000.0
+        ],
+        "G_ALIM40": [
+          1785110400000.0
+        ],
+        "G_ALIM20": [
+          1785110400000.0
+        ]
+      },
+      "alim_t": 1785110400000.0,
+      "alim_fiyat": 76.76,
+      "symbol": "SOLUSDT",
+      "mfe_pct": 0.05211047420530246,
+      "mae_pct": -1.0161542470036533,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1786291200000.0,
+      "cikis_t": 1786579200000.0,
+      "cikis_fiyat": 75.63,
+      "neden": "satis_cifti_80 (1h + 1d)",
+      "net": 0.025110567824135677,
+      "net_%": 2.51,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.523,
+        "f1": true,
+        "4h_macd": -0.21159461957611825,
+        "4h_sinyal": -0.3590534265265142,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.1653,
+        "btc_4h_rsi": 50.64
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 56,
+        "yuzde": 80.0
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1785470400000.0,
+          1785474000000.0,
+          1785495600000.0,
+          1785499200000.0,
+          1785506400000.0,
+          1785538800000.0,
+          1785614400000.0
+        ],
+        "H4_ALIM": [
+          1785628800000.0
+        ],
+        "G_ALIM40": [
+          1785715200000.0
+        ],
+        "G_ALIM20": [
+          1785715200000.0
+        ]
+      },
+      "alim_t": 1785715200000.0,
+      "alim_fiyat": 73.63,
+      "symbol": "SOLUSDT",
+      "mfe_pct": 5.7177780795871325,
+      "mae_pct": -2.2409344017384147,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1789084800000.0,
+      "cikis_fiyat": 98.67,
+      "neden": "ema20_alti",
+      "net": 0.15334805742395363,
+      "net_%": 15.33,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 85.38,
+        "onceki_20_en_yuksek": 77.05,
+        "ema20": 76.33204720773803,
+        "ema50": 75.95278367395889
+      },
+      "alim_t": 1787184000000.0,
+      "alim_fiyat": 85.38,
+      "symbol": "SOLUSDT",
+      "mfe_pct": 29.538533614429618,
+      "mae_pct": -1.6045912391660644,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1789722000000.0,
+      "cikis_t": 1789758000000.0,
+      "cikis_fiyat": 112.18,
+      "neden": "satis_cifti_80 (4h + 1h)",
+      "net": 0.10530026790269664,
+      "net_%": 10.53,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -1.209,
+        "f1": true,
+        "4h_macd": -0.3151525034247129,
+        "4h_sinyal": -0.6606340772290189,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.0938,
+        "btc_4h_rsi": 50.06
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 33,
+        "yuzde": 46.5
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1789444800000.0,
+          1789448400000.0,
+          1789452000000.0,
+          1789455600000.0,
+          1789459200000.0,
+          1789462800000.0,
+          1789513200000.0,
+          1789516800000.0
+        ],
+        "H4_ALIM": [
+          1789545600000.0
+        ],
+        "G_ALIM40": [
+          1789603200000.0
+        ],
+        "G_ALIM20": [
+          1789603200000.0
+        ]
+      },
+      "alim_t": 1789660800000.0,
+      "alim_fiyat": 101.29,
+      "symbol": "SOLUSDT",
+      "mfe_pct": 11.462138414453538,
+      "mae_pct": -0.5923585743903725,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": null,
+      "cikis_fiyat": null,
+      "neden": null,
+      "net": null,
+      "net_%": null,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 112.72,
+        "onceki_20_en_yuksek": 106.55,
+        "ema20": 100.9311784006535,
+        "ema50": 93.90778462587843
+      },
+      "alim_t": 1789776000000.0,
+      "alim_fiyat": 112.72,
+      "symbol": "SOLUSDT",
+      "mfe_pct": 10.849893541518817,
+      "mae_pct": -4.719659332860182,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1774609200000.0,
+      "cikis_fiyat": 67028.903,
+      "neden": "zarar_siniri_-5",
+      "net": -0.05189810189810162,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.055,
+        "f1": true,
+        "4h_macd": -0.47993660809879657,
+        "4h_sinyal": -164.180263302993,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.0126,
+        "btc_4h_rsi": 52.86
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 55,
+        "yuzde": 82.1
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1774144800000.0,
+          1774328400000.0,
+          1774332000000.0,
+          1774375200000.0,
+          1774378800000.0
+        ],
+        "H4_ALIM": [
+          1774195200000.0,
+          1774252800000.0
+        ],
+        "G_ALIM40": [
+          1774396800000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1774396800000.0,
+      "alim_fiyat": 70556.74,
+      "symbol": "BTCUSDT",
+      "mfe_pct": 2.0825083471826877,
+      "mae_pct": -5.995685174796906,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1778889600000.0,
+      "cikis_fiyat": 79113.21,
+      "neden": "ema20_alti",
+      "net": 0.05540906566558368,
+      "net_%": 5.54,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 74809.99,
+        "onceki_20_en_yuksek": 74417.99,
+        "ema20": 71179.33473499301,
+        "ema50": 71155.09459481768
+      },
+      "alim_t": 1776297600000.0,
+      "alim_fiyat": 74809.99,
+      "symbol": "BTCUSDT",
+      "mfe_pct": 10.747241110445271,
+      "mae_pct": -2.005266943626116,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1785963600000.0,
+      "cikis_fiyat": 64822.89,
+      "neden": "satis_cifti_95 (4h + 1h)",
+      "net": -0.0013375461096840624,
+      "net_%": -0.13,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.122,
+        "f1": true,
+        "4h_macd": 33.42018519368867,
+        "4h_sinyal": -93.02569854192512,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.0577,
+        "btc_4h_rsi": 55.72
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 59,
+        "yuzde": 84.3
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1785207600000.0,
+          1785211200000.0
+        ],
+        "H4_ALIM": [
+          1785254400000.0
+        ],
+        "G_ALIM40": [
+          1785456000000.0
+        ],
+        "G_ALIM20": [
+          1785456000000.0
+        ]
+      },
+      "alim_t": 1785456000000.0,
+      "alim_fiyat": 64780.02,
+      "symbol": "BTCUSDT",
+      "mfe_pct": 0.9718119877085485,
+      "mae_pct": -3.8669639188132376,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1789084800000.0,
+      "cikis_fiyat": 76568.72,
+      "neden": "ema20_alti",
+      "net": 0.046430381100970974,
+      "net_%": 4.64,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 73025.15,
+        "onceki_20_en_yuksek": 69334.79,
+        "ema20": 65276.08018414117,
+        "ema50": 64901.776690795275
+      },
+      "alim_t": 1787270400000.0,
+      "alim_fiyat": 73025.15,
+      "symbol": "BTCUSDT",
+      "mfe_pct": 12.700898252177506,
+      "mae_pct": 0.0025607616006340095,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1789729200000.0,
+      "cikis_fiyat": 78285.34,
+      "neden": "satis_cifti_95 (4h + 1h)",
+      "net": 0.017568579820004482,
+      "net_%": 1.76,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.934,
+        "f1": true,
+        "4h_macd": -288.59418842617015,
+        "4h_sinyal": -357.91797597707716,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.2023,
+        "btc_4h_rsi": 50.06
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 33,
+        "yuzde": 46.5
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1789441200000.0,
+          1789444800000.0,
+          1789448400000.0,
+          1789452000000.0,
+          1789455600000.0,
+          1789459200000.0,
+          1789462800000.0,
+          1789466400000.0,
+          1789473600000.0,
+          1789477200000.0,
+          1789480800000.0,
+          1789484400000.0
+        ],
+        "H4_ALIM": [
+          1789545600000.0
+        ],
+        "G_ALIM40": [
+          1789603200000.0
+        ],
+        "G_ALIM20": [
+          1789603200000.0
+        ]
+      },
+      "alim_t": 1789660800000.0,
+      "alim_fiyat": 76780.01,
+      "symbol": "BTCUSDT",
+      "mfe_pct": 2.228158084376397,
+      "mae_pct": -0.6772986875099418,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1790049600000.0,
+      "cikis_fiyat": 85692.83,
+      "neden": "satis_cifti_95 (1h + 4h)",
+      "net": 0.02103170432719148,
+      "net_%": 2.1,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.258,
+        "f1": true,
+        "4h_macd": 1094.1638415306516,
+        "4h_sinyal": 984.0885295890014,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.6123,
+        "btc_4h_rsi": 70.68
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 5,
+        "yuzde": 7.0
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1789855200000.0,
+          1789869600000.0,
+          1789880400000.0,
+          1789887600000.0,
+          1789891200000.0,
+          1789894800000.0
+        ],
+        "H4_ALIM": [
+          1789934400000.0
+        ],
+        "G_ALIM40": [
+          1789776000000.0
+        ],
+        "G_ALIM20": [
+          1789776000000.0
+        ]
+      },
+      "alim_t": 1789981200000.0,
+      "alim_fiyat": 83760.0,
+      "symbol": "BTCUSDT",
+      "mfe_pct": 4.340580229226365,
+      "mae_pct": -0.07163323782235498,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": null,
+      "cikis_fiyat": null,
+      "neden": null,
+      "net": null,
+      "net_%": null,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.074,
+        "f1": true,
+        "4h_macd": 371.1706540888845,
+        "4h_sinyal": 273.89920433961595,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.291,
+        "btc_4h_rsi": 68.95
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 3,
+        "yuzde": 4.2
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1790967600000.0,
+          1790971200000.0,
+          1790974800000.0,
+          1790985600000.0,
+          1790989200000.0,
+          1790992800000.0,
+          1790996400000.0
+        ],
+        "H4_ALIM": [
+          1791028800000.0,
+          1791072000000.0,
+          1791100800000.0
+        ],
+        "G_ALIM40": [
+          1791158400000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1791158400000.0,
+      "alim_fiyat": 86530.0,
+      "symbol": "BTCUSDT",
+      "mfe_pct": 0.5421356754882645,
+      "mae_pct": -4.325378481451525,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1776405600000.0,
+      "cikis_fiyat": 330.012,
+      "neden": "zarar_siniri_-10",
+      "net": -0.10179820179820176,
+      "net_%": -10.18,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 366.68,
+        "onceki_20_en_yuksek": 323.48,
+        "ema20": 263.16313222323953,
+        "ema50": 258.23754094532563
+      },
+      "alim_t": 1775779200000.0,
+      "alim_fiyat": 366.68,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 7.488818588414969,
+      "mae_pct": -10.115086724119127,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1776952800000.0,
+      "cikis_t": 1778371200000.0,
+      "cikis_fiyat": 594.59,
+      "neden": "satis_cifti_80 (4h + 1d)",
+      "net": 0.8747693921142679,
+      "net_%": 87.48,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -2.019,
+        "f1": true,
+        "4h_macd": -1.8902499316303079,
+        "4h_sinyal": -3.265681752073138,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.2753,
+        "btc_4h_rsi": 60.65
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 36,
+        "yuzde": 53.7
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1776646800000.0,
+          1776801600000.0,
+          1776805200000.0
+        ],
+        "H4_ALIM": [
+          1776672000000.0
+        ],
+        "G_ALIM40": [
+          1776902400000.0
+        ],
+        "G_ALIM20": [
+          1776902400000.0
+        ]
+      },
+      "alim_t": 1776902400000.0,
+      "alim_fiyat": 316.52,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 103.14672058637684,
+      "mae_pct": -1.6365474535574354,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1779476400000.0,
+      "cikis_fiyat": 606.186,
+      "neden": "zarar_siniri_-10",
+      "net": -0.10179820179820154,
+      "net_%": -10.18,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 673.54,
+        "onceki_20_en_yuksek": 613.09,
+        "ema20": 525.4991886757545,
+        "ema50": 436.2367077420071
+      },
+      "alim_t": 1779321600000.0,
+      "alim_fiyat": 673.54,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 1.9627639041482459,
+      "mae_pct": -10.434421118270631,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1784851200000.0,
+      "cikis_fiyat": 504.87,
+      "neden": "ema20_alti",
+      "net": -0.00949248317979745,
+      "net_%": -0.95,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 508.69,
+        "onceki_20_en_yuksek": 499.13,
+        "ema20": 460.4156944040473,
+        "ema50": 459.8583528859992
+      },
+      "alim_t": 1783814400000.0,
+      "alim_fiyat": 508.69,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 15.82299632389077,
+      "mae_pct": -3.595510035581595,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1787151600000.0,
+      "cikis_t": 1785168000000.0,
+      "cikis_fiyat": 482.8945,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101734,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -1.321,
+        "f1": true,
+        "4h_macd": -6.097745088582599,
+        "4h_sinyal": -9.427610033450907,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.5738,
+        "btc_4h_rsi": 59.91
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 55,
+        "yuzde": 78.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1784908800000.0,
+          1784973600000.0
+        ],
+        "H4_ALIM": [
+          1784980800000.0
+        ],
+        "G_ALIM40": [
+          1785110400000.0
+        ],
+        "G_ALIM20": [
+          1785110400000.0
+        ]
+      },
+      "alim_t": 1785110400000.0,
+      "alim_fiyat": 508.31,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 0.4446105722885729,
+      "mae_pct": -5.335326867462776,
+      "t5_after_exit": true
+    },
+    {
+      "t5": 1785898800000.0,
+      "cikis_t": 1786024800000.0,
+      "cikis_fiyat": 489.82,
+      "neden": "basa_bas",
+      "net": -0.0019980019980019303,
+      "net_%": -0.2,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -1.287,
+        "f1": true,
+        "4h_macd": 1.8985600235873221,
+        "4h_sinyal": -1.4976106048350222,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.0381,
+        "btc_4h_rsi": 50.64
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 56,
+        "yuzde": 80.0
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1785463200000.0,
+          1785466800000.0,
+          1785474000000.0,
+          1785488400000.0,
+          1785495600000.0,
+          1785625200000.0,
+          1785628800000.0
+        ],
+        "H4_ALIM": [
+          1785556800000.0
+        ],
+        "G_ALIM40": [
+          1785542400000.0
+        ],
+        "G_ALIM20": [
+          1785542400000.0
+        ]
+      },
+      "alim_t": 1785715200000.0,
+      "alim_fiyat": 489.82,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 7.365971173083996,
+      "mae_pct": -3.8953084806663596,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1787151600000.0,
+      "cikis_t": 1788998400000.0,
+      "cikis_fiyat": 1244.28,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 1.4155655269100649,
+      "net_%": 141.56,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.092,
+        "f1": true,
+        "4h_macd": 5.6216897257277765,
+        "4h_sinyal": 2.5309320502411614,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.8116,
+        "btc_4h_rsi": 72.71
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 51,
+        "yuzde": 72.9
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1786788000000.0,
+          1786791600000.0,
+          1786809600000.0,
+          1786849200000.0
+        ],
+        "H4_ALIM": [
+          1786896000000.0
+        ],
+        "G_ALIM40": [
+          1787011200000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1787011200000.0,
+      "alim_fiyat": 514.08,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 152.10473078120134,
+      "mae_pct": -2.7194211017740444,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1789560000000.0,
+      "cikis_t": 1789484400000.0,
+      "cikis_fiyat": 1105.4199999999998,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101956,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.307,
+        "f1": true,
+        "4h_macd": 1.3356566394618312,
+        "4h_sinyal": -6.154371308105562,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.7359,
+        "btc_4h_rsi": 54.75
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 26,
+        "yuzde": 36.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1789192800000.0,
+          1789196400000.0,
+          1789250400000.0,
+          1789257600000.0,
+          1789300800000.0
+        ],
+        "H4_ALIM": [
+          1789358400000.0
+        ],
+        "G_ALIM40": [
+          1789430400000.0
+        ],
+        "G_ALIM20": [
+          1789430400000.0
+        ]
+      },
+      "alim_t": 1789430400000.0,
+      "alim_fiyat": 1163.6,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 0.4993124785149794,
+      "mae_pct": -5.75799243726367,
+      "t5_after_exit": true
+    },
+    {
+      "t5": null,
+      "cikis_t": 1790899200000.0,
+      "cikis_fiyat": 1335.56,
+      "neden": "ema20_alti",
+      "net": -0.0037360706399266475,
+      "net_%": -0.37,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 1337.89,
+        "onceki_20_en_yuksek": 1244.28,
+        "ema20": 1047.941439089335,
+        "ema50": 846.3768483149478
+      },
+      "alim_t": 1789603200000.0,
+      "alim_fiyat": 1337.89,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 26.91626366891149,
+      "mae_pct": -2.4576011480764604,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1791219600000.0,
+      "cikis_fiyat": 1284.7514999999999,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101845,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -3.648,
+        "f1": true,
+        "4h_macd": -22.925364619462016,
+        "4h_sinyal": -31.906331787955786,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.9005,
+        "btc_4h_rsi": 68.95
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 3,
+        "yuzde": 4.2
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1790978400000.0
+        ],
+        "H4_ALIM": [
+          1790928000000.0
+        ],
+        "G_ALIM40": [
+          1791158400000.0
+        ],
+        "G_ALIM20": [
+          1791158400000.0
+        ]
+      },
+      "alim_t": 1791158400000.0,
+      "alim_fiyat": 1352.37,
+      "symbol": "ZECUSDT",
+      "mfe_pct": 1.010818045357409,
+      "mae_pct": -5.499234676900544,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1774454400000.0,
+      "cikis_fiyat": 0.9557,
+      "neden": "satis_cifti_95 (1h + 4h)",
+      "net": 0.0011446515067803364,
+      "net_%": 0.11,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.168,
+        "f1": true,
+        "4h_macd": -0.004269948486125941,
+        "4h_sinyal": -0.00801835019047703,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.2519,
+        "btc_4h_rsi": 52.86
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 55,
+        "yuzde": 82.1
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1774328400000.0,
+          1774332000000.0,
+          1774371600000.0,
+          1774375200000.0,
+          1774378800000.0
+        ],
+        "H4_ALIM": [
+          1774195200000.0,
+          1774267200000.0
+        ],
+        "G_ALIM40": [
+          1774396800000.0
+        ],
+        "G_ALIM20": [
+          1774396800000.0
+        ]
+      },
+      "alim_t": 1774396800000.0,
+      "alim_fiyat": 0.9527,
+      "symbol": "SUIUSDT",
+      "mfe_pct": 2.424687729610575,
+      "mae_pct": -0.8922011126272666,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1775599200000.0,
+      "cikis_t": 1776096000000.0,
+      "cikis_fiyat": 0.913,
+      "neden": "satis_cifti_80 (1d + 1h)",
+      "net": 0.046366357574442185,
+      "net_%": 4.64,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.131,
+        "f1": true,
+        "4h_macd": 0.004030436893080469,
+        "4h_sinyal": 0.0011914261459953848,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.2972,
+        "btc_4h_rsi": 58.38
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 56,
+        "yuzde": 83.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1775368800000.0,
+          1775372400000.0,
+          1775376000000.0,
+          1775379600000.0,
+          1775390400000.0,
+          1775397600000.0,
+          1775512800000.0,
+          1775516400000.0,
+          1775520000000.0
+        ],
+        "H4_ALIM": [
+          1775433600000.0
+        ],
+        "G_ALIM40": [
+          1775433600000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1775520000000.0,
+      "alim_fiyat": 0.8708,
+      "symbol": "SUIUSDT",
+      "mfe_pct": 12.723932016536521,
+      "mae_pct": -1.3780431786862612,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1777986000000.0,
+      "cikis_t": 1778328000000.0,
+      "cikis_fiyat": 1.0536,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.14429742637382215,
+      "net_%": 14.43,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.509,
+        "f1": true,
+        "4h_macd": -0.003089367364292106,
+        "4h_sinyal": -0.0054579829341853256,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.177,
+        "btc_4h_rsi": 62.26
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 42,
+        "yuzde": 62.7
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1777482000000.0
+        ],
+        "H4_ALIM": [
+          1777521600000.0
+        ],
+        "G_ALIM40": [
+          1777680000000.0
+        ],
+        "G_ALIM20": [
+          1777680000000.0
+        ]
+      },
+      "alim_t": 1777680000000.0,
+      "alim_fiyat": 0.9189,
+      "symbol": "SUIUSDT",
+      "mfe_pct": 20.361301556208524,
+      "mae_pct": -0.7835455435847294,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1778976000000.0,
+      "cikis_fiyat": 1.061,
+      "neden": "ema20_alti",
+      "net": -0.010669793627842705,
+      "net_%": -1.07,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 1.0703,
+        "onceki_20_en_yuksek": 1.0218,
+        "ema20": 0.9611738380938504,
+        "ema50": 0.9589621865638498
+      },
+      "alim_t": 1778371200000.0,
+      "alim_fiyat": 1.0703,
+      "symbol": "SUIUSDT",
+      "mfe_pct": 32.887975334018485,
+      "mae_pct": -3.167336260861442,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1786219200000.0,
+      "cikis_fiyat": 0.696,
+      "neden": "satis_cifti_95 (1h + 4h)",
+      "net": 0.003480772333704918,
+      "net_%": 0.35,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.846,
+        "f1": true,
+        "4h_macd": -0.00491281121258913,
+        "4h_sinyal": -0.007676172975527155,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.4381,
+        "btc_4h_rsi": 55.72
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 59,
+        "yuzde": 84.3
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1785204000000.0,
+          1785207600000.0
+        ],
+        "H4_ALIM": [
+          1785254400000.0
+        ],
+        "G_ALIM40": [
+          1785283200000.0,
+          1785456000000.0
+        ],
+        "G_ALIM20": [
+          1785283200000.0,
+          1785456000000.0
+        ]
+      },
+      "alim_t": 1785456000000.0,
+      "alim_fiyat": 0.6922,
+      "symbol": "SUIUSDT",
+      "mfe_pct": 2.1525570644322256,
+      "mae_pct": -4.218433978618896,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1787241600000.0,
+      "cikis_t": 1787256000000.0,
+      "cikis_fiyat": 0.7247,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.02443632854397748,
+      "net_%": 2.44,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.285,
+        "f1": true,
+        "4h_macd": 0.0013136915922887793,
+        "4h_sinyal": -0.004020265372333548,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.1512,
+        "btc_4h_rsi": 85.57
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 29,
+        "yuzde": 41.4
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1787032800000.0
+        ],
+        "H4_ALIM": [
+          1787068800000.0
+        ],
+        "G_ALIM40": [
+          1787184000000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1787184000000.0,
+      "alim_fiyat": 0.706,
+      "symbol": "SUIUSDT",
+      "mfe_pct": 6.685552407932005,
+      "mae_pct": -2.195467422096309,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1789700400000.0,
+      "cikis_t": 1789718400000.0,
+      "cikis_fiyat": 0.7827,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.06479847851167375,
+      "net_%": 6.48,
+      "tip": "dip",
+      "yol": "B",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -1.014,
+        "f1": true,
+        "4h_macd": -0.001726498509412533,
+        "4h_sinyal": -0.007236508879571046,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.1196,
+        "btc_4h_rsi": 50.06
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 33,
+        "yuzde": 46.5
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1789437600000.0,
+          1789441200000.0,
+          1789444800000.0,
+          1789448400000.0,
+          1789452000000.0,
+          1789455600000.0,
+          1789459200000.0,
+          1789462800000.0
+        ],
+        "H4_ALIM": [
+          1789560000000.0
+        ],
+        "G_ALIM40": [
+          1789430400000.0
+        ],
+        "G_ALIM20": [
+          1789430400000.0
+        ]
+      },
+      "alim_t": 1789660800000.0,
+      "alim_fiyat": 0.7336,
+      "symbol": "SUIUSDT",
+      "mfe_pct": 7.619956379498349,
+      "mae_pct": -0.6134133042530077,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": null,
+      "cikis_fiyat": null,
+      "neden": null,
+      "net": null,
+      "net_%": null,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.8575,
+        "onceki_20_en_yuksek": 0.8185,
+        "ema20": 0.7572979925300477,
+        "ema50": 0.7480842401411121
+      },
+      "alim_t": 1789862400000.0,
+      "alim_fiyat": 0.8575,
+      "symbol": "SUIUSDT",
+      "mfe_pct": 50.985422740524776,
+      "mae_pct": -5.679300291545197,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1774454400000.0,
+      "cikis_fiyat": 9.67,
+      "neden": "satis_cifti_95 (1h + 4h)",
+      "net": 0.003189118573734273,
+      "net_%": 0.32,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.203,
+        "f1": true,
+        "4h_macd": 0.005637873253117931,
+        "4h_sinyal": -0.04235417706960654,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.0245,
+        "btc_4h_rsi": 52.86
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 55,
+        "yuzde": 82.1
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1774184400000.0,
+          1774368000000.0,
+          1774371600000.0,
+          1774375200000.0,
+          1774378800000.0,
+          1774382400000.0
+        ],
+        "H4_ALIM": [
+          1774224000000.0
+        ],
+        "G_ALIM40": [
+          1774396800000.0
+        ],
+        "G_ALIM20": [
+          1774396800000.0
+        ]
+      },
+      "alim_t": 1774396800000.0,
+      "alim_fiyat": 9.62,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 1.8711018711018879,
+      "mae_pct": -0.6237006237006071,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1778266800000.0,
+      "cikis_t": 1777489200000.0,
+      "cikis_fiyat": 8.968,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101734,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.068,
+        "f1": true,
+        "4h_macd": -0.0008875192562420864,
+        "4h_sinyal": -0.0033127741119198363,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.0128,
+        "btc_4h_rsi": 57.37
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 32,
+        "yuzde": 47.8
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1776884400000.0,
+          1776888000000.0,
+          1776895200000.0,
+          1776898800000.0,
+          1776902400000.0,
+          1776916800000.0
+        ],
+        "H4_ALIM": [
+          1776960000000.0
+        ],
+        "G_ALIM40": [
+          1776902400000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1777032000000.0,
+      "alim_fiyat": 9.44,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 1.3771186440677985,
+      "mae_pct": -5.508474576271183,
+      "t5_after_exit": true
+    },
+    {
+      "t5": 1778040000000.0,
+      "cikis_t": 1778328000000.0,
+      "cikis_fiyat": 9.93,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.08783313283862126,
+      "net_%": 8.78,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.332,
+        "f1": true,
+        "4h_macd": -0.02975342480734966,
+        "4h_sinyal": -0.03229820333827903,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.2339,
+        "btc_4h_rsi": 62.25
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 35,
+        "yuzde": 52.2
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1777590000000.0,
+          1777680000000.0,
+          1777683600000.0,
+          1777687200000.0,
+          1777788000000.0
+        ],
+        "H4_ALIM": [
+          1777824000000.0
+        ],
+        "G_ALIM40": [
+          1777766400000.0
+        ],
+        "G_ALIM20": [
+          1777766400000.0
+        ]
+      },
+      "alim_t": 1777824000000.0,
+      "alim_fiyat": 9.11,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 11.086717892425902,
+      "mae_pct": -1.3172338090010838,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1778889600000.0,
+      "cikis_fiyat": 9.54,
+      "neden": "ema20_alti",
+      "net": -0.04504121755877022,
+      "net_%": -4.5,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 9.97,
+        "onceki_20_en_yuksek": 9.91,
+        "ema20": 9.417985343399481,
+        "ema50": 9.408174960903485
+      },
+      "alim_t": 1778371200000.0,
+      "alim_fiyat": 9.97,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 5.21564694082246,
+      "mae_pct": -5.616850551654973,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1779523200000.0,
+      "cikis_fiyat": 8.913849999999998,
+      "neden": "zarar_siniri_-5",
+      "net": -0.05189810189810207,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.681,
+        "f1": true,
+        "4h_macd": -0.03126760735735701,
+        "4h_sinyal": -0.07491762572894689,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.1941,
+        "btc_4h_rsi": 55.37
+      },
+      "genislik": {
+        "n": 69,
+        "alt": 47,
+        "yuzde": 68.1
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1779098400000.0,
+          1779102000000.0,
+          1779202800000.0
+        ],
+        "H4_ALIM": [
+          1779120000000.0
+        ],
+        "G_ALIM40": [
+          1779321600000.0
+        ],
+        "G_ALIM20": [
+          1779321600000.0
+        ]
+      },
+      "alim_t": 1779336000000.0,
+      "alim_fiyat": 9.383,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 2.3340083129063327,
+      "mae_pct": -5.76574656293295,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1779944400000.0,
+      "cikis_fiyat": 8.8445,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101956,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.434,
+        "f1": true,
+        "4h_macd": 0.013846910751084351,
+        "4h_sinyal": -0.0017673307073649111,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.0911,
+        "btc_4h_rsi": 54.17
+      },
+      "genislik": {
+        "n": 69,
+        "alt": 43,
+        "yuzde": 62.3
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1779530400000.0,
+          1779534000000.0,
+          1779620400000.0,
+          1779627600000.0,
+          1779660000000.0,
+          1779750000000.0,
+          1779753600000.0
+        ],
+        "H4_ALIM": [
+          1779552000000.0
+        ],
+        "G_ALIM40": [
+          1779753600000.0
+        ],
+        "G_ALIM20": [
+          1779753600000.0
+        ]
+      },
+      "alim_t": 1779753600000.0,
+      "alim_fiyat": 9.31,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 1.933404940923733,
+      "mae_pct": -6.337271750805584,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1784296800000.0,
+      "cikis_fiyat": 6.376399999999999,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101845,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.362,
+        "f1": true,
+        "4h_macd": -0.007235619942203009,
+        "4h_sinyal": -0.036577545720322416,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.0468,
+        "btc_4h_rsi": 66.04
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 53,
+        "yuzde": 75.7
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1783821600000.0,
+          1783972800000.0,
+          1783980000000.0
+        ],
+        "H4_ALIM": [
+          1783872000000.0
+        ],
+        "G_ALIM40": [
+          1784073600000.0
+        ],
+        "G_ALIM20": [
+          1784073600000.0
+        ]
+      },
+      "alim_t": 1784073600000.0,
+      "alim_fiyat": 6.712,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 0.9088200238378974,
+      "mae_pct": -5.050655542312265,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1785196800000.0,
+      "cikis_fiyat": 6.4087000000000005,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101845,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.428,
+        "f1": true,
+        "4h_macd": 0.07198535405658735,
+        "4h_sinyal": 0.03284931713695183,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.604,
+        "btc_4h_rsi": 59.91
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 55,
+        "yuzde": 78.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1784858400000.0,
+          1785063600000.0,
+          1785067200000.0,
+          1785070800000.0,
+          1785074400000.0,
+          1785078000000.0,
+          1785088800000.0,
+          1785092400000.0,
+          1785099600000.0,
+          1785103200000.0
+        ],
+        "H4_ALIM": [
+          1784880000000.0,
+          1784923200000.0
+        ],
+        "G_ALIM40": [
+          1785110400000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1785110400000.0,
+      "alim_fiyat": 6.746,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 0.01482359916986642,
+      "mae_pct": -5.484731692855027,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1785794400000.0,
+      "cikis_fiyat": 6.577,
+      "neden": "satis_cifti_95 (4h + 1h)",
+      "net": 0.0016571251120314212,
+      "net_%": 0.17,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.025,
+        "f1": true,
+        "4h_macd": 0.021373110481642144,
+        "4h_sinyal": -0.011136212775920917,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.4179,
+        "btc_4h_rsi": 50.64
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 56,
+        "yuzde": 80.0
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1785585600000.0,
+          1785589200000.0,
+          1785618000000.0,
+          1785715200000.0
+        ],
+        "H4_ALIM": [
+          1785614400000.0
+        ],
+        "G_ALIM40": [
+          1785715200000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1785715200000.0,
+      "alim_fiyat": 6.553,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 0.6867083778422156,
+      "mae_pct": -2.807874256065923,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1788728400000.0,
+      "cikis_t": 1788746400000.0,
+      "cikis_fiyat": 7.826,
+      "neden": "satis_cifti_80 (4h + 1h)",
+      "net": 0.057455136252861694,
+      "net_%": 5.75,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.205,
+        "f1": true,
+        "4h_macd": 0.04350591794739067,
+        "4h_sinyal": 0.03653090259297197,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.303,
+        "btc_4h_rsi": 53.7
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 15,
+        "yuzde": 21.1
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1788314400000.0
+        ],
+        "H4_ALIM": [
+          1788393600000.0
+        ],
+        "G_ALIM40": [
+          1788566400000.0
+        ],
+        "G_ALIM20": [
+          1788566400000.0
+        ]
+      },
+      "alim_t": 1788566400000.0,
+      "alim_fiyat": 7.386,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 7.798537774167347,
+      "mae_pct": -0.12185215272136896,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1789084800000.0,
+      "cikis_fiyat": 7.425,
+      "neden": "ema20_alti",
+      "net": -0.08267333063074567,
+      "net_%": -8.27,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 8.078,
+        "onceki_20_en_yuksek": 7.908,
+        "ema20": 7.360921501077292,
+        "ema50": 7.082571164717463
+      },
+      "alim_t": 1788825600000.0,
+      "alim_fiyat": 8.078,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 1.497895518692749,
+      "mae_pct": -8.157959891062138,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1789729200000.0,
+      "cikis_t": 1789732800000.0,
+      "cikis_fiyat": 7.944,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.042625969506558725,
+      "net_%": 4.26,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.598,
+        "f1": true,
+        "4h_macd": 0.012344833872380612,
+        "4h_sinyal": -0.022650767691476028,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.1951,
+        "btc_4h_rsi": 50.06
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 33,
+        "yuzde": 46.5
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1789452000000.0,
+          1789455600000.0,
+          1789459200000.0,
+          1789462800000.0,
+          1789513200000.0,
+          1789527600000.0
+        ],
+        "H4_ALIM": [
+          1789560000000.0
+        ],
+        "G_ALIM40": [
+          1789430400000.0
+        ],
+        "G_ALIM20": [
+          1789430400000.0
+        ]
+      },
+      "alim_t": 1789660800000.0,
+      "alim_fiyat": 7.604,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 5.628616517622298,
+      "mae_pct": -0.7364544976328213,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": null,
+      "cikis_fiyat": null,
+      "neden": null,
+      "net": null,
+      "net_%": null,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 8.204,
+        "onceki_20_en_yuksek": 8.078,
+        "ema20": 7.523423606474615,
+        "ema50": 7.264717136328758
+      },
+      "alim_t": 1789776000000.0,
+      "alim_fiyat": 8.204,
+      "symbol": "AVAXUSDT",
+      "mfe_pct": 46.367625548512905,
+      "mae_pct": -0.024378352023413097,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1775152800000.0,
+      "cikis_t": 1775106000000.0,
+      "cikis_fiyat": 0.0081795,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101845,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "B",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.084,
+        "f1": true,
+        "4h_macd": 4.637552238386834e-05,
+        "4h_sinyal": -8.461500284268631e-06,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.0483,
+        "btc_4h_rsi": 52.93
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 56,
+        "yuzde": 83.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1775048400000.0,
+          1775052000000.0,
+          1775055600000.0
+        ],
+        "H4_ALIM": [
+          1774857600000.0
+        ],
+        "G_ALIM40": [
+          1775001600000.0
+        ],
+        "G_ALIM20": [
+          1775001600000.0
+        ]
+      },
+      "alim_t": 1775088000000.0,
+      "alim_fiyat": 0.00861,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 1.3937282229965264,
+      "mae_pct": -5.458768873403019,
+      "t5_after_exit": true
+    },
+    {
+      "t5": null,
+      "cikis_t": 1776495600000.0,
+      "cikis_fiyat": 0.013427999999999999,
+      "neden": "zarar_siniri_-10",
+      "net": -0.10179820179820165,
+      "net_%": -10.18,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.01492,
+        "onceki_20_en_yuksek": 0.01443,
+        "ema20": 0.010038045567976142,
+        "ema50": 0.009894023535889328
+      },
+      "alim_t": 1776470400000.0,
+      "alim_fiyat": 0.01492,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 4.758713136729242,
+      "mae_pct": -20.978552278820374,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1777770000000.0,
+      "cikis_t": 1777773600000.0,
+      "cikis_fiyat": 0.01142,
+      "neden": "basa_bas",
+      "net": -0.0019980019980018193,
+      "net_%": -0.2,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.913,
+        "f1": true,
+        "4h_macd": 2.7769635262849673e-05,
+        "4h_sinyal": -5.019103217688356e-05,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.1045,
+        "btc_4h_rsi": 64.99
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 35,
+        "yuzde": 52.2
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1777582800000.0,
+          1777586400000.0,
+          1777590000000.0,
+          1777680000000.0,
+          1777726800000.0
+        ],
+        "H4_ALIM": [
+          1777622400000.0
+        ],
+        "G_ALIM40": [
+          1777766400000.0
+        ],
+        "G_ALIM20": [
+          1777766400000.0
+        ]
+      },
+      "alim_t": 1777766400000.0,
+      "alim_fiyat": 0.01142,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 8.669001751313488,
+      "mae_pct": -0.26269702276706663,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1778976000000.0,
+      "cikis_fiyat": 0.01812,
+      "neden": "ema20_alti",
+      "net": 0.1842695614797778,
+      "net_%": 18.43,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.01527,
+        "onceki_20_en_yuksek": 0.01492,
+        "ema20": 0.011250870142056639,
+        "ema50": 0.010612254375310352
+      },
+      "alim_t": 1777852800000.0,
+      "alim_fiyat": 0.01527,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 127.37393582187293,
+      "mae_pct": -2.881466928618215,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1786093200000.0,
+      "cikis_t": 1787342400000.0,
+      "cikis_fiyat": 0.01545,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.37425408815783157,
+      "net_%": 37.43,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.45,
+        "f1": true,
+        "4h_macd": -5.286391071824062e-05,
+        "4h_sinyal": -0.0001932678890378703,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.0105,
+        "btc_4h_rsi": 53.33
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 59,
+        "yuzde": 84.3
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1785826800000.0,
+          1785830400000.0,
+          1785834000000.0,
+          1785837600000.0,
+          1785841200000.0,
+          1785844800000.0,
+          1785848400000.0,
+          1785852000000.0,
+          1785855600000.0,
+          1785859200000.0,
+          1785862800000.0,
+          1785866400000.0,
+          1785870000000.0,
+          1785873600000.0,
+          1785877200000.0,
+          1785880800000.0,
+          1785884400000.0,
+          1785888000000.0,
+          1785891600000.0
+        ],
+        "H4_ALIM": [
+          1785902400000.0
+        ],
+        "G_ALIM40": [
+          1786060800000.0
+        ],
+        "G_ALIM20": [
+          1786060800000.0
+        ]
+      },
+      "alim_t": 1786060800000.0,
+      "alim_fiyat": 0.01122,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 135.0267379679144,
+      "mae_pct": -4.634581105169355,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1787911200000.0,
+      "cikis_t": 1787601600000.0,
+      "cikis_fiyat": 0.0153425,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101845,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.135,
+        "f1": true,
+        "4h_macd": 0.0004153727377473673,
+        "4h_sinyal": 0.00037984025682047997,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 1.4817,
+        "btc_4h_rsi": 66.52
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 8,
+        "yuzde": 11.4
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1787472000000.0
+        ],
+        "H4_ALIM": [
+          1787443200000.0
+        ],
+        "G_ALIM40": [
+          1787443200000.0
+        ],
+        "G_ALIM20": [
+          1787443200000.0
+        ]
+      },
+      "alim_t": 1787472000000.0,
+      "alim_fiyat": 0.01615,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 3.962848297213606,
+      "mae_pct": -5.696594427244584,
+      "t5_after_exit": true
+    },
+    {
+      "t5": 1788548400000.0,
+      "cikis_t": 1788526800000.0,
+      "cikis_fiyat": 0.0164825,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101956,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.225,
+        "f1": true,
+        "4h_macd": 0.00017996553799225906,
+        "4h_sinyal": 4.994631419756227e-05,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.7458,
+        "btc_4h_rsi": 71.23
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 10,
+        "yuzde": 14.1
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1788264000000.0,
+          1788267600000.0,
+          1788271200000.0,
+          1788296400000.0,
+          1788300000000.0,
+          1788357600000.0,
+          1788429600000.0,
+          1788433200000.0
+        ],
+        "H4_ALIM": [
+          1788336000000.0
+        ],
+        "G_ALIM40": [
+          1788480000000.0
+        ],
+        "G_ALIM20": [
+          1788480000000.0
+        ]
+      },
+      "alim_t": 1788480000000.0,
+      "alim_fiyat": 0.01735,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 0.057636887608070175,
+      "mae_pct": -6.05187319884728,
+      "t5_after_exit": true
+    },
+    {
+      "t5": null,
+      "cikis_t": 1788764400000.0,
+      "cikis_fiyat": 0.016767,
+      "neden": "zarar_siniri_-10",
+      "net": -0.10179820179820176,
+      "net_%": -10.18,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.01863,
+        "onceki_20_en_yuksek": 0.01842,
+        "ema20": 0.016426546721660856,
+        "ema50": 0.014964308646269232
+      },
+      "alim_t": 1788652800000.0,
+      "alim_fiyat": 0.01863,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 2.7375201288244666,
+      "mae_pct": -10.520665593129364,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1789790400000.0,
+      "cikis_fiyat": 0.01613,
+      "neden": "satis_cifti_95 (1h + 4h)",
+      "net": -0.00936786290632452,
+      "net_%": -0.94,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -1.152,
+        "f1": true,
+        "4h_macd": 0.00016053867277470053,
+        "4h_sinyal": 4.776774220331054e-06,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.5162,
+        "btc_4h_rsi": 75.24
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 5,
+        "yuzde": 7.0
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1789524000000.0,
+          1789527600000.0,
+          1789531200000.0
+        ],
+        "H4_ALIM": [
+          1789574400000.0
+        ],
+        "G_ALIM40": [
+          1789776000000.0
+        ],
+        "G_ALIM20": [
+          1789776000000.0
+        ]
+      },
+      "alim_t": 1789776000000.0,
+      "alim_fiyat": 0.01625,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 1.538461538461533,
+      "mae_pct": -1.9076923076923102,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1790175600000.0,
+      "cikis_fiyat": 0.017001000000000002,
+      "neden": "zarar_siniri_-10",
+      "net": -0.10179820179820154,
+      "net_%": -10.18,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.01889,
+        "onceki_20_en_yuksek": 0.01863,
+        "ema20": 0.016186246893386987,
+        "ema50": 0.015516623384547781
+      },
+      "alim_t": 1790121600000.0,
+      "alim_fiyat": 0.01889,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 1.4822657490735747,
+      "mae_pct": -11.646373742721018,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1790600400000.0,
+      "cikis_fiyat": 0.017217000000000003,
+      "neden": "zarar_siniri_-10",
+      "net": -0.10179820179820165,
+      "net_%": -10.18,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.01913,
+        "onceki_20_en_yuksek": 0.01889,
+        "ema20": 0.016559127275539008,
+        "ema50": 0.015724011052018157
+      },
+      "alim_t": 1790294400000.0,
+      "alim_fiyat": 0.01913,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 2.718243596445369,
+      "mae_pct": -11.23889179299531,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1791187200000.0,
+      "cikis_t": 1791252000000.0,
+      "cikis_fiyat": 0.01842,
+      "neden": "basa_bas",
+      "net": -0.0019980019980020414,
+      "net_%": -0.2,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.307,
+        "f1": true,
+        "4h_macd": 0.00011107720071410268,
+        "4h_sinyal": -8.009164043052857e-05,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.4374,
+        "btc_4h_rsi": 68.95
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 3,
+        "yuzde": 4.2
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1790974800000.0
+        ],
+        "H4_ALIM": [
+          1790913600000.0,
+          1790985600000.0
+        ],
+        "G_ALIM40": [
+          1791158400000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1791158400000.0,
+      "alim_fiyat": 0.01842,
+      "symbol": "TSTUSDT",
+      "mfe_pct": 10.532030401737247,
+      "mae_pct": -1.0314875135722046,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1775145600000.0,
+      "cikis_t": 1775145600000.0,
+      "cikis_fiyat": 0.0706,
+      "neden": "satis_cifti_80 (4h + 1h)",
+      "net": 0.03010147746989844,
+      "net_%": 3.01,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -1.029,
+        "f1": true,
+        "4h_macd": -0.0009078482471742422,
+        "4h_sinyal": -0.0016971651611026647,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.4797,
+        "btc_4h_rsi": 52.93
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 56,
+        "yuzde": 83.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1774832400000.0,
+          1774836000000.0,
+          1774911600000.0
+        ],
+        "H4_ALIM": [
+          1774843200000.0,
+          1774944000000.0
+        ],
+        "G_ALIM40": [
+          1775088000000.0
+        ],
+        "G_ALIM20": [
+          1775088000000.0
+        ]
+      },
+      "alim_t": 1775088000000.0,
+      "alim_fiyat": 0.0684,
+      "symbol": "LUMIAUSDT",
+      "mfe_pct": 6.725146198830401,
+      "mae_pct": -3.2163742690058617,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1778025600000.0,
+      "cikis_fiyat": 0.1361,
+      "neden": "ema20_alti",
+      "net": 0.5666444282361238,
+      "net_%": 56.66,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.0867,
+        "onceki_20_en_yuksek": 0.0796,
+        "ema20": 0.07528102530486333,
+        "ema50": 0.0738475273287838
+      },
+      "alim_t": 1776124800000.0,
+      "alim_fiyat": 0.0867,
+      "symbol": "LUMIAUSDT",
+      "mfe_pct": 149.94232987312571,
+      "mae_pct": -4.036908881199541,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1782194400000.0,
+      "cikis_fiyat": 0.12321,
+      "neden": "zarar_siniri_-10",
+      "net": -0.10179820179820176,
+      "net_%": -10.18,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.1369,
+        "onceki_20_en_yuksek": 0.1317,
+        "ema20": 0.10502664003717446,
+        "ema50": 0.10360510315929111
+      },
+      "alim_t": 1782172800000.0,
+      "alim_fiyat": 0.1369,
+      "symbol": "LUMIAUSDT",
+      "mfe_pct": 3.0679327976625315,
+      "mae_pct": -12.125639152666167,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1783231200000.0,
+      "cikis_t": 1783281600000.0,
+      "cikis_fiyat": 0.1279,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.02773313642878894,
+      "net_%": 2.77,
+      "tip": "dip",
+      "yol": "B",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.363,
+        "f1": true,
+        "4h_macd": 0.001999482421830248,
+        "4h_sinyal": 0.0006225475779335411,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 1.1721,
+        "btc_4h_rsi": 66.8
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 51,
+        "yuzde": 72.9
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1783029600000.0,
+          1783033200000.0,
+          1783036800000.0,
+          1783040400000.0
+        ],
+        "H4_ALIM": [
+          1782921600000.0
+        ],
+        "G_ALIM40": [
+          1783123200000.0
+        ],
+        "G_ALIM20": [
+          1783123200000.0
+        ]
+      },
+      "alim_t": 1783123200000.0,
+      "alim_fiyat": 0.1242,
+      "symbol": "LUMIAUSDT",
+      "mfe_pct": 9.09822866344605,
+      "mae_pct": -2.8180354267310803,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1783530000000.0,
+      "cikis_fiyat": 0.12402,
+      "neden": "zarar_siniri_-10",
+      "net": -0.10179820179820176,
+      "net_%": -10.18,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.1378,
+        "onceki_20_en_yuksek": 0.1369,
+        "ema20": 0.12093915493466707,
+        "ema50": 0.11306336098570485
+      },
+      "alim_t": 1783468800000.0,
+      "alim_fiyat": 0.1378,
+      "symbol": "LUMIAUSDT",
+      "mfe_pct": 0.2902757619738683,
+      "mae_pct": -10.957910014513795,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1788526800000.0,
+      "cikis_fiyat": 0.082745,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101734,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.201,
+        "f1": true,
+        "4h_macd": -0.00027421588417061993,
+        "4h_sinyal": -0.00036593346301176785,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.349,
+        "btc_4h_rsi": 75.18
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 20,
+        "yuzde": 28.2
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1788310800000.0,
+          1788314400000.0,
+          1788379200000.0,
+          1788400800000.0
+        ],
+        "H4_ALIM": [
+          1788422400000.0
+        ],
+        "G_ALIM40": [
+          1788220800000.0
+        ],
+        "G_ALIM20": [
+          1788220800000.0
+        ]
+      },
+      "alim_t": 1788454800000.0,
+      "alim_fiyat": 0.0871,
+      "symbol": "LUMIAUSDT",
+      "mfe_pct": 1.0332950631458004,
+      "mae_pct": -5.625717566016075,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1789819200000.0,
+      "cikis_t": 1789902000000.0,
+      "cikis_fiyat": 0.0753,
+      "neden": "basa_bas",
+      "net": -0.0019980019980018193,
+      "net_%": -0.2,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.858,
+        "f1": true,
+        "4h_macd": -0.00021753653989371735,
+        "4h_sinyal": -0.0007351744287368827,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.3406,
+        "btc_4h_rsi": 57.13
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 20,
+        "yuzde": 28.2
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1789473600000.0,
+          1789578000000.0
+        ],
+        "H4_ALIM": [
+          1789545600000.0
+        ],
+        "G_ALIM40": [
+          1789689600000.0
+        ],
+        "G_ALIM20": [
+          1789689600000.0
+        ]
+      },
+      "alim_t": 1789704000000.0,
+      "alim_fiyat": 0.0753,
+      "symbol": "LUMIAUSDT",
+      "mfe_pct": 6.108897742363872,
+      "mae_pct": -0.7968127490039834,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1791284400000.0,
+      "cikis_t": 1791342000000.0,
+      "cikis_fiyat": 0.089,
+      "neden": "basa_bas",
+      "net": -0.0019980019980019303,
+      "net_%": -0.2,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.386,
+        "f1": true,
+        "4h_macd": 0.0007979634264065755,
+        "4h_sinyal": 0.00034377479280624175,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.6313,
+        "btc_4h_rsi": 56.13
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 2,
+        "yuzde": 2.8
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1791115200000.0
+        ],
+        "H4_ALIM": [
+          1791043200000.0
+        ],
+        "G_ALIM40": [
+          1791244800000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1791244800000.0,
+      "alim_fiyat": 0.089,
+      "symbol": "LUMIAUSDT",
+      "mfe_pct": 7.640449438202257,
+      "mae_pct": -1.6853932584269704,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1769306400000.0,
+      "cikis_t": 1768510800000.0,
+      "cikis_fiyat": 0.1349,
+      "neden": "zarar_siniri_-5",
+      "net": -0.05189810189810162,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.013,
+        "f1": true,
+        "4h_macd": -0.0016812781471608196,
+        "4h_sinyal": -0.001793974747927474,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.735,
+        "btc_4h_rsi": 71.78
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 49,
+        "yuzde": 73.1
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1768093200000.0,
+          1768150800000.0,
+          1768176000000.0,
+          1768179600000.0,
+          1768183200000.0,
+          1768186800000.0,
+          1768190400000.0,
+          1768194000000.0,
+          1768197600000.0,
+          1768201200000.0,
+          1768204800000.0,
+          1768208400000.0,
+          1768212000000.0,
+          1768215600000.0
+        ],
+        "H4_ALIM": [
+          1768233600000.0,
+          1768291200000.0
+        ],
+        "G_ALIM40": [
+          1768176000000.0
+        ],
+        "G_ALIM20": [
+          1768176000000.0
+        ]
+      },
+      "alim_t": 1768345200000.0,
+      "alim_fiyat": 0.142,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 2.1126760563380254,
+      "mae_pct": -5.1408450704225395,
+      "t5_after_exit": true
+    },
+    {
+      "t5": 1773662400000.0,
+      "cikis_t": 1773720000000.0,
+      "cikis_fiyat": 0.0856,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.04308877935251565,
+      "net_%": 4.31,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.123,
+        "f1": true,
+        "4h_macd": -0.00017486452801698804,
+        "4h_sinyal": -0.0003246178656699199,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.3359,
+        "btc_4h_rsi": 56.85
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 55,
+        "yuzde": 82.1
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1773442800000.0,
+          1773446400000.0,
+          1773486000000.0
+        ],
+        "H4_ALIM": [
+          1773489600000.0
+        ],
+        "G_ALIM40": [
+          1773532800000.0
+        ],
+        "G_ALIM20": [
+          1773532800000.0
+        ]
+      },
+      "alim_t": 1773532800000.0,
+      "alim_fiyat": 0.0819,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 7.2039072039072005,
+      "mae_pct": -1.2210012210012167,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1775487600000.0,
+      "cikis_t": 1774609200000.0,
+      "cikis_fiyat": 0.07685499999999999,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101956,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "B",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.294,
+        "f1": true,
+        "4h_macd": -0.00035293216369411406,
+        "4h_sinyal": -0.0006440697698607753,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.329,
+        "btc_4h_rsi": 52.86
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 55,
+        "yuzde": 82.1
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1774328400000.0,
+          1774332000000.0,
+          1774335600000.0
+        ],
+        "H4_ALIM": [
+          1774195200000.0
+        ],
+        "G_ALIM40": [
+          1774310400000.0
+        ],
+        "G_ALIM20": [
+          1774310400000.0
+        ]
+      },
+      "alim_t": 1774396800000.0,
+      "alim_fiyat": 0.0809,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 0.8652657601977864,
+      "mae_pct": -6.427688504326323,
+      "t5_after_exit": true
+    },
+    {
+      "t5": 1775473200000.0,
+      "cikis_t": 1775520000000.0,
+      "cikis_fiyat": 0.08,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.03688519272934876,
+      "net_%": 3.69,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.032,
+        "f1": true,
+        "4h_macd": 0.0004213785076702531,
+        "4h_sinyal": 3.8446270215786044e-05,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.17,
+        "btc_4h_rsi": 52.93
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 56,
+        "yuzde": 83.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1774900800000.0,
+          1774904400000.0,
+          1775016000000.0,
+          1775019600000.0
+        ],
+        "H4_ALIM": [
+          1774843200000.0
+        ],
+        "G_ALIM40": [
+          1775001600000.0
+        ],
+        "G_ALIM20": [
+          1775001600000.0
+        ]
+      },
+      "alim_t": 1775088000000.0,
+      "alim_fiyat": 0.077,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 41.688311688311686,
+      "mae_pct": -4.935064935064936,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1777100400000.0,
+      "cikis_t": 1777118400000.0,
+      "cikis_fiyat": 0.0871,
+      "neden": "satis_cifti_80 (1h + 4h)",
+      "net": 0.031150344317603995,
+      "net_%": 3.12,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.326,
+        "f1": true,
+        "4h_macd": 0.00031248166502780006,
+        "4h_sinyal": 9.959327760066533e-05,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.435,
+        "btc_4h_rsi": 60.65
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 36,
+        "yuzde": 53.7
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1776646800000.0,
+          1776873600000.0,
+          1776877200000.0,
+          1776884400000.0,
+          1776888000000.0,
+          1776891600000.0,
+          1776895200000.0,
+          1776898800000.0,
+          1776902400000.0
+        ],
+        "H4_ALIM": [
+          1776657600000.0
+        ],
+        "G_ALIM40": [
+          1776902400000.0
+        ],
+        "G_ALIM20": [
+          1776902400000.0
+        ]
+      },
+      "alim_t": 1776902400000.0,
+      "alim_fiyat": 0.0843,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 5.3380782918149405,
+      "mae_pct": -2.8469750889679735,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1778054400000.0,
+      "cikis_t": 1778083200000.0,
+      "cikis_fiyat": 0.0838,
+      "neden": "satis_cifti_95 (1h + 4h)",
+      "net": 0.03505652763078526,
+      "net_%": 3.51,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.85,
+        "f1": true,
+        "4h_macd": -0.0006105544240281452,
+        "4h_sinyal": -0.0007606219472010684,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.4849,
+        "btc_4h_rsi": 59.79
+      },
+      "genislik": {
+        "n": 67,
+        "alt": 40,
+        "yuzde": 59.7
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1777597200000.0,
+          1777791600000.0
+        ],
+        "H4_ALIM": [
+          1777608000000.0
+        ],
+        "G_ALIM40": [
+          1777852800000.0
+        ],
+        "G_ALIM20": [
+          1777852800000.0
+        ]
+      },
+      "alim_t": 1777852800000.0,
+      "alim_fiyat": 0.0808,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 5.44554455445545,
+      "mae_pct": -1.1138613861386149,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1779735600000.0,
+      "cikis_t": 1779807600000.0,
+      "cikis_fiyat": 0.0867,
+      "neden": "satis_cifti_80 (4h + 1h)",
+      "net": 0.07486674815867378,
+      "net_%": 7.49,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.896,
+        "f1": true,
+        "4h_macd": -0.00035623796608678926,
+        "4h_sinyal": -0.0007628786604798332,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.3373,
+        "btc_4h_rsi": 50.55
+      },
+      "genislik": {
+        "n": 69,
+        "alt": 54,
+        "yuzde": 78.3
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1779069600000.0,
+          1779105600000.0,
+          1779195600000.0
+        ],
+        "H4_ALIM": [
+          1779235200000.0
+        ],
+        "G_ALIM40": [
+          1779148800000.0
+        ],
+        "G_ALIM20": [
+          1779148800000.0
+        ]
+      },
+      "alim_t": 1779307200000.0,
+      "alim_fiyat": 0.0805,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 8.944099378881987,
+      "mae_pct": -4.223602484472044,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1784736000000.0,
+      "cikis_t": 1783299600000.0,
+      "cikis_fiyat": 0.051585,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101845,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 3.891,
+        "f1": true,
+        "4h_macd": 0.002769452608646139,
+        "4h_sinyal": 0.0027549193170980264,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 2.7642,
+        "btc_4h_rsi": 60.7
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 52,
+        "yuzde": 74.3
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1783076400000.0,
+          1783083600000.0,
+          1783087200000.0,
+          1783090800000.0,
+          1783094400000.0,
+          1783098000000.0,
+          1783101600000.0,
+          1783202400000.0,
+          1783206000000.0,
+          1783209600000.0
+        ],
+        "H4_ALIM": [
+          1783281600000.0
+        ],
+        "G_ALIM40": [
+          1783036800000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1783281600000.0,
+      "alim_fiyat": 0.0543,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 0.7366482504604033,
+      "mae_pct": -8.47145488029466,
+      "t5_after_exit": true
+    },
+    {
+      "t5": 1784682000000.0,
+      "cikis_t": 1785045600000.0,
+      "cikis_fiyat": 0.0418,
+      "neden": "basa_bas",
+      "net": -0.0019980019980019303,
+      "net_%": -0.2,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.544,
+        "f1": true,
+        "4h_macd": 0.00010830143931503389,
+        "4h_sinyal": -0.0001391191147874848,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.1587,
+        "btc_4h_rsi": 67.47
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 51,
+        "yuzde": 72.9
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1784491200000.0,
+          1784494800000.0,
+          1784498400000.0,
+          1784646000000.0,
+          1784653200000.0,
+          1784656800000.0,
+          1784660400000.0,
+          1784664000000.0,
+          1784667600000.0
+        ],
+        "H4_ALIM": [
+          1784548800000.0
+        ],
+        "G_ALIM40": [
+          1784678400000.0
+        ],
+        "G_ALIM20": [
+          1784678400000.0
+        ]
+      },
+      "alim_t": 1784678400000.0,
+      "alim_fiyat": 0.0418,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 66.26794258373208,
+      "mae_pct": -0.4784688995215336,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1785459600000.0,
+      "cikis_t": 1785463200000.0,
+      "cikis_fiyat": 0.0436,
+      "neden": "basa_bas",
+      "net": -0.0019980019980019303,
+      "net_%": -0.2,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.655,
+        "f1": true,
+        "4h_macd": 0.00011543887151020671,
+        "4h_sinyal": -0.00031429430438350946,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.1119,
+        "btc_4h_rsi": 55.72
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 59,
+        "yuzde": 84.3
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1785204000000.0,
+          1785207600000.0,
+          1785211200000.0,
+          1785304800000.0,
+          1785308400000.0,
+          1785384000000.0,
+          1785394800000.0,
+          1785398400000.0
+        ],
+        "H4_ALIM": [
+          1785240000000.0
+        ],
+        "G_ALIM40": [
+          1785456000000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1785456000000.0,
+      "alim_fiyat": 0.0436,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 12.844036697247718,
+      "mae_pct": -1.6055045871559592,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1785988800000.0,
+      "cikis_t": 1785996000000.0,
+      "cikis_fiyat": 0.0424,
+      "neden": "basa_bas",
+      "net": -0.0019980019980019303,
+      "net_%": -0.2,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": 0.472,
+        "f1": true,
+        "4h_macd": 3.0504752132884394e-05,
+        "4h_sinyal": -0.00016693724506750514,
+        "f2": true,
+        "coin_4h_ema50_egim_%": 0.0885,
+        "btc_4h_rsi": 61.73
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 55,
+        "yuzde": 78.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1785769200000.0,
+          1785772800000.0,
+          1785776400000.0,
+          1785790800000.0,
+          1785794400000.0,
+          1785798000000.0
+        ],
+        "H4_ALIM": [
+          1785744000000.0,
+          1785830400000.0,
+          1785859200000.0,
+          1785931200000.0
+        ],
+        "G_ALIM40": [
+          1785974400000.0
+        ],
+        "G_ALIM20": []
+      },
+      "alim_t": 1785974400000.0,
+      "alim_fiyat": 0.0424,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 13.443396226415082,
+      "mae_pct": -0.4716981132075415,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1787277600000.0,
+      "cikis_t": 1787025600000.0,
+      "cikis_fiyat": 0.037145,
+      "neden": "zarar_siniri_-5",
+      "net": -0.051898101898101956,
+      "net_%": -5.19,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.402,
+        "f1": true,
+        "4h_macd": -0.00042027343376731946,
+        "4h_sinyal": -0.00044455185992329463,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.6774,
+        "btc_4h_rsi": 53.67
+      },
+      "genislik": {
+        "n": 70,
+        "alt": 55,
+        "yuzde": 78.6
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1786694400000.0,
+          1786698000000.0,
+          1786701600000.0,
+          1786705200000.0,
+          1786708800000.0,
+          1786852800000.0,
+          1786856400000.0,
+          1786860000000.0,
+          1786870800000.0,
+          1786874400000.0
+        ],
+        "H4_ALIM": [
+          1786737600000.0
+        ],
+        "G_ALIM40": [
+          1786838400000.0
+        ],
+        "G_ALIM20": [
+          1786838400000.0
+        ]
+      },
+      "alim_t": 1786939200000.0,
+      "alim_fiyat": 0.0391,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 1.278772378516635,
+      "mae_pct": -5.626598465473142,
+      "t5_after_exit": true
+    },
+    {
+      "t5": null,
+      "cikis_t": 1789516800000.0,
+      "cikis_fiyat": 0.04515,
+      "neden": "ema20_alti",
+      "net": -0.05968718260037098,
+      "net_%": -5.97,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.04792,
+        "onceki_20_en_yuksek": 0.04731,
+        "ema20": 0.04431341028803734,
+        "ema50": 0.04421688144901811
+      },
+      "alim_t": 1788825600000.0,
+      "alim_fiyat": 0.04792,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 23.956594323873137,
+      "mae_pct": -6.949081803005008,
+      "t5_after_exit": false
+    },
+    {
+      "t5": null,
+      "cikis_t": 1790899200000.0,
+      "cikis_fiyat": 0.05126,
+      "neden": "ema20_alti",
+      "net": -0.055436070576395324,
+      "net_%": -5.54,
+      "tip": "trend",
+      "yol": "trend",
+      "trend": {
+        "kapanis": 0.05416,
+        "onceki_20_en_yuksek": 0.05222,
+        "ema20": 0.04778128697401992,
+        "ema50": 0.046121076350368974
+      },
+      "alim_t": 1790035200000.0,
+      "alim_fiyat": 0.05416,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 5.5576070901034,
+      "mae_pct": -8.677991137370755,
+      "t5_after_exit": false
+    },
+    {
+      "t5": 1791295200000.0,
+      "cikis_t": 1791342000000.0,
+      "cikis_fiyat": 0.05212,
+      "neden": "basa_bas",
+      "net": -0.0019980019980019303,
+      "net_%": -0.2,
+      "tip": "dip",
+      "yol": "A",
+      "filtre": {
+        "gunluk_macd_acikligi_%": -0.854,
+        "f1": true,
+        "4h_macd": -0.00012288284665736698,
+        "4h_sinyal": -0.0001307562539099408,
+        "f2": true,
+        "coin_4h_ema50_egim_%": -0.1753,
+        "btc_4h_rsi": 68.95
+      },
+      "genislik": {
+        "n": 71,
+        "alt": 3,
+        "yuzde": 4.2
+      },
+      "olaylar": {
+        "H1_ALIM": [
+          1790978400000.0,
+          1791054000000.0
+        ],
+        "H4_ALIM": [
+          1790913600000.0
+        ],
+        "G_ALIM40": [
+          1791158400000.0
+        ],
+        "G_ALIM20": [
+          1791158400000.0
+        ]
+      },
+      "alim_t": 1791158400000.0,
+      "alim_fiyat": 0.05212,
+      "symbol": "MIRAUSDT",
+      "mfe_pct": 11.761320030698386,
+      "mae_pct": -4.508825786646198,
+      "t5_after_exit": false
+    }
+  ]
+}

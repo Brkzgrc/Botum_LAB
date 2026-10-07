@@ -1,0 +1,22 @@
+{
+  "family": "confirmed_support_loss_after_cost_covered_recovery",
+  "registered_at_utc": "2026-10-07T17:10:14.818833+00:00",
+  "source_sha256": "699ac5747783fbe5128802c35dd970a53cd8f79ecd3e992efbb04e848ffb663d",
+  "variants": [
+    "structure_only",
+    "structure_plus_cost_floor"
+  ],
+  "pivot": "3 consecutive closed 1H bars all after entry; middle low strictly below neighbors; recovery close must cover both fees",
+  "exit": "2 consecutive closed 1H closes below most recent confirmed recovery pivot low; exit second close",
+  "order": "prior stop before close decisions; same-hour indicator has reporting priority over structure; new +5 stop next bar",
+  "entry_rules": "unchanged fixed original dip cohort; trend unchanged",
+  "cost": "0.001 each leg, exact multiplicative net",
+  "acceptance_screen": {
+    "net_at_least_reference": true,
+    "loss_count_reduction_min": 0.2,
+    "negative_pp_reduction_min": 0.2
+  },
+  "selection_scope": "9 seen coins in 2026; exploratory not OOS; do not retune failed family",
+  "next_validation_if_pass": "untouched future data beginning 2026-10-08 and independent unseen coin/date cohort before final code promotion",
+  "budget": "offline cache only; 45 seconds maximum; no Actions"
+}

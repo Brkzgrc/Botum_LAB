@@ -1,0 +1,1024 @@
+{
+  "status": "EXPLORATORY_FIXED_COHORT_NOT_OOS",
+  "family": "confirmed_support_loss_after_recovery",
+  "pre_registration_sha256": "8c1b9fbceb8f004aceec6f0009aedf05b1be3d881e72b73695f6924ceb0f9080",
+  "self_tests": 4,
+  "comparisons": {
+    "structure_only": {
+      "closed": 59,
+      "open": 1,
+      "wins": 26,
+      "losses": 33,
+      "net_pp": 71.49351218370784,
+      "expectancy_pct": 1.211754443791659,
+      "PF": 1.9868128512202776,
+      "worst_pct": -5.189810189810196,
+      "protected_losses": 5,
+      "negative_pp": -72.44890669522603,
+      "structure_closes": 28
+    },
+    "structure_plus_cost_floor": {
+      "closed": 59,
+      "open": 1,
+      "wins": 31,
+      "losses": 28,
+      "net_pp": 72.99251318270875,
+      "expectancy_pct": 1.2371612403848944,
+      "PF": 2.021590056298216,
+      "worst_pct": -5.189810189810196,
+      "protected_losses": 0,
+      "negative_pp": -71.44990569622506,
+      "structure_closes": 28
+    }
+  },
+  "gates": {
+    "structure_only": {
+      "reference": "original_stop_first",
+      "net_not_lower": false,
+      "loss_count_20pct_lower": false,
+      "negative_pp_20pct_lower": true,
+      "pass": false
+    },
+    "structure_plus_cost_floor": {
+      "reference": "cost_floor_net0.1",
+      "net_not_lower": false,
+      "loss_count_20pct_lower": false,
+      "negative_pp_20pct_lower": true,
+      "pass": false
+    }
+  },
+  "trades": {
+    "structure_only": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1786078800000.0,
+        "net_pct": 1.7817205637684186,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775498400000.0,
+        "net_pct": 0.8003007755575053,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779814800000.0,
+        "net_pct": -1.1736323868935972,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785837600000.0,
+        "net_pct": -0.660645886776523,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "net_pct": 10.530026790269664,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774508400000.0,
+        "net_pct": -0.849832780956572,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790042400000.0,
+        "net_pct": 2.011901386579029,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777273200000.0,
+        "net_pct": 12.100230743602424,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785787200000.0,
+        "net_pct": -0.974045349530217,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1787198400000.0,
+        "net_pct": 7.54418900427305,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1775646000000.0,
+        "net_pct": 8.395761335586794,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777777200000.0,
+        "net_pct": -0.4604602058078999,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785801600000.0,
+        "net_pct": -0.34397847168721185,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787256000000.0,
+        "net_pct": 2.443632854397748,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777132800000.0,
+        "net_pct": -1.257005706158243,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778169600000.0,
+        "net_pct": 3.086704733246992,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779465600000.0,
+        "net_pct": 0.3320137179244176,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784192400000.0,
+        "net_pct": -2.028677520334232,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "net_pct": 5.745513625286169,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "net_pct": -0.19980019980018193,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1786266000000.0,
+        "net_pct": 48.45502091491396,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787587200000.0,
+        "net_pct": -4.031139139498274,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791252000000.0,
+        "net_pct": -0.19980019980020414,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783278000000.0,
+        "net_pct": 2.8536680710593787,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789797600000.0,
+        "net_pct": 0.5954205157392423,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791342000000.0,
+        "net_pct": -0.19980019980019303,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768453200000.0,
+        "net_pct": -1.0431821699427024,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773720000000.0,
+        "net_pct": 4.308877935251565,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774508400000.0,
+        "net_pct": -2.4203238047490028,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775314800000.0,
+        "net_pct": -0.8478534452560305,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "net_pct": 3.1150344317603995,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1777896000000.0,
+        "net_pct": -0.19980019980019303,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779364800000.0,
+        "net_pct": 0.42007681759235194,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1784815200000.0,
+        "net_pct": 11.976779201659603,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "net_pct": -0.19980019980019303,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785996000000.0,
+        "net_pct": -0.19980019980019303,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787011200000.0,
+        "net_pct": -0.710287155299949,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791212400000.0,
+        "net_pct": -0.8125412576678759,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      }
+    ],
+    "structure_plus_cost_floor": [
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777834800000.0,
+        "net_pct": 1.3370054103970297,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "ETHUSDT",
+        "entry_t": 1785801600000.0,
+        "exit_t": 1786078800000.0,
+        "net_pct": 1.7817205637684186,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1775347200000.0,
+        "exit_t": 1775498400000.0,
+        "net_pct": 0.8003007755575053,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779814800000.0,
+        "net_pct": -1.1736323868935972,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1784149200000.0,
+        "exit_t": 1784296800000.0,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785124800000.0,
+        "net_pct": -0.6678574161638196,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785837600000.0,
+        "net_pct": -0.660645886776523,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SOLUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789758000000.0,
+        "net_pct": 10.530026790269664,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774508400000.0,
+        "net_pct": -0.849832780956572,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785963600000.0,
+        "net_pct": -0.13375461096840624,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789729200000.0,
+        "net_pct": 1.7568579820004482,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1789981200000.0,
+        "exit_t": 1790042400000.0,
+        "net_pct": 2.011901386579029,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "BTCUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": null,
+        "net_pct": null,
+        "reason": "open",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777273200000.0,
+        "net_pct": 12.100230743602424,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785168000000.0,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785787200000.0,
+        "net_pct": -0.974045349530217,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1787011200000.0,
+        "exit_t": 1787198400000.0,
+        "net_pct": 7.54418900427305,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1789430400000.0,
+        "exit_t": 1789484400000.0,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "ZECUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791219600000.0,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "net_pct": 0.11446515067803364,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1775520000000.0,
+        "exit_t": 1775646000000.0,
+        "net_pct": 8.395761335586794,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1777680000000.0,
+        "exit_t": 1777777200000.0,
+        "net_pct": -0.4604602058078999,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785801600000.0,
+        "net_pct": -0.34397847168721185,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1787184000000.0,
+        "exit_t": 1787256000000.0,
+        "net_pct": 2.443632854397748,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "SUIUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789718400000.0,
+        "net_pct": 6.479847851167375,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774454400000.0,
+        "net_pct": 0.3189118573734273,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777032000000.0,
+        "exit_t": 1777132800000.0,
+        "net_pct": -1.257005706158243,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1777824000000.0,
+        "exit_t": 1778169600000.0,
+        "net_pct": 3.086704733246992,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779336000000.0,
+        "exit_t": 1779465600000.0,
+        "net_pct": 0.3320137179244176,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1779753600000.0,
+        "exit_t": 1779944400000.0,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1784073600000.0,
+        "exit_t": 1784192400000.0,
+        "net_pct": -2.028677520334232,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785110400000.0,
+        "exit_t": 1785196800000.0,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1785715200000.0,
+        "exit_t": 1785794400000.0,
+        "net_pct": 0.16571251120314212,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1788566400000.0,
+        "exit_t": 1788746400000.0,
+        "net_pct": 5.745513625286169,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "entry_t": 1789660800000.0,
+        "exit_t": 1789732800000.0,
+        "net_pct": 4.2625969506558725,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775106000000.0,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1777766400000.0,
+        "exit_t": 1777773600000.0,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1786060800000.0,
+        "exit_t": 1786266000000.0,
+        "net_pct": 48.45502091491396,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1787472000000.0,
+        "exit_t": 1787587200000.0,
+        "net_pct": -4.031139139498274,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1788480000000.0,
+        "exit_t": 1788526800000.0,
+        "net_pct": -5.189810189810196,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1789776000000.0,
+        "exit_t": 1789790400000.0,
+        "net_pct": -0.936786290632452,
+        "reason": "indicator",
+        "protected": false
+      },
+      {
+        "symbol": "TSTUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791252000000.0,
+        "net_pct": 0.09999999999996678,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775145600000.0,
+        "net_pct": 3.010147746989844,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1783123200000.0,
+        "exit_t": 1783278000000.0,
+        "net_pct": 2.8536680710593787,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1788454800000.0,
+        "exit_t": 1788526800000.0,
+        "net_pct": -5.189810189810173,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1789704000000.0,
+        "exit_t": 1789797600000.0,
+        "net_pct": 0.5954205157392423,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "LUMIAUSDT",
+        "entry_t": 1791244800000.0,
+        "exit_t": 1791342000000.0,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1768345200000.0,
+        "exit_t": 1768453200000.0,
+        "net_pct": -1.0431821699427024,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1773532800000.0,
+        "exit_t": 1773720000000.0,
+        "net_pct": 4.308877935251565,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1774396800000.0,
+        "exit_t": 1774508400000.0,
+        "net_pct": -2.4203238047490028,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1775088000000.0,
+        "exit_t": 1775314800000.0,
+        "net_pct": -0.8478534452560305,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1776902400000.0,
+        "exit_t": 1777118400000.0,
+        "net_pct": 3.1150344317603995,
+        "reason": "indicator",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1777852800000.0,
+        "exit_t": 1777896000000.0,
+        "net_pct": -0.19980019980019303,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1779307200000.0,
+        "exit_t": 1779364800000.0,
+        "net_pct": 0.42007681759235194,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1783281600000.0,
+        "exit_t": 1783299600000.0,
+        "net_pct": -5.189810189810185,
+        "reason": "stop",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1784678400000.0,
+        "exit_t": 1784815200000.0,
+        "net_pct": 11.976779201659603,
+        "reason": "confirmed_support_loss",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785456000000.0,
+        "exit_t": 1785463200000.0,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1785974400000.0,
+        "exit_t": 1785996000000.0,
+        "net_pct": 0.09999999999998899,
+        "reason": "protect",
+        "protected": true
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1786939200000.0,
+        "exit_t": 1787011200000.0,
+        "net_pct": -0.710287155299949,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      },
+      {
+        "symbol": "MIRAUSDT",
+        "entry_t": 1791158400000.0,
+        "exit_t": 1791212400000.0,
+        "net_pct": -0.8125412576678759,
+        "reason": "confirmed_support_loss",
+        "protected": false
+      }
+    ]
+  },
+  "decision": "REJECT_FIXED_COHORT_SCREEN_NO_RESCAN",
+  "elapsed_seconds": 0.932,
+  "limitations": [
+    "chosen after inspecting exploratory losses; no untouched OOS",
+    "same original entries; reentry and overlaps not modeled",
+    "hourly stop-first; no slippage",
+    "trend branch unchanged; only dip exits investigated"
+  ]
+}
